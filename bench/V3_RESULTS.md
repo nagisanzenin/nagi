@@ -1,3 +1,6 @@
+> Update 2026-09-24: Big v3 is now public and the SDK default. The text below
+> records the original campaign status. See [release decision](V3_RELEASE.md).
+
 # Campaign v3 — experimental checkpoint, September 23, 2026
 
 The selected v3 checkpoint improves over the G-clean v2 candidate on new final

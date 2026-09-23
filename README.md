@@ -53,8 +53,8 @@ the model and input; this example does not promise a particular prediction.
 
 | | **Nagi-Smol** | **Nagi-Big** |
 |---|---|---|
-| | [nagisanzeninz/nagi-smol-v0](https://huggingface.co/nagisanzeninz/nagi-smol-v0) | [nagisanzeninz/nagi-big-v0](https://huggingface.co/nagisanzeninz/nagi-big-v0) |
-| Backbone | ModernBERT-large · M2′ dual encoder + option tower | Qwen3.5-4B · PiSSA (r=32) letter-logits |
+| | [nagisanzeninz/nagi-smol-v0](https://huggingface.co/nagisanzeninz/nagi-smol-v0) | [nagisanzeninz/nagi-big-v3](https://huggingface.co/nagisanzeninz/nagi-big-v3) |
+| Backbone | ModernBERT-large · M2′ dual encoder + option tower | Qwen3.5-4B · mixed-rank LoRA letter-logits |
 | Parameters | 421M | 4B (+ LoRA adapter) |
 | Scope | variable option sets | K≤26 by default; larger sets rejected |
 
@@ -64,21 +64,51 @@ Legacy: [nagi-t4-m2p-v0](https://huggingface.co/nagisanzeninz/nagi-t4-m2p-v0) (T
 
 ## Benchmark
 
-The v0 comparison was invalidated by mislabeled QQP examples and target-dependent
-20NG/QQP demos. The previous claims about the gap to JEV, Brier and relative speed
-must not be used. Historical tables remain in [the audit archive](bench/HISTORICAL_V0.md).
+**Big v3 is now the public default** for `load_big()`. It replaces Big v0;
+Smol is unchanged. The adapter and base revisions are pinned by the SDK.
 
-Campaign v2 rebuilds labeled QQP, removes gold-dependent inputs, stores per-item
-predictions/errors and separates development, calibration and untouched final tasks.
-Completed v2: the private Big candidate scored 76.73% public macro and 63.13% novel macro; JEV scored 81.36% and 99.38%. It did not pass the beat-JEV gate. See [full protocol and results](bench/README.md). Public model defaults remain v0. [Compared with Big v0](bench/V2_COMPARISON.md), the candidate improves novel rules but regresses on score/noul; it is not an across-the-board upgrade.
+Same-suite comparison from campaign V4 (macro accuracy; higher is better):
 
-Campaign v3 has completed on **different, fresh final suites**: the experimental
-checkpoint improves over G-clean, but still does not beat JEV. It remains private
-staging; SDK defaults are unchanged. See [v3 results and limitations](bench/V3_RESULTS.md).
+| What was tested | Big v0 (previous) | **Big v3 (default)** | V4 (not released) |
+|---|---:|---:|---:|
+| Unseen policy families — 1,200 examples / 6 families |40.08%|**78.00%**|78.33%|
+| Language understanding — 800 examples / 4 tasks |54.63%|**68.00%**|66.63%|
+| Historical score/yes-no regression — 640 examples |47.81%|**82.81%**|82.66%|
 
-Campaign v4 tested transfer to different task families. Its dev gain did not carry
-over to the final suite, so **no new model was released and defaults remain v0**.
-See [v4 generalization audit](bench/V4_RESULTS.md) for the direct v0/v3/v4 comparison.
+All three had 100% output coverage. V4's policy advantage over v3 was only
++0.33 percentage points, with a 95% interval of −4.33 to +4.83; it did not establish
+an improvement. We chose v3 for its balance of quality and validated deployment.
+The typed rows are historical development data, not a fresh generalization test.
+See [V4 evidence](bench/V4_RESULTS.md) and [release decision](bench/V3_RELEASE.md).
+
+**Nagi has not beaten JEV.** On the separate V3 final suites:
+
+| V3 suite (different examples from the table above) | Big v3 | JEV 1.13.0 |
+|---|---:|---:|
+| Public language — 2,204 examples / 4 tasks |75.80%|91.40%|
+| Executable policy — 1,440 examples / 6 families |68.19%|84.51%|
+
+Failures count as wrong; Nagi coverage100%, JEV policy coverage99.72%.
+Do not compare scores across the two tables. These finite task suites do not
+establish universal generalization; public pretraining exposure is unknown.
+[V3 protocol and limitations](bench/V3_RESULTS.md).
+
+V3 SDK latency on 13 probes was **47ms p50 /60ms p95**, batch1 on H100 without HTTP.
+This is a small historical deployment check, not a service SLA or a matched-hardware
+speed comparison with JEV. No text decoding loop is used.
+
+The original v0/JEV benchmark was invalidated by label and demo leakage; its claims
+remain withdrawn. [Audit archive](bench/HISTORICAL_V0.md).
+
+```python
+from nagi import load_big
+
+nagi = load_big(device="cuda")  # public v3, pinned weights and calibration
+out = nagi.system_one(state={"A": 7, "B": 3}, questions={
+    "greater": {"type": "noul", "instructions": "Is A greater than B?"}
+})
+print(out["answers"]["greater"])
+```
 
 ---
 
@@ -133,7 +163,12 @@ Closed option sets only — the model cannot invent labels.
 
 ## Design notes (one paragraph)
 
-M2′ (Smol) is a dual encoder: a bidirectional state tower and an independent per-option tower, scored by a bilinear MLP — independent option encoding; high-K accuracy still needs task-specific evaluation. Nagi-Big is a causal 4B with PiSSA low-rank adaptation and Choice-B full-candidate scoring: options appear in-context; the model reads letter logits (temperature defaults to 1.0) in one forward pass (no decoding loop). Both are trained on soft teacher distributions (KL to q), never hard labels alone. Training mix balances real multi-task public corpora with novel synthetic schemas for leave-task-out transfer.
+Smol uses a dual encoder with an option tower. Big v3 uses a causal 4B backbone
+with mixed-rank LoRA and scores option-letter logits in one forward pass.
+Its default temperature is 0.8493753016322345, fitted on a separate calibration set;
+probabilities are not guaranteed calibrated on every new domain. V3 trained on
+public hard labels and executable-oracle tasks, with additional weight on score
+questions. Custom Big repositories retain temperature1 unless explicitly set.
 
 ---
 

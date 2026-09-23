@@ -1,3 +1,6 @@
+> Update 2026-09-24: Big v3 is now public and the SDK default. The text below
+> records the original campaign status. See [release decision](V3_RELEASE.md).
+
 # V4 generalization audit — no model release
 
 One additional training configuration improved diagnostic task-family accuracy

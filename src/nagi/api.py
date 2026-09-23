@@ -7,7 +7,10 @@ from typing import Any
 import torch
 
 SMOL_REPO = "nagisanzeninz/nagi-smol-v0"
-BIG_REPO = "nagisanzeninz/nagi-big-v0"
+BIG_REPO = "nagisanzeninz/nagi-big-v3"
+BIG_REVISION = "0357e819836f5f396f7586d8ac04f7c955148f99"
+BIG_BASE_REVISION = "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
+BIG_TEMPERATURE = 0.8493753016322345
 QWEN = "Qwen/Qwen3.5-4B"
 LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -181,8 +184,14 @@ def load_smol(repo: str = SMOL_REPO, revision: str | None = None, device: str | 
                 schema_context=cfg.get("model", {}).get("use_schema_options", False))
 
 
-def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | None = None, temperature: float = 1.0, base_revision: str | None = None, max_options: int = 26, chat_template: bool = False) -> Nagi:
-    """Qwen3.5-4B + PiSSA adapter, letter-logit readout."""
+def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | None = None, temperature: float | None = None, base_revision: str | None = None, max_options: int = 26, chat_template: bool = False) -> Nagi:
+    """Load public Big v3 by default; custom repos retain temperature 1 unless set."""
+    if repo == BIG_REPO:
+        revision = revision or BIG_REVISION
+        base_revision = base_revision or BIG_BASE_REVISION
+        temperature = BIG_TEMPERATURE if temperature is None else temperature
+    elif temperature is None:
+        temperature = 1.0
     from huggingface_hub import hf_hub_download
     from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -195,5 +204,5 @@ def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | No
     adapter_dir = snapshot_download(repo, revision=revision, allow_patterns=["pissa/*"])
     adapter_dir = os.path.join(adapter_dir, "pissa")
     model = PeftModel.from_pretrained(base, adapter_dir)
-    model = model.merge_and_unload().to(dev)
+    model = model.merge_and_unload().to(dev).eval()
     return Nagi(model, tokenizer=tok, kind="letter", temperature=temperature, max_options=max_options, chat_template=chat_template)
