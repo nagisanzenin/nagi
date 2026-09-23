@@ -48,7 +48,7 @@ class ScoreHead(nn.Module):
     def forward(self, h_pool, H, state_mask, e, qtype):
         B, K, d = e.shape
         hp = h_pool + self.qtype_emb(qtype)
-        hp_e = hp.unsqueeze(1).expand(-1, K, -1, -1)
+        hp_e = hp.unsqueeze(1).expand(-1, K, -1)
         feats = torch.cat([hp_e, e, (hp_e - e).abs(), hp_e * e], dim=-1)
         s = self.mlp(feats).squeeze(-1)
         if self.attn is not None:
