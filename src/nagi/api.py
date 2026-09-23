@@ -15,10 +15,15 @@ LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 class Nagi:
     """Jev/Laya-compatible system_one over an M2′ or letter-logit backend."""
 
-    def __init__(self, model, tokenizer=None, kind: str = "m2p", temperature: float = 1.0):
+    def __init__(self, model, tokenizer=None, kind: str = "m2p", temperature: float = 1.0, schema_context: bool = False, max_options: int = 26, chat_template: bool = False):
         self.model = model.eval()
         self.kind = kind
         self.temperature = temperature
+        self.schema_context = schema_context
+        self.chat_template = chat_template
+        if not 2 <= max_options <= 78:
+            raise ValueError("max_options must be between 2 and 78")
+        self.max_options = max_options
         self.tok = tokenizer or getattr(model, "tokenizer", None)
         self._letter_ids = None
 
@@ -66,7 +71,11 @@ class Nagi:
             else:
                 keys = ["false", "true"]
                 otexts = ["false", "true"]
-            prompt = stxt + "\nQ: " + (q.get("instructions") or "")
+            if self.schema_context:
+                from nagi.render import render_state_context
+                prompt = render_state_context({"state": state, "questions": {qid: q}}, qid)
+            else:
+                prompt = stxt + "\nQ: " + (q.get("instructions") or "")
             st = self.tok(prompt, truncation=True, max_length=smax, return_tensors="pt", padding="max_length")
             st = {k: v.to(device) for k, v in st.items()}
             K = len(otexts)
@@ -94,13 +103,14 @@ class Nagi:
         raise RuntimeError("unused")
 
     def _letter_system_one(self, state: Any, questions: dict) -> dict:
-        from nagi.render import label_for, render_nagi_prompt
+        from nagi.render import label_for, render_nagi_prompt, render_bounded_prompt, EXTENDED_SYMBOLS
 
         device = self._device()
         if self._letter_ids is None:
-            self.__dict__["_letter_ids"] = [
-                self.tok.encode(label_for(i), add_special_tokens=False)[0] for i in range(26)
-            ]
+            encoded = [self.tok.encode(x, add_special_tokens=False) for x in EXTENDED_SYMBOLS[:self.max_options]]
+            if any(len(x) != 1 for x in encoded) or len({x[0] for x in encoded}) != self.max_options:
+                raise ValueError("Decision symbols must map to unique single tokens")
+            self.__dict__["_letter_ids"] = [x[0] for x in encoded]
         row = {
             "state": state,
             "definition": None,
@@ -110,15 +120,20 @@ class Nagi:
         answers = {}
         for qid, q in questions.items():
             prompt, keys = render_nagi_prompt(row, qid)
-            enc = self.tok(prompt, return_tensors="pt", truncation=True, max_length=768)
+            if len(keys) > self.max_options:
+                raise ValueError(f"Nagi-Big supports at most {self.max_options} options in this configuration")
+            symbols = EXTENDED_SYMBOLS[:self.max_options]
+            budget = 2048 if len(keys) > 26 else 768
+            prompt, _ = render_bounded_prompt(self.tok, row, qid, budget - 64 if self.chat_template else budget, symbols=symbols)
+            if self.chat_template:
+                prompt = self.tok.apply_chat_template([{'role': 'user', 'content': prompt + '\nReturn exactly one option symbol; no explanation.'}], tokenize=False, add_generation_prompt=True, enable_thinking=False)
+            enc = self.tok(prompt, return_tensors="pt", truncation=False)
             enc = {k: v.to(device) for k, v in enc.items()}
-            logits = self.model(**enc).logits[0, -1] / self.temperature
-            K = min(len(keys), 26)
-            raw = [float(logits[self._letter_ids[j]]) for j in range(K)]
-            mx = max(raw)
-            ex = [torch.exp(torch.tensor(z - mx, dtype=torch.float64)) for z in raw]
-            s = float(sum(ex))
-            pdict = {keys[j]: float(ex[j]) / s for j in range(K)}
+            logits = self.model(**enc).logits[0, -1]
+            K = len(keys)
+            selected = logits[self._letter_ids[:K]].float().cpu().double() / self.temperature
+            probabilities = torch.softmax(selected, -1).tolist()
+            pdict = dict(zip(keys, probabilities))
             conf = max(pdict.values())
             qtype = q.get("type", "choice")
             if qtype == "score":
@@ -159,25 +174,26 @@ def load_smol(repo: str = SMOL_REPO, revision: str | None = None, device: str | 
     state = torch.load(pt_path, map_location="cpu", weights_only=True)
     if isinstance(state, dict) and "state_dict" in state:
         state = state["state_dict"]
-    model.load_state_dict(state, strict=False)
+    model.load_state_dict(state, strict=True)
     model = model.to(dev)
     tok = model.tokenizer or AutoTokenizer.from_pretrained(cfg["model"]["state_encoder"])
-    return Nagi(model, tokenizer=tok, kind="m2p", temperature=temperature)
+    return Nagi(model, tokenizer=tok, kind="m2p", temperature=temperature,
+                schema_context=cfg.get("model", {}).get("use_schema_options", False))
 
 
-def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | None = None, temperature: float = 1.0) -> Nagi:
+def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | None = None, temperature: float = 1.0, base_revision: str | None = None, max_options: int = 26, chat_template: bool = False) -> Nagi:
     """Qwen3.5-4B + PiSSA adapter, letter-logit readout."""
     from huggingface_hub import hf_hub_download
     from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     dev = _pick_device(device)
-    tok = AutoTokenizer.from_pretrained(QWEN, revision=revision)
-    base = AutoModelForCausalLM.from_pretrained(QWEN, dtype=torch.bfloat16 if dev == "cuda" else torch.float32)
+    tok = AutoTokenizer.from_pretrained(QWEN, revision=base_revision)
+    base = AutoModelForCausalLM.from_pretrained(QWEN, revision=base_revision, dtype=torch.bfloat16 if dev == "cuda" else torch.float32, attn_implementation="eager")
     from huggingface_hub import snapshot_download
 
     adapter_dir = snapshot_download(repo, revision=revision, allow_patterns=["pissa/*"])
     adapter_dir = os.path.join(adapter_dir, "pissa")
     model = PeftModel.from_pretrained(base, adapter_dir)
     model = model.merge_and_unload().to(dev)
-    return Nagi(model, tokenizer=tok, kind="letter", temperature=temperature)
+    return Nagi(model, tokenizer=tok, kind="letter", temperature=temperature, max_options=max_options, chat_template=chat_template)

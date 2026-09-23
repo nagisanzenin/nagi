@@ -27,13 +27,10 @@ VERIFY = {
 }
 
 if __name__ == "__main__":
-    nagi = load_smol()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--device", default="cpu", choices=["cpu", "cuda", "mps"])
+    args = parser.parse_args()
+    nagi = load_smol(device=args.device)
     ans = nagi.system_one(state=dossier, questions=VERIFY)["answers"]["verdict"]
     print(ans)
-    p_fp = ans["probabilities"]["FP"]
-    if p_fp >= 0.95:
-        print("→ suppress (τ=0.95)")
-    elif ans["probabilities"]["TP"] >= 0.5:
-        print("→ verified TP")
-    else:
-        print("→ keep unverified")

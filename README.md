@@ -1,26 +1,51 @@
 # Nagi
 
-**Typed decisions with calibrated probabilities.**  
-Choice · Score · Noul — in 11–58 ms, self-hosted.
+**Typed decisions and probability distributions.**
+
+Choice · Score · Noul — self-hosted.
 
 Nagi is a System One model family: given a state, a question, and a closed option set, it returns a typed decision and a probability distribution over that set. It does not generate text.
+
+## Quickstart
+
+Install first (Python 3.10+, Git required):
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git"
+```
+
+The distribution is `nagi-decisions`; the Python import is `nagi`. Do not install
+an unrelated package named `nagi` from PyPI. The first model load downloads weights
+from Hugging Face and needs network access and several GB of free disk/RAM.
+
+This complete example uses the public Smol v0 checkpoint on CPU:
 
 ```python
 from nagi import load_smol
 
-nagi = load_smol()
+dossier = {
+    "finding": "Possible SQL injection in a login form",
+    "evidence": "The test response returned database rows from another account.",
+}
+nagi = load_smol(device="cpu")
 out = nagi.system_one(state=dossier, questions={
     "verdict": {
         "type": "choice",
-        "instructions": "TP only if the evidence proves exploitability.",
+        "instructions": "TP only if the evidence proves unauthorized data access; otherwise FP.",
         "criteria": {
-            "TP": "The dossier proves the vulnerability is exploitable.",
-            "FP": "It does not prove exploitability, or is a scanner artifact.",
+            "TP": "The evidence proves unauthorized data access.",
+            "FP": "The evidence does not prove unauthorized data access.",
         },
     }
 })
-# → {"choice": "TP", "probabilities": {"TP": 0.82, "FP": 0.18}, "confidence": 0.82}
+print(out["answers"]["verdict"])
 ```
+
+The answer contains `choice`, `probabilities`, and `confidence`. Values depend on
+the model and input; this example does not promise a particular prediction.
 
 ---
 
@@ -31,10 +56,7 @@ out = nagi.system_one(state=dossier, questions={
 | | [nagisanzeninz/nagi-smol-v0](https://huggingface.co/nagisanzeninz/nagi-smol-v0) | [nagisanzeninz/nagi-big-v0](https://huggingface.co/nagisanzeninz/nagi-big-v0) |
 | Backbone | ModernBERT-large · M2′ dual encoder + option tower | Qwen3.5-4B · PiSSA (r=32) letter-logits |
 | Parameters | 421M | 4B (+ LoRA adapter) |
-| LTO hard ↑ | 0.425 | **0.750** |
-| ECE ↓ | 0.084 | **0.047** |
-| p50 latency ↓ | **17 ms** | 58 ms |
-| Role | throughput / edge / cost | accuracy on unseen schemas |
+| Scope | variable option sets | K≤26 by default; larger sets rejected |
 
 Legacy: [nagi-t4-m2p-v0](https://huggingface.co/nagisanzeninz/nagi-t4-m2p-v0) (T4 M2′, LTO 0.48).
 
@@ -42,55 +64,36 @@ Legacy: [nagi-t4-m2p-v0](https://huggingface.co/nagisanzeninz/nagi-t4-m2p-v0) (T
 
 ## Benchmark
 
-Leave-task-out on six real public classification tasks (**gold_ltout**, n = 2700):  
-MRPC · DBpedia-14 · Amazon Polarity · CoLA · 20 Newsgroups · QQP.  
-Same scorer for every arm · full N · single H100 · 2026-09-23.
+The v0 comparison was invalidated by mislabeled QQP examples and target-dependent
+20NG/QQP demos. The previous claims about the gap to JEV, Brier and relative speed
+must not be used. Historical tables remain in [the audit archive](bench/HISTORICAL_V0.md).
 
-| Model | hard ↑ | soft ↑ | Brier ↓ | ECE ↓ | p50 ↓ | p95 |
-|---|---:|---:|---:|---:|---:|---:|
-| Jev (`jev-latest`, TypeSafe API) | **0.774** | **0.684** | 0.296 | 0.120 | 172 ms | 234 ms |
-| **Nagi-Big** | 0.750 | 0.594 | **0.251** | **0.047** | 58 ms | 80 ms |
-| OpenJev (SemIf, frozen Qwen-4B) | 0.714 | 0.569 | 0.278 | 0.046 | 72 ms | 103 ms |
-| Laya (`convaiinnovations/laya`) | 0.495 | 0.501 | 0.617 | 0.365 | **16 ms** | 18 ms |
-| **Nagi-Smol** | 0.425 | 0.376 | 0.481 | 0.084 | 17 ms | 22 ms |
-
-**Reading the table**
-- *hard* = argmax match to gold; *soft* = mean 〈p, gold〉; *Brier* = mean ‖p − gold‖².
-- *ECE* = expected calibration error on P(argmax), 10 bins (lower is better).
-- All five arms, one scorer, full N = 2700, single H100, 2026-09-23T11:33Z. Jev n = 2699 (1 dropped).
-- Laya shipped invalid temperatures (`choice:11+` clamped) — its confidence is uncalibrated as published.
-- OpenJev = SemIf recipe: frozen Qwen3.5-4B, one forward, softmax over option-letter logits (no finetune).
-- Latency is batch-1 CUDA-synced on H100; Jev p50 is remote API (includes network).
-
-**Headline.** Nagi-Big is **−0.024 hard** behind proprietary Jev, with **2.3× lower latency**, **better Brier and ECE**, and public weights. It beats OpenJev on every quality metric and Laya on accuracy by +0.25.
-
-Method, seeds, and re-run commands: [`bench/README.md`](bench/README.md) · [`bench/REPRODUCE.md`](bench/REPRODUCE.md).
+Campaign v2 rebuilds labeled QQP, removes gold-dependent inputs, stores per-item
+predictions/errors and separates development, calibration and untouched final tasks.
+Completed v2: the private Big candidate scored 76.73% public macro and 63.13% novel macro; JEV scored 81.36% and 99.38%. It did not pass the beat-JEV gate. See [full protocol and results](bench/README.md). Public model defaults remain v0. [Compared with Big v0](bench/V2_COMPARISON.md), the candidate improves novel rules but regresses on score/noul; it is not an across-the-board upgrade.
 
 ---
 
 ## Install
 
-```bash
-# Python ≥ 3.10
-pip install torch transformers peft huggingface_hub pyyaml
-pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git"
-```
-
-Or from source:
+The Quickstart installs the SDK and its declared dependencies directly from GitHub.
+For a local checkout:
 
 ```bash
-git clone https://github.com/nagisanzenin/nagi
-cd nagi-public && pip install -e .
+git clone https://github.com/nagisanzenin/nagi.git
+cd nagi
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e .
+python examples/verify_tp_fp.py --device cpu
 ```
 
-**Hardware.** Smol runs on CPU (slower) or any GPU. Big wants ≥ 16 GB VRAM (BF16).
-
-```python
-from nagi import load_smol, load_big
-
-smol = load_smol()   # 421M, ~17 ms
-big  = load_big()    # 4B + PiSSA, ~58 ms
-```
+**Hardware.** Start with Smol on CPU. CUDA is supported; the benchmark used an H100.
+Big is a separate 4B model and needs substantially more memory; CUDA with at least
+16 GB VRAM is recommended for BF16, with additional headroom for loading. MPS is
+not covered by the campaign validation; use `device="cpu"` on a Mac for the first call.
+See [installation and troubleshooting](docs/INSTALL.md).
 
 ---
 
@@ -122,7 +125,7 @@ Closed option sets only — the model cannot invent labels.
 
 ## Design notes (one paragraph)
 
-M2′ (Smol) is a dual encoder: a bidirectional state tower and an independent per-option tower, scored by a bilinear MLP — no cross-option interference, high cardinality (K ≳ 20) stays stable. Nagi-Big is a causal 4B with PiSSA low-rank adaptation and Choice-B full-candidate scoring: options appear in-context; the model reads calibrated letter logits in one forward pass (no decoding loop). Both are trained on soft teacher distributions (KL to q), never hard labels alone. Training mix balances real multi-task public corpora with novel synthetic schemas for leave-task-out transfer.
+M2′ (Smol) is a dual encoder: a bidirectional state tower and an independent per-option tower, scored by a bilinear MLP — independent option encoding; high-K accuracy still needs task-specific evaluation. Nagi-Big is a causal 4B with PiSSA low-rank adaptation and Choice-B full-candidate scoring: options appear in-context; the model reads letter logits (temperature defaults to 1.0) in one forward pass (no decoding loop). Both are trained on soft teacher distributions (KL to q), never hard labels alone. Training mix balances real multi-task public corpora with novel synthetic schemas for leave-task-out transfer.
 
 ---
 
@@ -134,7 +137,7 @@ M2′ (Smol) is a dual encoder: a bidirectional state tower and an independent p
 | [Agent recipes](docs/RECIPES.md) | verify TP/FP · severity · eval node |
 | [Calibration](docs/CALIBRATION.md) | temperature fit, ECE, thresholds |
 | [Benchmark protocol](bench/README.md) | splits, arms, metrics, threats to validity |
-| [Reproduce](bench/REPRODUCE.md) | exact commands + seeds + receipt hashes |
+| [Historical reproduction](bench/REPRODUCE.md) | archived v0 commands; not a valid current comparison |
 
 ---
 

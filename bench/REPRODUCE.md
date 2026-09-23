@@ -1,3 +1,5 @@
+> **Historical v0 only.** This benchmark is invalid for current comparative claims because of bad QQP labels and gold-dependent demos. For current results see [campaign v2](README.md). The commands below also require the original research volume/data; they are not a standalone SDK quickstart.
+
 # Reproduce the Nagi 5-way benchmark
 
 One command, one GPU, ~12 minutes on an H100 (excluding image build).
