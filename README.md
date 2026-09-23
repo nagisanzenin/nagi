@@ -76,6 +76,10 @@ Campaign v3 has completed on **different, fresh final suites**: the experimental
 checkpoint improves over G-clean, but still does not beat JEV. It remains private
 staging; SDK defaults are unchanged. See [v3 results and limitations](bench/V3_RESULTS.md).
 
+Campaign v4 tested transfer to different task families. Its dev gain did not carry
+over to the final suite, so **no new model was released and defaults remain v0**.
+See [v4 generalization audit](bench/V4_RESULTS.md) for the direct v0/v3/v4 comparison.
+
 ---
 
 ## Install
