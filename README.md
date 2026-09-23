@@ -72,6 +72,10 @@ Campaign v2 rebuilds labeled QQP, removes gold-dependent inputs, stores per-item
 predictions/errors and separates development, calibration and untouched final tasks.
 Completed v2: the private Big candidate scored 76.73% public macro and 63.13% novel macro; JEV scored 81.36% and 99.38%. It did not pass the beat-JEV gate. See [full protocol and results](bench/README.md). Public model defaults remain v0. [Compared with Big v0](bench/V2_COMPARISON.md), the candidate improves novel rules but regresses on score/noul; it is not an across-the-board upgrade.
 
+Campaign v3 has completed on **different, fresh final suites**: the experimental
+checkpoint improves over G-clean, but still does not beat JEV. It remains private
+staging; SDK defaults are unchanged. See [v3 results and limitations](bench/V3_RESULTS.md).
+
 ---
 
 ## Install
