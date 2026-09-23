@@ -1,6 +1,7 @@
 # Calibration
 
-Temperature defaults to 1.0. A model's maximum probability is its `confidence`,
+Big v3 defaults to temperature 0.8493753016322345, fitted on 537 separate
+calibration examples. Smol and custom Big repositories default to 1.0. A model's maximum probability is its `confidence`,
 not a guarantee of accuracy or an independently calibrated posterior.
 
 Fit a positive scalar temperature on a separate labeled calibration split by

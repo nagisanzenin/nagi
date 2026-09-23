@@ -73,9 +73,9 @@ print(result["answers"]["late"])
 ```
 
 Big supports at most 26 options by default and raises an error for larger schemas.
-The optional `max_options=78` path is experimental. Both public loaders still
-select v0 weights. SDK 0.2.1 fixes rendering and validation of option symbols;
-it does not silently promote the private G-clean candidate.
+The optional `max_options=78` path is experimental. SDK 0.3.0 selects public Big v3 with pinned adapter/base revisions and fitted
+temperature. Smol remains v0. Both defaults are public and require no HF token.
+See [release evidence](../bench/V3_RELEASE.md).
 
 ## Troubleshooting and reproducibility
 
