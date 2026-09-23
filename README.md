@@ -81,6 +81,11 @@ an improvement. We chose v3 for its balance of quality and validated deployment.
 The typed rows are historical development data, not a fresh generalization test.
 See [V4 evidence](bench/V4_RESULTS.md) and [release decision](bench/V3_RELEASE.md).
 
+**Latest research: V5** improved policy accuracy by **4.25 percentage points over
+a matched answer-only control** (95% family/item interval +0.58 to +7.83), without
+extra inference steps. It still failed broad-transfer and language-preservation
+release gates, so **v3 remains the default**. [V5 results and costs](bench/V5_RESULTS.md).
+
 **Nagi has not beaten JEV.** On the separate V3 final suites:
 
 | V3 suite (different examples from the table above) | Big v3 | JEV 1.13.0 |
