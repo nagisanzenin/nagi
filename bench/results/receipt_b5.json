@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "code": 0,
+  "results": {
+    "Nagi-Smol": {
+      "n": 2700,
+      "hard_acc": 0.42518518518518517,
+      "soft_acc": 0.3756126828642977,
+      "brier": 0.4810523339363417,
+      "ece": 0.0841080163784725,
+      "latency_ms_p50": 17.082502000000943,
+      "latency_ms_p95": 21.991260999996598,
+      "model": "nagisanzeninz/nagi-smol-v0"
+    },
+    "Nagi-Big": {
+      "n": 2700,
+      "hard_acc": 0.7496296296296296,
+      "soft_acc": 0.5940440185904347,
+      "brier": 0.2509393316830974,
+      "ece": 0.04712632701538407,
+      "latency_ms_p50": 58.35060900000144,
+      "latency_ms_p95": 79.70901499999172,
+      "model": "nagisanzeninz/nagi-big-v0"
+    },
+    "OpenJev": {
+      "n": 2700,
+      "hard_acc": 0.7144444444444444,
+      "soft_acc": 0.5692865548108627,
+      "brier": 0.27789820180596103,
+      "ece": 0.045867497625916256,
+      "latency_ms_p50": 71.86255699997446,
+      "latency_ms_p95": 102.74410800002443,
+      "model": "Qwen/Qwen3.5-4B frozen (SemIf letter-logits)"
+    },
+    "Laya": {
+      "n": 2700,
+      "hard_acc": 0.4951851851851852,
+      "soft_acc": 0.5008887699941874,
+      "brier": 0.6170392918392014,
+      "ece": 0.3648277091172999,
+      "latency_ms_p50": 16.07673800003795,
+      "latency_ms_p95": 18.194620000031136,
+      "model": "convaiinnovations/laya"
+    },
+    "Jev": {
+      "n": 2699,
+      "hard_acc": 0.7743608743979251,
+      "soft_acc": 0.684304574304375,
+      "brier": 0.29633616819695885,
+      "ece": 0.11982507550496464,
+      "latency_ms_p50": 171.50505899996915,
+      "latency_ms_p95": 234.42303599995284,
+      "model": "jev-latest"
+    }
+  }
+}

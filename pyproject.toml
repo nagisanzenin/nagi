@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nagi-decisions"
+version = "0.2.0"
+description = "Nagi — typed decisions (choice/score/noul) with calibrated probabilities"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Nagisanzenin" }]
+keywords = ["system-one", "typed-decisions", "calibration", "classification", "agents"]
+dependencies = [
+  "torch>=2.1",
+  "transformers>=4.48",
+  "peft>=0.14",
+  "huggingface_hub>=0.23",
+  "pyyaml>=6.0",
+  "numpy",
+]
+
+[project.urls]
+Homepage = "https://github.com/nagisanzenin/nagi"
+Models = "https://huggingface.co/nagisanzeninz"
+
+[tool.setuptools.packages.find]
+where = ["src"]

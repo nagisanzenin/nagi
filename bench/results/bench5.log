@@ -1,0 +1,330 @@
+✓ Initialized. View run at 
+https://modal.com/apps/duongquannn/main/ap-OLTdjvwJs3F3SR9FkhptrQ
+Building image im-t5wS2ZrWN3LR7rwgozVnPU
+
+=> Step 0: FROM base
+
+=> Step 1: RUN python -m pip install accelerate laya==0.3.7 numpy 'peft>=0.14' pyyaml safetensors tqdm 'transformers>=4.48'
+Looking in indexes: http://pypi-mirror.modal.local:5555/simple
+Collecting accelerate
+  Downloading http://pypi-mirror.modal.local:5555/simple/accelerate/accelerate-1.15.0-py3-none-any.whl.metadata (19 kB)
+Collecting laya==0.3.7
+  Downloading http://pypi-mirror.modal.local:5555/simple/laya/laya-0.3.7-py3-none-any.whl.metadata (39 kB)
+Collecting numpy
+  Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting peft>=0.14
+  Downloading http://pypi-mirror.modal.local:5555/simple/peft/peft-0.21.0-py3-none-any.whl.metadata (15 kB)
+Collecting pyyaml
+  Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting safetensors
+  Downloading http://pypi-mirror.modal.local:5555/simple/safetensors/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting tqdm
+  Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting transformers>=4.48
+  Downloading http://pypi-mirror.modal.local:5555/simple/transformers/transformers-5.17.0-py3-none-any.whl.metadata (32 kB)
+Requirement already satisfied: torch>=2.0.0 in /usr/local/lib/python3.11/site-packages (from laya==0.3.7) (2.5.1+cu124)
+Collecting huggingface_hub>=0.20.0 (from laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-1.32.0-py3-none-any.whl.metadata (16 kB)
+Collecting packaging>=20.0 (from accelerate)
+  Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting psutil (from accelerate)
+  Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting regex>=2025.10.22 (from transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/regex/regex-2026.9.10-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting tokenizers<0.24.0,>=0.23.1 (from transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/tokenizers/tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.8 kB)
+Collecting typer (from transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/typer/typer-0.27.2-py3-none-any.whl.metadata (16 kB)
+Collecting click<9.0.0,>=8.4.2 (from huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.11/site-packages (from huggingface_hub>=0.20.0->laya==0.3.7) (3.32.3)
+Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.11/site-packages (from huggingface_hub>=0.20.0->laya==0.3.7) (2026.7.0)
+Collecting hf-xet<2.0.0,>=1.5.2 (from huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx<1,>=0.23.0 (from huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.11/site-packages (from huggingface_hub>=0.20.0->laya==0.3.7) (4.16.0)
+Collecting anyio (from httpx<1,>=0.23.0->huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting certifi (from httpx<1,>=0.23.0->huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx<1,>=0.23.0->huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting idna (from httpx<1,>=0.23.0->huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.23.0->huggingface_hub>=0.20.0->laya==0.3.7)
+  Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Requirement already satisfied: networkx in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (3.6.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.4.127 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.4.127)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.4.127 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.4.127)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.4.127 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.4.127)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (9.1.0.70)
+Requirement already satisfied: nvidia-cublas-cu12==12.4.5.8 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.4.5.8)
+Requirement already satisfied: nvidia-cufft-cu12==11.2.1.3 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (11.2.1.3)
+Requirement already satisfied: nvidia-curand-cu12==10.3.5.147 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (10.3.5.147)
+Requirement already satisfied: nvidia-cusolver-cu12==11.6.1.9 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (11.6.1.9)
+Requirement already satisfied: nvidia-cusparse-cu12==12.3.1.170 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.3.1.170)
+Requirement already satisfied: nvidia-nccl-cu12==2.21.5 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (2.21.5)
+Requirement already satisfied: nvidia-nvtx-cu12==12.4.127 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.4.127)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.4.127 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (12.4.127)
+Requirement already satisfied: triton==3.1.0 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (3.1.0)
+Requirement already satisfied: sympy==1.13.1 in /usr/local/lib/python3.11/site-packages (from torch>=2.0.0->laya==0.3.7) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.11/site-packages (from sympy==1.13.1->torch>=2.0.0->laya==0.3.7) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.11/site-packages (from jinja2->torch>=2.0.0->laya==0.3.7) (3.0.3)
+Collecting shellingham>=1.3.0 (from typer->transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/shellingham/shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer->transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting annotated-doc>=0.0.2 (from typer->transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/annotated-doc/annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer->transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer->transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers>=4.48)
+  Downloading http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/laya/laya-0.3.7-py3-none-any.whl (58 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/accelerate/accelerate-1.15.0-py3-none-any.whl (394 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/numpy/numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 378.4 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/peft/peft-0.21.0-py3-none-any.whl (832 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 832.9/832.9 kB 322.8 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/pyyaml/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 653.6 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/safetensors/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tqdm/tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/transformers/transformers-5.17.0-py3-none-any.whl (12.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.3/12.3 MB 337.1 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/huggingface-hub/huggingface_hub-1.32.0-py3-none-any.whl (842 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 842.9/842.9 kB 667.3 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/click/click-8.5.0-py3-none-any.whl (125 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/hf-xet/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 358.6 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/httpx/httpx-0.28.1-py3-none-any.whl (73 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/httpcore/httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/tokenizers/tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 449.9 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/h11/h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/packaging/packaging-26.3-py3-none-any.whl (129 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/regex/regex-2026.9.10-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (802 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 803.0/803.0 kB 509.7 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/anyio/anyio-4.15.1-py3-none-any.whl (132 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/idna/idna-3.20-py3-none-any.whl (69 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/certifi/certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/psutil/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/typer/typer-0.27.2-py3-none-any.whl (123 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/annotated-doc/annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/rich/rich-15.0.0-py3-none-any.whl (310 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/pygments/pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 645.0 MB/s  0:00:00
+Downloading http://pypi-mirror.modal.local:5555/simple/markdown-it-py/markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/mdurl/mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading http://pypi-mirror.modal.local:5555/simple/shellingham/shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Installing collected packages: tqdm, shellingham, safetensors, regex, pyyaml, pygments, psutil, packaging, numpy, mdurl, idna, hf-xet, h11, click, certifi, annotated-doc, markdown-it-py, httpcore, anyio, rich, httpx, typer, huggingface_hub, tokenizers, accelerate, transformers, peft, laya
+
+Successfully installed accelerate-1.15.0 annotated-doc-0.0.5 anyio-4.15.1 certifi-2026.7.22 click-8.5.0 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httpx-0.28.1 huggingface_hub-1.32.0 idna-3.20 laya-0.3.7 markdown-it-py-4.2.0 mdurl-0.1.2 numpy-2.4.6 packaging-26.3 peft-0.21.0 psutil-7.2.2 pygments-2.21.0 pyyaml-6.0.3 regex-2026.9.10 rich-15.0.0 safetensors-0.8.0 shellingham-1.5.4 tokenizers-0.23.2 tqdm-4.70.1 transformers-5.17.0 typer-0.27.2
+
+[notice] A new release of pip is available: 25.2 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+Saving image...
+Image saved, took 1.49s
+
+Built image im-t5wS2ZrWN3LR7rwgozVnPU in 20.29s
+
+
+✓ Created objects.
+├── 🔨 Created mount /Users/quanduong/nagi/scripts/modal_bench5.py
+└── 🔨 Created function run_bench.
+bundle 0.53MB tag=b5 → nagi-bench5 / H100 jev_key=yes
++ cd /root/nagi && python scripts/_bench5_inner.py
+rows 2700
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/170 [00:00<?, ?it/s]
+[1ALoading weights: 100%|██████████| 170/170 [00:00<00:00, 5038.74it/s]
+[transformers] [1mModernBertModel LOAD REPORT[0m from: answerdotai/ModernBERT-large
+Key               | Status     |  | 
+------------------+------------+--+-
+head.norm.weight  | UNEXPECTED |  | 
+decoder.bias      | UNEXPECTED |  | 
+head.dense.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:   can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+/usr/local/lib/python3.11/site-packages/torch/nn/modules/transformer.py:379: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(
+smol 500
+smol 1000
+smol 1500
+smol 2000
+smol 2500
+smol {"n": 2700, "hard_acc": 0.42518518518518517, "soft_acc": 0.3756126828642977, "brier": 0.4810523339363417, "ece": 0.0841080163784725, "latency_ms_p50": 17.082502000000943, "latency_ms_p95": 21.991260999996598, "model": "nagisanzeninz/nagi-smol-v0"}
+
+[1AFetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+[1AFetching 2 files:  50%|█████     | 1/2 [00:08<00:08,  8.84s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:11<00:00,  4.99s/it]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:11<00:00,  5.57s/it]
+
+[1ALoading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+[1ALoading weights:  30%|███       | 128/426 [00:00<00:00, 1260.66it/s]
+[1ALoading weights: 100%|██████████| 426/426 [00:00<00:00, 2675.39it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+big 500
+big 1000
+big 1500
+big 2000
+big 2500
+big {"n": 2700, "hard_acc": 0.7496296296296296, "soft_acc": 0.5940440185904347, "brier": 0.2509393316830974, "ece": 0.04712632701538407, "latency_ms_p50": 58.35060900000144, "latency_ms_p95": 79.70901499999172, "model": "nagisanzeninz/nagi-big-v0"}
+
+[1AFetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+[1AFetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 989.46it/s]
+
+[1ALoading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+[1ALoading weights:  43%|████▎     | 185/426 [00:00<00:00, 1849.83it/s]
+[1ALoading weights: 100%|██████████| 426/426 [00:00<00:00, 3875.99it/s]
+openjev 500
+openjev 1000
+openjev 1500
+openjev 2000
+openjev 2500
+openjev {"n": 2700, "hard_acc": 0.7144444444444444, "soft_acc": 0.5692865548108627, "brier": 0.27789820180596103, "ece": 0.045867497625916256, "latency_ms_p50": 71.86255699997446, "latency_ms_p95": 102.74410800002443, "model": "Qwen/Qwen3.5-4B frozen (SemIf letter-logits)"}
+
+[1AFetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+[1AFetching 5 files:  80%|████████  | 4/5 [00:00<00:00, 39.81it/s]
+[1AFetching 5 files: 100%|██████████| 5/5 [00:04<00:00,  1.16it/s]
+/usr/local/lib/python3.11/site-packages/laya/agent.py:464: RuntimeWarning: laya: this checkpoint ships invalid temperatures or values outside [0.5, 5]; using choice:11+=0.10058280825614929 -> 0.5. Treat confidence from the affected entries as uncalibrated.
+  return Agent(model_id_or_path, device=device, token=token, subfolder=subfolder)
+laya 500
+laya 1000
+laya 1500
+laya 2000
+laya 2500
+laya {"n": 2700, "hard_acc": 0.4951851851851852, "soft_acc": 0.5008887699941874, "brier": 0.6170392918392014, "ece": 0.3648277091172999, "latency_ms_p50": 16.07673800003795, "latency_ms_p95": 18.194620000031136, "model": "convaiinnovations/laya"}
+jev 200
+jev 400
+jev 600
+jev 800
+jev 1000
+jev 1200
+jev 1400
+jev 1600
+jev 1800
+jev 2000
+jev 2200
+jev 2400
+jev 2600
+jev {"n": 2699, "hard_acc": 0.7743608743979251, "soft_acc": 0.684304574304375, "brier": 0.29633616819695885, "ece": 0.11982507550496464, "latency_ms_p50": 171.50505899996915, "latency_ms_p95": 234.42303599995284, "model": "jev-latest"}
+DONE {
+  "Nagi-Smol": {
+    "n": 2700,
+    "hard_acc": 0.42518518518518517,
+    "soft_acc": 0.3756126828642977,
+    "brier": 0.4810523339363417,
+    "ece": 0.0841080163784725,
+    "latency_ms_p50": 17.082502000000943,
+    "latency_ms_p95": 21.991260999996598,
+    "model": "nagisanzeninz/nagi-smol-v0"
+  },
+  "Nagi-Big": {
+    "n": 2700,
+    "hard_acc": 0.7496296296296296,
+    "soft_acc": 0.5940440185904347,
+    "brier": 0.2509393316830974,
+    "ece": 0.04712632701538407,
+    "latency_ms_p50": 58.35060900000144,
+    "latency_ms_p95": 79.70901499999172,
+    "model": "nagisanzeninz/nagi-big-v0"
+  },
+  "OpenJev": {
+    "n": 2700,
+    "hard_acc": 0.7144444444444444,
+    "soft_acc": 0.5692865548108627,
+    "brier": 0.27789820180596103,
+    "ece": 0.045867497625916256,
+    "latency_ms_p50": 71.86255699997446,
+    "latency_ms_p95": 102.74410800002443,
+    "model": "Qwen/Qwen3.5-4B frozen (SemIf letter-logits)"
+  },
+  "Laya": {
+    "n": 2700,
+    "hard_acc": 0.4951851851851852,
+    "soft_acc": 0.5008887699941874,
+    "brier": 0.6170392918392014,
+    "ece": 0.3648277091172999,
+    "latency_ms_p50": 16.07673800003795,
+    "latency_ms_p95": 18.194620000031136,
+    "model": "convaiinnovations/laya"
+  },
+  "Jev": {
+    "n": 2699,
+    "hard_acc": 0.7743608743979251,
+    "soft_acc": 0.684304574304375,
+    "brier": 0.29633616819695885,
+    "ece": 0.11982507550496464,
+    "latency_ms_p50": 171.50505899996915,
+    "latency_ms_p95": 234.42303599995284,
+    "model": "jev-latest"
+  }
+}
+{
+  "status": "ok",
+  "code": 0,
+  "results": {
+    "Nagi-Smol": {
+      "n": 2700,
+      "hard_acc": 0.42518518518518517,
+      "soft_acc": 0.3756126828642977,
+      "brier": 0.4810523339363417,
+      "ece": 0.0841080163784725,
+      "latency_ms_p50": 17.082502000000943,
+      "latency_ms_p95": 21.991260999996598,
+      "model": "nagisanzeninz/nagi-smol-v0"
+    },
+    "Nagi-Big": {
+      "n": 2700,
+      "hard_acc": 0.7496296296296296,
+      "soft_acc": 0.5940440185904347,
+      "brier": 0.2509393316830974,
+      "ece": 0.04712632701538407,
+      "latency_ms_p50": 58.35060900000144,
+      "latency_ms_p95": 79.70901499999172,
+      "model": "nagisanzeninz/nagi-big-v0"
+    },
+    "OpenJev": {
+      "n": 2700,
+      "hard_acc": 0.7144444444444444,
+      "soft_acc": 0.5692865548108627,
+      "brier": 0.27789820180596103,
+      "ece": 0.045867497625916256,
+      "latency_ms_p50": 71.86255699997446,
+      "latency_ms_p95": 102.74410800002443,
+      "model": "Qwen/Qwen3.5-4B frozen (SemIf letter-logits)"
+    },
+    "Laya": {
+      "n": 2700,
+      "hard_acc": 0.4951851851851852,
+      "soft_acc": 0.5008887699941874,
+      "brier": 0.6170392918392014,
+      "ece": 0.3648277091172999,
+      "latency_ms_p50": 16.07673800003795,
+      "latency_ms_p95": 18.194620000031136,
+      "model": "convaiinnovations/laya"
+    },
+    "Jev": {
+      "n": 2699,
+      "hard_acc": 0.7743608743979251,
+      "soft_acc": 0.684304574304375,
+      "brier": 0.29633616819695885,
+      "ece": 0.11982507550496464,
+      "latency_ms_p50": 171.50505899996915,
+      "latency_ms_p95": 234.42303599995284,
+      "model": "jev-latest"
+    }
+  }
+}
+WROTE /Users/quanduong/nagi/runs/bench5_b5_result.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/duongquannn/main/ap-OLTdjvwJs3F3SR9FkhptrQ
