@@ -1,3 +1,10 @@
+# 0.4.0 — Nagi-HUGE research release
+
+- Adds `load_huge()` for the pinned Gemma4 12B + rank8 LoRA checkpoint, the third model tier alongside Smol and Big.
+- Uses the exact one-forward public benchmark readout. Explicit input limits; no silent truncation or chain-of-thought generation.
+- Adds a four-system public benchmark, source/coverage audit and interactive GitHub Pages report.
+- Preserves Big v3 defaults and the earlier failed synthetic release gate. No universal Jev-superiority claim.
+
 # Changelog
 
 ## 0.2.1

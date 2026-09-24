@@ -1,0 +1,496 @@
+{
+  "analysis_sha256": "b90ded7ac0f2b12ce3b8274e9a7c404bff9f2d5c781fc4390df18add5baf687c",
+  "sources": [
+    "anli",
+    "boolq",
+    "cb",
+    "copa",
+    "mmlu-pro",
+    "rte",
+    "wic",
+    "xnli"
+  ],
+  "models": {
+    "Nagi": {
+      "url": "https://huggingface.co/nagisanzeninz/Nagi-HUGE",
+      "subtitle": "Gemma4 12B \u00b7 rank8 LoRA",
+      "full": {
+        "accuracy": 0.7792167483474552,
+        "sources": {
+          "anli": 0.5891666666666666,
+          "boolq": 0.901,
+          "cb": 0.8214285714285714,
+          "copa": 0.98,
+          "mmlu-pro": 0.56,
+          "rte": 0.9133574007220217,
+          "wic": 0.7100313479623824,
+          "xnli": 0.75875
+        }
+      },
+      "common": {
+        "accuracy": 0.7748604433212656,
+        "sources": {
+          "anli": 0.5891666666666666,
+          "boolq": 0.9017051153460381,
+          "cb": 0.8214285714285714,
+          "copa": 0.98,
+          "mmlu-pro": 0.5244444444444445,
+          "rte": 0.9133574007220217,
+          "wic": 0.7100313479623824,
+          "xnli": 0.75875
+        }
+      },
+      "valid": 4671,
+      "untruncated": 4671,
+      "flip_rate": 0.13125,
+      "flip_pairs": 320,
+      "latency": {
+        "p50_ms": 90.8845460000407,
+        "p95_ms": 102.12233349999877,
+        "n": 4671,
+        "boundary": "Serial native SDK rendering+forward+readout, includes first forward, excludes model load"
+      },
+      "calibration": {
+        "bins": [
+          {
+            "accuracy": 0.0,
+            "lower": 0.1,
+            "mean_confidence": 0.17465435961882272,
+            "n": 3
+          },
+          {
+            "accuracy": 0.1,
+            "lower": 0.2,
+            "mean_confidence": 0.26803275048732755,
+            "n": 20
+          },
+          {
+            "accuracy": 0.18181818181818182,
+            "lower": 0.3,
+            "mean_confidence": 0.35176658969033847,
+            "n": 44
+          },
+          {
+            "accuracy": 0.3010752688172043,
+            "lower": 0.4,
+            "mean_confidence": 0.4616501619738917,
+            "n": 93
+          },
+          {
+            "accuracy": 0.41150442477876104,
+            "lower": 0.5,
+            "mean_confidence": 0.552244328819545,
+            "n": 226
+          },
+          {
+            "accuracy": 0.4807692307692308,
+            "lower": 0.6,
+            "mean_confidence": 0.6532016440079762,
+            "n": 260
+          },
+          {
+            "accuracy": 0.5646687697160884,
+            "lower": 0.7,
+            "mean_confidence": 0.7525081363762215,
+            "n": 317
+          },
+          {
+            "accuracy": 0.6660746003552398,
+            "lower": 0.8,
+            "mean_confidence": 0.8569012703522908,
+            "n": 563
+          },
+          {
+            "accuracy": 0.8318850267379679,
+            "lower": 0.9,
+            "mean_confidence": 0.9718169151621069,
+            "n": 2992
+          }
+        ],
+        "brier": 0.417686085007893,
+        "confidence_basis": "probability assigned to returned decision",
+        "ece_10_bins": 0.15241083741887262,
+        "n": 4518,
+        "nll": 0.8597416961691885
+      },
+      "flip_display": "13.12%"
+    },
+    "Laya": {
+      "url": "https://huggingface.co/convaiinnovations/laya",
+      "subtitle": "Official Router0.3.20",
+      "full": {
+        "accuracy": 0.5725135405164465,
+        "sources": {
+          "anli": 0.4,
+          "boolq": 0.74,
+          "cb": 0.5357142857142857,
+          "copa": 0.67,
+          "mmlu-pro": 0.16666666666666666,
+          "rte": 0.7472924187725631,
+          "wic": 0.5391849529780565,
+          "xnli": 0.78125
+        }
+      },
+      "common": {
+        "accuracy": 0.5734998327264097,
+        "sources": {
+          "anli": 0.4,
+          "boolq": 0.7412236710130391,
+          "cb": 0.5357142857142857,
+          "copa": 0.67,
+          "mmlu-pro": 0.17333333333333334,
+          "rte": 0.7472924187725631,
+          "wic": 0.5391849529780565,
+          "xnli": 0.78125
+        }
+      },
+      "valid": 4671,
+      "untruncated": 4518,
+      "flip_rate": 0.109375,
+      "flip_pairs": 320,
+      "latency": {
+        "p50_ms": 13.359149999999431,
+        "p95_ms": 15.019630499999437,
+        "n": 4671,
+        "boundary": "Serial native SDK rendering+forward+readout, includes first forward, excludes model load"
+      },
+      "calibration": {
+        "bins": [
+          {
+            "accuracy": 0.14285714285714285,
+            "lower": 0.1,
+            "mean_confidence": 0.17394887850663557,
+            "n": 49
+          },
+          {
+            "accuracy": 0.21052631578947367,
+            "lower": 0.2,
+            "mean_confidence": 0.25239091947919706,
+            "n": 152
+          },
+          {
+            "accuracy": 0.18018018018018017,
+            "lower": 0.3,
+            "mean_confidence": 0.3462031358964059,
+            "n": 111
+          },
+          {
+            "accuracy": 0.24060150375939848,
+            "lower": 0.4,
+            "mean_confidence": 0.45719657281084725,
+            "n": 133
+          },
+          {
+            "accuracy": 0.4434389140271493,
+            "lower": 0.5,
+            "mean_confidence": 0.548007442204234,
+            "n": 442
+          },
+          {
+            "accuracy": 0.5384615384615384,
+            "lower": 0.6,
+            "mean_confidence": 0.6519511890746127,
+            "n": 442
+          },
+          {
+            "accuracy": 0.5311284046692607,
+            "lower": 0.7,
+            "mean_confidence": 0.7526758082822017,
+            "n": 514
+          },
+          {
+            "accuracy": 0.5779685264663805,
+            "lower": 0.8,
+            "mean_confidence": 0.8541010060253306,
+            "n": 699
+          },
+          {
+            "accuracy": 0.6923076923076923,
+            "lower": 0.9,
+            "mean_confidence": 0.9618586978504959,
+            "n": 1976
+          }
+        ],
+        "brier": 0.6257293319570857,
+        "confidence_basis": "probability assigned to returned decision",
+        "ece_10_bins": 0.21935127882306216,
+        "n": 4518,
+        "nll": 1.1936477762189344
+      },
+      "flip_display": "10.94%"
+    },
+    "SemIf": {
+      "url": "https://github.com/TheoLeeCJ/SemIf-OpenJev",
+      "subtitle": "Native Qwen3.5-4B direct",
+      "full": {
+        "accuracy": 0.7405642058287163,
+        "sources": {
+          "anli": 0.55,
+          "boolq": 0.883,
+          "cb": 0.8214285714285714,
+          "copa": 0.95,
+          "mmlu-pro": 0.44,
+          "rte": 0.8880866425992779,
+          "wic": 0.6394984326018809,
+          "xnli": 0.7525
+        }
+      },
+      "common": {
+        "accuracy": 0.7387011304915938,
+        "sources": {
+          "anli": 0.55,
+          "boolq": 0.8836509528585758,
+          "cb": 0.8214285714285714,
+          "copa": 0.95,
+          "mmlu-pro": 0.42444444444444446,
+          "rte": 0.8880866425992779,
+          "wic": 0.6394984326018809,
+          "xnli": 0.7525
+        }
+      },
+      "valid": 4671,
+      "untruncated": 4671,
+      "flip_rate": 0.10625,
+      "flip_pairs": 320,
+      "latency": {
+        "p50_ms": 51.075878000006014,
+        "p95_ms": 65.99682200000245,
+        "n": 4671,
+        "boundary": "Serial native SDK rendering+forward+readout, includes first forward, excludes model load"
+      },
+      "calibration": {
+        "bins": [
+          {
+            "accuracy": 0.2,
+            "lower": 0.1,
+            "mean_confidence": 0.1876061794575411,
+            "n": 5
+          },
+          {
+            "accuracy": 0.21333333333333335,
+            "lower": 0.2,
+            "mean_confidence": 0.26034155390602176,
+            "n": 75
+          },
+          {
+            "accuracy": 0.18181818181818182,
+            "lower": 0.3,
+            "mean_confidence": 0.34875397153018783,
+            "n": 110
+          },
+          {
+            "accuracy": 0.3854748603351955,
+            "lower": 0.4,
+            "mean_confidence": 0.45739953678384754,
+            "n": 179
+          },
+          {
+            "accuracy": 0.48984771573604063,
+            "lower": 0.5,
+            "mean_confidence": 0.5540018669776303,
+            "n": 394
+          },
+          {
+            "accuracy": 0.48830409356725146,
+            "lower": 0.6,
+            "mean_confidence": 0.6498703625749599,
+            "n": 342
+          },
+          {
+            "accuracy": 0.5766129032258065,
+            "lower": 0.7,
+            "mean_confidence": 0.7535810363625104,
+            "n": 496
+          },
+          {
+            "accuracy": 0.6622516556291391,
+            "lower": 0.8,
+            "mean_confidence": 0.8562717744334488,
+            "n": 604
+          },
+          {
+            "accuracy": 0.85473411154345,
+            "lower": 0.9,
+            "mean_confidence": 0.9732492053257531,
+            "n": 2313
+          }
+        ],
+        "brier": 0.4398936265055315,
+        "confidence_basis": "probability assigned to returned decision",
+        "ece_10_bins": 0.13157308474993162,
+        "n": 4518,
+        "nll": 0.8477107703846917
+      },
+      "flip_display": "10.62%"
+    },
+    "Jev": {
+      "url": "https://typesafe.ai",
+      "subtitle": "Pinned native API",
+      "full": {
+        "accuracy": 0.8391572521735288,
+        "sources": {
+          "anli": 0.695,
+          "boolq": 0.909,
+          "cb": 0.8214285714285714,
+          "copa": 1.0,
+          "mmlu-pro": 0.8233333333333334,
+          "rte": 0.9205776173285198,
+          "wic": 0.7539184952978056,
+          "xnli": 0.79
+        }
+      },
+      "common": {
+        "accuracy": 0.8395396911571462,
+        "sources": {
+          "anli": 0.695,
+          "boolq": 0.9087261785356068,
+          "cb": 0.8214285714285714,
+          "copa": 1.0,
+          "mmlu-pro": 0.8266666666666667,
+          "rte": 0.9205776173285198,
+          "wic": 0.7539184952978056,
+          "xnli": 0.79
+        }
+      },
+      "valid": 4671,
+      "untruncated": null,
+      "flip_rate": 0.0125,
+      "flip_pairs": 320,
+      "latency": {
+        "p50_ms": 1086.3098340341821,
+        "p95_ms": 2961.5432504797354,
+        "n": 4671,
+        "boundary": "Client WAN+API, concurrency4"
+      },
+      "calibration": {
+        "bins": [
+          {
+            "accuracy": 0.35714285714285715,
+            "lower": 0.1,
+            "mean_confidence": 0.18,
+            "n": 14
+          },
+          {
+            "accuracy": 0.25,
+            "lower": 0.2,
+            "mean_confidence": 0.258125,
+            "n": 16
+          },
+          {
+            "accuracy": 0.5416666666666666,
+            "lower": 0.3,
+            "mean_confidence": 0.3458333333333334,
+            "n": 24
+          },
+          {
+            "accuracy": 0.42592592592592593,
+            "lower": 0.4,
+            "mean_confidence": 0.44759259259259254,
+            "n": 54
+          },
+          {
+            "accuracy": 0.5304054054054054,
+            "lower": 0.5,
+            "mean_confidence": 0.5473733961233962,
+            "n": 296
+          },
+          {
+            "accuracy": 0.5840978593272171,
+            "lower": 0.6,
+            "mean_confidence": 0.6461887993080654,
+            "n": 327
+          },
+          {
+            "accuracy": 0.6355421686746988,
+            "lower": 0.7,
+            "mean_confidence": 0.7478313253012048,
+            "n": 332
+          },
+          {
+            "accuracy": 0.7112403100775194,
+            "lower": 0.8,
+            "mean_confidence": 0.8488107822410148,
+            "n": 516
+          },
+          {
+            "accuracy": 0.9033684926845866,
+            "lower": 0.9,
+            "mean_confidence": 0.9807134976852568,
+            "n": 2939
+          }
+        ],
+        "brier": 0.2968678480830049,
+        "confidence_basis": "probability assigned to returned decision",
+        "ece_10_bins": 0.08175953872501018,
+        "n": 4518,
+        "nll": 0.8796411840513109
+      },
+      "flip_display": "1.25%"
+    }
+  },
+  "comparisons": [
+    {
+      "reference": "Jev",
+      "difference": -0.06467924783588064,
+      "ci95": [
+        -0.08125203102392188,
+        -0.0488739284778069
+      ],
+      "adjusted": [
+        -0.08392997805437818,
+        -0.0449025060730113
+      ]
+    },
+    {
+      "reference": "Laya",
+      "difference": 0.201360610594856,
+      "ci95": [
+        0.17553147904834832,
+        0.22742188027068883
+      ],
+      "adjusted": [
+        0.17026838291777482,
+        0.23369850997222597
+      ]
+    },
+    {
+      "reference": "SemIf",
+      "difference": 0.036159312829671775,
+      "ci95": [
+        0.015807473648356617,
+        0.05675798946194565
+      ],
+      "adjusted": [
+        0.012297197716573869,
+        0.06230998741377116
+      ]
+    }
+  ],
+  "finding": "Nagi\u2212Jev: -6.47 percentage points (95% interval [-8.13, -4.89]) on the common-evidence eight-source macro. The interval supports a Jev advantage on this specific suite. It does not establish universal generalization or a same-hardware latency win.",
+  "xnli_paired_language_accuracy": {
+    "Nagi": {
+      "en": 0.835,
+      "vi": 0.73,
+      "de": 0.76,
+      "zh": 0.71
+    },
+    "Laya": {
+      "en": 0.865,
+      "vi": 0.765,
+      "de": 0.76,
+      "zh": 0.735
+    },
+    "SemIf": {
+      "en": 0.83,
+      "vi": 0.75,
+      "de": 0.74,
+      "zh": 0.69
+    },
+    "Jev": {
+      "en": 0.885,
+      "vi": 0.765,
+      "de": 0.775,
+      "zh": 0.735
+    }
+  }
+}

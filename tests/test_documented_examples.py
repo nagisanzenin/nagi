@@ -36,6 +36,7 @@ class ExampleModel:
 def test_python_blocks_are_self_contained(relative, monkeypatch):
     monkeypatch.setattr(nagi, 'load_smol', lambda **kwargs: ExampleModel())
     monkeypatch.setattr(nagi, 'load_big', lambda **kwargs: ExampleModel())
+    monkeypatch.setattr(nagi, 'load_huge', lambda **kwargs: ExampleModel())
     blocks = re.findall(r'```python\n(.*?)```', (ROOT / relative).read_text(), re.S)
     assert blocks
     for block in blocks:

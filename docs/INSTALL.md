@@ -91,3 +91,23 @@ See [release evidence](../bench/V3_RELEASE.md).
   A branch named `main` is not an immutable revision.
 - Temperature defaults to 1.0. Fit it on a separate calibration set before using
   confidence thresholds; see [calibration](CALIBRATION.md).
+
+## Nagi-HUGE (12B)
+
+After installing the latest SDK from GitHub, use the explicit new loader:
+
+```python
+from nagi import load_huge
+
+model = load_huge(device="cuda")
+state = {"A": 7, "B": 3}
+result = model.system_one(state=state, questions={
+    "pick": {"type": "choice", "instructions": "Which number is greater?",
+             "criteria": {"A": "A is greater", "B": "B is greater"}}
+})
+print(result["answers"]["pick"])
+```
+
+HUGE loads the pinned public Gemma4 12B base and the pinned Nagi adapter separately. The adapter is approximately131MB; the base download is much larger. CUDA BF16 with eager attention is the measured path. The base parameter memory is roughly24GB plus loading, activations and allocator overhead; a24GB GPU is not validated. CPU falls back to FP32 and requires substantially more RAM; its speed is not benchmarked. MPS and quantization are not validated by this release.
+
+The loader rejects inputs above4096 rendered tokens and option sets outside2–26. It does not silently trim your state. For documents beyond that budget, reduce the input explicitly or choose another system. `load_big()` keeps its existing4B defaults.

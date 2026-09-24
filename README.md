@@ -1,14 +1,37 @@
 # Nagi
 
-**Typed decisions and probability distributions.**
+**Typed decisions in one forward pass. Smol421M · Big4B · HUGE12B.**
 
-Choice · Score · Noul — self-hosted.
+Nagi maps a state and a closed option set to a typed decision and a probability distribution. Nagi-HUGE is the new12B research tier.
 
-Nagi is a System One model family: given a state, a question, and a closed option set, it returns a typed decision and a probability distribution over that set. It does not generate text.
+## Public benchmark — four systems, inspectable evidence
 
-## Quickstart
+[**Explore the interactive benchmark →**](https://nagisanzenin.github.io/nagi/) · [Nagi-HUGE on Hugging Face](https://huggingface.co/nagisanzeninz/Nagi-HUGE) · [Protocol, raw logs and scoring](https://github.com/nagisanzenin/nagi-research/tree/main/docs/fair_public)
 
-Install first (Python 3.10+, Git required):
+| System | Same complete evidence (4,518) | Full operational suite (4,671) | Option-order flips (320 pairs) |
+|---|---:|---:|---:|
+|[Nagi-HUGE](https://huggingface.co/nagisanzeninz/Nagi-HUGE)|77.49%|77.92%|13.12%|
+|[Laya](https://huggingface.co/convaiinnovations/laya)|57.35%|57.25%|10.94%|
+|[OpenJev / SemIf](https://github.com/TheoLeeCJ/SemIf-OpenJev)|73.87%|74.06%|10.62%|
+|[Jev1.13.0](https://typesafe.ai)|83.95%|83.92%|1.25%|
+
+Nagi−Jev: -6.47 percentage points (95% interval [-8.13, -4.89]) on the common-evidence eight-source macro. The interval supports a Jev advantage on this specific suite. It does not establish universal generalization or a same-hardware latency win.
+
+Eight sources, equal weight per source. ANLI, XNLI, BoolQ, CB, COPA, RTE, WiC and MMLU-Pro; human/expert gold. Common-evidence rows were frozen before inference using local tokenizer audits; Jev receives the same payload, but its internal truncation is unknown. Laya truncates153core examples; full operational results retain native truncated answers. Option flips compare stable semantic choices after a rotation; lower is better. Public subsets/adaptations, **not official leaderboard scores**. Nagi developers ran this evaluation; pretraining exposure is unknown.
+
+| Local H100 native SDK | P50 | P95 |
+|---|---:|---:|
+|Nagi-HUGE|91ms|102ms|
+|Laya|13ms|15ms|
+|OpenJev / SemIf|51ms|66ms|
+
+**Separate WAN/API measurement:** Jev P50/P95 1086/2962ms, client concurrency4, unknown server hardware. No matched-hardware ranking.
+
+Native local serial SDK calls on the actual prompt distribution; includes first forward, excludes model loading. Jev timings include network/service and four requests in flight, without connection-pool reuse; hardware is unknown. The separate HUGE1024token loopbackHTTP P95 is145ms, not the same measurement. [Complete results and limitations](bench/HUGE_PUBLIC.md).
+
+## Install and use
+
+Python3.10+ and Git:
 
 ```bash
 python3 -m venv .venv
@@ -17,179 +40,76 @@ python -m pip install --upgrade pip
 python -m pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git"
 ```
 
-The distribution is `nagi-decisions`; the Python import is `nagi`. Do not install
-an unrelated package named `nagi` from PyPI. The first model load downloads weights
-from Hugging Face and needs network access and several GB of free disk/RAM.
-
-This complete example uses the public Smol v0 checkpoint on CPU:
+The package is `nagi-decisions`; the import is `nagi`. An unrelated PyPI package named `nagi` is not this project. The first load downloads weights from Hugging Face.
 
 ```python
-from nagi import load_smol
+from nagi import load_huge
 
-dossier = {
-    "finding": "Possible SQL injection in a login form",
-    "evidence": "The test response returned database rows from another account.",
-}
-nagi = load_smol(device="cpu")
+nagi = load_huge(device="cuda")
+dossier = {"A": 7, "B": 3}
 out = nagi.system_one(state=dossier, questions={
-    "verdict": {
+    "greater": {
         "type": "choice",
-        "instructions": "TP only if the evidence proves unauthorized data access; otherwise FP.",
-        "criteria": {
-            "TP": "The evidence proves unauthorized data access.",
-            "FP": "The evidence does not prove unauthorized data access.",
-        },
+        "instructions": "Which value is greater?",
+        "criteria": {"A": "A is greater", "B": "B is greater"},
     }
-})
-print(out["answers"]["verdict"])
-```
-
-The answer contains `choice`, `probabilities`, and `confidence`. Values depend on
-the model and input; this example does not promise a particular prediction.
-
----
-
-## Models
-
-| | **Nagi-Smol** | **Nagi-Big** |
-|---|---|---|
-| | [nagisanzeninz/nagi-smol-v0](https://huggingface.co/nagisanzeninz/nagi-smol-v0) | [nagisanzeninz/nagi-big-v3](https://huggingface.co/nagisanzeninz/nagi-big-v3) |
-| Backbone | ModernBERT-large · M2′ dual encoder + option tower | Qwen3.5-4B · mixed-rank LoRA letter-logits |
-| Parameters | 421M | 4B (+ LoRA adapter) |
-| Scope | variable option sets | K≤26 by default; larger sets rejected |
-
-Legacy: [nagi-t4-m2p-v0](https://huggingface.co/nagisanzeninz/nagi-t4-m2p-v0) (T4 M2′, LTO 0.48).
-
----
-
-## Benchmark
-
-**Big v3 is now the public default** for `load_big()`. It replaces Big v0;
-Smol is unchanged. The adapter and base revisions are pinned by the SDK.
-
-Same-suite comparison from campaign V4 (macro accuracy; higher is better):
-
-| What was tested | Big v0 (previous) | **Big v3 (default)** | V4 (not released) |
-|---|---:|---:|---:|
-| Unseen policy families — 1,200 examples / 6 families |40.08%|**78.00%**|78.33%|
-| Language understanding — 800 examples / 4 tasks |54.63%|**68.00%**|66.63%|
-| Historical score/yes-no regression — 640 examples |47.81%|**82.81%**|82.66%|
-
-All three had 100% output coverage. V4's policy advantage over v3 was only
-+0.33 percentage points, with a 95% interval of −4.33 to +4.83; it did not establish
-an improvement. We chose v3 for its balance of quality and validated deployment.
-The typed rows are historical development data, not a fresh generalization test.
-See [V4 evidence](bench/V4_RESULTS.md) and [release decision](bench/V3_RELEASE.md).
-
-**Latest research: V5** improved policy accuracy by **4.25 percentage points over
-a matched answer-only control** (95% family/item interval +0.58 to +7.83), without
-extra inference steps. It still failed broad-transfer and language-preservation
-release gates, so **v3 remains the default**. [V5 results and costs](bench/V5_RESULTS.md).
-
-**Nagi has not beaten JEV.** On the separate V3 final suites:
-
-| V3 suite (different examples from the table above) | Big v3 | JEV 1.13.0 |
-|---|---:|---:|
-| Public language — 2,204 examples / 4 tasks |75.80%|91.40%|
-| Executable policy — 1,440 examples / 6 families |68.19%|84.51%|
-
-Failures count as wrong; Nagi coverage100%, JEV policy coverage99.72%.
-Do not compare scores across the two tables. These finite task suites do not
-establish universal generalization; public pretraining exposure is unknown.
-[V3 protocol and limitations](bench/V3_RESULTS.md).
-
-V3 SDK latency on 13 probes was **47ms p50 /60ms p95**, batch1 on H100 without HTTP.
-This is a small historical deployment check, not a service SLA or a matched-hardware
-speed comparison with JEV. No text decoding loop is used.
-
-The original v0/JEV benchmark was invalidated by label and demo leakage; its claims
-remain withdrawn. [Audit archive](bench/HISTORICAL_V0.md).
-
-```python
-from nagi import load_big
-
-nagi = load_big(device="cuda")  # public v3, pinned weights and calibration
-out = nagi.system_one(state={"A": 7, "B": 3}, questions={
-    "greater": {"type": "noul", "instructions": "Is A greater than B?"}
 })
 print(out["answers"]["greater"])
 ```
 
----
+HUGE was validated on an H100 using BF16. Parameter storage alone is approximately24GB; allow additional memory for loading, adapters and activations. A24GB card is not validated. Inputs over4,096 rendered tokens are rejected explicitly, not silently truncated. The model scores2–26 supplied options; it cannot invent a new label. Temperature1.0 is not fitted calibration.
 
-## Install
+For a lightweight CPU start:
 
-The Quickstart installs the SDK and its declared dependencies directly from GitHub.
-For a local checkout:
+```python
+from nagi import load_smol
 
-```bash
-git clone https://github.com/nagisanzenin/nagi.git
-cd nagi
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e .
-python examples/verify_tp_fp.py --device cpu
+nagi = load_smol(device="cpu")
+dossier = {"message": "Please cancel my subscription."}
+out = nagi.system_one(state=dossier, questions={
+    "route": {
+        "type": "choice",
+        "instructions": "Select the team that should handle the request.",
+        "criteria": {"billing": "Subscriptions and payments", "technical": "Technical issues"},
+    }
+})
+print(out["answers"]["route"])
 ```
 
-**Hardware.** Start with Smol on CPU. CUDA is supported; the benchmark used an H100.
-Big is a separate 4B model and needs substantially more memory; CUDA with at least
-16 GB VRAM is recommended for BF16, with additional headroom for loading. MPS is
-not covered by the campaign validation; use `device="cpu"` on a Mac for the first call.
-See [installation and troubleshooting](docs/INSTALL.md).
+Examples are self-contained and do not promise a particular prediction. [Installation guide](docs/INSTALL.md) · [Recipes](docs/RECIPES.md).
 
----
+## Three model tiers
 
-## API
+| | Nagi-Smol | Nagi-Big | Nagi-HUGE |
+|---|---|---|---|
+| Model | [Smol v0](https://huggingface.co/nagisanzeninz/nagi-smol-v0) | [Big v3](https://huggingface.co/nagisanzeninz/nagi-big-v3) | [HUGE](https://huggingface.co/nagisanzeninz/Nagi-HUGE) |
+| Backbone | ModernBERT-large / M2′ | Qwen3.5-4B | Gemma4 12B |
+| Size | 421M | 4B + adapter | 12B + rank8 adapter |
+| Loader | `load_smol()` | `load_big()` | `load_huge()` |
+| Release role | Small CPU-friendly model | Existing4B default | New12B research tier |
+
+HUGE is the **third model tier**, not a rename of Big v3. Big defaults and pinned calibration stay unchanged. HUGE ships an adapter; the SDK loads the pinned base separately and keeps LoRA unmerged, matching the benchmark. [HUGE release details](docs/HUGE_RELEASE.md).
+
+## Typed decisions
 
 ```text
-system_one(state, questions) → {
-  "answers": {
-    "<qid>": {
-      "choice": "…"            # type=choice
-      "score": 1.23            # type=score (expected level)
-      "noul": 0.87             # type=noul (P(true))
-      "probabilities": {"…": p},
-      "confidence": max p
-    }
-  }
-}
+system_one(state, questions) → {"answers": {"question_id": {
+    "choice": "label", "probabilities": {"label": 0.9, "other": 0.1}, "confidence": 0.9
+}}}
 ```
 
-| `type` | `criteria` | primitive |
+| Question type | Criteria | Returned value |
 |---|---|---|
-| `choice` | `dict[key → description]` | Choice |
-| `score` | `list[level description]` | Score |
-| `noul` | — | Noul (yes/no probability) |
+| `choice` | dictionary of label → description | selected label |
+| `score` | ordered list of level descriptions | expected level |
+| `noul` | omitted | probability of true |
 
-Closed option sets only — the model cannot invent labels.
+Probabilities are conditional on the supplied options; confident mistakes are possible. The new public comparison evaluates **choice**. It does not establish quality for every score/noul task. HUGE performs one forward pass per question; it does not generate a reasoning trace.
 
----
+## Earlier evidence remains available
 
-## Design notes (one paragraph)
+The preceding synthetic gate did **not** establish a Nagi win: HUGE85.83% vs Jev88.33%, paired difference−2.50pp,95%CI[−5.83,+0.67]. HUGE is released as a research artifact with that limitation preserved. [Internal gate report](https://github.com/nagisanzenin/nagi-research/blob/main/docs/campaign_12b_release/REPORT.vi.md).
 
-Smol uses a dual encoder with an option tower. Big v3 uses a causal 4B backbone
-with mixed-rank LoRA and scores option-letter logits in one forward pass.
-Its default temperature is 0.8493753016322345, fitted on a separate calibration set;
-probabilities are not guaranteed calibrated on every new domain. V3 trained on
-public hard labels and executable-oracle tasks, with additional weight on score
-questions. Custom Big repositories retain temperature1 unless explicitly set.
+Big v3 replaced Big v0 after matched evaluation. V4 and V5 did not meet their release gates. The original v0 comparison was invalidated by label/demo leakage, and its claims remain withdrawn. Scores from different historical suites must not be compared as if they used the same examples.
 
----
-
-## Documentation
-
-| | |
-|---|---|
-| [Install & first call](docs/INSTALL.md) | 10-minute setup |
-| [Agent recipes](docs/RECIPES.md) | verify TP/FP · severity · eval node |
-| [Calibration](docs/CALIBRATION.md) | temperature fit, ECE, thresholds |
-| [Benchmark protocol](bench/README.md) | splits, arms, metrics, threats to validity |
-| [Historical reproduction](bench/REPRODUCE.md) | archived v0 commands; not a valid current comparison |
-
----
-
-## License
-
-Code: Apache-2.0.  
-Weights: see each model card on Hugging Face.
+[V3 results](bench/V3_RESULTS.md) · [V4 results](bench/V4_RESULTS.md) · [V5 results](bench/V5_RESULTS.md) · [Historical audit](bench/HISTORICAL_V0.md) · [Calibration](docs/CALIBRATION.md) · [Research repository](https://github.com/nagisanzenin/nagi-research).
