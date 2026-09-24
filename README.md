@@ -4,6 +4,8 @@
 
 Nagi maps a state and a closed option set to a typed decision and a probability distribution. Nagi-HUGE is the new12B research tier.
 
+**New:** [Smol vs Big vs HUGE](https://nagisanzenin.github.io/nagi/#tiers) — full-suite accuracy **38.85% / 76.14% / 77.92%**. HUGE’s +1.78-point lead over Big is not decisive after adjustment for three comparisons. [Report and logs](https://github.com/nagisanzenin/nagi-research/tree/main/docs/tier_comparison).
+
 ## Public benchmark — four systems, inspectable evidence
 
 [**Explore the interactive benchmark →**](https://nagisanzenin.github.io/nagi/) · [Nagi-HUGE on Hugging Face](https://huggingface.co/nagisanzeninz/Nagi-HUGE) · [Protocol, raw logs and scoring](https://github.com/nagisanzenin/nagi-research/tree/main/docs/fair_public)
