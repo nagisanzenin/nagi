@@ -26,3 +26,11 @@ fetch('data.json').then(r=>{if(!r.ok)throw Error('Result artifact unavailable');
  latency('#local-latency',order.filter(k=>k!=='Jev').map(k=>[names[k],data.models[k].latency.p50_ms,data.models[k].latency.p95_ms]));latency('#jev-latency',[['Jev API',data.models.Jev.latency.p50_ms,data.models.Jev.latency.p95_ms]]);
  document.querySelector('#version').textContent='Evaluation: 24 September 2026 · data SHA '+data.analysis_sha256.slice(0,12);render();
 }).catch(error=>{document.querySelector('#track-note').textContent='The results could not be loaded. Please use the linked report and raw receipts.';console.error(error);});
+
+fetch('tiers.json').then(r=>{if(!r.ok)throw Error('Tier artifact unavailable');return r.json();}).then(d=>{
+ const body=document.querySelector('#tiers-table tbody');
+ const urls={Smol:'https://huggingface.co/nagisanzeninz/nagi-smol-v0',Big:'https://huggingface.co/nagisanzeninz/nagi-big-v3',HUGE:'https://huggingface.co/nagisanzeninz/Nagi-HUGE'};
+ for(const m of d.models){const row=document.createElement('tr');const cell=document.createElement('td');const a=document.createElement('a');a.href=urls[m.name];a.textContent='Nagi-'+m.name;cell.append(a);row.append(cell);for(const value of [pct(m.full),pct(m.common),String(m.truncated_core)+' / '+String(m.unsupported_core),Math.round(m.latency.p50_ms)+' / '+Math.round(m.latency.p95_ms)+' ms']){const c=document.createElement('td');c.textContent=value;row.append(c);}body.append(row);}
+ document.querySelector('#tiers-finding').textContent=d.finding;
+ document.querySelector('#tiers-scope').textContent='Full suite: 4,671 core rows; all-three untruncated: '+d.common_n.toLocaleString()+' rows, audited before Big/Smol predictions. Equal weight per source. Native precision: Smol FP32, Big/HUGE BF16. Loading excluded. Public training exposure is unknown; this is a diagnostic comparison, not a clean unseen selection gate.';
+}).catch(()=>{document.querySelector('#tiers-scope').textContent='Please see the linked tier report for results.';});

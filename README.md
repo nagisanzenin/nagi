@@ -1,6 +1,6 @@
 # Nagi
 
-**Typed decisions in one forward pass. Smol421M · Big4B · HUGE12B.**
+**Typed decisions in one forward pass. Smol480M · Big4B · HUGE12B.**
 
 Nagi maps a state and a closed option set to a typed decision and a probability distribution. Nagi-HUGE is the new12B research tier.
 
@@ -84,7 +84,7 @@ Examples are self-contained and do not promise a particular prediction. [Install
 |---|---|---|---|
 | Model | [Smol v0](https://huggingface.co/nagisanzeninz/nagi-smol-v0) | [Big v3](https://huggingface.co/nagisanzeninz/nagi-big-v3) | [HUGE](https://huggingface.co/nagisanzeninz/Nagi-HUGE) |
 | Backbone | ModernBERT-large / M2′ | Qwen3.5-4B | Gemma4 12B |
-| Size | 421M | 4B + adapter | 12B + rank8 adapter |
+| Size | ~480M (loaded SDK) | 4B + adapter | 12B + rank8 adapter |
 | Loader | `load_smol()` | `load_big()` | `load_huge()` |
 | Release role | Small CPU-friendly model | Existing4B default | New12B research tier |
 
@@ -113,3 +113,13 @@ The preceding synthetic gate did **not** establish a Nagi win: HUGE85.83% vs Jev
 Big v3 replaced Big v0 after matched evaluation. V4 and V5 did not meet their release gates. The original v0 comparison was invalidated by label/demo leakage, and its claims remain withdrawn. Scores from different historical suites must not be compared as if they used the same examples.
 
 [V3 results](bench/V3_RESULTS.md) · [V4 results](bench/V4_RESULTS.md) · [V5 results](bench/V5_RESULTS.md) · [Historical audit](bench/HISTORICAL_V0.md) · [Calibration](docs/CALIBRATION.md) · [Research repository](https://github.com/nagisanzenin/nagi-research).
+
+## Smol vs Big vs HUGE: measured trade-offs
+
+| Model | Full suite (4,671) | All three untruncated (4655) | Truncated / unsupported core | Option flips | H100 P50 / P95 |
+|---|---:|---:|---:|---:|---:|
+| Nagi-Smol | 38.85% | 38.89% | 15 / 0 | 0.00% | 17 / 19 ms |
+| Nagi-Big | 76.14% | 76.12% | 3 / 5 | 9.69% | 70 / 83 ms |
+| Nagi-HUGE | 77.92% | 77.87% | 0 / 0 | 13.12% | 91 / 102 ms |
+
+HUGE−Big v3: **+1.78 percentage points**, 95% interval **[+0.01, +3.70]** on the full operational public suite. Adjusting for three tier comparisons gives [-0.49, +3.93] pp, which includes zero: a decisive HUGE advantage over Big is not established. Native defaults: Smol FP32, Big/HUGE BF16. Public-data exposure is unknown. [Full tier report and raw evidence](https://github.com/nagisanzenin/nagi-research/tree/main/docs/tier_comparison).
