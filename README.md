@@ -132,3 +132,5 @@ HUGE−Big v3: **+1.78 percentage points**, 95% interval **[+0.01, +3.70]** on t
 ### Watch the models play Snake
 
 [Open the AI Arena](https://nagisanzenin.github.io/nagi/arena/) — three same-seed survival trials with Nagi-BIG, Jev, Laya and SemIf. Inspect every actual input, output, probability and measured latency. Includes a casual playable Snake mode. This is a recorded sensor-assisted pilot, not live hosted inference or a statistical model ranking. [Protocol and raw traces](https://github.com/nagisanzenin/nagi-research/tree/main/docs/arena).
+
+[Drone Swarm: Reactor Rescue — source and all 197 decisions](https://github.com/nagisanzenin/nagi-research/tree/main/docs/drone): four models dispatch six drones in three seeded toy simulations. Nagi-BIG completed 3/3 missions, Jev 1/3, Laya and SemIf 0/3. Shared autopilot and explicit sensors; this small pilot is not a general model ranking.
