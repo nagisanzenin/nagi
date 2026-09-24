@@ -7,6 +7,13 @@
 
 # Changelog
 
+## 0.4.1
+
+- Raise Big default prompt cap to4096 and expose `max_input_tokens`; use768 to reproduce the prior benchmark.
+- Add Smol opt-in `max_state_tokens` and `dynamic_state_padding`; keep512 default after inconclusive/weak long retrieval results.
+- Document224 paired H100 context probes, latency trade-offs and unchanged model weights.
+
+
 ## 0.2.1
 
 - Fix Smol train/serve schema rendering and strictly validate checkpoint weights.

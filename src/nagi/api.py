@@ -18,12 +18,16 @@ LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 class Nagi:
     """Jev/Laya-compatible system_one over an M2′ or letter-logit backend."""
 
-    def __init__(self, model, tokenizer=None, kind: str = "m2p", temperature: float = 1.0, schema_context: bool = False, max_options: int = 26, chat_template: bool = False):
+    def __init__(self, model, tokenizer=None, kind: str = "m2p", temperature: float = 1.0, schema_context: bool = False, max_options: int = 26, chat_template: bool = False, max_input_tokens: int | None = None, dynamic_state_padding: bool = False):
         self.model = model.eval()
         self.kind = kind
         self.temperature = temperature
         self.schema_context = schema_context
         self.chat_template = chat_template
+        if max_input_tokens is not None and (type(max_input_tokens) is not int or max_input_tokens < 128):
+            raise ValueError("max_input_tokens must be an integer >= 128")
+        self.max_input_tokens = max_input_tokens
+        self.dynamic_state_padding = dynamic_state_padding
         if not 2 <= max_options <= 78:
             raise ValueError("max_options must be between 2 and 78")
         self.max_options = max_options
@@ -79,7 +83,7 @@ class Nagi:
                 prompt = render_state_context({"state": state, "questions": {qid: q}}, qid)
             else:
                 prompt = stxt + "\nQ: " + (q.get("instructions") or "")
-            st = self.tok(prompt, truncation=True, max_length=smax, return_tensors="pt", padding="max_length")
+            st = self.tok(prompt, truncation=True, max_length=smax, return_tensors="pt", padding=False if self.dynamic_state_padding else "max_length")
             st = {k: v.to(device) for k, v in st.items()}
             K = len(otexts)
             opt_ids = torch.zeros(1, K, omax, dtype=torch.long, device=device)
@@ -126,7 +130,7 @@ class Nagi:
             if len(keys) > self.max_options:
                 raise ValueError(f"Nagi-Big supports at most {self.max_options} options in this configuration")
             symbols = EXTENDED_SYMBOLS[:self.max_options]
-            budget = 2048 if len(keys) > 26 else 768
+            budget = self.max_input_tokens if self.max_input_tokens is not None else (2048 if len(keys) > 26 else 768)
             prompt, _ = render_bounded_prompt(self.tok, row, qid, budget - 64 if self.chat_template else budget, symbols=symbols)
             if self.chat_template:
                 prompt = self.tok.apply_chat_template([{'role': 'user', 'content': prompt + '\nReturn exactly one option symbol; no explanation.'}], tokenize=False, add_generation_prompt=True, enable_thinking=False)
@@ -159,8 +163,8 @@ def _pick_device(device: str | None) -> str:
     return "cpu"
 
 
-def load_smol(repo: str = SMOL_REPO, revision: str | None = None, device: str | None = None, temperature: float = 1.0) -> Nagi:
-    """421M M2′ dual encoder + option tower."""
+def load_smol(repo: str = SMOL_REPO, revision: str | None = None, device: str | None = None, temperature: float = 1.0, max_state_tokens: int | None = None, dynamic_state_padding: bool = False) -> Nagi:
+    """M2′ dual encoder + option tower (~480M loaded parameters)."""
     from huggingface_hub import hf_hub_download
     from transformers import AutoTokenizer
 
@@ -174,6 +178,11 @@ def load_smol(repo: str = SMOL_REPO, revision: str | None = None, device: str | 
     with open(cfg_path) as f:
         cfg = yaml.safe_load(f)
     model = build_model(cfg)
+    if max_state_tokens is not None:
+        ceiling = getattr(model.encoder.config, "max_position_embeddings", 8192)
+        if type(max_state_tokens) is not int or not 1 <= max_state_tokens <= ceiling:
+            raise ValueError(f"max_state_tokens must be an integer between 1 and {ceiling}")
+        model.state_max_len = max_state_tokens
     state = torch.load(pt_path, map_location="cpu", weights_only=True)
     if isinstance(state, dict) and "state_dict" in state:
         state = state["state_dict"]
@@ -181,10 +190,11 @@ def load_smol(repo: str = SMOL_REPO, revision: str | None = None, device: str | 
     model = model.to(dev)
     tok = model.tokenizer or AutoTokenizer.from_pretrained(cfg["model"]["state_encoder"])
     return Nagi(model, tokenizer=tok, kind="m2p", temperature=temperature,
-                schema_context=cfg.get("model", {}).get("use_schema_options", False))
+                schema_context=cfg.get("model", {}).get("use_schema_options", False),
+                dynamic_state_padding=dynamic_state_padding)
 
 
-def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | None = None, temperature: float | None = None, base_revision: str | None = None, max_options: int = 26, chat_template: bool = False) -> Nagi:
+def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | None = None, temperature: float | None = None, base_revision: str | None = None, max_options: int = 26, chat_template: bool = False, max_input_tokens: int = 4096) -> Nagi:
     """Load public Big v3 by default; custom repos retain temperature 1 unless set."""
     if repo == BIG_REPO:
         revision = revision or BIG_REVISION
@@ -205,4 +215,4 @@ def load_big(repo: str = BIG_REPO, revision: str | None = None, device: str | No
     adapter_dir = os.path.join(adapter_dir, "pissa")
     model = PeftModel.from_pretrained(base, adapter_dir)
     model = model.merge_and_unload().to(dev).eval()
-    return Nagi(model, tokenizer=tok, kind="letter", temperature=temperature, max_options=max_options, chat_template=chat_template)
+    return Nagi(model, tokenizer=tok, kind="letter", temperature=temperature, max_options=max_options, chat_template=chat_template, max_input_tokens=max_input_tokens)

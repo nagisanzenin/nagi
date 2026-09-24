@@ -6,6 +6,8 @@ Nagi maps a state and a closed option set to a typed decision and a probability 
 
 **New:** [Smol vs Big vs HUGE](https://nagisanzenin.github.io/nagi/#tiers) — full-suite accuracy **38.85% / 76.14% / 77.92%**. HUGE’s +1.78-point lead over Big is not decisive after adjustment for three comparisons. [Report and logs](https://github.com/nagisanzenin/nagi-research/tree/main/docs/tier_comparison).
 
+**Context update (SDK v0.4.1):** Big now accepts up to **4,096 tokens** by default; Smol retains512 with an experimental2048-token option. [Measured behavior and usage](docs/CONTEXT.md). Archived benchmark numbers below use SDK v0.4.0 defaults.
+
 ## Public benchmark — four systems, inspectable evidence
 
 [**Explore the interactive benchmark →**](https://nagisanzenin.github.io/nagi/) · [Nagi-HUGE on Hugging Face](https://huggingface.co/nagisanzeninz/Nagi-HUGE) · [Protocol, raw logs and scoring](https://github.com/nagisanzenin/nagi-research/tree/main/docs/fair_public)
