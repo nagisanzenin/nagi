@@ -127,3 +127,8 @@ Big v3 replaced Big v0 after matched evaluation. V4 and V5 did not meet their re
 | Nagi-HUGE | 77.92% | 77.87% | 0 / 0 | 13.12% | 91 / 102 ms |
 
 HUGE−Big v3: **+1.78 percentage points**, 95% interval **[+0.01, +3.70]** on the full operational public suite. Adjusting for three tier comparisons gives [-0.49, +3.93] pp, which includes zero: a decisive HUGE advantage over Big is not established. Native defaults: Smol FP32, Big/HUGE BF16. Public-data exposure is unknown. [Full tier report and raw evidence](https://github.com/nagisanzenin/nagi-research/tree/main/docs/tier_comparison).
+
+
+### Watch the models play Snake
+
+[Open the AI Arena](https://nagisanzenin.github.io/nagi/arena/) — three same-seed survival trials with Nagi-BIG, Jev, Laya and SemIf. Inspect every actual input, output, probability and measured latency. Includes a casual playable Snake mode. This is a recorded sensor-assisted pilot, not live hosted inference or a statistical model ranking. [Protocol and raw traces](https://github.com/nagisanzenin/nagi-research/tree/main/docs/arena).
