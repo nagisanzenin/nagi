@@ -148,6 +148,132 @@
     });
   });
 
+
+  /* ---------- lab notes (rounds.json: derived per-round data) ---------- */
+  var GNAME = {rotorwash: 'Rotorwash', lightcycle: 'Lightcycle Royale', stack: 'Stack Attack'};
+  function pfmt(p) { return p < 0.001 ? '<0.001' : p >= 0.9995 ? '1' : p.toFixed(3); }
+  function outcome(g, x) {
+    if (g === 'rotorwash') return x.score_m + ' m, ' + x.airborne_s + ' s airborne, ended: ' + x.end.replace('_', ' ') +
+      (x.vortex_ring ? ', vortex ring ×' + x.vortex_ring : '') + (x.rpm_droop ? ', RPM droop ×' + x.rpm_droop : '');
+    if (g === 'lightcycle') return (x.out_s == null ? 'survived' : 'out at ' + x.out_s + ' s (' + x.end + ')') + ', boosts ' + x.boosts + ', near misses ' + x.near_misses;
+    return (x.out_s == null ? 'survived' : 'topped out at ' + x.out_s + ' s') + ', ' + x.pieces + ' pieces, ' + x.lines + ' lines, ' + x.sent + ' rows sent';
+  }
+  function entropy(counts) {
+    var ks = Object.keys(counts), n = 0, h = 0;
+    ks.forEach(function (k) { n += counts[k]; });
+    ks.forEach(function (k) { var p = counts[k] / n; if (p > 0) h -= p * Math.log(p); });
+    return {n: n, h: h};
+  }
+  var OPTS = {
+    collective: ['down2', 'down1', 'hold', 'up1', 'up2'], cyclic: ['aft2', 'aft1', 'center', 'fwd1', 'fwd2'],
+    winch: ['up', 'hold', 'down'], move: ['straight', 'left', 'right', 'boost_straight', 'boost_left', 'boost_right'],
+    rotation: ['rot0', 'rotR', 'rot2', 'rotL'], column: ['c0', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9']
+  };
+  var KEYS = {rotorwash: ['collective', 'cyclic', 'winch'], lightcycle: ['move'], stack: ['rotation', 'column']};
+  var PAL = ['#5BA8F5', '#7CE0C3', '#A3D65C', '#F2D25C', '#F08A4B', '#E0569B', '#B58CFF', '#9AA5B8', '#4FC3F7', '#FFB4A2'];
+  function ramp(i) { return PAL[i % PAL.length]; }
+
+  function labRender(R, D, lu) {
+    var colors = {}, order = D[lu].models.map(function (m) { colors[m.name] = m.color; return m.name; });
+    var L = R[lu];
+    // heatmap
+    var heat = document.getElementById('lab-heat'), hs = '';
+    GAMES.forEach(function (gg) {
+      var g = gg[0], rs = L[g].rounds;
+      hs += '<div><h4>' + GNAME[g] + '</h4><div class="scroll"><table><thead><tr><th></th>' +
+        rs.map(function (r) { return '<th title="seed ' + r.seed + '">' + r.round + '</th>'; }).join('') + '<th>pts</th></tr></thead><tbody>';
+      order.forEach(function (m) {
+        var tot = 0;
+        hs += '<tr><th class="m" style="--c:' + colors[m] + '"><i></i>' + esc(m.replace(/^Nagi-/, '')) + '</th>';
+        rs.forEach(function (r) {
+          var x = r.players[m]; tot += x.points;
+          var a = [1, .62, .34, .12][x.place - 1];
+          hs += '<td style="background:color-mix(in srgb,' + colors[m] + ' ' + Math.round(a * 100) + '%, transparent)" title="' +
+            esc(m + ' · round ' + r.round + ' · place ' + x.place + ' · ' + outcome(g, x)) + '">' + x.place + '</td>';
+        });
+        hs += '<td class="sum">' + tot + '</td></tr>';
+      });
+      hs += '</tbody></table></div></div>';
+    });
+    heat.innerHTML = hs;
+    // tests
+    var t = '<thead><tr><th scope="col">Game</th><th scope="col">ENORMOUS vs</th><th scope="col">W–L–T</th><th scope="col">sign p</th><th scope="col">Holm p</th></tr></thead><tbody>';
+    GAMES.forEach(function (gg) {
+      var g = gg[0], P = L[g].paired_vs_enormous;
+      order.forEach(function (m) {
+        var x = P[m]; if (!x) return;
+        var sig = x.p_holm < 0.05;
+        t += '<tr style="--c:' + colors[m] + '"><td>' + GNAME[g] + '</td><td><i></i>' + esc(m) + '</td><td>' + x.w + '–' + x.l + '–' + x.t +
+          '</td><td>' + pfmt(x.p) + '</td><td class="pt"' + (sig ? ' style="color:var(--teal)"' : '') + '>' + pfmt(x.p_holm) + '</td></tr>';
+        if (x.airborne) t += '<tr style="--c:' + colors[m] + '"><td>↳ airborne time</td><td><i></i>' + esc(m) + '</td><td>' + x.airborne.w + '–' + x.airborne.l +
+          '</td><td>' + pfmt(x.airborne.p) + '</td><td>—</td></tr>';
+      });
+    });
+    document.getElementById('lab-tests').innerHTML = t + '</tbody>';
+    // latency histograms (pooled over games) + table
+    var edges = R.lat_edges_ms, nb = edges.length + 1, fig = document.getElementById('lab-lat'), W = 600, H = 34, s = '';
+    order.forEach(function (m) {
+      var hist = new Array(nb).fill(0);
+      GAMES.forEach(function (gg) { L[gg[0]].models[m].lat_hist.forEach(function (c, i) { hist[i] += c; }); });
+      var mx = Math.max.apply(null, hist), bw = W / nb;
+      var bars = hist.map(function (c, i) {
+        var hh = c ? Math.max(1.5, H * c / mx) : 0;
+        return '<rect x="' + (i * bw + 1).toFixed(1) + '" y="' + (H - hh).toFixed(1) + '" width="' + (bw - 2).toFixed(1) + '" height="' + hh.toFixed(1) + '" rx="1.5" fill="' + colors[m] + '"><title>' +
+          (i === 0 ? '< ' + edges[0] : i === nb - 1 ? '≥ ' + edges[nb - 2] : edges[i - 1] + '–' + edges[i]) + ' ms: ' + c + '</title></rect>';
+      }).join('');
+      s += '<div class="lat-row"><b style="color:' + colors[m] + '">' + esc(m.replace(/^Nagi-/, '')) + '</b><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" style="height:' + H + 'px" role="img" aria-label="' + esc(m) + ' latency histogram">' + bars + '</svg></div>';
+    });
+    var ticks = [10, 20, 40, 80, 160, 320, 640, 1280].map(function (v) {
+      var i = edges.indexOf(v); return i < 0 ? '' : '<span style="left:' + ((i + 1) / nb * 100).toFixed(1) + '%">' + (v >= 1000 ? v / 1000 + ' s' : v) + '</span>';
+    }).join('');
+    fig.innerHTML = s + '<div class="lat-row"><span></span><div class="lat-ax">' + ticks + '</div></div>';
+    var lt = '<thead><tr><th scope="col">Model</th><th scope="col">Game</th><th scope="col">n</th><th scope="col">P50</th><th scope="col">P90</th><th scope="col">P99</th><th scope="col">max<span class="u"> ms</span></th></tr></thead><tbody>';
+    order.forEach(function (m) {
+      GAMES.forEach(function (gg, k) {
+        var x = L[gg[0]].models[m];
+        lt += '<tr style="--c:' + colors[m] + '"><td>' + (k === 0 ? '<i></i>' + esc(m) : '') + '</td><td style="font-family:var(--sans)">' + gg[1] + '</td><td>' + fmt(x.n_decisions) + '</td><td class="pt">' +
+          x.lat_p50 + '</td><td>' + x.lat_p90 + '</td><td>' + x.lat_p99 + '</td><td>' + x.lat_max + '</td></tr>';
+      });
+    });
+    document.getElementById('lab-lat-t').innerHTML = lt + '</tbody>';
+    // policy fingerprint
+    var ps = '';
+    GAMES.forEach(function (gg) {
+      KEYS[gg[0]].forEach(function (key) {
+        var opts = OPTS[key];
+        ps += '<div><h4>' + GNAME[gg[0]] + ' · ' + key + '</h4><div class="pol-legend">' +
+          opts.map(function (o, i) { return '<span style="--c:' + ramp(i, opts.length) + '">' + o + '</span>'; }).join('') + '</div>';
+        order.forEach(function (m) {
+          var c = L[gg[0]].models[m].actions[key] || {}, e = entropy(c);
+          var hn = e.n ? e.h / Math.log(opts.length) : 0;
+          ps += '<div class="pol-row"><b style="color:' + colors[m] + '">' + esc(m.replace(/^Nagi-/, '')) + '</b><div class="pol-bar">' +
+            opts.map(function (o, i) {
+              var v = c[o] || 0; return v ? '<i style="width:' + (v / e.n * 100).toFixed(2) + '%;background:' + ramp(i, opts.length) + '" title="' + o + ': ' + v + ' (' + (v / e.n * 100).toFixed(1) + '%)"></i>' : '';
+            }).join('') + '</div><em' + (hn < 0.005 ? ' class="zero"' : '') + '>H ' + hn.toFixed(2) + '</em></div>';
+        });
+        ps += '</div>';
+      });
+    });
+    document.getElementById('lab-pol').innerHTML = '<div class="pol">' + ps + '</div>';
+  }
+
+  Promise.all([fetch('rounds.json').then(function (r) { return r.json(); }), fetch('data.json').then(function (r) { return r.json(); })])
+    .then(function (a) {
+      var R = a[0], D = a[1], btns = document.querySelectorAll('.lab-tabs button');
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          btns.forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+          labRender(R, D, b.dataset.lu);
+        });
+      });
+      labRender(R, D, 'vendors');
+    }).catch(function () {
+      document.getElementById('lab-heat').innerHTML = '<p class="note">Could not load <a href="rounds.json">rounds.json</a>.</p>';
+    });
+
+  // mechanism specs: open on wide screens, collapsed on phones
+  if (window.innerWidth < 700) document.querySelectorAll('details.spec').forEach(function (d) { d.open = false; });
+
   /* ---------- media ---------- */
   var checked = {};
   function exists(url) {

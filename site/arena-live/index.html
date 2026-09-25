@@ -37,7 +37,9 @@
       <a href="#results">Results</a>
       <a href="#rotorwash">Games</a>
       <a href="#family">Nagi lines</a>
+      <a href="#lab">Lab notes</a>
       <a href="#fair">Fairness</a>
+      <a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a>
     </nav>
   </div>
 </header>
@@ -52,6 +54,7 @@
         <div class="ctas">
           <a class="btn primary" href="#rotorwash">Watch <span aria-hidden="true">→</span></a>
           <a class="btn ghost" href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Get the model <span aria-hidden="true">↗</span></a>
+          <a class="btn ghost" href="https://github.com/nagisanzenin/nagi">GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <figure class="hero-phone">
@@ -98,6 +101,18 @@
         <figure class="chart" id="survival-chart"><figcaption>Seconds airborne per round</figcaption></figure>
         <div class="table-wrap"><table class="mini" id="t-rotorwash"><caption class="sr-only">Rotorwash results</caption></table></div>
         <p class="note" id="rw-endings"></p>
+        <details class="spec" open><summary>Mechanism</summary><dl>
+          <div><dt>Integrator</dt><dd>semi-implicit Euler, 240 Hz, float64, deterministic</dd></div>
+          <div><dt>Decision</dt><dd>every 250 ms; controls zero-order held for 60 substeps</dd></div>
+          <div><dt>Action</dt><dd>3 simultaneous queries: collective Δc ∈ {−2…+2}×0.05 · cyclic u ∈ {−0.6, −0.3, 0, 0.3, 0.6} · winch {up, hold, down} → 75 joint actions</dd></div>
+          <div><dt>Thrust</dt><dd><code>T = K_T·(Ω/Ωₙ)²·c·(1 − L_vrs)·(1 + 0.25·e^(−h/R))</code></dd></div>
+          <div><dt>Vortex ring</dt><dd>loss up to 40% when descent &gt; 0.6·v_h and edgewise speed &lt; 0.3·v_h</dd></div>
+          <div><dt>Rotor/engine</dt><dd>governor + 0.5 s engine lag, P_avail 330 kW; over-pitch droops RPM; Ω/Ωₙ &lt; 0.85 for 1 s = rotor stall</dd></div>
+          <div><dt>Wind</dt><dd>seeded Ornstein–Uhlenbeck gusts (τ 2.5 s) + a shear/downdraft zone per leg</dd></div>
+          <div><dt>Sling</dt><dd>300 kg point load on a 5–25 m winch rope; |φ| &gt; 50° = crash</dd></div>
+          <div><dt>Course</dt><dd>seeded cave, gap narrows 70 → 24 m; 4 ghost helis, same seed, no contact</dd></div>
+          <div><dt>Score · cap</dt><dd>metres flown + 500 × deliveries · 90 s · late reply = hold</dd></div>
+        </dl></details>
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_rotorwash">
@@ -122,6 +137,16 @@
           <div class="callout"><b>10/10</b><span>rounds with more points than Jev (p = 0.002)</span></div>
         </div>
         <div class="table-wrap"><table class="mini" id="t-lightcycle"><caption class="sr-only">Lightcycle Royale results</caption></table></div>
+        <details class="spec" open><summary>Mechanism</summary><dl>
+          <div><dt>Board</dt><dd>48×48, obstacles exactly invariant under 90° rotation <code>R(x,y) = (47−y, x)</code>; spawn p at R<sup>p</sup></dd></div>
+          <div><dt>Decision</dt><dd>every 125 ms, 6 options: {straight, left, right} × {normal, boost}</dd></div>
+          <div><dt>Boost</dt><dd>2 cells this tick; 3 charges max, +1 every 2 s</dd></div>
+          <div><dt>Resolution</dt><dd>simultaneous, 2 substeps; swap or same-cell = all involved die</dd></div>
+          <div><dt>Shrink</dt><dd>one ring per second from 15 s; fully closed at 35 s (hard cap)</dd></div>
+          <div><dt>Observation</dt><dd>egocentric 15×15 window, rival head vectors, charges, time to next ring</dd></div>
+          <div><dt>L1 sensors</dt><dd>per option: crash flag, free run ahead, flood-fill area (cap 400)</dd></div>
+          <div><dt>Rank · default</dt><dd>elimination order, same tick = tie · late reply = straight</dd></div>
+        </dl></details>
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_lightcycle">
@@ -146,6 +171,14 @@
           <div class="callout"><b>10/10</b><span>rounds ahead of every rival (p = 0.002 each)</span></div>
         </div>
         <div class="table-wrap"><table class="mini" id="t-stack"><caption class="sr-only">Stack Attack results</caption></table></div>
+        <details class="spec" open><summary>Mechanism</summary><dl>
+          <div><dt>Boards</dt><dd>4 × (10×20 + 2 hidden rows), Guideline SRS, one shared 7-bag sequence</dd></div>
+          <div><dt>Decision</dt><dd>one piece per 250 ms, two stages: rotation (≤ 4 distinct) → column (≤ 10); hard drop, no hold, no spins</dd></div>
+          <div><dt>Garbage</dt><dd>clear 2/3/4 → 1/2/4 rows to <em>every</em> live rival; hole column = f(seed, receiver's batch count), never the sender</dd></div>
+          <div><dt>Pressure</dt><dd>from 30 s, every 10 s all boards get k+1 rows (1, 2, 3 …), same hole</dd></div>
+          <div><dt>L1 sensors</dt><dd>per column option: lines cleared, max height, holes after the drop</dd></div>
+          <div><dt>Rank · cap</dt><dd>survivors by lines sent, then elimination time · 90 s · late reply = spawn-column drop</dd></div>
+        </dl></details>
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_stack">
@@ -182,6 +215,35 @@
           <figcaption class="now" aria-live="polite"></figcaption>
         </figure>
       </div>
+    </div>
+  </section>
+
+  <section id="lab" class="block">
+    <div class="wrap">
+      <p class="eyebrow">Lab notes</p>
+      <h2>Round by round, for the nerds</h2>
+      <p class="lede">Derived from the scored records. Pick a lineup.</p>
+      <div class="tabs lab-tabs" role="group" aria-label="Lineup">
+        <button type="button" data-lu="vendors" aria-pressed="true">ENORMOUS vs vendors</button>
+        <button type="button" data-lu="nagi_lines" aria-pressed="false">Four Nagi lines</button>
+      </div>
+
+      <h3 class="lab-h">Placement per round</h3>
+      <p class="note">Cell = finishing place (1 = best). Same seed per column for every model. Hover or tap a cell for the outcome.</p>
+      <div id="lab-heat" class="heat"></div>
+
+      <h3 class="lab-h">Paired tests vs ENORMOUS</h3>
+      <p class="note">Exact two-sided sign test on per-round points, paired by seed, ties dropped. n = 10, so the smallest possible p is 0.002. Holm–Bonferroni over the 9 comparisons of each lineup.</p>
+      <div class="table-wrap"><table class="mini" id="lab-tests"></table></div>
+
+      <h3 class="lab-h">Decision latency</h3>
+      <p class="note">All replies pooled over the three games, half-octave bins, log scale. Lockstep: latency is recorded, never scored.</p>
+      <figure class="chart" id="lab-lat"></figure>
+      <div class="table-wrap"><table class="mini" id="lab-lat-t"></table></div>
+
+      <h3 class="lab-h">Policy fingerprint</h3>
+      <p class="note">Share of each applied action, and H = normalized Shannon entropy (0 = the same action every time, 1 = uniform). A constant policy in a closed-loop game usually means the model is not reading the state.</p>
+      <div id="lab-pol"></div>
     </div>
   </section>
 

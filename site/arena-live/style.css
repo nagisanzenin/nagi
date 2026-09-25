@@ -128,7 +128,7 @@ table.mini{width:100%;border-collapse:collapse;font-size:15px}
 .mini th:first-child,.mini td:first-child{text-align:left;padding-left:0}
 .mini th:last-child,.mini td:last-child{padding-right:0}
 .mini td:first-child{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--text)}
-.mini td:first-child i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:8px;vertical-align:1px}
+.mini td i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:8px;vertical-align:1px}
 .mini td.pt{color:var(--text);font-weight:600}
 .mini tr.lead td.pt{color:var(--c)}
 @media (max-width:400px){.mini td,.mini th{padding-left:5px;padding-right:5px}.mini td{font-size:13px}.mini td:first-child{font-size:14px}}
@@ -207,3 +207,44 @@ table.mini{width:100%;border-collapse:collapse;font-size:15px}
 }
 .mini th .u{text-transform:none;letter-spacing:0;font-weight:500}
 @media (max-width:400px){.mini .pre{display:none}}
+
+/* mechanism spec */
+.spec{margin:26px 0 0;border:1px solid var(--line);border-radius:14px;background:var(--bg2)}
+.spec summary{cursor:pointer;padding:12px 16px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.spec dl{margin:0;padding:0 16px 12px}
+.spec dl div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.spec dt{font-size:13px;color:var(--dim);font-weight:600}
+.spec dd{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
+.spec code{color:var(--text);font-size:12.5px;word-break:break-word}
+@media (max-width:560px){.spec dl div{grid-template-columns:1fr;gap:2px}}
+
+/* lab notes */
+.lab-tabs{margin:24px 0 0}
+.lab-h{margin:44px 0 0;font-size:22px}
+.heat{margin:18px 0 0;display:grid;gap:22px}
+.heat h4{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--muted)}
+.heat table{border-collapse:separate;border-spacing:3px;font-family:var(--mono);font-size:12px}
+.heat th{color:var(--dim);font-weight:500;padding:0 2px;text-align:center}
+.heat th.m{text-align:left;font-family:var(--sans);font-size:13px;color:var(--text);font-weight:600;padding-right:8px;white-space:nowrap}
+.heat th.m i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:6px}
+.heat td{width:26px;height:26px;text-align:center;border-radius:5px;color:var(--text);cursor:default}
+.heat td.sum{width:auto;padding:0 6px;color:var(--muted);background:none}
+.heat .scroll{overflow-x:auto}
+.lat-row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;margin:6px 0}
+.lat-row b{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pol{margin:18px 0 0;display:grid;gap:18px}
+.pol h4{margin:0;font-size:14px;color:var(--muted);font-weight:600}
+.pol-row{display:grid;grid-template-columns:120px 1fr 52px;gap:10px;align-items:center;margin:5px 0;font-size:13px}
+.pol-row b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pol-bar{display:flex;height:18px;border-radius:4px;overflow:hidden;background:var(--card)}
+.pol-bar i{display:block;height:100%;border-right:1px solid var(--bg)}
+.pol-row em{font-style:normal;font-family:var(--mono);color:var(--muted);text-align:right}
+.pol-row em.zero{color:var(--amber)}
+.pol-legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-family:var(--mono);font-size:11px;color:var(--dim);margin:2px 0 4px}
+.pol-legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--c);margin-right:5px;vertical-align:-1px}
+@media (max-width:560px){.lat-row,.pol-row{grid-template-columns:86px 1fr 44px}.lat-row{grid-template-columns:86px 1fr}}
+.lat-ax{position:relative;height:16px;font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.lat-ax span{position:absolute;transform:translateX(-50%);top:0}
+.lat-row svg{width:100%;display:block;border-bottom:1px solid var(--line2)}
+#lab-tests td:nth-child(2),#lab-tests th:nth-child(2),#lab-lat-t td:nth-child(2),#lab-lat-t th:nth-child(2){text-align:left;font-family:var(--sans)}
+@media (min-width:900px){.heat{grid-template-columns:repeat(3,1fr)}}
