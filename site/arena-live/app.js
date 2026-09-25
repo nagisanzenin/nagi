@@ -19,7 +19,6 @@
     var a = Math.round(m.p50_ms_min), b = Math.round(m.p50_ms_max);
     return a === b ? a + ' ms' : a + '–' + b + ' ms';
   }
-  function fmt(n) { return n.toLocaleString('en-US'); }
 
   /* ---------- leaderboard ---------- */
   function board(id, run, max) {
@@ -44,26 +43,6 @@
         '<span>P50 <em>' + ms(m) + '</em></span></div>';
       ol.appendChild(li);
     });
-  }
-
-  /* ---------- per-game tables ---------- */
-  function gameTable(id, run, g, withSurvival) {
-    var t = document.getElementById(id);
-    var rows = run.models.slice().sort(function (a, b) {
-      var x = a.games[g], y = b.games[g];
-      return (y.points - x.points) || (y.wins - x.wins) || ((y.survival_median_s || 0) - (x.survival_median_s || 0));
-    });
-    var head = '<thead><tr><th scope="col">Model</th><th scope="col">Pts</th><th scope="col">Wins<span class="u">/10</span></th>' +
-      (withSurvival ? '<th scope="col">Airborne<span class="u"> s</span><span class="sr-only"> (median)</span></th>' : '') +
-      '<th scope="col">P50<span class="u"> ms</span></th></tr></thead>';
-    var body = rows.map(function (m, i) {
-      var r = m.games[g];
-      return '<tr' + (i === 0 ? ' class="lead"' : '') + ' style="--c:' + m.color + '"><td><i></i>' + esc(m.name).replace(/^Nagi-/, '<span class="pre">Nagi-</span>') + '</td>' +
-        '<td class="pt">' + r.points + '</td><td>' + r.wins + '</td>' +
-        (withSurvival ? '<td>' + r.survival_median_s.toFixed(1) + '</td>' : '') +
-        '<td>' + Math.round(r.p50_ms) + '</td></tr>';
-    }).join('');
-    t.insertAdjacentHTML('beforeend', head + '<tbody>' + body + '</tbody>');
   }
 
   /* ---------- rotorwash survival chart ---------- */
@@ -96,18 +75,6 @@
     fig.insertAdjacentHTML('beforeend', s);
   }
 
-  function endings(run) {
-    var names = {ceiling: 'ceiling', terrain: 'terrain', tail_strike: 'tail strike', rotor_stall: 'rotor stall'};
-    var parts = run.models.map(function (m) {
-      var c = m.games.rotorwash.crashes || {};
-      return esc(m.name) + ': ' + Object.keys(c).map(function (k) { return c[k] + ' ' + (names[k] || k); }).join(', ');
-    });
-    var others = run.models.filter(function (m) { return m.name === 'OpenJev' || m.name === 'Laya'; })
-      .map(function (m) { return m.games.rotorwash.survival_max_s; });
-    document.getElementById('rw-endings').innerHTML = 'How rounds ended. ' + parts.join(' · ') +
-      '. OpenJev and Laya never flew longer than ' + Math.max.apply(null, others).toFixed(1) + ' s. No model completed a sling-load delivery.';
-  }
-
   function render(d) {
     var V = d.vendors, N = d.nagi_lines;
     var find = function (run, n) { return run.models.filter(function (m) { return m.name === n; })[0]; };
@@ -119,26 +86,10 @@
     bind('lc.e.wins', e.games.lightcycle.wins);
     bind('st.e.wins', e.games.stack.wins);
     bind('sha', d.records.sha256);
-    var total = 0;
-    [V, N].forEach(function (run) { run.models.forEach(function (m) { total += m.replies.ok + m.replies.late + m.replies.invalid + m.replies.error; }); });
-    bind('replies', fmt(total));
 
     board('board-vendors', V, d.scoring);
     board('board-nagi', N, d.scoring);
-    gameTable('t-rotorwash', V, 'rotorwash', true);
-    gameTable('t-lightcycle', V, 'lightcycle', false);
-    gameTable('t-stack', V, 'stack', false);
     survivalChart(V);
-    endings(V);
-
-    var asc = N.models.slice().sort(function (a, b) { return a.points - b.points; });
-    var ne = find(N, 'Nagi-ENORMOUS');
-    var otherMed = N.models.filter(function (m) { return m !== ne; }).map(function (m) { return m.games.rotorwash.survival_median_s; });
-    document.getElementById('family-line').innerHTML = 'Score rises with the model line: ' +
-      asc.map(function (m) { return '<strong style="color:' + m.color + '">' + m.points + '</strong>'; }).join(' → ') +
-      ' points. The biggest gap is closed-loop helicopter control: ENORMOUS won ' + ne.games.rotorwash.wins +
-      ' of 10 Rotorwash rounds, median ' + ne.games.rotorwash.survival_median_s.toFixed(1) + ' s airborne vs ' +
-      Math.min.apply(null, otherMed).toFixed(1) + '–' + Math.max.apply(null, otherMed).toFixed(1) + ' s for the other lines.';
   }
 
   fetch('data.json').then(function (r) { return r.json(); }).then(render).catch(function () {
@@ -170,9 +121,10 @@
     v.addEventListener('error', function () { v.closest('.phone').classList.add('missing'); }, true);
     var s = v.querySelector('source');
     if (s) s.addEventListener('error', function () { v.closest('.phone').classList.add('missing'); });
-    // one video with sound at a time
+    // one game video at a time (the teaser is separate)
     v.addEventListener('play', function () {
-      document.querySelectorAll('.phone video').forEach(function (o) { if (o !== v && !o.muted) o.pause(); });
+      if (v.id === 'teaser') return;
+      document.querySelectorAll('.phone.autoplay video').forEach(function (o) { if (o !== v) autoPause(o); });
     });
   });
 
@@ -183,6 +135,32 @@
     }, {rootMargin: '600px 0px'});
     lazy.forEach(function (p) { io.observe(p); });
   } else lazy.forEach(prepare);
+
+  /* game videos: play muted when scrolled into view, pause when scrolled away.
+     A viewer who pauses by hand keeps it paused; our own pauses set v._auto. */
+  function autoPause(v) { if (!v.paused) { v._auto = true; v.pause(); } }
+  function inView(en) {
+    return en.isIntersecting && (en.intersectionRatio >= 0.5 || en.intersectionRect.height >= innerHeight * 0.5);
+  }
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var auto = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        var p = en.target, v = p.querySelector('video');
+        if (inView(en)) {
+          prepare(p).then(function (ok) { if (ok && !v._userPaused) v.play().catch(function () {}); });
+        } else autoPause(v);
+      });
+    }, {threshold: [0, 0.25, 0.5, 0.75]});
+    document.querySelectorAll('.phone.autoplay').forEach(function (p) {
+      var v = p.querySelector('video');
+      auto.observe(p);
+      v.addEventListener('pause', function () {
+        if (v._auto) { v._auto = false; return; }
+        if (!v.ended && document.visibilityState === 'visible') v._userPaused = true;
+      });
+      v.addEventListener('play', function () { v._userPaused = false; });
+    });
+  }
 
   /* hero teaser: autoplay only when motion is welcome, and only while on screen */
   var teaser = document.getElementById('teaser');
@@ -233,7 +211,7 @@
     function load(k, autoplay) {
       idx = k;
       var n = prefix + '_' + PARTS[k][0];
-      v.pause();
+      autoPause(v);
       src.setAttribute('src', 'media/' + n + '.mp4');
       v.removeAttribute('poster');
       v.dataset.poster = 'media/' + n + '.jpg';
