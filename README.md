@@ -155,7 +155,7 @@ ENORMOUS is not part of this three-tier analysis; its comparison with HUGE (+5.2
 
 ## Arena Live (real-time games)
 
-[**Watch Arena Live →**](https://nagisanzenin.github.io/nagi/arena-live/) All four Nagi lines play the same real-time games.
+**Arena Live (videos and page coming soon):** all four Nagi lines play the same real-time games.
 
 | Game | Nagi-ENORMOUS | Nagi-HUGE | Nagi-BIG | Nagi-SMOL |
 |---|---:|---:|---:|---:|

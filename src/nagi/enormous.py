@@ -10,7 +10,7 @@ import torch
 ENORMOUS_REPO='nagisanzeninz/Nagi-ENORMOUS'
 # TODO(enormous-release): pin the 40-char commit sha of the published adapter on
 # the Hugging Face Hub before release. load_enormous() refuses to run while None.
-ENORMOUS_REVISION=None
+ENORMOUS_REVISION='2e03ec38270967a95b66bc68208a5a2e1f6ba3db'
 ENORMOUS_BASE='Qwen/Qwen3.8-27B'
 ENORMOUS_BASE_REVISION='1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0'
 ENORMOUS_TRAINED_MAX_TOKENS=768
