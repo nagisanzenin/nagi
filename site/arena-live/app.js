@@ -30,82 +30,92 @@
       if (!prev || prev.points !== m.points) rank = i + 1;
       prev = m;
       var li = el('li', {'class': 'row' + (i === 0 ? ' first' : ''), style: '--c:' + m.color});
-      var segs = GAMES.map(function (g) {
-        var p = m.games[g[0]].points;
-        return p ? '<i style="width:' + (p / max.max_points * 100).toFixed(2) + '%" title="' + g[1] + ' ' + p + '"></i>' : '';
+      var per = GAMES.map(function (g) {
+        var x = m.games[g[0]];
+        return '<div class="g"><span>' + g[1] + '</span><b>' + x.points + '<small>/30</small></b><div class="gbar"><i style="width:' + (x.points / 30 * 100).toFixed(1) + '%"></i></div></div>';
       }).join('');
-      var per = GAMES.map(function (g) { return '<span>' + g[1] + ' <em>' + m.games[g[0]].points + '</em></span>'; }).join('');
       li.innerHTML =
         '<div class="row-top"><span class="rank">' + rank + '</span>' +
         '<div class="who"><b>' + esc(m.name) + '</b><small>' + esc(m.sub) + '</small></div>' +
         '<div class="pts"><b>' + m.points + '</b><small>/' + max.max_points + '</small></div></div>' +
-        '<div class="bar90" role="img" aria-label="' + m.points + ' of ' + max.max_points + ' points">' + segs + '</div>' +
-        '<div class="meta"><span>Round wins <em>' + m.wins + '/' + max.max_wins + '</em></span>' + per +
-        '<span>P50 <em>' + ms(m) + '</em></span></div>';
+        '<div class="gstats" role="list" aria-label="Points per game">' + per + '</div>' +
+        '<div class="meta"><span>Round wins <em>' + m.wins + '/' + max.max_wins + '</em></span><span>P50 <em>' + ms(m) + '</em></span></div>';
       ol.appendChild(li);
     });
   }
 
-  /* ---------- per-game tables ---------- */
-  function gameTable(id, run, g, withSurvival) {
-    var t = document.getElementById(id);
+  /* ---------- per-game tables (data.json totals + rounds.json per-round detail) ---------- */
+  function med(xs) { xs = xs.slice().sort(function (a, b) { return a - b; }); var n = xs.length; return n % 2 ? xs[(n - 1) / 2] : (xs[n / 2 - 1] + xs[n / 2]) / 2; }
+  var CAUSE = {ceiling: 'ceiling', terrain: 'terrain', tail_strike: 'tail strike', rotor_stall: 'rotor stall', rotor_strike: 'rotor strike'};
+  var EXTRA = {
+    rotorwash: [
+      ['Air time', 's, median', function (m, rs) { return med(rs.map(function (r) { return r.players[m].airborne_s; })).toFixed(1); }],
+      ['Distance', 'm, median', function (m, rs) { return med(rs.map(function (r) { return r.players[m].score_m; })).toFixed(1); }, 'opt'],
+      ['Ended by', '', function (m, rs) {
+        var c = {}; rs.forEach(function (r) { var e = r.players[m].end; c[e] = (c[e] || 0) + 1; });
+        return Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).map(function (k) { return c[k] + '× ' + (CAUSE[k] || k); }).join(' · ');
+      }, 'txt']
+    ],
+    lightcycle: [
+      ['Alive', 's, median', function (m, rs) { return med(rs.map(function (r) { var x = r.players[m]; return x.out_s == null ? r.duration_s : x.out_s; })).toFixed(1); }],
+      ['Boosts', 'total', function (m, rs) { return rs.reduce(function (s, r) { return s + r.players[m].boosts; }, 0); }],
+      ['Near misses', 'total', function (m, rs) { return rs.reduce(function (s, r) { return s + r.players[m].near_misses; }, 0); }, 'opt']
+    ],
+    stack: [
+      ['Alive', 's, median', function (m, rs) { return med(rs.map(function (r) { var x = r.players[m]; return x.out_s == null ? r.duration_s : x.out_s; })).toFixed(1); }],
+      ['Pieces', 'total', function (m, rs) { return rs.reduce(function (s, r) { return s + r.players[m].pieces; }, 0); }, 'opt'],
+      ['Lines', 'cleared', function (m, rs) { return rs.reduce(function (s, r) { return s + r.players[m].lines; }, 0); }]
+    ]
+  };
+  function gameTable(id, run, g, R) {
+    var t = document.getElementById(id), rs = R ? R.vendors[g].rounds : null, ex = rs ? EXTRA[g] : [];
     var rows = run.models.slice().sort(function (a, b) {
       var x = a.games[g], y = b.games[g];
       return (y.points - x.points) || (y.wins - x.wins) || ((y.survival_median_s || 0) - (x.survival_median_s || 0));
     });
     var head = '<thead><tr><th scope="col">Model</th><th scope="col">Pts</th><th scope="col">Wins<span class="u">/10</span></th>' +
-      (withSurvival ? '<th scope="col">Airborne<span class="u"> s</span><span class="sr-only"> (median)</span></th>' : '') +
-      '<th scope="col">P50<span class="u"> ms</span></th></tr></thead>';
+      ex.map(function (e) { return '<th scope="col"' + (e[3] ? ' class="' + e[3] + '"' : '') + '>' + e[0] + '<span class="u">' + e[1] + '</span></th>'; }).join('') +
+      '</tr></thead>';
     var body = rows.map(function (m, i) {
       var r = m.games[g];
       return '<tr' + (i === 0 ? ' class="lead"' : '') + ' style="--c:' + m.color + '"><td><i></i>' + esc(m.name).replace(/^Nagi-/, '<span class="pre">Nagi-</span>') + '</td>' +
         '<td class="pt">' + r.points + '</td><td>' + r.wins + '</td>' +
-        (withSurvival ? '<td>' + r.survival_median_s.toFixed(1) + '</td>' : '') +
-        '<td>' + Math.round(r.p50_ms) + '</td></tr>';
+        ex.map(function (e) { return '<td' + (e[3] ? ' class="' + e[3] + '"' : '') + '>' + esc(String(e[2](m.name, rs))) + '</td>'; }).join('') + '</tr>';
     }).join('');
-    t.insertAdjacentHTML('beforeend', head + '<tbody>' + body + '</tbody>');
+    t.innerHTML = '<caption class="sr-only">' + g + ' results</caption>' + head + '<tbody>' + body + '</tbody>';
   }
 
-  /* ---------- rotorwash survival chart ---------- */
+  /* ---------- rotorwash: seconds airborne per round, all four models ---------- */
   function survivalChart(run) {
     var fig = document.getElementById('survival-chart');
-    var e = run.models.filter(function (m) { return m.name === 'Nagi-ENORMOUS'; })[0];
-    var j = run.models.filter(function (m) { return m.name === 'Jev'; })[0];
-    var se = e.games.rotorwash.survival_s, sj = j.games.rotorwash.survival_s;
-    var maxV = Math.ceil(Math.max.apply(null, se.concat(sj)) / 20) * 20;
-    var W = Math.round(Math.max(300, Math.min(680, fig.clientWidth || 340))), H = W > 500 ? 190 : 150, L = 26, B = 18, T = 6, gw = (W - L) / se.length, bw = Math.min(16, gw * 0.3);
-    var s = '<svg viewBox="0 0 ' + W + ' ' + (H + B) + '" role="img" aria-label="Seconds airborne in each of 10 rounds. ENORMOUS: ' +
-      se.join(', ') + '. Jev: ' + sj.join(', ') + '.">';
+    var ms = run.models.slice().sort(function (a, b) { return b.games.rotorwash.survival_median_s - a.games.rotorwash.survival_median_s; });
+    var n = ms[0].games.rotorwash.survival_s.length;
+    var all = [].concat.apply([], ms.map(function (m) { return m.games.rotorwash.survival_s; }));
+    var maxV = Math.ceil(Math.max.apply(null, all) / 20) * 20;
+    var W = 640, H = 200, L = 28, B = 20, T = 8, gw = (W - L) / n, bw = Math.min(12, (gw - 8) / ms.length);
+    var s = '<svg viewBox="0 0 ' + W + ' ' + (H + B) + '" role="img" aria-label="Seconds airborne per round for all four models">';
     for (var v = 0; v <= maxV; v += 20) {
       var y = T + (H - T) * (1 - v / maxV);
-      s += '<line class="grid" x1="' + L + '" x2="' + W + '" y1="' + y + '" y2="' + y + '"/>' +
-        '<text class="ax" x="' + (L - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + v + '</text>';
+      s += '<line class="grid" x1="' + L + '" x2="' + W + '" y1="' + y + '" y2="' + y + '"/><text class="ax" x="' + (L - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + v + '</text>';
     }
-    se.forEach(function (_, i) {
-      var cx = L + gw * i + gw / 2;
-      [[se[i], e.color, -bw - 1], [sj[i], j.color, 1]].forEach(function (d) {
-        var h = (H - T) * d[0] / maxV;
-        s += '<rect x="' + (cx + d[2]).toFixed(1) + '" y="' + (H - h).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + h.toFixed(1) +
-          '" rx="2" fill="' + d[1] + '"><title>Round ' + (i + 1) + ': ' + d[0] + ' s</title></rect>';
+    for (var i = 0; i < n; i++) {
+      var x0 = L + gw * i + (gw - bw * ms.length) / 2;
+      ms.forEach(function (m, k) {
+        var d = m.games.rotorwash.survival_s[i], h = Math.max(2, (H - T) * d / maxV);
+        s += '<rect x="' + (x0 + k * bw).toFixed(1) + '" y="' + (H - h).toFixed(1) + '" width="' + (bw - 1.5).toFixed(1) + '" height="' + h.toFixed(1) + '" rx="1.5" fill="' + m.color + '"><title>' +
+          esc(m.name) + ', round ' + (i + 1) + ': ' + d + ' s</title></rect>';
       });
-      s += '<text class="ax" x="' + cx + '" y="' + (H + 13) + '" text-anchor="middle">' + (i + 1) + '</text>';
+      s += '<text class="ax" x="' + (L + gw * i + gw / 2) + '" y="' + (H + 15) + '" text-anchor="middle">R' + (i + 1) + '</text>';
+    }
+    // median lines
+    ms.forEach(function (m) {
+      var y = T + (H - T) * (1 - m.games.rotorwash.survival_median_s / maxV);
+      s += '<line x1="' + L + '" x2="' + W + '" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="' + m.color + '" stroke-width="1" stroke-dasharray="3 4" opacity=".7"/>';
     });
     s += '</svg>';
-    var cap = fig.querySelector('figcaption');
-    cap.innerHTML = 'Seconds airborne, rounds 1–10 <span class="k" style="--c:' + e.color + '">ENORMOUS</span><span class="k" style="--c:' + j.color + '">Jev</span>';
-    fig.insertAdjacentHTML('beforeend', s);
-  }
-
-  function endings(run) {
-    var names = {ceiling: 'ceiling', terrain: 'terrain', tail_strike: 'tail strike', rotor_stall: 'rotor stall'};
-    var parts = run.models.map(function (m) {
-      var c = m.games.rotorwash.crashes || {};
-      return esc(m.name) + ': ' + Object.keys(c).map(function (k) { return c[k] + ' ' + (names[k] || k); }).join(', ');
-    });
-    var others = run.models.filter(function (m) { return m.name === 'OpenJev' || m.name === 'Laya'; })
-      .map(function (m) { return m.games.rotorwash.survival_max_s; });
-    document.getElementById('rw-endings').innerHTML = 'How rounds ended. ' + parts.join(' · ') +
-      '. OpenJev and Laya never flew longer than ' + Math.max.apply(null, others).toFixed(1) + ' s. No model completed a sling-load delivery.';
+    fig.innerHTML = '<figcaption><span class="cap-t">Seconds airborne, per round</span>' + ms.map(function (m) {
+      return '<span class="k" style="--c:' + m.color + '">' + esc(m.name.replace(/^Nagi-/, '')) + ' <b>' + m.games.rotorwash.survival_median_s.toFixed(1) + ' s</b></span>';
+    }).join('') + '<span class="cap-n">dashed = median</span></figcaption>' + s;
   }
 
   function render(d) {
@@ -126,11 +136,11 @@
 
     board('board-vendors', V, d.scoring);
     board('board-nagi', N, d.scoring);
-    gameTable('t-rotorwash', V, 'rotorwash', true);
-    gameTable('t-lightcycle', V, 'lightcycle', false);
-    gameTable('t-stack', V, 'stack', false);
+    ['rotorwash', 'lightcycle', 'stack'].forEach(function (g) { gameTable('t-' + g, V, g, null); });
     survivalChart(V);
-    endings(V);
+    fetch('rounds.json').then(function (r) { return r.json(); }).then(function (R) {
+      ['rotorwash', 'lightcycle', 'stack'].forEach(function (g) { gameTable('t-' + g, V, g, R); });
+    }).catch(function () {});
 
     var asc = N.models.slice().sort(function (a, b) { return a.points - b.points; });
     var ne = find(N, 'Nagi-ENORMOUS');

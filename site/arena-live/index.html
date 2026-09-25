@@ -98,9 +98,9 @@
           <div class="callout"><b><span data-bind="rw.sw">9</span>/10</b><span>rounds ENORMOUS outlasted Jev (p = 0.02)</span></div>
           <div class="callout"><b>25–25</b><span>points tie with Jev. OpenJev and Laya crash in ~3 s</span></div>
         </div>
-        <figure class="chart" id="survival-chart"><figcaption>Seconds airborne per round</figcaption></figure>
-        <div class="table-wrap"><table class="mini" id="t-rotorwash"><caption class="sr-only">Rotorwash results</caption></table></div>
-        <p class="note" id="rw-endings"></p>
+        <div class="data-card"><figure class="chart" id="survival-chart"></figure>
+        <div class="table-wrap"><table class="mini" id="t-rotorwash"></table></div></div>
+        <p class="note">No model completed a sling-load delivery, so points follow distance flown.</p>
         <details class="spec" open><summary>Mechanism</summary><dl>
           <div><dt>Integrator</dt><dd>semi-implicit Euler, 240 Hz, float64, deterministic</dd></div>
           <div><dt>Decision</dt><dd>every 250 ms; controls zero-order held for 60 substeps</dd></div>
@@ -116,7 +116,7 @@
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_rotorwash">
-          <video controls muted playsinline preload="none" data-poster="media/vendors_rotorwash.jpg" aria-label="Rotorwash: all rounds">
+          <video controls muted playsinline preload="none" poster="media/vendors_rotorwash.jpg" aria-label="Rotorwash: all rounds">
             <source src="media/vendors_rotorwash.mp4" type="video/mp4">
           </video>
           <div class="ph" aria-hidden="true"><span>Rotorwash</span><small>video coming soon</small></div>
@@ -136,7 +136,7 @@
           <div class="callout"><b><span data-bind="lc.e.wins">8</span>/10</b><span>rounds won by ENORMOUS</span></div>
           <div class="callout"><b>10/10</b><span>rounds with more points than Jev (p = 0.002)</span></div>
         </div>
-        <div class="table-wrap"><table class="mini" id="t-lightcycle"><caption class="sr-only">Lightcycle Royale results</caption></table></div>
+        <div class="data-card"><div class="table-wrap"><table class="mini" id="t-lightcycle"></table></div></div>
         <details class="spec" open><summary>Mechanism</summary><dl>
           <div><dt>Board</dt><dd>48×48, obstacles exactly invariant under 90° rotation <code>R(x,y) = (47−y, x)</code>; spawn p at R<sup>p</sup></dd></div>
           <div><dt>Decision</dt><dd>every 125 ms, 6 options: {straight, left, right} × {normal, boost}</dd></div>
@@ -150,7 +150,7 @@
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_lightcycle">
-          <video controls muted playsinline preload="none" data-poster="media/vendors_lightcycle.jpg" aria-label="Lightcycle Royale: all rounds">
+          <video controls muted playsinline preload="none" poster="media/vendors_lightcycle.jpg" aria-label="Lightcycle Royale: all rounds">
             <source src="media/vendors_lightcycle.mp4" type="video/mp4">
           </video>
           <div class="ph" aria-hidden="true"><span>Lightcycle Royale</span><small>video coming soon</small></div>
@@ -170,7 +170,7 @@
           <div class="callout"><b><span data-bind="st.e.wins">10</span>/10</b><span>rounds won by ENORMOUS</span></div>
           <div class="callout"><b>10/10</b><span>rounds ahead of every rival (p = 0.002 each)</span></div>
         </div>
-        <div class="table-wrap"><table class="mini" id="t-stack"><caption class="sr-only">Stack Attack results</caption></table></div>
+        <div class="data-card"><div class="table-wrap"><table class="mini" id="t-stack"></table></div></div>
         <details class="spec" open><summary>Mechanism</summary><dl>
           <div><dt>Boards</dt><dd>4 × (10×20 + 2 hidden rows), Guideline SRS, one shared 7-bag sequence</dd></div>
           <div><dt>Decision</dt><dd>one piece per 250 ms, two stages: rotation (≤ 4 distinct) → column (≤ 10); hard drop, no hold, no spins</dd></div>
@@ -182,7 +182,7 @@
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_stack">
-          <video controls muted playsinline preload="none" data-poster="media/vendors_stack.jpg" aria-label="Stack Attack: all rounds">
+          <video controls muted playsinline preload="none" poster="media/vendors_stack.jpg" aria-label="Stack Attack: all rounds">
             <source src="media/vendors_stack.mp4" type="video/mp4">
           </video>
           <div class="ph" aria-hidden="true"><span>Stack Attack</span><small>video coming soon</small></div>
@@ -207,7 +207,7 @@
             <button type="button" aria-pressed="false" data-all class="all">All 3</button>
           </div>
           <div class="phone autoplay" data-media="nagi_rotorwash">
-            <video controls muted playsinline preload="none" data-poster="media/nagi_rotorwash.jpg" aria-label="Rotorwash: SMOL, BIG, HUGE and ENORMOUS">
+            <video controls muted playsinline preload="none" poster="media/nagi_rotorwash.jpg" aria-label="Rotorwash: SMOL, BIG, HUGE and ENORMOUS">
               <source src="media/nagi_rotorwash.mp4" type="video/mp4">
             </video>
             <div class="ph" aria-hidden="true"><span>Nagi lines</span><small>video coming soon</small></div>
