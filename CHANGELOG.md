@@ -1,3 +1,10 @@
+# 0.5.0 — Nagi-ENORMOUS research release (draft, unreleased)
+
+- Adds `load_enormous()` for the pinned Qwen3.8 27B (hybrid Gated-DeltaNet + gated full attention) + rank8 LoRA checkpoint, a fourth tier alongside Smol, Big and Huge.
+- Same one-forward letter-slot readout as HUGE: unmerged adapter, BF16, eager attention, chat template with thinking disabled. Explicit 4096-token cap, no silent truncation; inputs over 768 tokens are outside the trained range.
+- Needs an 80 GB GPU (~56 GB BF16 weights). Adapter revision is not pinned yet; `load_enormous()` refuses to run until it is.
+- `load_big()` and `load_huge()` are unchanged.
+
 # 0.4.0 — Nagi-HUGE research release
 
 - Adds `load_huge()` for the pinned Gemma4 12B + rank8 LoRA checkpoint, the third model tier alongside Smol and Big.
