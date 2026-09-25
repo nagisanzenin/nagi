@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nagi-decisions"
-version = "0.4.1"
+version = "0.5.0"
 description = "Nagi — typed decisions (choice/score/noul) with probability distributions"
 readme = "README.md"
 requires-python = ">=3.10"

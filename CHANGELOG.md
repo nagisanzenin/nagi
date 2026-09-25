@@ -1,8 +1,11 @@
-# 0.5.0 — Nagi-ENORMOUS research release (draft, unreleased)
+# 0.5.0 — Nagi-ENORMOUS research release (2026-09-25)
 
 - Adds `load_enormous()` for the pinned Qwen3.8 27B (hybrid Gated-DeltaNet + gated full attention) + rank8 LoRA checkpoint, a fourth tier alongside Smol, Big and Huge.
 - Same one-forward letter-slot readout as HUGE: unmerged adapter, BF16, eager attention, chat template with thinking disabled. Explicit 4096-token cap, no silent truncation; inputs over 768 tokens are outside the trained range.
-- Needs an 80 GB GPU (~56 GB BF16 weights). Adapter revision is not pinned yet; `load_enormous()` refuses to run until it is.
+- Needs an 80 GB GPU (~56 GB BF16 weights). `load_enormous()` refuses to run until `ENORMOUS_REVISION` is pinned to the published adapter commit.
+- Public four-system suite: 83.07% full operational / 82.76% common evidence; ENORMOUS−Jev1.13.0 −1.20 pp [−2.70, +0.31] (tied), ENORMOUS−HUGE +5.27 pp [+3.49, +7.14]. Option-order flip rate not measured.
+- Research release by owner decision: ENORMOUS failed its preregistered rule-reading gate (S_final +2.9 pp [−0.6, +6.5], counterfactual −0.3 pp). No generalization claim.
+- README now covers all four model lines (SMOL, BIG, HUGE, ENORMOUS) and the Arena Live real-time games.
 - `load_big()` and `load_huge()` are unchanged.
 
 # 0.4.0 — Nagi-HUGE research release

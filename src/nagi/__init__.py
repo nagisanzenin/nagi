@@ -5,4 +5,4 @@ from nagi.huge import NagiHuge, load_huge
 from nagi.enormous import NagiEnormous, load_enormous
 
 __all__ = ["Nagi", "NagiHuge", "NagiEnormous", "load_smol", "load_big", "load_huge", "load_enormous"]
-__version__ = "0.4.1"
+__version__ = "0.5.0"
