@@ -1,0 +1,739 @@
+{
+ "date": "2026-09-25",
+ "scoring": {
+  "points_per_round": [
+   3,
+   2,
+   1,
+   0
+  ],
+  "rounds_per_game": 10,
+  "max_points": 90,
+  "max_wins": 30
+ },
+ "games": [
+  {
+   "id": "rotorwash",
+   "name": "Rotorwash"
+  },
+  {
+   "id": "lightcycle",
+   "name": "Lightcycle Royale"
+  },
+  {
+   "id": "stack",
+   "name": "Stack Attack"
+  }
+ ],
+ "records": {
+  "file": "records_20260925.tar.gz",
+  "sha256": "dd122d17c0d7c45cf97e0e5a49cbc14d041ca43a0a0aa0c41a3898ec8a550000"
+ },
+ "sources": [
+  "bench/arena_live/results_vendors.json",
+  "bench/arena_live/results_nagi_lines.json"
+ ],
+ "vendors": {
+  "models": [
+   {
+    "key": "Nagi-ENORMOUS",
+    "name": "Nagi-ENORMOUS",
+    "sub": "27B \u00b7 open weights",
+    "color": "#19C3B0",
+    "points": 83,
+    "wins": 23,
+    "p50_ms_min": 96.4,
+    "p50_ms_max": 104.2,
+    "p50_ms_median_of_games": 99.8,
+    "replies": {
+     "ok": 6647,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 25,
+      "wins": 5,
+      "p50_ms": 99.8,
+      "p95_ms": 125.9,
+      "replies_ok": 4734,
+      "replies_bad": 0,
+      "survival_s": [
+       11.2,
+       19.5,
+       51.7,
+       48.3,
+       41.3,
+       30.3,
+       22.6,
+       84.6,
+       20.4,
+       63.4
+      ],
+      "survival_median_s": 35.8,
+      "survival_max_s": 84.6,
+      "score_median": 120.9,
+      "crashes": {
+       "ceiling": 4,
+       "terrain": 6
+      }
+     },
+     "lightcycle": {
+      "points": 28,
+      "wins": 8,
+      "p50_ms": 96.4,
+      "p95_ms": 114.4,
+      "replies_ok": 1396,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 30,
+      "wins": 10,
+      "p50_ms": 104.2,
+      "p95_ms": 124.1,
+      "replies_ok": 517,
+      "replies_bad": 0
+     }
+    }
+   },
+   {
+    "key": "Jev",
+    "name": "Jev",
+    "sub": "1.13.0 \u00b7 API (network included)",
+    "color": "#FF8A3D",
+    "points": 57,
+    "wins": 5,
+    "p50_ms_min": 185.2,
+    "p50_ms_max": 550.8,
+    "p50_ms_median_of_games": 273.6,
+    "replies": {
+     "ok": 3438,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 25,
+      "wins": 5,
+      "p50_ms": 273.6,
+      "p95_ms": 611.5,
+      "replies_ok": 1923,
+      "replies_bad": 0,
+      "survival_s": [
+       9.7,
+       14.1,
+       14.9,
+       20.0,
+       28.1,
+       11.5,
+       11.3,
+       11.8,
+       24.1,
+       13.5
+      ],
+      "survival_median_s": 13.8,
+      "survival_max_s": 28.1,
+      "score_median": 120.2,
+      "crashes": {
+       "ceiling": 10
+      }
+     },
+     "lightcycle": {
+      "points": 12,
+      "wins": 0,
+      "p50_ms": 185.2,
+      "p95_ms": 237.3,
+      "replies_ok": 998,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 20,
+      "wins": 0,
+      "p50_ms": 550.8,
+      "p95_ms": 678.5,
+      "replies_ok": 517,
+      "replies_bad": 0
+     }
+    }
+   },
+   {
+    "key": "SemIf",
+    "name": "OpenJev",
+    "sub": "SemIf \u00b7 Qwen3.5-4B",
+    "color": "#FFD23F",
+    "points": 20,
+    "wins": 2,
+    "p50_ms_min": 52.3,
+    "p50_ms_max": 59.8,
+    "p50_ms_median_of_games": 58.8,
+    "replies": {
+     "ok": 1806,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 0,
+      "wins": 0,
+      "p50_ms": 59.8,
+      "p95_ms": 70.0,
+      "replies_ok": 360,
+      "replies_bad": 0,
+      "survival_s": [
+       2.9,
+       2.9,
+       2.8,
+       3.0,
+       2.9,
+       3.0,
+       3.0,
+       3.0,
+       2.9,
+       2.9
+      ],
+      "survival_median_s": 2.9,
+      "survival_max_s": 3.0,
+      "score_median": 0.0,
+      "crashes": {
+       "terrain": 9,
+       "tail_strike": 1
+      }
+     },
+     "lightcycle": {
+      "points": 20,
+      "wins": 2,
+      "p50_ms": 52.3,
+      "p95_ms": 62.7,
+      "replies_ok": 1225,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 0,
+      "wins": 0,
+      "p50_ms": 58.8,
+      "p95_ms": 72.8,
+      "replies_ok": 221,
+      "replies_bad": 0
+     }
+    }
+   },
+   {
+    "key": "Laya",
+    "name": "Laya",
+    "sub": "Router v0.3.20",
+    "color": "#9B6BFF",
+    "points": 20,
+    "wins": 0,
+    "p50_ms_min": 18.9,
+    "p50_ms_max": 21.3,
+    "p50_ms_median_of_games": 21.2,
+    "replies": {
+     "ok": 1078,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 10,
+      "wins": 0,
+      "p50_ms": 21.3,
+      "p95_ms": 28.9,
+      "replies_ok": 360,
+      "replies_bad": 0,
+      "survival_s": [
+       2.9,
+       2.9,
+       2.8,
+       3.0,
+       2.9,
+       3.0,
+       3.0,
+       3.0,
+       2.9,
+       2.9
+      ],
+      "survival_median_s": 2.9,
+      "survival_max_s": 3.0,
+      "score_median": 0.4,
+      "crashes": {
+       "terrain": 9,
+       "tail_strike": 1
+      }
+     },
+     "lightcycle": {
+      "points": 0,
+      "wins": 0,
+      "p50_ms": 18.9,
+      "p95_ms": 27.9,
+      "replies_ok": 375,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 10,
+      "wins": 0,
+      "p50_ms": 21.2,
+      "p95_ms": 33.0,
+      "replies_ok": 343,
+      "replies_bad": 0
+     }
+    }
+   }
+  ],
+  "paired_vs_enormous": {
+   "rotorwash": {
+    "Jev": {
+     "points_w_l_t": [
+      5,
+      5,
+      0
+     ],
+     "points_sign_p": 1.0,
+     "survival_w_l": [
+      9,
+      1
+     ],
+     "survival_sign_p": 0.021484375
+    },
+    "OpenJev": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125,
+     "survival_w_l": [
+      10,
+      0
+     ],
+     "survival_sign_p": 0.001953125
+    },
+    "Laya": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125,
+     "survival_w_l": [
+      10,
+      0
+     ],
+     "survival_sign_p": 0.001953125
+    }
+   },
+   "lightcycle": {
+    "Jev": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    },
+    "OpenJev": {
+     "points_w_l_t": [
+      8,
+      2,
+      0
+     ],
+     "points_sign_p": 0.109375
+    },
+    "Laya": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    }
+   },
+   "stack": {
+    "Jev": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    },
+    "OpenJev": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    },
+    "Laya": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    }
+   }
+  },
+  "rounds": {
+   "rotorwash": 10,
+   "lightcycle": 10,
+   "stack": 10
+  }
+ },
+ "nagi_lines": {
+  "models": [
+   {
+    "key": "Nagi-ENORMOUS",
+    "name": "Nagi-ENORMOUS",
+    "sub": "27B \u00b7 open weights",
+    "color": "#B06BFF",
+    "points": 76,
+    "wins": 21,
+    "p50_ms_min": 95.4,
+    "p50_ms_max": 109.6,
+    "p50_ms_median_of_games": 103.7,
+    "replies": {
+     "ok": 6696,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 30,
+      "wins": 10,
+      "p50_ms": 109.6,
+      "p95_ms": 142.6,
+      "replies_ok": 4668,
+      "replies_bad": 0,
+      "survival_s": [
+       11.2,
+       19.5,
+       51.9,
+       42.5,
+       41.3,
+       30.3,
+       22.6,
+       84.6,
+       20.4,
+       63.4
+      ],
+      "survival_median_s": 35.8,
+      "survival_max_s": 84.6,
+      "score_median": 120.9,
+      "crashes": {
+       "ceiling": 4,
+       "terrain": 6
+      }
+     },
+     "lightcycle": {
+      "points": 21,
+      "wins": 5,
+      "p50_ms": 95.4,
+      "p95_ms": 116.5,
+      "replies_ok": 1348,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 25,
+      "wins": 6,
+      "p50_ms": 103.7,
+      "p95_ms": 120.4,
+      "replies_ok": 680,
+      "replies_bad": 0
+     }
+    }
+   },
+   {
+    "key": "Nagi-HUGE",
+    "name": "Nagi-HUGE",
+    "sub": "12B \u00b7 Gemma4 12B + rank-8 adapter",
+    "color": "#FF8A3D",
+    "points": 65,
+    "wins": 6,
+    "p50_ms_min": 84.7,
+    "p50_ms_max": 93.8,
+    "p50_ms_median_of_games": 89.0,
+    "replies": {
+     "ok": 2611,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 20,
+      "wins": 0,
+      "p50_ms": 89.0,
+      "p95_ms": 141.2,
+      "replies_ok": 507,
+      "replies_bad": 0,
+      "survival_s": [
+       4.0,
+       4.0,
+       4.0,
+       4.0,
+       4.0,
+       4.0,
+       4.0,
+       4.0,
+       4.0,
+       4.0
+      ],
+      "survival_median_s": 4.0,
+      "survival_max_s": 4.0,
+      "score_median": 20.9,
+      "crashes": {
+       "rotor_stall": 9,
+       "ceiling": 1
+      }
+     },
+     "lightcycle": {
+      "points": 21,
+      "wins": 2,
+      "p50_ms": 84.7,
+      "p95_ms": 103.6,
+      "replies_ok": 1415,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 24,
+      "wins": 4,
+      "p50_ms": 93.8,
+      "p95_ms": 108.4,
+      "replies_ok": 689,
+      "replies_bad": 0
+     }
+    }
+   },
+   {
+    "key": "Nagi-BIG",
+    "name": "Nagi-BIG",
+    "sub": "4B \u00b7 Qwen3.5-4B + adapter",
+    "color": "#19C3B0",
+    "points": 39,
+    "wins": 3,
+    "p50_ms_min": 59.0,
+    "p50_ms_max": 63.1,
+    "p50_ms_median_of_games": 59.8,
+    "replies": {
+     "ok": 2046,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 10,
+      "wins": 0,
+      "p50_ms": 63.1,
+      "p95_ms": 83.4,
+      "replies_ok": 381,
+      "replies_bad": 0,
+      "survival_s": [
+       3.1,
+       2.9,
+       2.8,
+       3.6,
+       2.9,
+       3.0,
+       3.0,
+       3.0,
+       3.6,
+       3.0
+      ],
+      "survival_median_s": 3.0,
+      "survival_max_s": 3.6,
+      "score_median": 0.0,
+      "crashes": {
+       "terrain": 9,
+       "tail_strike": 1
+      }
+     },
+     "lightcycle": {
+      "points": 18,
+      "wins": 3,
+      "p50_ms": 59.8,
+      "p95_ms": 69.6,
+      "replies_ok": 1279,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 11,
+      "wins": 0,
+      "p50_ms": 59.0,
+      "p95_ms": 71.4,
+      "replies_ok": 386,
+      "replies_bad": 0
+     }
+    }
+   },
+   {
+    "key": "Nagi-SMOL",
+    "name": "Nagi-SMOL",
+    "sub": "0.5B \u00b7 ModernBERT-large",
+    "color": "#7CDFFF",
+    "points": 7,
+    "wins": 0,
+    "p50_ms_min": 18.1,
+    "p50_ms_max": 18.3,
+    "p50_ms_median_of_games": 18.3,
+    "replies": {
+     "ok": 828,
+     "late": 0,
+     "invalid": 0,
+     "error": 0
+    },
+    "games": {
+     "rotorwash": {
+      "points": 7,
+      "wins": 0,
+      "p50_ms": 18.3,
+      "p95_ms": 24.9,
+      "replies_ok": 615,
+      "replies_bad": 0,
+      "survival_s": [
+       5.0,
+       5.0,
+       5.0,
+       4.5,
+       4.5,
+       5.0,
+       4.8,
+       4.7,
+       5.8,
+       5.1
+      ],
+      "survival_median_s": 5.0,
+      "survival_max_s": 5.8,
+      "score_median": 0.0,
+      "crashes": {
+       "tail_strike": 2,
+       "terrain": 8
+      }
+     },
+     "lightcycle": {
+      "points": 0,
+      "wins": 0,
+      "p50_ms": 18.3,
+      "p95_ms": 18.8,
+      "replies_ok": 40,
+      "replies_bad": 0
+     },
+     "stack": {
+      "points": 0,
+      "wins": 0,
+      "p50_ms": 18.1,
+      "p95_ms": 19.4,
+      "replies_ok": 173,
+      "replies_bad": 0
+     }
+    }
+   }
+  ],
+  "paired_vs_enormous": {
+   "rotorwash": {
+    "Nagi-SMOL": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125,
+     "survival_w_l": [
+      10,
+      0
+     ],
+     "survival_sign_p": 0.001953125
+    },
+    "Nagi-BIG": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125,
+     "survival_w_l": [
+      10,
+      0
+     ],
+     "survival_sign_p": 0.001953125
+    },
+    "Nagi-HUGE": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125,
+     "survival_w_l": [
+      10,
+      0
+     ],
+     "survival_sign_p": 0.001953125
+    }
+   },
+   "lightcycle": {
+    "Nagi-SMOL": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    },
+    "Nagi-BIG": {
+     "points_w_l_t": [
+      6,
+      4,
+      0
+     ],
+     "points_sign_p": 0.75390625
+    },
+    "Nagi-HUGE": {
+     "points_w_l_t": [
+      5,
+      5,
+      0
+     ],
+     "points_sign_p": 1.0
+    }
+   },
+   "stack": {
+    "Nagi-SMOL": {
+     "points_w_l_t": [
+      10,
+      0,
+      0
+     ],
+     "points_sign_p": 0.001953125
+    },
+    "Nagi-BIG": {
+     "points_w_l_t": [
+      9,
+      1,
+      0
+     ],
+     "points_sign_p": 0.021484375
+    },
+    "Nagi-HUGE": {
+     "points_w_l_t": [
+      6,
+      4,
+      0
+     ],
+     "points_sign_p": 0.75390625
+    }
+   }
+  },
+  "rounds": {
+   "rotorwash": 10,
+   "lightcycle": 10,
+   "stack": 10
+  }
+ }
+}

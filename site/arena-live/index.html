@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Arena Live: four AIs, three real-time games</title>
+<meta name="description" content="Nagi-ENORMOUS scored 83 of 90 points and won 23 of 30 rounds against Jev, OpenJev and Laya in three lockstep real-time games: a 240 Hz helicopter, four-player Tron and a Tetris battle. Every decision is logged and replayed.">
+<link rel="canonical" href="https://nagisanzenin.github.io/nagi/arena-live/">
+<meta name="theme-color" content="#070B12">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nagi">
+<meta property="og:url" content="https://nagisanzenin.github.io/nagi/arena-live/">
+<meta property="og:title" content="Four AIs. Three real-time games. One forward pass per decision.">
+<meta property="og:description" content="Nagi-ENORMOUS 83/90 points · 23 of 30 rounds won vs Jev, OpenJev and Laya. Lockstep play, pre-registered seeds, every decision replayed.">
+<meta property="og:image" content="https://nagisanzenin.github.io/nagi/arena-live/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Arena Live: Nagi-ENORMOUS 83/90 points and 23/30 round wins against Jev, OpenJev and Laya, next to a frame from the Rotorwash helicopter game.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Four AIs. Three real-time games. One forward pass per decision.">
+<meta name="twitter:description" content="Nagi-ENORMOUS 83/90 points · 23 of 30 rounds won vs Jev, OpenJev and Laya.">
+<meta name="twitter:image" content="https://nagisanzenin.github.io/nagi/arena-live/share.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070B12'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2319C3B0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="preload" href="data.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#results">Skip to results</a>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="mark" href="../" aria-label="Nagi research home"><span class="dot" aria-hidden="true"></span>nagi <span>/ arena live</span></a>
+    <nav aria-label="Sections">
+      <a href="#results">Results</a>
+      <a href="#rotorwash">Games</a>
+      <a href="#family">Nagi lines</a>
+      <a href="#fair">Fairness</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Arena Live · 25 Sep 2026</p>
+        <h1>Four AIs. Three real&#8209;time games. <span>One forward pass per decision.</span></h1>
+        <p class="sub"><strong>Nagi&#8209;ENORMOUS</strong> <strong class="hl"><span data-bind="v.e.points">83</span>/90 points</strong> · <strong data-bind="v.e.wins">23</strong> of 30 rounds won vs Jev, OpenJev and Laya</p>
+        <div class="ctas">
+          <a class="btn primary" href="#rotorwash">Watch the helicopter <span aria-hidden="true">→</span></a>
+          <a class="btn" href="#results">See results</a>
+          <a class="btn ghost" href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Get the model <span aria-hidden="true">↗</span></a>
+        </div>
+        <ul class="roster" aria-label="Players">
+          <li style="--c:#19C3B0">Nagi&#8209;ENORMOUS</li>
+          <li style="--c:#FF8A3D">Jev</li>
+          <li style="--c:#FFD23F">OpenJev</li>
+          <li style="--c:#9B6BFF">Laya</li>
+        </ul>
+      </div>
+      <figure class="hero-phone">
+        <div class="phone" data-media="teaser">
+          <video id="teaser" muted loop playsinline preload="metadata" poster="media/teaser.jpg" aria-label="20-second teaser: replays of the logged decisions from all three games">
+            <source src="media/teaser.mp4" type="video/mp4">
+          </video>
+          <div class="ph" aria-hidden="true"><span>Teaser</span><small>video coming soon</small></div>
+          <button class="motion-toggle" type="button" hidden aria-label="Pause teaser">❚❚</button>
+        </div>
+        <figcaption>Silent 20 s teaser. Exact replays of logged decisions.</figcaption>
+      </figure>
+    </div>
+    <div class="wrap">
+      <dl class="facts">
+        <div><dt>ENORMOUS points</dt><dd><b data-bind="v.e.points">83</b>/90</dd></div>
+        <div><dt>Round wins</dt><dd><b data-bind="v.e.wins">23</b>/30</dd></div>
+        <div><dt>Games × rounds</dt><dd><b>3</b>×10</dd></div>
+        <div><dt>Late, invalid or error replies</dt><dd><b>0</b></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section id="results" class="block">
+    <div class="wrap">
+      <p class="eyebrow">01 · Leaderboard</p>
+      <h2>Nagi&#8209;ENORMOUS vs other decision models</h2>
+      <p class="lede">Three games, 10 rounds each. Every round pays 3 / 2 / 1 / 0 points by finishing place, so the maximum is 90 points and 30 round wins.</p>
+      <ol class="board" id="board-vendors" aria-live="polite"><li class="loading">Loading results…</li></ol>
+      <p class="note">P50 is the median decision latency per game, shown as a range across the three games. Nagi ran on a local H100; Jev is a remote API, so its time includes the network. Play is lockstep, so <strong>latency is shown, not scored</strong>.</p>
+    </div>
+  </section>
+
+  <!-- GAMES -->
+  <section id="rotorwash" class="block game">
+    <div class="wrap game-grid">
+      <div class="game-copy">
+        <p class="eyebrow">02 · Game 1 · 240 Hz physics</p>
+        <h2>Rotorwash</h2>
+        <p class="lede">A 2D rigid-body helicopter simulated at 240 Hz, with vortex ring state, rotor RPM droop, ground effect, a swinging sling load and gusts. Ranked by distance flown.</p>
+        <div class="callouts">
+          <div class="callout"><b><span data-bind="rw.e.med">35.8</span> s <small>vs</small> <span data-bind="rw.j.med">13.8</span> s</b><span>median time airborne, ENORMOUS vs Jev</span></div>
+          <div class="callout"><b><span data-bind="rw.sw">9</span>/10</b><span>rounds ENORMOUS stayed up longer than Jev</span></div>
+          <div class="callout"><b>25–25</b><span>points tie with Jev. OpenJev and Laya crash in ~3 s</span></div>
+        </div>
+        <figure class="chart" id="survival-chart"><figcaption>Seconds airborne per round</figcaption></figure>
+        <div class="table-wrap"><table class="mini" id="t-rotorwash"><caption class="sr-only">Rotorwash results</caption></table></div>
+        <p class="note" id="rw-endings"></p>
+      </div>
+      <figure class="game-media">
+        <div class="phone" data-media="vendors_rotorwash">
+          <video controls playsinline preload="none" data-poster="media/vendors_rotorwash.jpg" aria-label="Rotorwash: all rounds, ENORMOUS vs Jev, OpenJev and Laya">
+            <source src="media/vendors_rotorwash.mp4" type="video/mp4">
+          </video>
+          <div class="ph" aria-hidden="true"><span>Rotorwash</span><small>video coming soon</small></div>
+        </div>
+        <figcaption>Full rounds, with sound.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="lightcycle" class="block game">
+    <div class="wrap game-grid">
+      <div class="game-copy">
+        <p class="eyebrow">03 · Game 2 · four-player arena</p>
+        <h2>Lightcycle Royale</h2>
+        <p class="lede">Four-player Tron with boost and a shrinking arena. Four cycles, one grid, simultaneous moves.</p>
+        <div class="callouts">
+          <div class="callout"><b><span data-bind="lc.e.wins">8</span>/10</b><span>rounds won by ENORMOUS</span></div>
+          <div class="callout"><b>10/10</b><span>rounds with more points than Jev (paired sign test p = 0.002)</span></div>
+        </div>
+        <div class="table-wrap"><table class="mini" id="t-lightcycle"><caption class="sr-only">Lightcycle Royale results</caption></table></div>
+      </div>
+      <figure class="game-media">
+        <div class="phone" data-media="vendors_lightcycle">
+          <video controls playsinline preload="none" data-poster="media/vendors_lightcycle.jpg" aria-label="Lightcycle Royale: all rounds, ENORMOUS vs Jev, OpenJev and Laya">
+            <source src="media/vendors_lightcycle.mp4" type="video/mp4">
+          </video>
+          <div class="ph" aria-hidden="true"><span>Lightcycle Royale</span><small>video coming soon</small></div>
+        </div>
+        <figcaption>Full rounds, with sound.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="stack" class="block game">
+    <div class="wrap game-grid">
+      <div class="game-copy">
+        <p class="eyebrow">04 · Game 3 · four-board battle</p>
+        <h2>Stack Attack</h2>
+        <p class="lede">A four-board Tetris battle with garbage lines. Four boards, one clock, simultaneous moves.</p>
+        <div class="callouts">
+          <div class="callout"><b><span data-bind="st.e.wins">10</span>/10</b><span>rounds won by ENORMOUS</span></div>
+          <div class="callout"><b>10/10</b><span>rounds with more points than each rival (p = 0.002 each)</span></div>
+        </div>
+        <div class="table-wrap"><table class="mini" id="t-stack"><caption class="sr-only">Stack Attack results</caption></table></div>
+      </div>
+      <figure class="game-media">
+        <div class="phone" data-media="vendors_stack">
+          <video controls playsinline preload="none" data-poster="media/vendors_stack.jpg" aria-label="Stack Attack: all rounds, ENORMOUS vs Jev, OpenJev and Laya">
+            <source src="media/vendors_stack.mp4" type="video/mp4">
+          </video>
+          <div class="ph" aria-hidden="true"><span>Stack Attack</span><small>video coming soon</small></div>
+        </div>
+        <figcaption>Full rounds, with sound.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="all" class="block allband">
+    <div class="wrap game-grid">
+      <div class="game-copy">
+        <p class="eyebrow">All three games</p>
+        <h2>Play the whole exhibition</h2>
+        <p class="lede">Press play once: Rotorwash, Lightcycle Royale and Stack Attack run back to back in one player. Tap a game to watch just that one. The same logged decisions as the tables above, replayed.</p>
+      </div>
+      <figure class="game-media player" data-prefix="vendors" data-mode="all" data-label="ENORMOUS vs Jev, OpenJev and Laya">
+          <div class="tabs" role="group" aria-label="Choose a game, or play all three">
+            <button type="button" aria-pressed="false" data-i="0">Rotorwash</button>
+            <button type="button" aria-pressed="false" data-i="1">Lightcycle</button>
+            <button type="button" aria-pressed="false" data-i="2">Stack</button>
+            <button type="button" aria-pressed="false" data-all class="all">All 3</button>
+          </div>
+          <div class="phone" data-media="vendors_rotorwash">
+            <video controls playsinline preload="none" data-poster="media/vendors_rotorwash.jpg" aria-label="Rotorwash: ENORMOUS vs Jev, OpenJev and Laya">
+              <source src="media/vendors_rotorwash.mp4" type="video/mp4">
+            </video>
+            <div class="ph" aria-hidden="true"><span>All three games</span><small>video coming soon</small></div>
+          </div>
+          <figcaption class="now" aria-live="polite"></figcaption>
+        </figure>
+    </div>
+  </section>
+
+  <!-- NAGI FAMILY -->
+  <section id="family" class="block">
+    <div class="wrap">
+      <p class="eyebrow">05 · Inside the Nagi family</p>
+      <h2>Four Nagi lines, same three games</h2>
+      <p class="lede" id="family-line">Score rises with the model line. The biggest gap is in closed-loop helicopter control.</p>
+      <div class="family-grid">
+        <ol class="board" id="board-nagi"><li class="loading">Loading results…</li></ol>
+        <figure class="game-media player" data-prefix="nagi" data-mode="one" data-label="SMOL, BIG, HUGE and ENORMOUS">
+          <div class="tabs" role="group" aria-label="Choose a game, or play all three">
+            <button type="button" aria-pressed="false" data-i="0">Rotorwash</button>
+            <button type="button" aria-pressed="false" data-i="1">Lightcycle</button>
+            <button type="button" aria-pressed="false" data-i="2">Stack</button>
+            <button type="button" aria-pressed="false" data-all class="all">All 3</button>
+          </div>
+          <div class="phone" data-media="nagi_rotorwash">
+            <video controls playsinline preload="none" data-poster="media/nagi_rotorwash.jpg" aria-label="Rotorwash: SMOL, BIG, HUGE and ENORMOUS">
+              <source src="media/nagi_rotorwash.mp4" type="video/mp4">
+            </video>
+            <div class="ph" aria-hidden="true"><span>Nagi lines</span><small>video coming soon</small></div>
+          </div>
+          <figcaption class="now" aria-live="polite"></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAIRNESS -->
+  <section id="fair" class="block">
+    <div class="wrap">
+      <p class="eyebrow">06 · How it's fair</p>
+      <h2>Same inputs. Same clock. Seeds fixed in advance.</h2>
+      <ul class="fair-grid">
+        <li><h3>Same observation, same options</h3><p>Every model receives the same text observation and chooses from the same closed option list.</p></li>
+        <li><h3>Simultaneous moves</h3><p>All players move at the same time. No model sees another's move before choosing its own.</p></li>
+        <li><h3>Lockstep clock</h3><p>The game waits for every model, so network or hardware speed cannot decide the outcome. Latency is shown, not scored.</p></li>
+        <li><h3>Seats rotate</h3><p>Starting positions rotate every round, so no model keeps a favourable seat.</p></li>
+        <li><h3>Pinned vendors, one attempt</h3><p>Jev, OpenJev and Laya run through their published, pinned adapters with one attempt per decision.</p></li>
+        <li><h3>Zero bad replies</h3><p>0 late, invalid or error replies for any model, across <span data-bind="replies">all</span> decisions.</p></li>
+        <li><h3>Videos are replays</h3><p>Every video is an exact replay of the logged decisions from the scored run.</p></li>
+        <li class="wide"><h3>Seeds pre-registered</h3><p>Seeds were fixed before play. The per-decision records archive is pinned by commit–reveal, sha256 of <code>records_20260925.tar.gz</code>:</p><code class="hash" data-bind="sha">dd122d17c0d7c45cf97e0e5a49cbc14d041ca43a0a0aa0c41a3898ec8a550000</code></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SCOPE -->
+  <section id="scope" class="block">
+    <div class="wrap">
+      <div class="scope">
+        <p class="eyebrow warn">07 · Read before quoting</p>
+        <h2>What this does and doesn't show</h2>
+        <ul>
+          <li>An <strong>exhibition</strong>: 10 rounds per game, played on one day, 2026-09-25. It is not a universal ranking.</li>
+          <li>Every model received the same <strong>shared sensor features</strong>.</li>
+          <li>The Nagi lines differ in <strong>backbone family and training recipe</strong>, not only in size.</li>
+          <li>Arena Live measures skill under fixed, known rules. On our internal test of reading brand-new rules, the 27B line does not yet improve over the 12B line — that is our next research target.</li>
+          <li>The game engines and raw records stay private for now so the arena can keep working as a sealed benchmark; the archive hash above pins them.</li>
+        </ul>
+        <p class="note">Per-game tables: <a href="https://github.com/nagisanzenin/nagi/tree/main/bench/arena_live">bench/arena_live ↗</a> · Page data: <a href="data.json">data.json</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="mark" href="../"><span class="dot" aria-hidden="true"></span>nagi</a>
+      <p>Arena Live exhibition, 25 September 2026.</p>
+    </div>
+    <ul>
+      <li><a href="https://github.com/nagisanzenin/nagi">Nagi SDK on GitHub ↗</a></li>
+      <li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS ↗</a></li>
+      <li><a href="https://huggingface.co/nagisanzeninz/Nagi-HUGE">Nagi-HUGE ↗</a></li>
+      <li><a href="https://huggingface.co/nagisanzeninz/nagi-big-v3">Nagi-BIG ↗</a></li>
+      <li><a href="https://huggingface.co/nagisanzeninz/nagi-smol-v0">Nagi-SMOL ↗</a></li>
+      <li><a href="../">Public-benchmark results</a></li>
+      <li><a href="https://github.com/nagisanzenin/nagi/issues">Questions or corrections ↗</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>
