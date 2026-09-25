@@ -4,7 +4,7 @@ Per-game tables and machine-readable results for both runs:
 - ENORMOUS vs vendors: `RESULTS_vendors.md` and `results_vendors.json`
 - the four Nagi lines: `RESULTS_nagi_lines.md` and `results_nagi_lines.json`
 
-The protocol and the total scores are in the [README](../../README.md#arena-live-our-primary-benchmark).
+The protocol and the total scores are in the [README](../../README.md#arena-live).
 
 **What is not published yet.** The game engines, the generators and the raw per-decision records are kept private for now. We use the arena as a sealed internal benchmark and don't want it trained against.
 
