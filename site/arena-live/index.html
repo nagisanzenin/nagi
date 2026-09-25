@@ -37,6 +37,7 @@
       <a href="#results">Results</a>
       <a href="#rotorwash">Games</a>
       <a href="#family">Nagi lines</a>
+      <a href="#fair">Fairness</a>
     </nav>
   </div>
 </header>
@@ -63,6 +64,14 @@
         </div>
       </figure>
     </div>
+    <div class="wrap">
+      <dl class="facts">
+        <div><dt>ENORMOUS points</dt><dd><b data-bind="v.e.points">83</b>/90</dd></div>
+        <div><dt>Round wins</dt><dd><b data-bind="v.e.wins">23</b>/30</dd></div>
+        <div><dt>Games × rounds</dt><dd><b>3</b>×10</dd></div>
+        <div><dt>Late, invalid or error replies</dt><dd><b>0</b></dd></div>
+      </dl>
+    </div>
   </section>
 
   <section id="results" class="block">
@@ -71,7 +80,7 @@
       <h2>3 games × 10 rounds</h2>
       <p class="lede">3 / 2 / 1 / 0 points per round by place. Max 90.</p>
       <ol class="board" id="board-vendors" aria-live="polite"><li class="loading">Loading results…</li></ol>
-      <p class="note">Lockstep play: latency is shown, not scored.</p>
+      <p class="note">P50 = median decision latency, range across games. Nagi ran on a local H100; Jev is a remote API (network included). Lockstep play: <strong>latency is shown, not scored</strong>.</p>
     </div>
   </section>
 
@@ -83,9 +92,12 @@
         <p class="lede">Fly a helicopter through gusts with a swinging sling load. Stay up, go far.</p>
         <div class="callouts">
           <div class="callout"><b><span data-bind="rw.e.med">35.8</span> s <small>vs</small> <span data-bind="rw.j.med">13.8</span> s</b><span>median airborne, ENORMOUS vs Jev</span></div>
-          <div class="callout"><b><span data-bind="rw.sw">9</span>/10</b><span>rounds ENORMOUS outlasted Jev</span></div>
+          <div class="callout"><b><span data-bind="rw.sw">9</span>/10</b><span>rounds ENORMOUS outlasted Jev (p = 0.02)</span></div>
+          <div class="callout"><b>25–25</b><span>points tie with Jev. OpenJev and Laya crash in ~3 s</span></div>
         </div>
         <figure class="chart" id="survival-chart"><figcaption>Seconds airborne per round</figcaption></figure>
+        <div class="table-wrap"><table class="mini" id="t-rotorwash"><caption class="sr-only">Rotorwash results</caption></table></div>
+        <p class="note" id="rw-endings"></p>
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_rotorwash">
@@ -107,7 +119,9 @@
         <p class="lede">Boost, cut off, survive. The arena shrinks.</p>
         <div class="callouts">
           <div class="callout"><b><span data-bind="lc.e.wins">8</span>/10</b><span>rounds won by ENORMOUS</span></div>
+          <div class="callout"><b>10/10</b><span>rounds with more points than Jev (p = 0.002)</span></div>
         </div>
+        <div class="table-wrap"><table class="mini" id="t-lightcycle"><caption class="sr-only">Lightcycle Royale results</caption></table></div>
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_lightcycle">
@@ -129,7 +143,9 @@
         <p class="lede">Tetris, four boards, garbage lines sent to rivals.</p>
         <div class="callouts">
           <div class="callout"><b><span data-bind="st.e.wins">10</span>/10</b><span>rounds won by ENORMOUS</span></div>
+          <div class="callout"><b>10/10</b><span>rounds ahead of every rival (p = 0.002 each)</span></div>
         </div>
+        <div class="table-wrap"><table class="mini" id="t-stack"><caption class="sr-only">Stack Attack results</caption></table></div>
       </div>
       <figure class="game-media">
         <div class="phone autoplay" data-media="vendors_stack">
@@ -174,10 +190,14 @@
       <p class="eyebrow">Fairness</p>
       <h2>Same inputs. Same clock.</h2>
       <ul class="fair-grid">
-        <li><h3>Same observation</h3><p>Same text, same options, simultaneous moves.</p></li>
-        <li><h3>Lockstep</h3><p>The game waits for every model. Network speed can't decide.</p></li>
-        <li><h3>Fixed seeds, rotating seats</h3><p>Seeds set in advance; seats rotate each round.</p></li>
-        <li><h3>Real replays</h3><p>Every video replays the logged decisions. 0 late or invalid replies.</p></li>
+        <li><h3>Same observation</h3><p>Same text, same closed option list for every model.</p></li>
+        <li><h3>Simultaneous moves</h3><p>No model sees another's move before choosing.</p></li>
+        <li><h3>Lockstep</h3><p>The game waits for every model. Network or hardware speed can't decide.</p></li>
+        <li><h3>Rotating seats</h3><p>Starting positions rotate every round.</p></li>
+        <li><h3>Pinned vendors</h3><p>Jev, OpenJev and Laya run their published, pinned versions. One attempt per decision.</p></li>
+        <li><h3>Zero bad replies</h3><p>0 late, invalid or error replies across <span data-bind="replies">all</span> decisions.</p></li>
+        <li><h3>Real replays</h3><p>Every video replays the logged decisions of the scored run.</p></li>
+        <li class="wide"><h3>Seeds pre-registered</h3><p>Seeds fixed before play. Records archive pinned by commit–reveal, sha256 of <code>records_20260925.tar.gz</code>:</p><code class="hash" data-bind="sha">dd122d17c0d7c45cf97e0e5a49cbc14d041ca43a0a0aa0c41a3898ec8a550000</code></li>
       </ul>
     </div>
   </section>
@@ -185,11 +205,14 @@
   <section id="scope" class="block">
     <div class="wrap">
       <div class="scope">
-        <p class="eyebrow warn">Scope</p>
+        <p class="eyebrow warn">Read before quoting</p>
+        <h2>What this does and doesn't show</h2>
         <ul>
-          <li>An exhibition: 10 rounds per game, not a universal ranking.</li>
-          <li>Measures skill under known rules, not reading brand-new rules.</li>
-          <li>Engines and records stay private to keep the benchmark sealed. sha256: <code class="hash" data-bind="sha">dd122d17c0d7c45cf97e0e5a49cbc14d041ca43a0a0aa0c41a3898ec8a550000</code></li>
+          <li>An <strong>exhibition</strong>: 10 rounds per game, one day (2026-09-25). Not a universal ranking.</li>
+          <li>Every model gets the same <strong>shared sensor features</strong>.</li>
+          <li>Nagi lines differ in <strong>backbone family and training recipe</strong>, not only size.</li>
+          <li>Measures skill under known rules. On reading brand-new rules, 27B does not yet beat 12B: our next target.</li>
+          <li>Engines and raw records stay private to keep the benchmark sealed; the hash above pins them.</li>
         </ul>
         <p class="note"><a href="https://github.com/nagisanzenin/nagi/tree/main/bench/arena_live">Full tables ↗</a> · <a href="data.json">data.json</a></p>
       </div>

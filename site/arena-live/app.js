@@ -15,6 +15,7 @@
   function bind(key, val) {
     document.querySelectorAll('[data-bind="' + key + '"]').forEach(function (n) { n.textContent = val; });
   }
+  function fmt(n) { return n.toLocaleString('en-US'); }
   function ms(m) {
     var a = Math.round(m.p50_ms_min), b = Math.round(m.p50_ms_max);
     return a === b ? a + ' ms' : a + '–' + b + ' ms';
@@ -43,6 +44,26 @@
         '<span>P50 <em>' + ms(m) + '</em></span></div>';
       ol.appendChild(li);
     });
+  }
+
+  /* ---------- per-game tables ---------- */
+  function gameTable(id, run, g, withSurvival) {
+    var t = document.getElementById(id);
+    var rows = run.models.slice().sort(function (a, b) {
+      var x = a.games[g], y = b.games[g];
+      return (y.points - x.points) || (y.wins - x.wins) || ((y.survival_median_s || 0) - (x.survival_median_s || 0));
+    });
+    var head = '<thead><tr><th scope="col">Model</th><th scope="col">Pts</th><th scope="col">Wins<span class="u">/10</span></th>' +
+      (withSurvival ? '<th scope="col">Airborne<span class="u"> s</span><span class="sr-only"> (median)</span></th>' : '') +
+      '<th scope="col">P50<span class="u"> ms</span></th></tr></thead>';
+    var body = rows.map(function (m, i) {
+      var r = m.games[g];
+      return '<tr' + (i === 0 ? ' class="lead"' : '') + ' style="--c:' + m.color + '"><td><i></i>' + esc(m.name).replace(/^Nagi-/, '<span class="pre">Nagi-</span>') + '</td>' +
+        '<td class="pt">' + r.points + '</td><td>' + r.wins + '</td>' +
+        (withSurvival ? '<td>' + r.survival_median_s.toFixed(1) + '</td>' : '') +
+        '<td>' + Math.round(r.p50_ms) + '</td></tr>';
+    }).join('');
+    t.insertAdjacentHTML('beforeend', head + '<tbody>' + body + '</tbody>');
   }
 
   /* ---------- rotorwash survival chart ---------- */
@@ -75,6 +96,18 @@
     fig.insertAdjacentHTML('beforeend', s);
   }
 
+  function endings(run) {
+    var names = {ceiling: 'ceiling', terrain: 'terrain', tail_strike: 'tail strike', rotor_stall: 'rotor stall'};
+    var parts = run.models.map(function (m) {
+      var c = m.games.rotorwash.crashes || {};
+      return esc(m.name) + ': ' + Object.keys(c).map(function (k) { return c[k] + ' ' + (names[k] || k); }).join(', ');
+    });
+    var others = run.models.filter(function (m) { return m.name === 'OpenJev' || m.name === 'Laya'; })
+      .map(function (m) { return m.games.rotorwash.survival_max_s; });
+    document.getElementById('rw-endings').innerHTML = 'How rounds ended. ' + parts.join(' · ') +
+      '. OpenJev and Laya never flew longer than ' + Math.max.apply(null, others).toFixed(1) + ' s. No model completed a sling-load delivery.';
+  }
+
   function render(d) {
     var V = d.vendors, N = d.nagi_lines;
     var find = function (run, n) { return run.models.filter(function (m) { return m.name === n; })[0]; };
@@ -87,9 +120,26 @@
     bind('st.e.wins', e.games.stack.wins);
     bind('sha', d.records.sha256);
 
+    var total = 0;
+    [V, N].forEach(function (run) { run.models.forEach(function (m) { total += m.replies.ok + m.replies.late + m.replies.invalid + m.replies.error; }); });
+    bind('replies', fmt(total));
+
     board('board-vendors', V, d.scoring);
     board('board-nagi', N, d.scoring);
+    gameTable('t-rotorwash', V, 'rotorwash', true);
+    gameTable('t-lightcycle', V, 'lightcycle', false);
+    gameTable('t-stack', V, 'stack', false);
     survivalChart(V);
+    endings(V);
+
+    var asc = N.models.slice().sort(function (a, b) { return a.points - b.points; });
+    var ne = find(N, 'Nagi-ENORMOUS');
+    var otherMed = N.models.filter(function (m) { return m !== ne; }).map(function (m) { return m.games.rotorwash.survival_median_s; });
+    document.getElementById('family-line').innerHTML = 'Score rises with the model line: ' +
+      asc.map(function (m) { return '<strong style="color:' + m.color + '">' + m.points + '</strong>'; }).join(' → ') +
+      ' points. The biggest gap is closed-loop helicopter control: ENORMOUS won ' + ne.games.rotorwash.wins +
+      ' of 10 Rotorwash rounds, median ' + ne.games.rotorwash.survival_median_s.toFixed(1) + ' s airborne vs ' +
+      Math.min.apply(null, otherMed).toFixed(1) + '–' + Math.max.apply(null, otherMed).toFixed(1) + ' s for the other lines.';
   }
 
   fetch('data.json').then(function (r) { return r.json(); }).then(render).catch(function () {
