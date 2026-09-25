@@ -1,6 +1,6 @@
 # Nagi
 
-![Nagi — Decisions with attitude.](docs/brand/nagi-banner.png)
+![Nagi — Typed decisions. Visible probabilities.](docs/brand/nagi-banner.png)
 
 **Typed decisions in one forward pass.** Nagi takes a state and a closed set of options and returns a choice with a probability distribution. Four open model lines: SMOL 0.5B · BIG 4B · HUGE 12B · ENORMOUS 27B.
 

@@ -2,7 +2,7 @@
 Brand guideline v3 — punk / manga-zine / developer culture.
 
 ## Concept
-“Decisions with attitude.” Một công cụ kỹ thuật có cá tính tự tin, hơi ngang, ngắn gọn. Thông điệp mô tả giữ nguyên: “Typed decisions. Visible probabilities.”
+Một công cụ kỹ thuật có cá tính tự tin, hơi ngang, ngắn gọn. Thông điệp mô tả giữ nguyên: “Typed decisions. Visible probabilities.”
 Nagi là model family System One tự host, trả quyết định có kiểu và phân phối xác suất trên tập lựa chọn đóng. Choice / Score / Noul là ba primitive; Nagi-Smol, Nagi-Big, Nagi-Huge và Nagi-Enormous dùng chung nhận diện.
 
 ## Mascot nhân vật
@@ -38,7 +38,7 @@ Error có nhãn và hướng xử lý, dùng pink + chữ; success dùng green +
 Motion 100–160 ms; chỉ microinteraction. Không glitch nhấp nháy; tôn trọng reduced-motion. Spacing 4/8/12/16/24/32/48/64/96; content width 1120 px; lề mobile 20 px.
 
 ## Voice
-Tự tin, sắc, ít chữ; không công kích người dùng. Campaign: “Decisions with attitude.” Mô tả kỹ thuật: “Typed decisions. Visible probabilities.” CTA: “Run Nagi”, “See the distribution”, “Read the docs”.
+Tự tin, sắc, ít chữ; không công kích người dùng. Thông điệp chính: “Typed decisions. Visible probabilities.” CTA: “Run Nagi”, “See the distribution”, “Read the docs”.
 Không quảng cáo xác suất là bảo đảm đúng; không đưa benchmark/tốc độ thiếu điều kiện đo. Không tự hứa khả năng sinh văn bản.
 
 ## Banner
