@@ -6,7 +6,7 @@
 <title>Arena Live: four AIs, three real-time games</title>
 <meta name="description" content="Nagi-ENORMOUS scored 83 of 90 points and won 23 of 30 rounds against Jev, OpenJev and Laya in three lockstep real-time games: a 240 Hz helicopter, four-player Tron and a Tetris battle. Every decision is logged and replayed.">
 <link rel="canonical" href="https://nagisanzenin.github.io/nagi/arena-live/">
-<meta name="theme-color" content="#070B12">
+<meta name="theme-color" content="#111114">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nagi">
@@ -21,40 +21,25 @@
 <meta name="twitter:title" content="Four AIs. Three real-time games.">
 <meta name="twitter:description" content="Nagi-ENORMOUS 83/90 points · 23 of 30 rounds won vs Jev, OpenJev and Laya.">
 <meta name="twitter:image" content="https://nagisanzenin.github.io/nagi/arena-live/share.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070B12'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2319C3B0'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+
 <link rel="preload" href="data.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="style.css">
-</head>
+<!--nx:head--><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="../assets/nagi.css"><!--/nx:head--></head>
 <body>
 
-<header class="bar">
-  <div class="wrap bar-in">
-    <a class="mark" href="../" aria-label="Nagi research home"><span class="dot" aria-hidden="true"></span>nagi <span>/ arena live</span></a>
-    <nav aria-label="Sections">
-      <a href="#results">Results</a>
-      <a href="#rotorwash">Games</a>
-      <a href="#family">Nagi lines</a>
-      <a href="#lab">Lab notes</a>
-      <a href="#fair">Fairness</a>
-      <a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a>
-    </nav>
-  </div>
-</header>
+<!--nx:header--><header class="nx-bar"><div class="nx-in"><div class="nx-row"><a class="nx-mark" href="../" aria-label="Nagi home"><img src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><span>System One</span></a><nav class="nx-nav" aria-label="Site"><a href="../">Benchmark</a><a href="../arena-live/" aria-current="page">Arena Live</a><a href="../arena/">Replays</a><a href="https://huggingface.co/nagisanzeninz">Models ↗</a><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></nav></div><nav class="nx-sub" aria-label="On this page"><b>On this page</b><a href="#results">Results</a><a href="#rotorwash">Games</a><a href="#family">Nagi lines</a><a href="#lab">Lab notes</a><a href="#fair">Fairness</a></nav></div></header><!--/nx:header-->
 
 <main id="top">
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Arena Live · 25 Sep 2026</p>
+        <span class="nx-tape hero-tape">Arena Live · 25 Sep 2026</span>
         <h1>Four AIs. Three real&#8209;time games.</h1>
         <p class="sub"><strong>Nagi&#8209;ENORMOUS</strong> <strong class="hl"><span data-bind="v.e.points">83</span>/90 points</strong> · won <strong data-bind="v.e.wins">23</strong> of 30 rounds vs Jev, OpenJev and Laya.</p>
         <div class="ctas">
           <a class="btn primary" href="#rotorwash">Watch <span aria-hidden="true">→</span></a>
-          <a class="btn ghost" href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Get the model <span aria-hidden="true">↗</span></a>
-          <a class="btn ghost" href="https://github.com/nagisanzenin/nagi">GitHub <span aria-hidden="true">↗</span></a>
+          <a class="btn" href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Get the model <span aria-hidden="true">↗</span></a>
+          <a class="btn" href="https://github.com/nagisanzenin/nagi">GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <figure class="hero-phone">
@@ -282,15 +267,7 @@
   </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap foot-in">
-    <a class="mark" href="../"><span class="dot" aria-hidden="true"></span>nagi</a>
-    <ul>
-      <li><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></li>
-      <li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS ↗</a></li>
-    </ul>
-  </div>
-</footer>
+<!--nx:footer--><footer class="nx-foot"><div class="nx-in"><div class="nx-brand"><img class="m" src="../assets/mascot-128.png" alt="Nagi mascot" width="72" height="72"><div><img class="w" src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div><div class="nx-cols"><div><h4>Benchmarks</h4><ul><li><a href="../arena-live/" aria-current="page">Arena Live</a></li><li><a href="../">Public decision benchmark</a></li></ul></div><div><h4>Replays</h4><ul><li><a href="../arena/">All replays</a></li><li><a href="../bomber-huge/">Real-time Bomber · HUGE</a></li><li><a href="../bomber-realtime/">Real-time Bomber · BIG</a></li><li><a href="../bomber/">Turn-based Bomber</a></li><li><a href="../snake/">Snake pilot</a></li></ul></div><div><h4>Models</h4><ul><li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS 27B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/Nagi-HUGE">Nagi-HUGE 12B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-big-v3">Nagi-BIG 4B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-smol-v0">Nagi-SMOL 0.5B ↗</a></li></ul></div><div><h4>Code</h4><ul><li><a href="https://github.com/nagisanzenin/nagi">Nagi SDK on GitHub ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/bench">Benchmark data ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/docs/brand">Brand kit ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/issues">Questions or corrections ↗</a></li></ul></div></div><p class="nx-legal">Self-hosted System One models. Probabilities are model outputs, not guarantees.</p></div></footer><!--/nx:footer-->
 <script src="app.js" defer></script>
 </body>
 </html>

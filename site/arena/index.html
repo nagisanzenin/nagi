@@ -1,2 +1,40 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=../bomber-huge/?v=autoloop-1"><link rel="canonical" href="https://nagisanzenin.github.io/nagi/bomber-huge/"><title>Nagi Arena — Latest real-time match</title><style>body{background:#08111d;color:#e8f3ff;font:18px/1.6 system-ui;max-width:760px;margin:80px auto;padding:24px}a{color:#44efd0}</style></head><body><h1>Nagi Arena</h1><p>Opening the latest arena: <a href="../bomber-huge/">Nagi-HUGE real-time Bomber</a>.</p><p>Previous versions: <a href="../bomber-realtime/">BIG real-time Bomber</a> · <a href="../bomber/">Turn-based Bomber</a> · <a href="../snake/">Snake</a>.</p></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nagi Replays: every arena, one place</title>
+<meta name="description" content="Every Nagi arena in one place: Arena Live (three real-time games), real-time Bomber with Nagi-HUGE and Nagi-BIG, turn-based Bomber and the Snake pilot. Real model calls, recorded and replayable.">
+<link rel="canonical" href="https://nagisanzenin.github.io/nagi/arena/">
+<style>
+.hub{max-width:var(--nagi-width);margin:0 auto;padding:0 var(--nagi-gut)}
+.hub-head{padding:56px 0 8px}
+.hub-head h1{font-size:clamp(44px,9vw,96px);margin:18px 0 16px}
+.hub-head p{max-width:60ch;color:var(--nagi-muted);font-size:17px;line-height:1.6;margin:0}
+.hub-list{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:12px}
+.hub-list a{display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:center;padding:22px 22px 20px;background:var(--nagi-panel);border:1px solid var(--nagi-line);border-left:4px solid var(--nagi-line);color:var(--nagi-bone);text-decoration:none;transition:border-color .12s,background .12s}
+.hub-list a:hover{border-left-color:var(--nagi-yellow);background:var(--nagi-panel2)}
+.hub-list .k{grid-column:1/-1;font:600 11px var(--nagi-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--nagi-dim)}
+.hub-list b{font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.hub-list span.d{grid-column:1;color:var(--nagi-muted);font-size:15px;line-height:1.5}
+.hub-list .go{grid-row:2/4;grid-column:2;font:600 13px var(--nagi-mono);color:var(--nagi-yellow);white-space:nowrap}
+.hub-list li.new a{border-left-color:var(--nagi-green)}
+.hub-list li.new .k{color:var(--nagi-green)}
+@media (max-width:560px){.hub-list a{grid-template-columns:1fr}.hub-list .go{grid-row:auto;grid-column:1}}
+@media (prefers-reduced-motion:reduce){.hub-list a{transition:none}}
+</style>
+<!--nx:head--><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="../assets/nagi.css"><!--/nx:head--></head><body>
+<!--nx:header--><header class="nx-bar"><div class="nx-in"><div class="nx-row"><a class="nx-mark" href="../" aria-label="Nagi home"><img src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><span>System One</span></a><nav class="nx-nav" aria-label="Site"><a href="../">Benchmark</a><a href="../arena-live/">Arena Live</a><a href="../arena/" aria-current="page">Replays</a><a href="https://huggingface.co/nagisanzeninz">Models ↗</a><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></nav></div></div></header><!--/nx:header-->
+<main class="hub">
+  <section class="hub-head">
+    <span class="nx-tape">Replays</span>
+    <h1 class="nx-display">Every arena.<br>Real calls.</h1>
+    <p>Every move in these replays came from a real model call, recorded and replayed. Newest first.</p>
+  </section>
+  <ol class="hub-list">
+    <li class="new"><a href="../arena-live/"><span class="k">Arena Live · 25 Sep 2026 · primary benchmark</span><b>Helicopter, Tron and Tetris, 10 rounds each</b><span class="d">Nagi-ENORMOUS vs Jev, OpenJev and Laya, plus the four Nagi lines. Lockstep, pre-registered seeds, full-round videos.</span><span class="go">Open →</span></a></li>
+    <li><a href="../bomber-huge/"><span class="k">Real-time Bomber · Nagi-HUGE 12B</span><b>Bombs don’t wait for AI</b><span class="d">Nagi-HUGE vs Jev, Laya and SemIf on a real-time clock. Recorded at 1×, every control decision logged.</span><span class="go">Open →</span></a></li>
+    <li><a href="../bomber-realtime/"><span class="k">Real-time Bomber · Nagi-BIG</span><b>The same real-time rules, BIG line</b><span class="d">Nagi-BIG vs Jev, Laya and SemIf. Recorded replay at 1×, auto-loop.</span><span class="go">Open →</span></a></li>
+    <li><a href="../bomber/"><span class="k">Turn-based Bomber</span><b>Four AIs. One arena.</b><span class="d">Nagi-BIG, Jev, Laya and SemIf. Simultaneous turns; time-compressed replay of recorded calls.</span><span class="go">Open →</span></a></li>
+    <li><a href="../snake/"><span class="k">Snake · pilot</span><b>Who lasts longest?</b><span class="d">Nagi-BIG, Jev, Laya and SemIf on three same-seed rounds with shrinking walls. You can play it yourself too.</span><span class="go">Open →</span></a></li>
+  </ol>
+</main>
+<!--nx:footer--><footer class="nx-foot"><div class="nx-in"><div class="nx-brand"><img class="m" src="../assets/mascot-128.png" alt="Nagi mascot" width="72" height="72"><div><img class="w" src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div><div class="nx-cols"><div><h4>Benchmarks</h4><ul><li><a href="../arena-live/">Arena Live</a></li><li><a href="../">Public decision benchmark</a></li></ul></div><div><h4>Replays</h4><ul><li><a href="../arena/" aria-current="page">All replays</a></li><li><a href="../bomber-huge/">Real-time Bomber · HUGE</a></li><li><a href="../bomber-realtime/">Real-time Bomber · BIG</a></li><li><a href="../bomber/">Turn-based Bomber</a></li><li><a href="../snake/">Snake pilot</a></li></ul></div><div><h4>Models</h4><ul><li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS 27B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/Nagi-HUGE">Nagi-HUGE 12B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-big-v3">Nagi-BIG 4B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-smol-v0">Nagi-SMOL 0.5B ↗</a></li></ul></div><div><h4>Code</h4><ul><li><a href="https://github.com/nagisanzenin/nagi">Nagi SDK on GitHub ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/bench">Benchmark data ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/docs/brand">Brand kit ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/issues">Questions or corrections ↗</a></li></ul></div></div><p class="nx-legal">Self-hosted System One models. Probabilities are model outputs, not guarantees.</p></div></footer><!--/nx:footer-->
+</body></html>

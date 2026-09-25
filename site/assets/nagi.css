@@ -1,0 +1,96 @@
+/* Nagi site chrome — brand v3 "Brat Intelligence" (docs/brand/brand-guideline.md, tokens.css).
+   Shared by every page under site/. Page CSS keeps its own layout; this file owns tokens,
+   type, header, footer, buttons, focus and the tape/stamp marks. */
+:root{
+  --nagi-ink:#111114;--nagi-bone:#F3EEDB;--nagi-yellow:#F5E642;--nagi-green:#36D988;--nagi-pink:#FF4D94;
+  --nagi-muted:#B7B4AC;--nagi-line:#48484D;--nagi-panel:#1C1C21;--nagi-panel2:#25252B;--nagi-dim:#8F8C85;
+  --nagi-radius:0px;
+  --nagi-body:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --nagi-display:Impact,Haettenschweiler,Anton,"Arial Narrow Bold","Arial Narrow",sans-serif;
+  --nagi-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --nagi-width:1120px;--nagi-gut:20px;
+  color-scheme:dark;
+}
+html{background:var(--nagi-ink)}
+body{background:var(--nagi-ink);color:var(--nagi-bone);font-family:var(--nagi-body)}
+:focus-visible{outline:2px solid var(--nagi-green)!important;outline-offset:3px!important}
+::selection{background:var(--nagi-yellow);color:var(--nagi-ink)}
+
+/* display type: condensed heavy, slight italic, uppercase (headlines only, never data) */
+.nx-display{font-family:var(--nagi-display);font-style:italic;font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+
+/* marks: one tape or stamp per layout */
+.nx-tape{display:inline-block;background:var(--nagi-yellow);color:var(--nagi-ink);font:700 12px/1 var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;transform:rotate(-3deg);box-shadow:3px 3px 0 var(--nagi-pink)}
+.nx-stamp{display:inline-block;border:2px solid var(--nagi-pink);color:var(--nagi-pink);font:700 11px/1 var(--nagi-mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;transform:rotate(4deg)}
+
+/* buttons */
+.nx-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border:1px solid var(--nagi-muted);border-radius:0;background:var(--nagi-ink);color:var(--nagi-bone);font:600 15px var(--nagi-body);text-decoration:none;transition:background .12s,color .12s}
+.nx-btn:hover{background:var(--nagi-bone);color:var(--nagi-ink)}
+.nx-btn.primary{background:var(--nagi-yellow);border-color:var(--nagi-yellow);color:var(--nagi-ink)}
+.nx-btn.primary:hover{background:var(--nagi-bone);border-color:var(--nagi-bone)}
+
+/* header */
+.nx-bar{position:sticky;top:0;z-index:50;background:var(--nagi-ink);border-bottom:2px solid var(--nagi-bone)}
+.nx-in{max-width:var(--nagi-width);margin:0 auto;padding:0 var(--nagi-gut)}
+.nx-row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px}
+.nx-mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--nagi-bone);flex:none}
+.nx-mark img{height:30px;width:auto;display:block}
+.nx-mark span{font:600 11px var(--nagi-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--nagi-muted)}
+.nx-nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);padding-right:18px}
+.nx-nav::-webkit-scrollbar{display:none}
+.nx-nav a{flex:none;color:var(--nagi-muted);text-decoration:none;font:600 12px/1 var(--nagi-mono);letter-spacing:.08em;text-transform:uppercase;padding:10px 10px;border-bottom:2px solid transparent}
+.nx-nav a:hover{color:var(--nagi-bone)}
+.nx-nav a[aria-current="page"]{color:var(--nagi-ink);background:var(--nagi-yellow)}
+.nx-sub{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--nagi-line);min-height:38px;align-items:center}
+.nx-sub::-webkit-scrollbar{display:none}
+.nx-sub b{flex:none;font:600 10.5px var(--nagi-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--nagi-dim)}
+.nx-sub a{flex:none;color:var(--nagi-muted);text-decoration:none;font-size:13px;font-weight:500}
+.nx-sub a:hover{color:var(--nagi-bone)}
+@media (max-width:640px){.nx-mark span{display:none}.nx-mark img{height:26px}.nx-sub{display:none}.nx-row{min-height:54px}}
+
+/* footer */
+.nx-foot{margin-top:96px;border-top:2px solid var(--nagi-bone);background:var(--nagi-ink);color:var(--nagi-bone)}
+.nx-foot .nx-in{display:grid;gap:36px;padding-top:40px;padding-bottom:40px}
+.nx-brand{display:flex;gap:16px;align-items:center}
+.nx-brand img.m{width:72px;height:72px;display:block;border:1px solid var(--nagi-line)}
+.nx-brand img.w{height:30px;width:auto;display:block}
+.nx-brand p{margin:8px 0 0;font:500 13px/1.5 var(--nagi-mono);color:var(--nagi-muted)}
+.nx-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 24px}
+.nx-cols h4{margin:0 0 10px;font:600 11px var(--nagi-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--nagi-dim)}
+.nx-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.nx-cols a{color:var(--nagi-bone);text-decoration:none;font-size:14px}
+.nx-cols a:hover{color:var(--nagi-yellow);text-decoration:underline;text-underline-offset:3px}
+.nx-cols a[aria-current="page"]{color:var(--nagi-yellow)}
+.nx-legal{border-top:1px solid var(--nagi-line);padding-top:18px;font:500 12px/1.6 var(--nagi-mono);color:var(--nagi-dim)}
+@media (min-width:860px){.nx-foot .nx-in{grid-template-columns:320px 1fr}.nx-cols{grid-template-columns:repeat(4,minmax(0,1fr))}.nx-legal{grid-column:1/-1}}
+
+/* legacy replay pages (snake, bomber*): re-skin the chrome, leave the game canvases alone */
+body.nx-legacy{max-width:none;margin:0;padding:0;background:var(--nagi-ink);color:var(--nagi-bone);font-family:var(--nagi-body)}
+body.nx-legacy>main,body.nx-legacy>.nx-page{max-width:var(--nagi-width);margin:0 auto;padding:8px var(--nagi-gut) 0}
+body.nx-legacy h1{font-family:var(--nagi-display);font-style:italic;font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:.95;font-size:clamp(40px,8vw,88px);margin:40px 0 14px}
+body.nx-legacy h2{font-family:var(--nagi-body);letter-spacing:-.01em}
+body.nx-legacy p{color:var(--nagi-muted)}
+body.nx-legacy a{color:var(--nagi-yellow)}
+body.nx-legacy button,body.nx-legacy select{border-radius:0!important;background:var(--nagi-panel)!important;border:1px solid var(--nagi-muted)!important;color:var(--nagi-bone)!important;min-height:44px;font-family:var(--nagi-body)}
+body.nx-legacy button:hover{background:var(--nagi-bone)!important;color:var(--nagi-ink)!important}
+body.nx-legacy .card{border-radius:0!important;background:var(--nagi-panel)!important}
+body.nx-legacy canvas{border-radius:0!important}
+body.nx-legacy .badge,body.nx-legacy .label{display:inline-block;border-radius:0!important;background:var(--nagi-yellow)!important;color:var(--nagi-ink)!important;font:700 12px/1 var(--nagi-mono)!important;letter-spacing:.1em;padding:7px 12px!important;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--nagi-pink)}
+body.nx-legacy .note{border-left-color:var(--nagi-green)!important;background:var(--nagi-panel)!important}
+body.nx-legacy input[type=range]{accent-color:var(--nagi-green)}
+body.nx-legacy td,body.nx-legacy th{border-bottom-color:var(--nagi-line)!important}
+body.nx-legacy .page-foot{margin:48px 0 0;padding:20px 0 0;border-top:1px solid var(--nagi-line);font-size:14px;line-height:1.8;color:var(--nagi-muted)}
+@media (prefers-reduced-motion:reduce){.nx-btn{transition:none}}
+/* legacy pages style bare header/footer/a elements; keep the shared chrome immune */
+body.nx-legacy header.nx-bar{display:block;margin:0;padding:0;font-family:var(--nagi-body);color:var(--nagi-bone)}
+body.nx-legacy footer.nx-foot{display:block;margin-top:96px;padding:0;line-height:1.5;border-top:2px solid var(--nagi-bone)}
+body.nx-legacy .nx-mark{color:var(--nagi-bone)}
+body.nx-legacy .nx-nav a{color:var(--nagi-muted)}
+body.nx-legacy .nx-nav a:hover{color:var(--nagi-bone)}
+body.nx-legacy .nx-nav a[aria-current="page"]{color:var(--nagi-ink)}
+body.nx-legacy .nx-foot a{color:var(--nagi-bone)}
+body.nx-legacy .nx-foot a:hover,body.nx-legacy .nx-foot a[aria-current="page"]{color:var(--nagi-yellow)}
+body.nx-legacy .nx-foot p{color:var(--nagi-muted)}
+body.nx-legacy .nx-legal{color:var(--nagi-dim)}
+.nx-brand{align-self:start}
+@media (max-width:640px){body.nx-legacy table{display:block;overflow-x:auto;white-space:nowrap}}
