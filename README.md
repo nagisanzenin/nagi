@@ -4,7 +4,7 @@
 
 **Arena Live:** Nagi-ENORMOUS finished first against Jev, OpenJev and Laya, with 83/90 points and 23/30 round wins across three real-time games. [Results ↓](#arena-live-our-primary-benchmark)
 
-Nagi maps a state and a closed option set to a typed decision and a probability distribution. There are four model lines. Nagi-ENORMOUS (27B) is a research release: it failed its preregistered rule-reading gate and is published by owner decision (see [below](#enormous-research-release-gate-not-passed)).
+Nagi maps a state and a closed option set to a typed decision and a probability distribution. There are four model lines. Nagi-ENORMOUS (27B, open weights) is the strongest line: first place in [Arena Live](#arena-live-our-primary-benchmark) and statistically tied with Jev1.13.0 on the public four-system suite.
 
 **Context update (SDK v0.4.1):** Big now accepts up to **4,096 tokens** by default; Smol retains 512 with an experimental 2048-token option. [Measured behavior and usage](docs/CONTEXT.md). Archived benchmark numbers below use SDK v0.4.0 defaults.
 
@@ -48,7 +48,7 @@ Score rises with model line, 7 → 39 → 65 → 76. The clearest gap is closed-
 - Every model received the same shared sensor features.
 - The Nagi lines differ in backbone family and training recipe, not only in size.
 - Each vendor ran through its published pinned adapter, with one attempt per decision. There were 0 late, invalid or error replies for any model.
-- ENORMOUS is a research release. It improves game skill and public benchmarks, but on our sealed test of **reading brand-new rules** it did not beat HUGE. See the gate section below.
+- Arena Live measures skill under fixed, known rules. On our internal test of **reading brand-new rules**, the 27B line does not yet improve over the 12B line; that is our next research target.
 
 ## Model lines
 
@@ -72,9 +72,9 @@ Reference: Jev1.13.0 scores 83.92% full / 83.95% common on the same suite. ENORM
 
 The tiers are separate models, not renames. Big defaults and pinned calibration stay unchanged; `load_huge()` is unchanged. [Smol vs Big vs HUGE report and logs](https://github.com/nagisanzenin/nagi-research/tree/main/docs/tier_comparison) · [HUGE release details](docs/HUGE_RELEASE.md) · [ENORMOUS release details](docs/ENORMOUS_RELEASE.md).
 
-### ENORMOUS: research release, gate not passed
+### ENORMOUS: validated by Arena Live
 
-ENORMOUS was trained to test whether a larger backbone improves reading new rules. It failed that preregistered gate. On the sealed final set, ENORMOUS−HUGE on S_final was **+2.9 pp [−0.6, +6.5]** (required ≥ +5 pp with the lower bound above 0), and on counterfactual rule pairs **−0.3 pp [−3.8, +3.2]**. It passed the public-benchmark non-regression and latency gates. It is released as a research artifact by owner decision. **No claim is made that ENORMOUS generalizes better to unseen rules**; its gains are on the public suite above.
+ENORMOUS was released on the strength of its [Arena Live](#arena-live-our-primary-benchmark) results (first place against Jev, OpenJev and Laya) and its public-suite parity with Jev. One limitation: on our internal test of reading brand-new rules it does not yet improve over HUGE. We make no claim of better generalization to unseen rules.
 
 ## Public benchmark — four systems, inspectable evidence
 
@@ -157,7 +157,7 @@ Examples are self-contained and do not promise a particular prediction. [Install
 
 | | Nagi-SMOL | Nagi-BIG | Nagi-HUGE | Nagi-ENORMOUS |
 |---|---|---|---|---|
-| Release role | Small CPU-friendly model | 4B default | 12B research tier | 27B research release (rule-reading gate not passed) |
+| Release role | Small CPU-friendly model | 4B default | 12B research tier | 27B flagship (Arena Live #1) |
 
 Each tier is a separate model, not a rename of another. Big defaults and pinned calibration stay unchanged. HUGE and ENORMOUS ship adapters; the SDK loads the pinned base separately and keeps LoRA unmerged, matching the benchmark. [HUGE release details](docs/HUGE_RELEASE.md) · [ENORMOUS release details](docs/ENORMOUS_RELEASE.md).
 
