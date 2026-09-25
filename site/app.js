@@ -1,12 +1,13 @@
 'use strict';
-const names={Nagi:'Nagi-HUGE',Laya:'Laya',SemIf:'OpenJev / SemIf',Jev:'Jev'};
-const order=['Nagi','Laya','SemIf','Jev'];
+const names={ENORMOUS:'Nagi-ENORMOUS',Nagi:'Nagi-HUGE',Laya:'Laya',SemIf:'OpenJev / SemIf',Jev:'Jev'};
+const order=['ENORMOUS','Jev','Nagi','SemIf','Laya'];
+const isNagi=k=>k==='ENORMOUS'||k==='Nagi';
 const pct=x=>x==null?'—':(100*x).toFixed(2)+'%';
 const signed=x=>(x>=0?'+':'')+(100*x).toFixed(2);
 let data,track='common';
 function render(){
  const body=document.querySelector('#leaderboard tbody');body.replaceChildren();
- for(const key of order){const m=data.models[key],tr=document.createElement('tr');if(key==='Nagi')tr.className='nagi';
+ for(const key of order){const m=data.models[key],tr=document.createElement('tr');if(isNagi(key))tr.className='nagi';
  const vals=[`<a href="${m.url}">${names[key]} ↗</a><span class="sub">${m.subtitle}</span>`,`<span class="accuracy">${pct(m[track].accuracy)}</span>`,`${m.valid.toLocaleString()} / 4,671`,m.untruncated==null?'Unknown (API)':`${m.untruncated.toLocaleString()} / 4,671`,m.flip_display];
  for(const val of vals){const td=document.createElement('td');td.innerHTML=val;tr.append(td);}body.append(tr);}
  document.querySelector('#track-note').textContent=track==='common'?'4,518 original examples · eight equal source weights · all local inputs intact · API failures retained':'4,671 original examples · native truncation retained · unsupported/invalid/missing outputs count wrong';
@@ -15,22 +16,24 @@ function render(){
 }
 function renderBars(){
  const source=document.querySelector('#source').value,chart=document.querySelector('#source-chart');chart.replaceChildren();
- for(const key of order){const value=source==='all'?data.models[key][track].accuracy:data.models[key][track].sources[source];const row=document.createElement('div');row.className='bar-row'+(key==='Nagi'?' nagi':'');const label=document.createElement('span');label.textContent=names[key];const base=document.createElement('div');base.className='bar-track';const bar=document.createElement('div');bar.className='bar-fill';bar.style.width=(100*(value||0))+'%';base.append(bar);const n=document.createElement('b');n.textContent=pct(value);row.append(label,base,n);chart.append(row);}
+ for(const key of order){const value=source==='all'?data.models[key][track].accuracy:data.models[key][track].sources[source];const row=document.createElement('div');row.className='bar-row'+(isNagi(key)?' nagi':'');const label=document.createElement('span');label.textContent=names[key];const base=document.createElement('div');base.className='bar-track';const bar=document.createElement('div');bar.className='bar-fill';bar.style.width=(100*(value||0))+'%';base.append(bar);const n=document.createElement('b');n.textContent=pct(value);row.append(label,base,n);chart.append(row);}
 }
 function latency(target,items){const el=document.querySelector(target);for(const [name,p50,p95] of items){const row=document.createElement('div');row.className='latency-row';const label=document.createElement('span');label.textContent=name;const value=document.createElement('span');value.textContent=`${Math.round(p50)} / ${Math.round(p95)} ms`;row.append(label,value);el.append(row);}const note=document.createElement('p');note.className='small';note.textContent='P50 / P95 · observed request distribution';el.append(note);}
 fetch('data.json').then(r=>{if(!r.ok)throw Error('Result artifact unavailable');return r.json();}).then(d=>{data=d;
  for(const source of data.sources){const option=document.createElement('option');option.value=source;option.textContent=source.toUpperCase();document.querySelector('#source').append(option);}
  document.querySelector('#source').addEventListener('change',renderBars);for(const b of document.querySelectorAll('[data-track]'))b.addEventListener('click',()=>{track=b.dataset.track;render();});
  document.querySelector('#finding p').textContent=data.finding;
- for(const c of data.comparisons){const row=document.createElement('div');row.className='interval';const h=document.createElement('strong');h.textContent=`Nagi − ${names[c.reference]}: ${signed(c.difference)} pp`;const ci=document.createElement('span');ci.textContent=`95% interval [${signed(c.ci95[0])}, ${signed(c.ci95[1])}]`;const adj=document.createElement('span');adj.textContent=`Adjusted interval [${signed(c.adjusted[0])}, ${signed(c.adjusted[1])}]`;row.append(h,ci,adj);document.querySelector('#intervals').append(row);}
- latency('#local-latency',order.filter(k=>k!=='Jev').map(k=>[names[k],data.models[k].latency.p50_ms,data.models[k].latency.p95_ms]));latency('#jev-latency',[['Jev API',data.models.Jev.latency.p50_ms,data.models.Jev.latency.p95_ms]]);
+ for(const c of data.comparisons){const row=document.createElement('div');row.className='interval';const h=document.createElement('strong');h.textContent=`${names[c.subject||'Nagi']} − ${names[c.reference]}: ${signed(c.difference)} pp`;const ci=document.createElement('span');ci.textContent=`95% interval [${signed(c.ci95[0])}, ${signed(c.ci95[1])}]`;const adj=document.createElement('span');adj.textContent=`Adjusted interval [${signed(c.adjusted[0])}, ${signed(c.adjusted[1])}]`;row.append(h,ci,adj);document.querySelector('#intervals').append(row);}
+ latency('#local-latency',order.filter(k=>k!=='Jev'&&data.models[k].latency).map(k=>[names[k],data.models[k].latency.p50_ms,data.models[k].latency.p95_ms]));
+ if(data.models.ENORMOUS&&data.models.ENORMOUS.latency_note){const p=document.createElement('p');p.className='small';p.textContent='Nagi-ENORMOUS: '+data.models.ENORMOUS.latency_note;document.querySelector('#local-latency').append(p);}latency('#jev-latency',[['Jev API',data.models.Jev.latency.p50_ms,data.models.Jev.latency.p95_ms]]);
  document.querySelector('#version').textContent='Evaluation: 24 September 2026 · data SHA '+data.analysis_sha256.slice(0,12);render();
 }).catch(error=>{document.querySelector('#track-note').textContent='The results could not be loaded. Please use the linked report and raw receipts.';console.error(error);});
 
 fetch('tiers.json').then(r=>{if(!r.ok)throw Error('Tier artifact unavailable');return r.json();}).then(d=>{
  const body=document.querySelector('#tiers-table tbody');
- const urls={Smol:'https://huggingface.co/nagisanzeninz/nagi-smol-v0',Big:'https://huggingface.co/nagisanzeninz/nagi-big-v3',HUGE:'https://huggingface.co/nagisanzeninz/Nagi-HUGE'};
- for(const m of d.models){const row=document.createElement('tr');const cell=document.createElement('td');const a=document.createElement('a');a.href=urls[m.name];a.textContent='Nagi-'+m.name;cell.append(a);row.append(cell);for(const value of [pct(m.full),pct(m.common),String(m.truncated_core)+' / '+String(m.unsupported_core),Math.round(m.latency.p50_ms)+' / '+Math.round(m.latency.p95_ms)+' ms']){const c=document.createElement('td');c.textContent=value;row.append(c);}body.append(row);}
- document.querySelector('#tiers-finding').textContent=d.finding;
+ const urls={Smol:'https://huggingface.co/nagisanzeninz/nagi-smol-v0',Big:'https://huggingface.co/nagisanzeninz/nagi-big-v3',HUGE:'https://huggingface.co/nagisanzeninz/Nagi-HUGE',ENORMOUS:'https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS'};
+ if(d.enormous)d.models=d.models.concat([d.enormous]);
+ for(const m of d.models){const row=document.createElement('tr');const cell=document.createElement('td');const a=document.createElement('a');a.href=urls[m.name];a.textContent='Nagi-'+m.name.toUpperCase();cell.append(a);row.append(cell);for(const value of [pct(m.full),m.common==null?'not in this analysis':pct(m.common),String(m.truncated_core)+' / '+String(m.unsupported_core),m.latency?Math.round(m.latency.p50_ms)+' / '+Math.round(m.latency.p95_ms)+' ms':'not measured']){const c=document.createElement('td');c.textContent=value;row.append(c);}body.append(row);}
+ document.querySelector('#tiers-finding').textContent=d.finding+(d.enormous_finding?' '+d.enormous_finding:'');
  document.querySelector('#tiers-scope').textContent='Full suite: 4,671 core rows; all-three untruncated: '+d.common_n.toLocaleString()+' rows, audited before Big/Smol predictions. Equal weight per source. Native precision: Smol FP32, Big/HUGE BF16. Loading excluded. Public training exposure is unknown; this is a diagnostic comparison, not a clean unseen selection gate.';
 }).catch(()=>{document.querySelector('#tiers-scope').textContent='Please see the linked tier report for results.';});
