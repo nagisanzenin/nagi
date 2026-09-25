@@ -2,9 +2,53 @@
 
 **Typed decisions in one forward pass. SMOL 0.5B · BIG 4B · HUGE 12B · ENORMOUS 27B.**
 
+**Arena Live:** Nagi-ENORMOUS finished first against Jev, OpenJev and Laya, with 83/90 points and 23/30 round wins across three real-time games. [Results ↓](#arena-live-our-primary-benchmark)
+
 Nagi maps a state and a closed option set to a typed decision and a probability distribution. There are four model lines. Nagi-ENORMOUS (27B) is a research release: it failed its preregistered rule-reading gate and is published by owner decision (see [below](#enormous-research-release-gate-not-passed)).
 
 **Context update (SDK v0.4.1):** Big now accepts up to **4,096 tokens** by default; Smol retains 512 with an experimental 2048-token option. [Measured behavior and usage](docs/CONTEXT.md). Archived benchmark numbers below use SDK v0.4.0 defaults.
+
+## Arena Live: our primary benchmark
+
+Static test suites don't show what a fast-decision model does in a closed loop. Arena Live is three real-time games with real rules and physics. Every model gets the same text observation and the same closed option list, all moves are simultaneous, seeds are pre-registered, seats rotate each round, and play is **lockstep**: the game waits for every decision, so network and hardware speed cannot decide the outcome, and latency is measured and shown separately. Each game has 10 rounds, scored 3/2/1/0 points per round, for a maximum of 90 points and 30 round wins.
+
+- **Rotorwash:** a 2D rigid-body helicopter simulated at 240 Hz, with vortex ring, rotor droop, ground effect, a swinging sling load and gusts. Ranked by distance.
+- **Lightcycle Royale:** four-player Tron with boost and a shrinking arena.
+- **Stack Attack:** four-board Tetris battle with garbage lines.
+
+### Nagi-ENORMOUS vs other decision models
+
+| # | Model | **Total points** | **Round wins** | Rotorwash / Lightcycle / Stack points | Decision latency P50 |
+|---|---|---:|---:|---|---:|
+| 1 | **Nagi-ENORMOUS 27B** | **83 / 90** | **23 / 30** | 25 / 28 / 30 | ~100 ms (local H100) |
+| 2 | Jev 1.13.0 | 57 / 90 | 5 / 30 | 25 / 12 / 20 | 185–551 ms (API) |
+| 3 | OpenJev (SemIf, Qwen3.5-4B) | 20 / 90 | 2 / 30 | 0 / 20 / 0 | ~55 ms |
+| 3 | Laya | 20 / 90 | 0 / 30 | 10 / 0 / 10 | ~20 ms |
+
+- **Stack Attack:** ENORMOUS won 10 of 10 rounds.
+- **Lightcycle Royale:** ENORMOUS won 8 of 10 rounds and beat Jev on points in all 10.
+- **Rotorwash:** ENORMOUS and Jev tie on points (25–25), but ENORMOUS stayed airborne longer in 9 of 10 rounds (median 35.8 s vs 13.8 s).
+- OpenJev and Laya crash within about 3 s.
+
+Paired sign test on per-round points, ENORMOUS vs Jev: p = 0.002 in Lightcycle and in Stack.
+
+### Four Nagi lines
+
+| # | Model | **Total points** | **Round wins** | Rotorwash / Lightcycle / Stack points | Decision latency P50 |
+|---|---|---:|---:|---|---:|
+| 1 | **Nagi-ENORMOUS 27B** | **76 / 90** | **21 / 30** | 30 / 21 / 25 | ~100 ms |
+| 2 | Nagi-HUGE 12B | 65 / 90 | 6 / 30 | 20 / 21 / 24 | ~90 ms |
+| 3 | Nagi-BIG 4B | 39 / 90 | 3 / 30 | 10 / 18 / 11 | ~60 ms |
+| 4 | Nagi-SMOL 0.5B | 7 / 90 | 0 / 30 | 7 / 0 / 0 | 18 ms |
+
+Score rises with model line, 7 → 39 → 65 → 76. The clearest gap is closed-loop control: in Rotorwash, ENORMOUS won 10 of 10 rounds, with a median survival of 35.8 s against at most 5 s for the other lines.
+
+**Scope, read before quoting:**
+- This is an exhibition with 10 rounds per game, run on one day (2026-09-25), so it is not a universal ranking.
+- Every model received the same shared sensor features.
+- The Nagi lines differ in backbone family and training recipe, not only in size.
+- Each vendor ran through its published pinned adapter, with one attempt per decision. There were 0 late, invalid or error replies for any model.
+- ENORMOUS is a research release. It improves game skill and public benchmarks, but on our sealed test of **reading brand-new rules** it did not beat HUGE. See the gate section below.
 
 ## Model lines
 
@@ -153,18 +197,7 @@ HUGE−Big v3: **+1.78 percentage points**, 95% interval **[+0.01, +3.70]** on t
 
 ENORMOUS is not part of this three-tier analysis; its comparison with HUGE (+5.27 pp [+3.49, +7.14]) uses the 4,518 common-evidence rows of the four-system benchmark above.
 
-## Arena Live (real-time games)
-
-**Arena Live (videos and page coming soon):** all four Nagi lines play the same real-time games.
-
-| Game | Nagi-ENORMOUS | Nagi-HUGE | Nagi-BIG | Nagi-SMOL |
-|---|---:|---:|---:|---:|
-| Lightcycle Royale | 21 points, 5 wins | 21 points, 2 wins | 18 points, 3 wins | 0 points |
-| Rotorwash helicopter | 10/10 wins, median survival 35.8 s | median survival 4.0 s | median survival 3.0 s | median survival 5.0 s |
-| Stack Attack | pending | pending | pending | pending |
-
-These are small deployment pilots of game play, not a general model ranking, and they do not test the rule-reading generalization that ENORMOUS failed. Raw records and engine source go in [bench/arena_live](bench/arena_live/README.md).
-
+## Earlier game pilots
 
 ### Watch the models play Snake
 

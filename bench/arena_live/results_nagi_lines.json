@@ -1,0 +1,298 @@
+{
+ "rotorwash": {
+  "rounds": 10,
+  "models": {
+   "Nagi-SMOL": {
+    "points": 7,
+    "wins": 0,
+    "p50_ms": 18.3,
+    "p95_ms": 24.9,
+    "status": {
+     "ok": 615
+    },
+    "survival_s": [
+     5.0,
+     5.0,
+     5.0,
+     4.5,
+     4.5,
+     5.0,
+     4.8,
+     4.7,
+     5.8,
+     5.1
+    ],
+    "survival_median_s": 5.0,
+    "survival_max_s": 5.8,
+    "score_median": 0.0,
+    "deliveries": 0,
+    "crashes": {
+     "tail_strike": 2,
+     "terrain": 8
+    }
+   },
+   "Nagi-BIG": {
+    "points": 10,
+    "wins": 0,
+    "p50_ms": 63.1,
+    "p95_ms": 83.4,
+    "status": {
+     "ok": 381
+    },
+    "survival_s": [
+     3.1,
+     2.9,
+     2.8,
+     3.6,
+     2.9,
+     3.0,
+     3.0,
+     3.0,
+     3.6,
+     3.0
+    ],
+    "survival_median_s": 3.0,
+    "survival_max_s": 3.6,
+    "score_median": 0.0,
+    "deliveries": 0,
+    "crashes": {
+     "terrain": 9,
+     "tail_strike": 1
+    }
+   },
+   "Nagi-HUGE": {
+    "points": 20,
+    "wins": 0,
+    "p50_ms": 89.0,
+    "p95_ms": 141.2,
+    "status": {
+     "ok": 507
+    },
+    "survival_s": [
+     4.0,
+     4.0,
+     4.0,
+     4.0,
+     4.0,
+     4.0,
+     4.0,
+     4.0,
+     4.0,
+     4.0
+    ],
+    "survival_median_s": 4.0,
+    "survival_max_s": 4.0,
+    "score_median": 20.9,
+    "deliveries": 0,
+    "crashes": {
+     "rotor_stall": 9,
+     "ceiling": 1
+    }
+   },
+   "Nagi-ENORMOUS": {
+    "points": 30,
+    "wins": 10,
+    "p50_ms": 109.6,
+    "p95_ms": 142.6,
+    "status": {
+     "ok": 4668
+    },
+    "survival_s": [
+     11.2,
+     19.5,
+     51.9,
+     42.5,
+     41.3,
+     30.3,
+     22.6,
+     84.6,
+     20.4,
+     63.4
+    ],
+    "survival_median_s": 35.8,
+    "survival_max_s": 84.6,
+    "score_median": 120.9,
+    "deliveries": 0,
+    "crashes": {
+     "ceiling": 4,
+     "terrain": 6
+    }
+   }
+  },
+  "paired_vs_Nagi-ENORMOUS": {
+   "Nagi-SMOL": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125,
+    "survival_w_l": [
+     10,
+     0
+    ],
+    "survival_sign_p": 0.001953125
+   },
+   "Nagi-BIG": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125,
+    "survival_w_l": [
+     10,
+     0
+    ],
+    "survival_sign_p": 0.001953125
+   },
+   "Nagi-HUGE": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125,
+    "survival_w_l": [
+     10,
+     0
+    ],
+    "survival_sign_p": 0.001953125
+   }
+  }
+ },
+ "lightcycle": {
+  "rounds": 10,
+  "models": {
+   "Nagi-SMOL": {
+    "points": 0,
+    "wins": 0,
+    "p50_ms": 18.3,
+    "p95_ms": 18.8,
+    "status": {
+     "ok": 40
+    }
+   },
+   "Nagi-BIG": {
+    "points": 18,
+    "wins": 3,
+    "p50_ms": 59.8,
+    "p95_ms": 69.6,
+    "status": {
+     "ok": 1279
+    }
+   },
+   "Nagi-HUGE": {
+    "points": 21,
+    "wins": 2,
+    "p50_ms": 84.7,
+    "p95_ms": 103.6,
+    "status": {
+     "ok": 1415
+    }
+   },
+   "Nagi-ENORMOUS": {
+    "points": 21,
+    "wins": 5,
+    "p50_ms": 95.4,
+    "p95_ms": 116.5,
+    "status": {
+     "ok": 1348
+    }
+   }
+  },
+  "paired_vs_Nagi-ENORMOUS": {
+   "Nagi-SMOL": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   },
+   "Nagi-BIG": {
+    "points_w_l_t": [
+     6,
+     4,
+     0
+    ],
+    "points_sign_p": 0.75390625
+   },
+   "Nagi-HUGE": {
+    "points_w_l_t": [
+     5,
+     5,
+     0
+    ],
+    "points_sign_p": 1.0
+   }
+  }
+ },
+ "stack": {
+  "rounds": 10,
+  "models": {
+   "Nagi-SMOL": {
+    "points": 0,
+    "wins": 0,
+    "p50_ms": 18.1,
+    "p95_ms": 19.4,
+    "status": {
+     "ok": 173
+    }
+   },
+   "Nagi-BIG": {
+    "points": 11,
+    "wins": 0,
+    "p50_ms": 59.0,
+    "p95_ms": 71.4,
+    "status": {
+     "ok": 386
+    }
+   },
+   "Nagi-HUGE": {
+    "points": 24,
+    "wins": 4,
+    "p50_ms": 93.8,
+    "p95_ms": 108.4,
+    "status": {
+     "ok": 689
+    }
+   },
+   "Nagi-ENORMOUS": {
+    "points": 25,
+    "wins": 6,
+    "p50_ms": 103.7,
+    "p95_ms": 120.4,
+    "status": {
+     "ok": 680
+    }
+   }
+  },
+  "paired_vs_Nagi-ENORMOUS": {
+   "Nagi-SMOL": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   },
+   "Nagi-BIG": {
+    "points_w_l_t": [
+     9,
+     1,
+     0
+    ],
+    "points_sign_p": 0.021484375
+   },
+   "Nagi-HUGE": {
+    "points_w_l_t": [
+     6,
+     4,
+     0
+    ],
+    "points_sign_p": 0.75390625
+   }
+  }
+ }
+}

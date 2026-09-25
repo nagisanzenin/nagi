@@ -1,11 +1,11 @@
-# Arena Live: raw records and engine source
+# Arena Live: results (2026-09-25)
 
-This folder will hold the evidence behind [Arena Live](https://nagisanzenin.github.io/nagi/arena-live/), where Nagi-SMOL, BIG, HUGE and ENORMOUS play the same real-time games (Lightcycle Royale, Rotorwash helicopter, Stack Attack).
+Per-game tables and machine-readable results for both runs:
+- ENORMOUS vs vendors: `RESULTS_vendors.md` and `results_vendors.json`
+- the four Nagi lines: `RESULTS_nagi_lines.md` and `results_nagi_lines.json`
 
-Planned contents, added in a later step:
+The protocol and the total scores are in the [README](../../README.md#arena-live-our-primary-benchmark).
 
-- raw per-round records: every request, model output, action and timing;
-- the game engine source used to run and replay the rounds;
-- the protocol for each game (seeds, starts, scoring).
+**What is not published yet.** The game engines, the generators and the raw per-decision records are kept private for now. We use the arena as a sealed internal benchmark and don't want it trained against.
 
-Until those files land, the summary numbers in the top-level README are not yet backed by files in this folder. These are small deployment pilots of game play, not a general model ranking.
+**How the records are pinned.** They are frozen with this sha256 (commit–reveal): the archive `records_20260925.tar.gz` has sha256 `dd122d17c0d7c45cf97e0e5a49cbc14d041ca43a0a0aa0c41a3898ec8a550000`. The seeds used in these runs are considered spent. Future evaluations use fresh pre-committed seeds and held-out rule variants.

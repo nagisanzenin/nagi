@@ -1,0 +1,297 @@
+{
+ "rotorwash": {
+  "rounds": 10,
+  "models": {
+   "Nagi-ENORMOUS": {
+    "points": 25,
+    "wins": 5,
+    "p50_ms": 99.8,
+    "p95_ms": 125.9,
+    "status": {
+     "ok": 4734
+    },
+    "survival_s": [
+     11.2,
+     19.5,
+     51.7,
+     48.3,
+     41.3,
+     30.3,
+     22.6,
+     84.6,
+     20.4,
+     63.4
+    ],
+    "survival_median_s": 35.8,
+    "survival_max_s": 84.6,
+    "score_median": 120.9,
+    "deliveries": 0,
+    "crashes": {
+     "ceiling": 4,
+     "terrain": 6
+    }
+   },
+   "Jev": {
+    "points": 25,
+    "wins": 5,
+    "p50_ms": 273.6,
+    "p95_ms": 611.5,
+    "status": {
+     "ok": 1923
+    },
+    "survival_s": [
+     9.7,
+     14.1,
+     14.9,
+     20.0,
+     28.1,
+     11.5,
+     11.3,
+     11.8,
+     24.1,
+     13.5
+    ],
+    "survival_median_s": 13.8,
+    "survival_max_s": 28.1,
+    "score_median": 120.2,
+    "deliveries": 0,
+    "crashes": {
+     "ceiling": 10
+    }
+   },
+   "SemIf": {
+    "points": 0,
+    "wins": 0,
+    "p50_ms": 59.8,
+    "p95_ms": 70.0,
+    "status": {
+     "ok": 360
+    },
+    "survival_s": [
+     2.9,
+     2.9,
+     2.8,
+     3.0,
+     2.9,
+     3.0,
+     3.0,
+     3.0,
+     2.9,
+     2.9
+    ],
+    "survival_median_s": 2.9,
+    "survival_max_s": 3.0,
+    "score_median": 0.0,
+    "deliveries": 0,
+    "crashes": {
+     "terrain": 9,
+     "tail_strike": 1
+    }
+   },
+   "Laya": {
+    "points": 10,
+    "wins": 0,
+    "p50_ms": 21.3,
+    "p95_ms": 28.9,
+    "status": {
+     "ok": 360
+    },
+    "survival_s": [
+     2.9,
+     2.9,
+     2.8,
+     3.0,
+     2.9,
+     3.0,
+     3.0,
+     3.0,
+     2.9,
+     2.9
+    ],
+    "survival_median_s": 2.9,
+    "survival_max_s": 3.0,
+    "score_median": 0.4,
+    "deliveries": 0,
+    "crashes": {
+     "terrain": 9,
+     "tail_strike": 1
+    }
+   }
+  },
+  "paired_vs_Nagi-ENORMOUS": {
+   "Jev": {
+    "points_w_l_t": [
+     5,
+     5,
+     0
+    ],
+    "points_sign_p": 1.0,
+    "survival_w_l": [
+     9,
+     1
+    ],
+    "survival_sign_p": 0.021484375
+   },
+   "SemIf": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125,
+    "survival_w_l": [
+     10,
+     0
+    ],
+    "survival_sign_p": 0.001953125
+   },
+   "Laya": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125,
+    "survival_w_l": [
+     10,
+     0
+    ],
+    "survival_sign_p": 0.001953125
+   }
+  }
+ },
+ "lightcycle": {
+  "rounds": 10,
+  "models": {
+   "Nagi-ENORMOUS": {
+    "points": 28,
+    "wins": 8,
+    "p50_ms": 96.4,
+    "p95_ms": 114.4,
+    "status": {
+     "ok": 1396
+    }
+   },
+   "Jev": {
+    "points": 12,
+    "wins": 0,
+    "p50_ms": 185.2,
+    "p95_ms": 237.3,
+    "status": {
+     "ok": 998
+    }
+   },
+   "SemIf": {
+    "points": 20,
+    "wins": 2,
+    "p50_ms": 52.3,
+    "p95_ms": 62.7,
+    "status": {
+     "ok": 1225
+    }
+   },
+   "Laya": {
+    "points": 0,
+    "wins": 0,
+    "p50_ms": 18.9,
+    "p95_ms": 27.9,
+    "status": {
+     "ok": 375
+    }
+   }
+  },
+  "paired_vs_Nagi-ENORMOUS": {
+   "Jev": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   },
+   "SemIf": {
+    "points_w_l_t": [
+     8,
+     2,
+     0
+    ],
+    "points_sign_p": 0.109375
+   },
+   "Laya": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   }
+  }
+ },
+ "stack": {
+  "rounds": 10,
+  "models": {
+   "Nagi-ENORMOUS": {
+    "points": 30,
+    "wins": 10,
+    "p50_ms": 104.2,
+    "p95_ms": 124.1,
+    "status": {
+     "ok": 517
+    }
+   },
+   "Jev": {
+    "points": 20,
+    "wins": 0,
+    "p50_ms": 550.8,
+    "p95_ms": 678.5,
+    "status": {
+     "ok": 517
+    }
+   },
+   "SemIf": {
+    "points": 0,
+    "wins": 0,
+    "p50_ms": 58.8,
+    "p95_ms": 72.8,
+    "status": {
+     "ok": 221
+    }
+   },
+   "Laya": {
+    "points": 10,
+    "wins": 0,
+    "p50_ms": 21.2,
+    "p95_ms": 33.0,
+    "status": {
+     "ok": 343
+    }
+   }
+  },
+  "paired_vs_Nagi-ENORMOUS": {
+   "Jev": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   },
+   "SemIf": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   },
+   "Laya": {
+    "points_w_l_t": [
+     10,
+     0,
+     0
+    ],
+    "points_sign_p": 0.001953125
+   }
+  }
+ }
+}
