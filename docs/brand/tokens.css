@@ -1,0 +1,13 @@
+:root {
+ --nagi-ink: #111114;
+ --nagi-bone: #F3EEDB;
+ --nagi-yellow: #F5E642;
+ --nagi-green: #36D988;
+ --nagi-pink: #FF4D94;
+ --nagi-muted: #B7B4AC;
+ --nagi-line: #48484D;
+ --nagi-radius: 0px;
+ --nagi-body: Inter, system-ui, sans-serif;
+ --nagi-display: Impact, "Arial Narrow", sans-serif;
+ --nagi-mono: "IBM Plex Mono", ui-monospace, monospace;
+}

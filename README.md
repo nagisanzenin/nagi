@@ -1,5 +1,7 @@
 # Nagi
 
+![Nagi — Decisions with attitude.](docs/brand/nagi-banner.png)
+
 **Typed decisions in one forward pass. SMOL 0.5B · BIG 4B · HUGE 12B · ENORMOUS 27B.**
 
 **Arena Live:** Nagi-ENORMOUS finished first against Jev, OpenJev and Laya, with 83/90 points and 23/30 round wins across three real-time games. [Results ↓](#arena-live-our-primary-benchmark)
@@ -210,3 +212,9 @@ ENORMOUS is not part of this three-tier analysis; its comparison with HUGE (+5.2
 [Real-time Bomber Arena](https://nagisanzenin.github.io/nagi/bomber-realtime/) — the world keeps moving while models think. Nagi-BIG won 4/4 rounds in this 285-request deployment pilot. Three local models shared one FIFO H100 queue; Jev used its remote API. Full map plus shared safety hints, four starting rotations over two layouts, and every request/action published. This is not a general model ranking. [Protocol, timing audit and replay evidence](https://github.com/nagisanzenin/nagi-research/tree/main/docs/bomber_realtime).
 
 [HUGE replacement — real-time Bomber](https://nagisanzenin.github.io/nagi/bomber-huge/): identical rules, Nagi-HUGE replaces BIG. HUGE won 2/4 rounds; Jev and Laya won one each. Reply P50: HUGE 129ms vs prior BIG 165ms, while Jev also improved from 328ms to 210ms across runs. These deployment pilots do not isolate model quality or prove a size effect. [Comparison and raw evidence](https://github.com/nagisanzenin/nagi-research/blob/main/docs/bomber_huge/REPORT.md).
+
+## Brand identity
+
+Nagi’s character identity, banner, wordmark, and design tokens live in
+[`docs/brand`](docs/brand). See the [brand guidelines](docs/brand/brand-guideline.md)
+for consistent use across product interfaces and marketing.
