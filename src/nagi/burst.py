@@ -19,10 +19,11 @@ Control order matters: in research, rotating the slot order by one changed the j
 
 1. Canonical control order (``canonical_control_order``), always applied: an explicit ``control_order``; else the
    order of the state's ``CONTROLS (set together each tick): a = ...; b = ...`` line (the trained layout); else the
-   caller's question order. The same request therefore always renders the same prompt, whatever the dict order.
+   question ids sorted by code point. The prompt is therefore a function of the control SET: listing the same
+   controls in another dict order renders the same prompt (the order resolution gated for the 0.6.0 release).
 2. Permutation averaging (``permutations="cyclic"`` or ``"all"``): EXPERIMENTAL and off by default. It averages each
-   control's probabilities over re-rendered slot orders and costs one forward per order. Whether it becomes the
-   default is decided by the release's frozen selection rule, not here.
+   control's probabilities over re-rendered slot orders and costs one forward per order. It is not the released
+   configuration: the permutation-averaged variant failed its latency and order-residual release gates.
 """
 from __future__ import annotations
 
@@ -61,10 +62,11 @@ def controls_line_order(state) -> list[str] | None:
 
 
 def canonical_control_order(state, questions: dict, control_order: Sequence[str] | None = None) -> tuple[list[str], str]:
-    """(slot order, source). Source is "explicit", "controls_line" or "caller".
+    """(slot order, source). Source is "explicit", "controls_line" or "sorted".
 
     An explicit ``control_order`` must be a permutation of the question ids (ValueError otherwise). A CONTROLS line
-    is used only when it names exactly the question ids; otherwise the caller's order is kept."""
+    is used only when it names exactly the question ids; otherwise the ids are sorted by code point, never taken in
+    the caller's dict order, so the rendered prompt does not depend on how the caller listed the controls."""
     qids = list(questions)
     if control_order is not None:
         order = list(control_order)
@@ -74,7 +76,7 @@ def canonical_control_order(state, questions: dict, control_order: Sequence[str]
     line = controls_line_order(state)
     if line is not None and len(line) == len(set(line)) and sorted(line) == sorted(qids):
         return line, "controls_line"
-    return qids, "caller"
+    return sorted(qids), "sorted"
 
 
 def permutation_orders(order: Sequence[str], mode: str | None) -> list[list[str]]:

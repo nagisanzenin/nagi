@@ -1,6 +1,7 @@
 """Burst (one-forward multi-control) readout: prompt parity with the trained format, canonical control order,
 permutation averaging, deprecated Chord aliases, and the loader pins. CPU only, tiny fake model, no downloads."""
 import hashlib
+import itertools
 import sys
 import types
 import warnings
@@ -20,7 +21,7 @@ Q = {'upper_gate': {'type': 'choice', 'instructions': '', 'criteria': {'closed':
                                                                      'open': 'lower gate is open this tick'}},
      'pump': {'type': 'choice', 'instructions': 'Choose the pump setting.',
               'criteria': {'down': 'pump water out', 'idle': 'leave pump idle', 'up': 'pump water in'}}}
-# sha256 of the research renderer's output (nagi-research src/nagi/render.py::render_chord_prompt, the format T-dual was
+# sha256 of the research renderer's output (render_chord_prompt in the training code, the format T-dual was
 # trained and evaluated on) for this row in canonical order, and rotated so pump comes first.
 GOLDEN_CANONICAL = '5a5409801eaeec994de335bda5559b8b9977a049ad7b8b07038b217c1a65cd38'
 GOLDEN_PUMP_FIRST = 'f96961e1d627e0809983e4ef6dcd6a4f2f08bbb0cd807de0aa904acd2e7e8c16'
@@ -61,12 +62,25 @@ def test_explicit_order_wins_and_is_validated():
             burst.canonical_control_order(STATE, Q, bad)
 
 
-def test_caller_order_when_no_matching_controls_line():
-    assert burst.canonical_control_order('no line here', Q) == (list(Q), 'caller')
+def test_sorted_ids_when_no_declared_order():
+    # PREREG Amendment 1 resolution: explicit order -> CONTROLS line -> sorted ids (never the caller's dict order)
+    srt = ['lower_gate', 'pump', 'upper_gate']
+    assert burst.canonical_control_order('no line here', Q) == (srt, 'sorted')
     other = STATE.replace('pump = down | idle | up', 'valve = a | b')
-    assert burst.canonical_control_order(other, Q) == (list(Q), 'caller')
-    assert burst.canonical_control_order({'json': 'state'}, Q) == (list(Q), 'caller')
+    assert burst.canonical_control_order(other, Q) == (srt, 'sorted')
+    assert burst.canonical_control_order({'json': 'state'}, Q) == (srt, 'sorted')
     assert burst.controls_line_order('CONTROLS (set together each tick): a = x | y; b = z | w') == ['a', 'b']
+
+
+def test_rendered_ids_depend_only_on_the_control_set():
+    # G1-SDK (CPU part): every client listing order gives identical token ids, with the CONTROLS line, with an explicit
+    # declared order, and with neither (sorted fallback)
+    bare = STATE.split('\n\nCONTROLS')[0]
+    declared = ['upper_gate', 'lower_gate', 'pump']
+    for state, order in ((STATE, None), (STATE, declared), (bare, declared), (bare, None)):
+        ids = {tuple(sdk().encode_burst(state, {q: Q[q] for q in lst}, order)['ids'])
+               for lst in itertools.permutations(Q)}
+        assert len(ids) == 1
 
 
 def test_permutation_orders():
@@ -276,3 +290,34 @@ def test_burst_loader_exact_path(monkeypatch):
     _fake_stack(monkeypatch, calls)
     enormous.load_enormous_burst(device='cuda', merge=False)
     assert 'merged' not in calls
+
+
+@pytest.mark.parametrize('error', ['RepositoryNotFoundError', 'RevisionNotFoundError', 'GatedRepoError'])
+def test_burst_loader_missing_repo_fails_fast_and_clearly(monkeypatch, error):
+    calls = {}
+    _fake_stack(monkeypatch, calls)
+    monkeypatch.setattr(enormous, 'BURST_REVISION', '1' * 40)
+    err = type(error, (OSError,), {})
+
+    def missing(repo, **kw):
+        raise err('404 Client Error. Repository Not Found for url: https://huggingface.co/api/models/...')
+    sys.modules['huggingface_hub'].snapshot_download = missing
+    with pytest.raises(RuntimeError, match='adapter not found on Hugging Face: nagisanzeninz/Nagi-ENORMOUS-Burst') as e:
+        enormous.load_enormous_burst(device='cuda')
+    assert 'still private' in str(e.value) and isinstance(e.value.__cause__, err)
+    assert 'base' not in calls and 'tokenizer' not in calls       # failed before the ~56 GB base download
+
+
+def test_burst_loader_real_hub_errors_are_recognized(monkeypatch):
+    errors = pytest.importorskip('huggingface_hub.errors')
+    for cls in (errors.RepositoryNotFoundError, errors.RevisionNotFoundError, errors.GatedRepoError):
+        assert {c.__name__ for c in cls.__mro__} & {'RepositoryNotFoundError', 'RevisionNotFoundError', 'GatedRepoError'}
+    calls = {}
+    _fake_stack(monkeypatch, calls)
+    monkeypatch.setattr(enormous, 'BURST_REVISION', '1' * 40)
+
+    def other(repo, **kw):
+        raise ConnectionError('network down')
+    sys.modules['huggingface_hub'].snapshot_download = other
+    with pytest.raises(ConnectionError, match='network down'):     # other failures are not relabelled
+        enormous.load_enormous_burst(device='cuda')

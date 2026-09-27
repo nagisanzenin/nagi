@@ -1,8 +1,11 @@
 # Burst: every control in one forward pass
 
-> **Draft for SDK 0.6.0, not released yet.** `BURST_REVISION` in `src/nagi/enormous.py` is unpinned, so
-> `load_enormous_burst()` refuses to load until the owner approves the release and the Hugging Face commit is pinned.
-> Every `{{...}}` placeholder below must be filled from the frozen release receipts before this page is merged.
+> **SDK 0.6.0.** `load_enormous_burst()` refuses to load until `BURST_REVISION` in `src/nagi/enormous.py` is pinned to
+> the published Hugging Face commit of the weights. If the weights repo is missing, still private or the revision is
+> wrong, it stops with a clear error before downloading the 27B base model.
+>
+> [Burst benchmark report](../bench/burst/README.md) · [Burst page](https://nagisanzenin.github.io/nagi/burst/) ·
+> [Game Arena](https://nagisanzenin.github.io/nagi/arena/) · [Model card](https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst)
 
 Some decisions come in groups: a game tick sets the pump, the upper gate and the lower gate at the same time. The
 default mode (`mode="kcall"`) asks one question per forward pass, so K controls cost K forwards. **Burst**
@@ -42,23 +45,27 @@ used, its source, and the number of forwards.
 
 ## Control order
 
-The slot order changes Burst's answers. In research, rotating the slot order by one changed the joint action on
-**26%** of states (Chord P1, 500 states, 95% CI [18%, 34%]); that result failed the preregistered order gate
-(REJECT-ORDER) and stays failed. The SDK therefore renders the controls in one **canonical order**, so the same
-request always gives the same prompt:
+The slot order changes the model's answers. Without canonicalization, rotating the control order by one changes the
+joint action on **24.8% [17.5%, 32.2%]** of 500 states on the release serving path (research measured 26.0%
+[18.4%, 34.3%]; that preregistered order gate, Chord P1 REJECT-ORDER, failed and stays failed). The model is **not**
+order-invariant. The SDK therefore renders the controls in one **canonical order**:
 
 1. `control_order=[...]` if you pass it (it must be a permutation of the question ids);
 2. otherwise the order of the state's `CONTROLS (set together each tick): a = ...; b = ...` line, the layout the model
    was trained on;
-3. otherwise the order of your `questions` dict.
+3. otherwise the question ids sorted by code point.
 
-Put the controls line in your state, or pass `control_order`, in the order your environment defines. Do not reorder
-controls between calls.
+So through the SDK, the answers do not depend on the order in which you list the controls in `questions` (release gate
+G1-SDK: 500 / 500 states). They do depend on the order you **declare**: a different `control_order` or CONTROLS line
+is a different model input, and orders other than your environment's declared one are unevaluated. Declare the order
+your environment defines, keep it fixed, and if you call the model without the SDK, present the controls in that same
+canonical order. All published quality numbers are for the canonical order.
 
-**Permutation averaging (experimental).** `permutations="cyclic"` (K rotations) or `permutations="all"` (K! orders,
-K ≤ 4) averages each control's probabilities over re-rendered slot orders. It removes the order dependence but costs
-one forward per order, which gives back most of Burst's latency advantage. It is off by default. Which variant ships
-as the recommended setting is decided by the release's frozen selection rule: {{BURST_VARIANT}}.
+**Permutation averaging (experimental, not released).** `permutations="cyclic"` (K rotations) or `permutations="all"`
+(K! orders, K ≤ 4) averages each control's probabilities over re-rendered slot orders, at one forward per order. It is
+off by default and is not the released configuration: the preregistered permutation-averaged variant failed its release
+gates (latency p50 1,039 ms on Booster Gauntlet at 3 streams, above the 300 ms limit; order residual upper bound 13.2%,
+above 10%). The released readout is variant A: canonical order, one forward.
 
 ## What Burst is and is not
 
@@ -68,14 +75,22 @@ as the recommended setting is decided by the release's frozen selection rule: {{
 - Validated path: CUDA BF16, eager attention, adapter merged in place (`merge=True`, the default), fused
   Gated-DeltaNet kernels installed. `merge=False` can flip near-tie answers relative to the measured path.
 - Choice questions with 2–26 options per control; inputs up to 4096 tokens, trained up to 768; no silent truncation.
-- Burst is a latency feature for multi-control decisions. It does not make a single decision more accurate.
+- Burst is a latency feature for multi-control decisions. It does not make a single decision more accurate, and in a
+  compute-matched lockstep test (no time pressure) it did worse than K-call on the same weights.
+- Evaluated for up to 4 controls (K = 3 offline, K = 1, 3, 4 in the Arena v3 games); K ≥ 5 is unevaluated.
+- In realtime Rotorwash-Ramp, 12 of 24 fresh rounds ended in a ceiling crash (a preregistered disclosure flag), and on
+  Snake Rush the model survives less long than a naive scripted player. See the model card's Limitations.
 
 ## Evidence
 
-Filled from the frozen release receipts; see the model card for definitions, denominators and intervals.
+All gates were preregistered before any Burst data; numbers are from the frozen release receipts. Full definitions,
+denominators and limitations: the [model card](https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst) and the
+[Burst benchmark report](../bench/burst/README.md).
 
-| Measure | Burst | K-call (same weights) | Scope |
-|---|---|---|---|
-| Per-tick latency p50 | {{BURST_P50_MS}} | {{KCALL_P50_MS}} | {{LATENCY_SCOPE}} |
-| Offline gates | {{OFFLINE_GATES}} | | {{OFFLINE_SCOPE}} |
-| Arena v3 realtime | {{ARENA_RESULT}} | | {{ARENA_SCOPE}} |
+| Measure | Result | Scope |
+|---|---|---|
+| Decision latency p50 at 3 concurrent streams (one-sided 97.5% upper bound) | Snake Rush 216.3 ms (219.5), Rotorwash-Ramp 247.7 ms (269.0), Booster Gauntlet 196.2 ms (263.6); gate: bound ≤ 300 ms, PASS | H100, merged BF16, fused kernels, micro-batched; no claim for other hardware |
+| Multi-control quality vs K-call of the same weights (MA1) | Δ̂ −0.005, one-sided 97.5% lower bound −0.045: non-inferior within 0.06, PASS | 780 decision instances, 13 synthetic genres, canonical order |
+| Order through the SDK | identical token ids for every client listing order on 500 / 500 states, PASS | declared order fixed |
+| Order, model level (no canonicalization) | 24.8% [17.5%, 32.2%] of joint actions change when the order is rotated | disclosed; REJECT-ORDER not passed |
+| Arena v3 realtime vs Jev | survived longer than Jev in 67.4% [57.7%, 77.0%] of head-to-heads; outperforms Jev overall (sign-flip p = 0.0018); per game only on Booster Gauntlet (0.979); Rotorwash-Ramp 0.583 and Snake Rush 0.458 not significant | 24 fresh seeds × 3 games, 0 void rounds |

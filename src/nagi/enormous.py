@@ -129,11 +129,17 @@ def load_enormous_burst(repo=BURST_REPO,revision=None,device=None,temperature=1.
     from peft import PeftModel
     from transformers import AutoModelForCausalLM,AutoTokenizer
     if repo==BURST_REPO:revision=revision or BURST_REVISION
+    # Fetch the small adapter FIRST: a missing/private repo or a wrong revision fails in seconds, before the ~56 GB base.
+    try:path=snapshot_download(repo,revision=revision,allow_patterns=['adapter_config.json','adapter_model.safetensors'])
+    except Exception as e:
+        if not {c.__name__ for c in type(e).__mro__}&{'RepositoryNotFoundError','RevisionNotFoundError','GatedRepoError'}:raise
+        raise RuntimeError(f'Nagi-ENORMOUS-Burst adapter not found on Hugging Face: {repo} at revision {revision}. '
+                           'The repo does not exist yet, is still private (not published), or the revision is wrong. '
+                           'Check https://huggingface.co/'+repo+' and upgrade nagi-decisions to the release that pins it.') from e
     dev=device or ('cuda' if torch.cuda.is_available() else 'cpu')
     dtype=torch.bfloat16 if str(dev).startswith('cuda') else torch.float32
     tok=AutoTokenizer.from_pretrained(ENORMOUS_BASE,revision=ENORMOUS_BASE_REVISION)
     base=AutoModelForCausalLM.from_pretrained(ENORMOUS_BASE,revision=ENORMOUS_BASE_REVISION,dtype=dtype,attn_implementation='eager',device_map=dev)
-    path=snapshot_download(repo,revision=revision,allow_patterns=['adapter_config.json','adapter_model.safetensors'])
     model=PeftModel.from_pretrained(base,path,is_trainable=False)
     if merge:model=model.merge_and_unload()
     model.eval();model.config.use_cache=False
