@@ -74,6 +74,8 @@ def preview(out):
                         + f"<script>{js}</script>")
     html = html.replace('src="../assets/wordmark.svg"', f'src="{data_uri(os.path.join(SITE, "assets", "wordmark.svg"), "image/svg+xml")}"')
     html = html.replace('src="../assets/mascot-128.png"', f'src="{data_uri(os.path.join(SITE, "assets", "mascot-128.png"), "image/png")}"')
+    # clips are not published yet: show a labelled empty frame instead of requesting missing media
+    html = re.sub(r'<video\b.*?</video>', '<span>Clip pending<br>(Burst-labelled render)</span>', html, flags=re.S)
     # site-relative links -> the public site, so the preview's links work from anywhere
     html = re.sub(r'href="\.\./([^"]*)"', lambda m: f'href="{PUBLIC}{m.group(1)}"', html)
     html = html.replace('href="data.json"', f'href="{PUBLIC}burst/data.json"')
