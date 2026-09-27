@@ -1,0 +1,350 @@
+{
+ "_about": "Data for site/burst/. Every number is copied from a receipt; 'source' names it. Pending blocks are null until the Burst release gates are read (docs/burst/PUBLISH_CHECKLIST.md).",
+ "players": {
+  "burst_proto": {
+   "label": "Burst (Board 1 player)",
+   "role": "burst",
+   "note": "Board 1 label 't_dual/chord': T-dual step-417 weights, one-forward readout; its prompts are byte-identical to release variant A (PREREG §1). This readout failed the P1 order gate at the model level."
+  },
+  "kcall": {
+   "label": "K-call, same weights",
+   "role": "kcall",
+   "note": "Same T-dual step-417 weights, one forward pass per control."
+  },
+  "jev": {
+   "label": "Jev 1.13.0 (API)",
+   "role": "jev",
+   "note": "Vendor API, one request with all controls (vendor_single), vendor hardware, network included."
+  },
+  "enormous_cl": {
+   "label": "ENORMOUS-CL (unreleased)",
+   "role": "other",
+   "note": "Closed-loop fine-tune of ENORMOUS, K-call readout."
+  },
+  "enormous_v1": {
+   "label": "Nagi-ENORMOUS (released)",
+   "role": "other",
+   "note": "Research name 'ENORMOUS-old': the released Nagi-ENORMOUS adapter (step 500), K-call readout. Burst's weights continue from it."
+  },
+  "semif_4b": {
+   "label": "OpenJev / SemIf-4B",
+   "role": "other",
+   "note": "Self-hosted native stack on the same GPU class."
+  }
+ },
+ "games": {
+  "snake": {
+   "label": "Snake Rush",
+   "controls": 1
+  },
+  "rotorwash_ramp": {
+   "label": "Rotorwash-Ramp",
+   "controls": 3
+  },
+  "booster_gauntlet": {
+   "label": "Booster Gauntlet",
+   "controls": 4
+  }
+ },
+ "board1": {
+  "source": "Arena v3 Board 1 run 2 report (Nagi-ArenaV3-results.md, section 'OUT order per round'), sha256 1ce7c576312505ba36ad78569353e34fb53af339854168ababae19721c3b80d7",
+  "design": "Realtime, 4 Hz (250 ms ticks), 60 s cap, seed indices 0-9 per game, 3 streams per H100, 0 void rounds. A screen, not a decision.",
+  "death_s": {
+   "snake": {
+    "semif_4b": [
+     6.0,
+     4.5,
+     4.5,
+     4.5,
+     7.0,
+     5.5,
+     6.5,
+     4.5,
+     4.5,
+     4.5
+    ],
+    "enormous_v1": [
+     6.5,
+     15.5,
+     5.5,
+     6.0,
+     10.0,
+     5.5,
+     5.0,
+     10.0,
+     6.5,
+     16.0
+    ],
+    "burst_proto": [
+     6.5,
+     10.0,
+     9.5,
+     4.5,
+     10.0,
+     10.5,
+     13.0,
+     10.0,
+     10.0,
+     16.0
+    ],
+    "kcall": [
+     6.5,
+     12.5,
+     10.0,
+     10.0,
+     10.0,
+     9.5,
+     5.5,
+     10.0,
+     10.0,
+     15.5
+    ],
+    "jev": [
+     7.0,
+     7.0,
+     24.0,
+     3.5,
+     2.0,
+     5.0,
+     4.5,
+     19.5,
+     2.5,
+     14.0
+    ],
+    "enormous_cl": [
+     12.5,
+     12.5,
+     3.5,
+     11.0,
+     7.0,
+     11.0,
+     11.0,
+     22.0,
+     10.0,
+     16.0
+    ]
+   },
+   "rotorwash_ramp": {
+    "semif_4b": [
+     3.7,
+     3.5,
+     4.2,
+     4.2,
+     3.7,
+     3.8,
+     3.7,
+     4.1,
+     3.9,
+     3.6
+    ],
+    "enormous_v1": [
+     12.9,
+     15.2,
+     16.5,
+     14.0,
+     13.0,
+     22.0,
+     12.2,
+     16.0,
+     21.3,
+     16.8
+    ],
+    "kcall": [
+     15.4,
+     21.2,
+     23.3,
+     23.3,
+     22.2,
+     15.0,
+     26.6,
+     11.1,
+     14.2,
+     11.2
+    ],
+    "enormous_cl": [
+     19.5,
+     14.0,
+     12.7,
+     11.9,
+     16.5,
+     18.4,
+     19.7,
+     26.2,
+     18.0,
+     17.4
+    ],
+    "jev": [
+     20.1,
+     13.7,
+     10.6,
+     19.1,
+     12.5,
+     15.7,
+     9.4,
+     33.8,
+     14.4,
+     17.2
+    ],
+    "burst_proto": [
+     24.8,
+     21.3,
+     25.7,
+     26.4,
+     28.9,
+     31.6,
+     13.1,
+     12.6,
+     28.4,
+     29.8
+    ]
+   },
+   "booster_gauntlet": {
+    "enormous_v1": [
+     8.8,
+     8.9,
+     8.2,
+     8.8,
+     8.3,
+     8.3,
+     8.5,
+     8.4,
+     9.9,
+     8.6
+    ],
+    "jev": [
+     8.9,
+     9.0,
+     8.2,
+     8.9,
+     8.4,
+     17.1,
+     12.3,
+     9.1,
+     15.1,
+     8.6
+    ],
+    "semif_4b": [
+     9.6,
+     4.4,
+     4.7,
+     4.7,
+     4.6,
+     4.7,
+     4.7,
+     4.8,
+     4.7,
+     4.7
+    ],
+    "enormous_cl": [
+     22.0,
+     22.0,
+     15.3,
+     19.0,
+     22.0,
+     22.0,
+     17.2,
+     22.0,
+     14.8,
+     22.0
+    ],
+    "burst_proto": [
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0
+    ],
+    "kcall": [
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     20.5,
+     22.0,
+     22.0,
+     22.0
+    ]
+   }
+  },
+  "latency_p50_ms": {
+   "burst_proto": {
+    "snake": 231,
+    "rotorwash_ramp": 239,
+    "booster_gauntlet": 271
+   },
+   "kcall": {
+    "snake": 213,
+    "rotorwash_ramp": 612,
+    "booster_gauntlet": 757
+   },
+   "jev": {
+    "snake": 217,
+    "rotorwash_ramp": 212,
+    "booster_gauntlet": 214
+   },
+   "enormous_cl": {
+    "snake": 209,
+    "rotorwash_ramp": 609,
+    "booster_gauntlet": 704
+   },
+   "enormous_v1": {
+    "snake": 244,
+    "rotorwash_ramp": 726,
+    "booster_gauntlet": 908
+   },
+   "semif_4b": {
+    "snake": 102,
+    "rotorwash_ramp": 357,
+    "booster_gauntlet": 502
+   }
+  },
+  "fresh_share": {
+   "burst_proto": {
+    "snake": 0.65,
+    "rotorwash_ramp": 0.66,
+    "booster_gauntlet": 0.66
+   },
+   "kcall": {
+    "snake": 0.76,
+    "rotorwash_ramp": 0.33,
+    "booster_gauntlet": 0.28
+   },
+   "jev": {
+    "snake": 0.85,
+    "rotorwash_ramp": 0.9,
+    "booster_gauntlet": 0.88
+   },
+   "enormous_cl": {
+    "snake": 0.82,
+    "rotorwash_ramp": 0.34,
+    "booster_gauntlet": 0.3
+   },
+   "enormous_v1": {
+    "snake": 0.66,
+    "rotorwash_ramp": 0.3,
+    "booster_gauntlet": 0.2
+   },
+   "semif_4b": {
+    "snake": 0.95,
+    "rotorwash_ramp": 0.48,
+    "booster_gauntlet": 0.34
+   }
+  },
+  "note": "Board 1 screen: realtime, seed indices 0–9 per game, 6 players. Burst here is the Board 1 player whose prompts equal release variant A's. Source: Arena v3 Board 1 report, per-round OUT order; data in data.json.",
+  "cap_s": 60,
+  "latency_source": "~/nagi-wt/arena-v3/runs/arena_v3/board1/*_v2/<player>/player_summary.json → per_game.latency_ms.p50 (all requests pooled); sha256 prefixes: t_dual/chord 292f8b72, t_dual/kcall 74ec0153, jev 58c59005, enormous_cl 4c4dc272, enormous_old 61bb139a, semif_4b 017d5b96 (the pins in Burst PREREG §2). The Board 1 report's table uses the median of per-round p50s instead (227/242/249 ms for Burst)."
+ },
+ "confirmation": null,
+ "confirmation_schema": {
+  "_todo": "Fill from the Burst release P2 realtime analysis (fresh seeds). Same shape as board1: source, design, death_s{game:{player:[s,...]}}, censored_at_s, latency_p50_ms, fresh_share. Player ids: burst (release variant), kcall, jev, ...",
+  "source": "{{P2_RESULTS_SOURCE}}",
+  "note": "{{P2_CHART_NOTE}}"
+ }
+}
