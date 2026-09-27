@@ -134,3 +134,104 @@ def render_bounded_prompt(tok,row,qid,max_len=768,symbols=None):
         if len(tok.encode(render(mid),add_special_tokens=True))<=max_len:lo=mid
         else:hi=mid-1
     return render(lo),True
+
+
+# ----------------------------------------------------------------------------- Burst (one-forward multi-control)
+# Burst was called "Chord" during research. The prompt strings below are byte-identical to the trained format;
+# only the Python names changed. The CHORD_* / render_chord_prompt names remain as deprecated aliases.
+
+BURST_BLANK = "\u25a1"  # WHITE SQUARE; one stable token in the Qwen3.8-27B tokenizer (id 169260)
+BURST_HEADER = "CONTROLS (choose all at the same time):"
+BURST_ANSWER = "ANSWER:"
+BURST_DEFAULT_DEFINITION = "Task: choose every control at the same time; answer each [k] with one option letter."
+
+
+def _option_desc(q: dict, keys: list[str], i: int, k: str) -> str:
+    crit = q.get("criteria")
+    if isinstance(crit, dict):
+        return str(crit.get(k, k))
+    if isinstance(crit, list):
+        return str(crit[i]) if i < len(crit) else k
+    return "false" if k == "false" else "true"
+
+
+def render_burst_prompt(row: dict, qids: list[str] | None = None,
+                        symbols: list[str] | None = None) -> tuple[str, list[tuple[str, list[str]]]]:
+    """Burst prompt: every question of `row` in ONE prompt with one answer slot per question.
+
+    Returns (prompt, [(qid, option_keys), ...]) in slot order (slot k = qids[k-1]; default: dict order).
+    Layout:
+        TASK DEFINITION:
+        <definition, or BURST_DEFAULT_DEFINITION>
+        [k] <qid> (<type>): <instructions>          one line per slot WITH nonempty instructions
+        <blank>
+        STATE:
+        <state>
+        <blank>
+        CONTROLS (choose all at the same time):
+        [k] <qid>: A) key: desc  B) key: desc ...   one line per slot
+        <blank>
+        ANSWER:
+        [1]□
+        ...
+        [K]□                                         (no trailing newline)
+    The model's answer for slot k is read at the last token of "[k]" (the token before the k-th BURST_BLANK);
+    see nagi.burst.burst_slot_positions. BURST_BLANK must not occur anywhere else in the prompt.
+    """
+    qs = row.get("questions") or {}
+    if not isinstance(qs, dict) or not qs:
+        raise ValueError("questions must be a nonempty dict")
+    qids = list(qs) if qids is None else list(qids)
+    if not qids:
+        raise ValueError("at least one slot is required")
+    if len(set(qids)) != len(qids):
+        raise ValueError("duplicate qids")
+    slots: list[tuple[str, list[str]]] = []
+    for qid in qids:
+        if qid not in qs:
+            raise KeyError(qid)
+        if not isinstance(qid, str) or not qid or "\n" in qid:
+            raise ValueError(f"qid must be a nonempty single-line string: {qid!r}")
+        q = qs[qid]
+        if not isinstance(q, dict):
+            raise ValueError(f"question {qid!r} must be a dict")
+        keys = option_keys(q)
+        if symbols is not None and len(keys) > len(symbols):
+            raise ValueError(f"{qid!r}: {len(keys)} options > {len(symbols)} symbols")
+        slots.append((qid, keys))
+    sym = (lambda i: symbols[i]) if symbols is not None else label_for
+    parts = ["TASK DEFINITION:", str(row.get("definition") or BURST_DEFAULT_DEFINITION)]
+    for k, (qid, _) in enumerate(slots, 1):
+        q = qs[qid]
+        ins = str(q.get("instructions") or "").strip()
+        if ins:
+            parts.append(f"[{k}] {qid} ({q.get('type', 'choice')}): {ins}")
+    parts.append("\nSTATE:")
+    parts.append(state_text(row.get("state")))
+    parts.append("\n" + BURST_HEADER)
+    for k, (qid, keys) in enumerate(slots, 1):
+        opts = "  ".join(f"{sym(i)}) {key}: {_option_desc(qs[qid], keys, i, key)}" for i, key in enumerate(keys))
+        parts.append(f"[{k}] {qid}: {opts}")
+    parts.append("\n" + BURST_ANSWER)
+    parts.append("\n".join(f"[{k}]{BURST_BLANK}" for k in range(1, len(slots) + 1)))
+    prompt = "\n".join(parts)
+    if prompt.count(BURST_BLANK) != len(slots):
+        raise ValueError(f"the Burst blank marker {BURST_BLANK!r} must not occur in the state, definition, "
+                         "instructions, qids or options")
+    return prompt, slots
+
+
+# Deprecated aliases (research name "Chord"); kept so existing callers keep working.
+CHORD_BLANK = BURST_BLANK
+CHORD_HEADER = BURST_HEADER
+CHORD_ANSWER = BURST_ANSWER
+CHORD_DEFAULT_DEFINITION = BURST_DEFAULT_DEFINITION
+
+
+def render_chord_prompt(row: dict, qids: list[str] | None = None,
+                        symbols: list[str] | None = None) -> tuple[str, list[tuple[str, list[str]]]]:
+    """Deprecated alias of render_burst_prompt (Chord was renamed Burst)."""
+    import warnings
+    warnings.warn("render_chord_prompt is deprecated; use render_burst_prompt (Chord was renamed Burst)",
+                  DeprecationWarning, stacklevel=2)
+    return render_burst_prompt(row, qids, symbols)

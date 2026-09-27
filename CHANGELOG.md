@@ -1,3 +1,22 @@
+# 0.6.0 — Nagi-ENORMOUS Burst (DRAFT, unreleased; merge only after the owner's release click)
+
+- Adds **Burst**, the one-forward multi-control readout: `system_one(state, questions, mode="burst")` answers every
+  question (control) from ONE forward pass, one answer slot per control. Same answer shape as K-call; answers keyed in
+  the caller's question order, plus `out["burst"]` (slot order, its source, forwards).
+- Adds `load_enormous_burst()` for `nagisanzeninz/Nagi-ENORMOUS-Burst` (Qwen3.8-27B + rank 8 LoRA, T-dual step 417),
+  loaded BF16 with the adapter merged in place (the measured serving path; `merge=False` available). Refuses to load
+  until `BURST_REVISION` is pinned to the published adapter commit.
+- Canonical control order in the request builder: `control_order`, else the state's
+  `CONTROLS (set together each tick):` line, else the caller's dict order. The same request always renders the same
+  prompt. Research found order sensitivity of 26% for this readout (Chord P1 REJECT-ORDER, disclosed in docs/BURST.md).
+- Experimental `permutations="cyclic" | "all"`: averages each control's probabilities over slot orders (one forward per
+  order). Off by default; the recommended variant is set by the release's frozen rule: {{BURST_VARIANT}}.
+- Renamed from the research name **Chord**: `mode="chord"`, `encode_chord()`, `render_chord_prompt()` and the
+  `CHORD_*` constants remain as deprecated aliases (`DeprecationWarning`). Prompt strings are byte-identical to the
+  trained format (golden sha256 test).
+- `mode="burst"` on weights not trained for it (`load_enormous()`) warns. The default `mode="kcall"` is unchanged.
+- Evidence: {{CHANGELOG_EVIDENCE_ONE_LINE}}
+
 # 0.5.0 — Nagi-ENORMOUS 27B (2026-09-25)
 
 - Adds `load_enormous()` for the pinned Qwen3.8 27B (hybrid Gated-DeltaNet + gated full attention) + rank8 LoRA checkpoint, a fourth tier alongside Smol, Big and Huge.

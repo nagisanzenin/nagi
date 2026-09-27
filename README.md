@@ -52,7 +52,10 @@ print(out["answers"]["route"])  # {"choice": ..., "probabilities": {...}, "confi
 | [BIG 4B](https://huggingface.co/nagisanzeninz/nagi-big-v3) | `load_big()` | Qwen3.5-4B | GPU, BF16 |
 | [HUGE 12B](https://huggingface.co/nagisanzeninz/Nagi-HUGE) | `load_huge()` | Gemma4 12B + adapter | H100 BF16 (~24 GB params) |
 | [ENORMOUS 27B](https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS) | `load_enormous()` | Qwen3.8-27B + adapter | 80 GB GPU, BF16 |
+| [ENORMOUS Burst 27B](https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst) | `load_enormous_burst()` | Qwen3.8-27B + adapter, merged | 80 GB GPU, BF16 |
+
+**Burst** (`mode="burst"`, ENORMOUS Burst only) answers several simultaneous controls, such as the pump and two gates of one game tick, in one forward pass instead of one pass per control. Controls are rendered in a canonical order because the order changes the answers. [How to use it and its limits](docs/BURST.md)
 
 Question types: `choice` (pick a label), `score` (ordered levels), `noul` (probability of true). 2–26 options per question; context limits differ per line ([details](docs/CONTEXT.md)). Probabilities are conditional on the options you supply, not guarantees.
 
-[Install guide](docs/INSTALL.md) · [Recipes](docs/RECIPES.md) · [Calibration](docs/CALIBRATION.md) · [ENORMOUS release](docs/ENORMOUS_RELEASE.md) · [HUGE release](docs/HUGE_RELEASE.md) · [Brand](docs/brand/brand-guideline.md)
+[Install guide](docs/INSTALL.md) · [Recipes](docs/RECIPES.md) · [Calibration](docs/CALIBRATION.md) · [Burst](docs/BURST.md) · [ENORMOUS release](docs/ENORMOUS_RELEASE.md) · [HUGE release](docs/HUGE_RELEASE.md) · [Brand](docs/brand/brand-guideline.md)

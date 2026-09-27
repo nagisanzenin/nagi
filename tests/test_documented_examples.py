@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ExampleModel:
-    def system_one(self, state, questions):
+    def system_one(self, state, questions, **kwargs):
+        assert set(kwargs) <= {'mode', 'control_order', 'permutations'}
         json.dumps(state)
         assert state and questions
         answers = {}
@@ -32,12 +33,13 @@ class ExampleModel:
         return {'answers': answers}
 
 
-@pytest.mark.parametrize('relative', ['README.md', 'docs/INSTALL.md', 'docs/RECIPES.md'])
+@pytest.mark.parametrize('relative', ['README.md', 'docs/INSTALL.md', 'docs/RECIPES.md', 'docs/BURST.md'])
 def test_python_blocks_are_self_contained(relative, monkeypatch):
     monkeypatch.setattr(nagi, 'load_smol', lambda **kwargs: ExampleModel())
     monkeypatch.setattr(nagi, 'load_big', lambda **kwargs: ExampleModel())
     monkeypatch.setattr(nagi, 'load_huge', lambda **kwargs: ExampleModel())
     monkeypatch.setattr(nagi, 'load_enormous', lambda **kwargs: ExampleModel())
+    monkeypatch.setattr(nagi, 'load_enormous_burst', lambda **kwargs: ExampleModel())
     blocks = re.findall(r'```python\n(.*?)```', (ROOT / relative).read_text(), re.S)
     assert blocks
     for block in blocks:
