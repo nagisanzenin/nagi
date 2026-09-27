@@ -1,0 +1,3680 @@
+{
+ "games": [
+  "booster_gauntlet",
+  "rotorwash_ramp",
+  "snake"
+ ],
+ "players": {
+  "enormous_old/kcall": {
+   "label": "ENORMOUS-old",
+   "games": {
+    "booster_gauntlet": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 8.525,
+     "rmst": 8.685,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       8.15,
+       0.9
+      ],
+      [
+       8.35,
+       0.7
+      ],
+      [
+       8.45,
+       0.6
+      ],
+      [
+       8.5,
+       0.5
+      ],
+      [
+       8.55,
+       0.4
+      ],
+      [
+       8.75,
+       0.3
+      ],
+      [
+       8.85,
+       0.2
+      ],
+      [
+       8.95,
+       0.1
+      ],
+      [
+       9.95,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.0,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.0,
+     "win_rate_all": 0.15,
+     "latency_p50_ms": 840.8005,
+     "fresh_share": 0.19658119658119658,
+     "stale": 11,
+     "expiry_resets": 8,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 15.587499999999999,
+     "rmst": 15.9879,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       12.23,
+       0.9
+      ],
+      [
+       12.87,
+       0.8
+      ],
+      [
+       13.04,
+       0.7
+      ],
+      [
+       13.99,
+       0.6
+      ],
+      [
+       15.2,
+       0.5
+      ],
+      [
+       15.98,
+       0.4
+      ],
+      [
+       16.53,
+       0.3
+      ],
+      [
+       16.8,
+       0.2
+      ],
+      [
+       21.28,
+       0.1
+      ],
+      [
+       21.96,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 0.2,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 2.0,
+     "ladder_mean": 0.18163410434912794,
+     "win_rate_all": 0.4666666666666666,
+     "latency_p50_ms": 726.7829999999999,
+     "fresh_share": 0.2950310559006211,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 6.5,
+     "rmst": 8.65,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       5.0,
+       0.9
+      ],
+      [
+       5.5,
+       0.7
+      ],
+      [
+       6.0,
+       0.6
+      ],
+      [
+       6.5,
+       0.4
+      ],
+      [
+       10.0,
+       0.2
+      ],
+      [
+       15.5,
+       0.1
+      ],
+      [
+       16.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.2,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.014285714285714285,
+     "win_rate_all": 0.5166666666666667,
+     "latency_p50_ms": 243.8915,
+     "fresh_share": 0.6560693641618497,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.37777777777777777,
+   "composite_all_ci": [
+    0.31111111111111106,
+    0.44166666666666665
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 2.133,
+   "serving_info": {
+    "client_region": null,
+    "concurrency_mode": "batched",
+    "gpu": "H100",
+    "image_sha256": null,
+    "kernels": "fused",
+    "sdk": "src/nagi",
+    "vendor": null,
+    "weights_format": "merged-bf16",
+    "weights_sha256": "b8d307527a0426fd8208bf3c44eebaf47f14057452403ee282c08fe72053ddf7"
+   }
+  },
+  "t_dual/chord": {
+   "label": "T-dual Burst",
+   "games": {
+    "booster_gauntlet": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 22.0,
+     "rmst": 22.0,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       22.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 1.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 3.0,
+     "ladder_mean": 0.3915289256198347,
+     "win_rate_all": 0.7916666666666666,
+     "latency_p50_ms": 249.48675000000003,
+     "fresh_share": 0.6590909090909091,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 26.0375,
+     "rmst": 24.2299,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       12.57,
+       0.9
+      ],
+      [
+       13.06,
+       0.8
+      ],
+      [
+       21.28,
+       0.7
+      ],
+      [
+       24.75,
+       0.6
+      ],
+      [
+       25.67,
+       0.5
+      ],
+      [
+       26.4,
+       0.4
+      ],
+      [
+       28.37,
+       0.3
+      ],
+      [
+       28.87,
+       0.2
+      ],
+      [
+       29.75,
+       0.1
+      ],
+      [
+       31.56,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 0.8,
+      "30": 0.1,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 3.0,
+     "ladder_mean": 0.45665485255168176,
+     "win_rate_all": 0.85,
+     "latency_p50_ms": 241.849,
+     "fresh_share": 0.6594871794871795,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 10.0,
+     "rmst": 10.0,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       4.5,
+       0.9
+      ],
+      [
+       6.5,
+       0.8
+      ],
+      [
+       9.5,
+       0.7
+      ],
+      [
+       10.0,
+       0.3
+      ],
+      [
+       10.5,
+       0.2
+      ],
+      [
+       13.0,
+       0.1
+      ],
+      [
+       16.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.3,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.008035714285714287,
+     "win_rate_all": 0.625,
+     "latency_p50_ms": 226.66649999999998,
+     "fresh_share": 0.65,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.7555555555555555,
+   "composite_all_ci": [
+    0.6805555555555555,
+    0.8166666666666668
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 2.2693,
+   "serving_info": {
+    "client_region": null,
+    "concurrency_mode": "batched",
+    "gpu": "H100",
+    "image_sha256": null,
+    "kernels": "fused",
+    "sdk": "src/nagi",
+    "vendor": null,
+    "weights_format": "merged-bf16",
+    "weights_sha256": "b137a98649457f1dab6c84074255a34a9785bdba1c63df579ab5c0b0a9c3caed"
+   }
+  },
+  "t_dual/kcall": {
+   "label": "T-dual K-call",
+   "games": {
+    "booster_gauntlet": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 22.0,
+     "rmst": 21.85,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       20.5,
+       0.9
+      ],
+      [
+       22.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 1.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 3.0,
+     "ladder_mean": 0.3853305785123967,
+     "win_rate_all": 0.7666666666666667,
+     "latency_p50_ms": 752.85975,
+     "fresh_share": 0.2768878718535469,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 18.267000000000003,
+     "rmst": 18.3435,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       11.12,
+       0.9
+      ],
+      [
+       11.19,
+       0.8
+      ],
+      [
+       14.22,
+       0.7
+      ],
+      [
+       15.05,
+       0.6
+      ],
+      [
+       15.37,
+       0.5
+      ],
+      [
+       21.17,
+       0.4
+      ],
+      [
+       22.19,
+       0.3
+      ],
+      [
+       23.25,
+       0.2
+      ],
+      [
+       23.28,
+       0.1
+      ],
+      [
+       26.6,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 0.5,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 2.5,
+     "ladder_mean": 0.2669265025544968,
+     "win_rate_all": 0.5,
+     "latency_p50_ms": 609.89825,
+     "fresh_share": 0.3301759133964817,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 10.0,
+     "rmst": 9.950000000000001,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       5.5,
+       0.9
+      ],
+      [
+       6.5,
+       0.8
+      ],
+      [
+       9.5,
+       0.7
+      ],
+      [
+       10.0,
+       0.2
+      ],
+      [
+       12.5,
+       0.1
+      ],
+      [
+       15.5,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.2,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.00625,
+     "win_rate_all": 0.6083333333333333,
+     "latency_p50_ms": 211.37650000000002,
+     "fresh_share": 0.7562814070351759,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.625,
+   "composite_all_ci": [
+    0.5333333333333333,
+    0.7166666666666667
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 2.7992,
+   "serving_info": {
+    "client_region": null,
+    "concurrency_mode": "batched",
+    "gpu": "H100",
+    "image_sha256": null,
+    "kernels": "fused",
+    "sdk": "src/nagi",
+    "vendor": null,
+    "weights_format": "merged-bf16",
+    "weights_sha256": "b137a98649457f1dab6c84074255a34a9785bdba1c63df579ab5c0b0a9c3caed"
+   }
+  },
+  "semif_4b/kcall": {
+   "label": "SemIf-4B",
+   "games": {
+    "booster_gauntlet": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 4.65,
+     "rmst": 5.140000000000001,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       4.4,
+       0.9
+      ],
+      [
+       4.6,
+       0.8
+      ],
+      [
+       4.65,
+       0.4
+      ],
+      [
+       4.7,
+       0.2
+      ],
+      [
+       4.85,
+       0.1
+      ],
+      [
+       9.55,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.0,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.0,
+     "win_rate_all": 0.03333333333333333,
+     "latency_p50_ms": 501.45349999999996,
+     "fresh_share": 0.34285714285714286,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 3.75,
+     "rmst": 3.8376,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       3.54,
+       0.9
+      ],
+      [
+       3.62,
+       0.8
+      ],
+      [
+       3.66,
+       0.7
+      ],
+      [
+       3.72,
+       0.6
+      ],
+      [
+       3.74,
+       0.5
+      ],
+      [
+       3.76,
+       0.4
+      ],
+      [
+       3.85,
+       0.3
+      ],
+      [
+       4.15,
+       0.2
+      ],
+      [
+       4.17,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.0,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.0,
+     "win_rate_all": 0.0,
+     "latency_p50_ms": 347.14750000000004,
+     "fresh_share": 0.4810126582278481,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 4.5,
+     "rmst": 5.2,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       4.5,
+       0.4
+      ],
+      [
+       5.5,
+       0.3
+      ],
+      [
+       6.0,
+       0.2
+      ],
+      [
+       6.5,
+       0.1
+      ],
+      [
+       7.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.0,
+      "20": 0.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.0,
+     "win_rate_all": 0.18333333333333335,
+     "latency_p50_ms": 101.529,
+     "fresh_share": 0.9519230769230769,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.07222222222222223,
+   "composite_all_ci": [
+    0.036111111111111115,
+    0.10555555555555557
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 1.8835,
+   "serving_info": {
+    "batching": {
+     "bucket": 64,
+     "max_batch": 3,
+     "padding": "right",
+     "row_order": "content sha256",
+     "window_ms": 5.0
+    },
+    "client_region": null,
+    "concurrency_mode": "batched",
+    "gpu": "H100",
+    "image_sha256": null,
+    "kernels": "sdpa",
+    "max_tokens": 4096,
+    "readout": "native next-token logits restricted to option letters, argmax (ties -> first)",
+    "sdk": "semif_phase1.direct@docs/fair_public/vendor.tar.gz (direct-options-v1)",
+    "vendor": {
+     "name": "SemIf (OpenJev)",
+     "version": "Qwen/Qwen3.5-4B@851bf6e8"
+    },
+    "weights_format": "bf16",
+    "weights_sha256": "4398c477c82ceaf024bcd26f9dc808f7256a34b50525c0aef4f1198a36f04a6c"
+   }
+  },
+  "enormous_cl/kcall": {
+   "label": "ENORMOUS-CL",
+   "games": {
+    "booster_gauntlet": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 22.0,
+     "rmst": 19.835,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       14.8,
+       0.9
+      ],
+      [
+       15.3,
+       0.8
+      ],
+      [
+       17.25,
+       0.7
+      ],
+      [
+       19.0,
+       0.6
+      ],
+      [
+       22.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 0.6,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 3.0,
+     "ladder_mean": 0.3020661157024793,
+     "win_rate_all": 0.6333333333333333,
+     "latency_p50_ms": 701.5885000000001,
+     "fresh_share": 0.2968553459119497,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 17.698,
+     "rmst": 17.439299999999996,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       11.94,
+       0.9
+      ],
+      [
+       12.72,
+       0.8
+      ],
+      [
+       14.04,
+       0.7
+      ],
+      [
+       16.51,
+       0.6
+      ],
+      [
+       17.4,
+       0.5
+      ],
+      [
+       18.0,
+       0.4
+      ],
+      [
+       18.39,
+       0.3
+      ],
+      [
+       19.49,
+       0.2
+      ],
+      [
+       19.69,
+       0.1
+      ],
+      [
+       26.21,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 0.1,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 2.0,
+     "ladder_mean": 0.23355950880533133,
+     "win_rate_all": 0.5,
+     "latency_p50_ms": 599.379,
+     "fresh_share": 0.340941512125535,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 10,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 11.0,
+     "rmst": 11.649999999999999,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       3.5,
+       0.9
+      ],
+      [
+       7.0,
+       0.8
+      ],
+      [
+       10.0,
+       0.7
+      ],
+      [
+       11.0,
+       0.4
+      ],
+      [
+       12.5,
+       0.2
+      ],
+      [
+       16.0,
+       0.1
+      ],
+      [
+       22.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.7,
+      "20": 0.1,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 2.0,
+     "ladder_mean": 0.0375,
+     "win_rate_all": 0.7333333333333334,
+     "latency_p50_ms": 208.5075,
+     "fresh_share": 0.8154506437768241,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.6222222222222222,
+   "composite_all_ci": [
+    0.525,
+    0.7027777777777778
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 2.8599,
+   "serving_info": {
+    "client_region": null,
+    "concurrency_mode": "batched",
+    "gpu": "H100",
+    "image_sha256": null,
+    "kernels": "fused",
+    "sdk": "src/nagi",
+    "vendor": null,
+    "weights_format": "merged-bf16",
+    "weights_sha256": "e1864d580a06ad1a15db4744cf64f16743e5b781e4acd50316342b5cb9b239f2"
+   }
+  },
+  "jev/vendor_single": {
+   "label": "Jev",
+   "games": {
+    "booster_gauntlet": {
+     "n": 34,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 9.025,
+     "rmst": 11.758823529411766,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       8.2,
+       0.9706
+      ],
+      [
+       8.3,
+       0.9412
+      ],
+      [
+       8.4,
+       0.9118
+      ],
+      [
+       8.45,
+       0.8824
+      ],
+      [
+       8.5,
+       0.8529
+      ],
+      [
+       8.6,
+       0.7941
+      ],
+      [
+       8.65,
+       0.7647
+      ],
+      [
+       8.7,
+       0.7353
+      ],
+      [
+       8.75,
+       0.6471
+      ],
+      [
+       8.85,
+       0.5882
+      ],
+      [
+       8.9,
+       0.5588
+      ],
+      [
+       8.95,
+       0.5294
+      ],
+      [
+       9.0,
+       0.5
+      ],
+      [
+       9.05,
+       0.4706
+      ],
+      [
+       11.8,
+       0.4412
+      ],
+      [
+       12.3,
+       0.4118
+      ],
+      [
+       13.35,
+       0.3824
+      ],
+      [
+       14.05,
+       0.3235
+      ],
+      [
+       14.3,
+       0.2941
+      ],
+      [
+       14.55,
+       0.2647
+      ],
+      [
+       14.8,
+       0.2059
+      ],
+      [
+       15.05,
+       0.1765
+      ],
+      [
+       15.3,
+       0.1471
+      ],
+      [
+       16.3,
+       0.1176
+      ],
+      [
+       16.55,
+       0.0882
+      ],
+      [
+       17.05,
+       0.0588
+      ],
+      [
+       17.3,
+       0.0294
+      ],
+      [
+       22.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.471,
+      "20": 0.029,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.05359747204666992,
+     "win_rate_all": 0.33578431372549017,
+     "latency_p50_ms": 173.04,
+     "fresh_share": 0.916841162694586,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 34,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 15.7955,
+     "rmst": 20.07041176470588,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       9.39,
+       0.9706
+      ],
+      [
+       10.16,
+       0.9412
+      ],
+      [
+       10.28,
+       0.9118
+      ],
+      [
+       10.65,
+       0.8824
+      ],
+      [
+       10.9,
+       0.8529
+      ],
+      [
+       12.39,
+       0.8235
+      ],
+      [
+       12.52,
+       0.7941
+      ],
+      [
+       12.61,
+       0.7647
+      ],
+      [
+       12.78,
+       0.7353
+      ],
+      [
+       13.65,
+       0.7059
+      ],
+      [
+       13.97,
+       0.6765
+      ],
+      [
+       14.3,
+       0.6471
+      ],
+      [
+       14.45,
+       0.6176
+      ],
+      [
+       14.71,
+       0.5882
+      ],
+      [
+       15.56,
+       0.5588
+      ],
+      [
+       15.57,
+       0.5294
+      ],
+      [
+       15.71,
+       0.5
+      ],
+      [
+       15.88,
+       0.4706
+      ],
+      [
+       16.16,
+       0.4412
+      ],
+      [
+       17.18,
+       0.4118
+      ],
+      [
+       17.36,
+       0.3824
+      ],
+      [
+       19.12,
+       0.3529
+      ],
+      [
+       20.08,
+       0.3235
+      ],
+      [
+       20.78,
+       0.2941
+      ],
+      [
+       31.3,
+       0.2647
+      ],
+      [
+       31.94,
+       0.2353
+      ],
+      [
+       32.34,
+       0.2059
+      ],
+      [
+       33.0,
+       0.1765
+      ],
+      [
+       33.3,
+       0.1471
+      ],
+      [
+       33.31,
+       0.1176
+      ],
+      [
+       33.55,
+       0.0882
+      ],
+      [
+       33.76,
+       0.0588
+      ],
+      [
+       35.23,
+       0.0294
+      ],
+      [
+       38.53,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.971,
+      "20": 0.353,
+      "30": 0.294,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 2.0,
+     "ladder_mean": 0.3016151943589742,
+     "win_rate_all": 0.4372549019607843,
+     "latency_p50_ms": 209.44875000000002,
+     "fresh_share": 0.7863287380686357,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 34,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 7.0,
+     "rmst": 10.14705882352941,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       2.0,
+       0.9706
+      ],
+      [
+       2.5,
+       0.9412
+      ],
+      [
+       3.0,
+       0.8824
+      ],
+      [
+       3.5,
+       0.8235
+      ],
+      [
+       4.0,
+       0.7941
+      ],
+      [
+       4.5,
+       0.7647
+      ],
+      [
+       5.0,
+       0.7059
+      ],
+      [
+       6.5,
+       0.6176
+      ],
+      [
+       7.0,
+       0.4706
+      ],
+      [
+       7.5,
+       0.4412
+      ],
+      [
+       8.5,
+       0.4118
+      ],
+      [
+       10.0,
+       0.3824
+      ],
+      [
+       10.5,
+       0.3529
+      ],
+      [
+       11.5,
+       0.3235
+      ],
+      [
+       12.5,
+       0.2941
+      ],
+      [
+       14.0,
+       0.2647
+      ],
+      [
+       17.0,
+       0.2353
+      ],
+      [
+       17.25,
+       0.2059
+      ],
+      [
+       17.5,
+       0.1765
+      ],
+      [
+       18.0,
+       0.1471
+      ],
+      [
+       19.0,
+       0.1176
+      ],
+      [
+       19.5,
+       0.0882
+      ],
+      [
+       22.0,
+       0.0588
+      ],
+      [
+       24.0,
+       0.0294
+      ],
+      [
+       25.75,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.382,
+      "20": 0.088,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.05934873949579832,
+     "win_rate_all": 0.3284313725490196,
+     "latency_p50_ms": 173.425,
+     "fresh_share": 0.901636016502809,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.367156862745098,
+   "composite_all_ci": [
+    0.2740429505135387,
+    0.4699527959331881
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 0.9861,
+   "serving_info": {
+    "api_url": "https://api.typesafe.ai/v1/systemone",
+    "client_region": "modal-cpu-container (recorded at run)",
+    "concurrency_mode": "remote",
+    "gpu": null,
+    "image_sha256": null,
+    "kernels": null,
+    "provider_timeout_s": 20,
+    "rate_usd_per_input_token": 4.2000000000000006e-08,
+    "realtime_timeout_s": 1.1,
+    "retries": 0,
+    "sdk": "fair_public_jev (urllib) jev-1.13.0",
+    "usd_cap": 1.0,
+    "vendor": {
+     "name": "TypeSafe",
+     "version": "jev-1.13.0"
+    },
+    "weights_format": null,
+    "weights_sha256": null
+   }
+  },
+  "enormous_burst/chord": {
+   "label": "ENORMOUS Burst",
+   "games": {
+    "booster_gauntlet": {
+     "n": 34,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 22.0,
+     "rmst": 22.0,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       22.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 1.0,
+      "20": 1.0,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 3.0,
+     "ladder_mean": 0.39152892561983466,
+     "win_rate_all": 0.7892156862745098,
+     "latency_p50_ms": 289.54475,
+     "fresh_share": 0.6129763544536272,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "rotorwash_ramp": {
+     "n": 34,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 24.012500000000003,
+     "rmst": 23.314441176470588,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       7.14,
+       0.9706
+      ],
+      [
+       12.89,
+       0.9412
+      ],
+      [
+       15.16,
+       0.9118
+      ],
+      [
+       16.42,
+       0.8824
+      ],
+      [
+       17.36,
+       0.8529
+      ],
+      [
+       17.63,
+       0.8235
+      ],
+      [
+       18.24,
+       0.7941
+      ],
+      [
+       19.12,
+       0.7647
+      ],
+      [
+       19.72,
+       0.7353
+      ],
+      [
+       20.5,
+       0.7059
+      ],
+      [
+       20.62,
+       0.6765
+      ],
+      [
+       20.9,
+       0.6471
+      ],
+      [
+       21.81,
+       0.6176
+      ],
+      [
+       22.75,
+       0.5882
+      ],
+      [
+       22.77,
+       0.5588
+      ],
+      [
+       23.12,
+       0.5294
+      ],
+      [
+       23.75,
+       0.5
+      ],
+      [
+       24.27,
+       0.4706
+      ],
+      [
+       24.5,
+       0.4412
+      ],
+      [
+       25.9,
+       0.4118
+      ],
+      [
+       26.33,
+       0.3824
+      ],
+      [
+       26.68,
+       0.3529
+      ],
+      [
+       27.24,
+       0.3235
+      ],
+      [
+       27.27,
+       0.2941
+      ],
+      [
+       27.86,
+       0.2647
+      ],
+      [
+       28.0,
+       0.2353
+      ],
+      [
+       28.55,
+       0.1765
+      ],
+      [
+       29.19,
+       0.1471
+      ],
+      [
+       29.3,
+       0.1176
+      ],
+      [
+       29.33,
+       0.0882
+      ],
+      [
+       29.68,
+       0.0588
+      ],
+      [
+       29.8,
+       0.0294
+      ],
+      [
+       30.31,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.971,
+      "20": 0.735,
+      "30": 0.029,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 3.0,
+     "ladder_mean": 0.4369711456438972,
+     "win_rate_all": 0.746078431372549,
+     "latency_p50_ms": 263.8855,
+     "fresh_share": 0.6210910040805411,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    },
+    "snake": {
+     "n": 34,
+     "n_void": 0,
+     "censored": 0,
+     "median_t": 8.75,
+     "rmst": 9.352941176470585,
+     "km": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       4.0,
+       0.9412
+      ],
+      [
+       4.5,
+       0.8235
+      ],
+      [
+       5.5,
+       0.7941
+      ],
+      [
+       6.0,
+       0.7353
+      ],
+      [
+       6.5,
+       0.6176
+      ],
+      [
+       7.0,
+       0.5882
+      ],
+      [
+       7.5,
+       0.5588
+      ],
+      [
+       8.5,
+       0.5
+      ],
+      [
+       9.0,
+       0.4706
+      ],
+      [
+       10.0,
+       0.3235
+      ],
+      [
+       10.5,
+       0.2941
+      ],
+      [
+       11.0,
+       0.2647
+      ],
+      [
+       12.0,
+       0.2353
+      ],
+      [
+       12.5,
+       0.2059
+      ],
+      [
+       12.75,
+       0.1765
+      ],
+      [
+       13.25,
+       0.1471
+      ],
+      [
+       13.5,
+       0.1176
+      ],
+      [
+       15.0,
+       0.0882
+      ],
+      [
+       15.5,
+       0.0588
+      ],
+      [
+       16.0,
+       0.0294
+      ],
+      [
+       26.0,
+       0.0
+      ]
+     ],
+     "alive_at": {
+      "10": 0.324,
+      "20": 0.029,
+      "30": 0.0,
+      "40": 0.0,
+      "50": 0.0,
+      "60": 0.0
+     },
+     "median_level": 1.0,
+     "ladder_mean": 0.01838235294117647,
+     "win_rate_all": 0.5049019607843137,
+     "latency_p50_ms": 248.59199999999998,
+     "fresh_share": 0.635385054127398,
+     "stale": 0,
+     "expiry_resets": 0,
+     "out_order": null
+    }
+   },
+   "composite_all": 0.6800653594771241,
+   "composite_all_ci": [
+    0.5882352941176471,
+    0.7657044299201162
+   ],
+   "in_domain": {
+    "booster_gauntlet": null,
+    "rotorwash_ramp": null,
+    "snake": null
+   },
+   "inflation_p50": 2.0308,
+   "serving_info": {
+    "client_region": null,
+    "concurrency_mode": "batched",
+    "gpu": "H100",
+    "image_sha256": null,
+    "kernels": "fused",
+    "sdk": "src/nagi+burst(canonical)",
+    "vendor": null,
+    "weights_format": "merged-bf16",
+    "weights_sha256": "b137a98649457f1dab6c84074255a34a9785bdba1c63df579ab5c0b0a9c3caed"
+   }
+  }
+ },
+ "costs": {},
+ "pairwise": {
+  "booster_gauntlet": {
+   "enormous_burst/chord": {
+    "enormous_cl/kcall": 0.7,
+    "enormous_old/kcall": 1.0,
+    "jev/vendor_single": 0.9852941176470589,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.5,
+    "t_dual/kcall": 0.55
+   },
+   "enormous_cl/kcall": {
+    "enormous_burst/chord": 0.3,
+    "enormous_old/kcall": 1.0,
+    "jev/vendor_single": 0.9,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.3,
+    "t_dual/kcall": 0.3
+   },
+   "enormous_old/kcall": {
+    "enormous_burst/chord": 0.0,
+    "enormous_cl/kcall": 0.0,
+    "jev/vendor_single": 0.0,
+    "semif_4b/kcall": 0.9,
+    "t_dual/chord": 0.0,
+    "t_dual/kcall": 0.0
+   },
+   "jev/vendor_single": {
+    "enormous_burst/chord": 0.014705882352941176,
+    "enormous_cl/kcall": 0.1,
+    "enormous_old/kcall": 1.0,
+    "semif_4b/kcall": 0.9,
+    "t_dual/chord": 0.0,
+    "t_dual/kcall": 0.0
+   },
+   "semif_4b/kcall": {
+    "enormous_burst/chord": 0.0,
+    "enormous_cl/kcall": 0.0,
+    "enormous_old/kcall": 0.1,
+    "jev/vendor_single": 0.1,
+    "t_dual/chord": 0.0,
+    "t_dual/kcall": 0.0
+   },
+   "t_dual/chord": {
+    "enormous_burst/chord": 0.5,
+    "enormous_cl/kcall": 0.7,
+    "enormous_old/kcall": 1.0,
+    "jev/vendor_single": 1.0,
+    "semif_4b/kcall": 1.0,
+    "t_dual/kcall": 0.55
+   },
+   "t_dual/kcall": {
+    "enormous_burst/chord": 0.45,
+    "enormous_cl/kcall": 0.7,
+    "enormous_old/kcall": 1.0,
+    "jev/vendor_single": 1.0,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.45
+   }
+  },
+  "rotorwash_ramp": {
+   "enormous_burst/chord": {
+    "enormous_cl/kcall": 0.9,
+    "enormous_old/kcall": 0.8,
+    "jev/vendor_single": 0.6764705882352942,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.4,
+    "t_dual/kcall": 0.7
+   },
+   "enormous_cl/kcall": {
+    "enormous_burst/chord": 0.1,
+    "enormous_old/kcall": 0.5,
+    "jev/vendor_single": 0.7,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.2,
+    "t_dual/kcall": 0.5
+   },
+   "enormous_old/kcall": {
+    "enormous_burst/chord": 0.2,
+    "enormous_cl/kcall": 0.5,
+    "jev/vendor_single": 0.6,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.1,
+    "t_dual/kcall": 0.4
+   },
+   "jev/vendor_single": {
+    "enormous_burst/chord": 0.3235294117647059,
+    "enormous_cl/kcall": 0.3,
+    "enormous_old/kcall": 0.4,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.1,
+    "t_dual/kcall": 0.5
+   },
+   "semif_4b/kcall": {
+    "enormous_burst/chord": 0.0,
+    "enormous_cl/kcall": 0.0,
+    "enormous_old/kcall": 0.0,
+    "jev/vendor_single": 0.0,
+    "t_dual/chord": 0.0,
+    "t_dual/kcall": 0.0
+   },
+   "t_dual/chord": {
+    "enormous_burst/chord": 0.6,
+    "enormous_cl/kcall": 0.8,
+    "enormous_old/kcall": 0.9,
+    "jev/vendor_single": 0.9,
+    "semif_4b/kcall": 1.0,
+    "t_dual/kcall": 0.9
+   },
+   "t_dual/kcall": {
+    "enormous_burst/chord": 0.3,
+    "enormous_cl/kcall": 0.5,
+    "enormous_old/kcall": 0.6,
+    "jev/vendor_single": 0.5,
+    "semif_4b/kcall": 1.0,
+    "t_dual/chord": 0.1
+   }
+  },
+  "snake": {
+   "enormous_burst/chord": {
+    "enormous_cl/kcall": 0.3,
+    "enormous_old/kcall": 0.55,
+    "jev/vendor_single": 0.5294117647058824,
+    "semif_4b/kcall": 0.85,
+    "t_dual/chord": 0.4,
+    "t_dual/kcall": 0.4
+   },
+   "enormous_cl/kcall": {
+    "enormous_burst/chord": 0.7,
+    "enormous_old/kcall": 0.65,
+    "jev/vendor_single": 0.9,
+    "semif_4b/kcall": 0.85,
+    "t_dual/chord": 0.6,
+    "t_dual/kcall": 0.7
+   },
+   "enormous_old/kcall": {
+    "enormous_burst/chord": 0.45,
+    "enormous_cl/kcall": 0.35,
+    "jev/vendor_single": 0.7,
+    "semif_4b/kcall": 0.85,
+    "t_dual/chord": 0.4,
+    "t_dual/kcall": 0.35
+   },
+   "jev/vendor_single": {
+    "enormous_burst/chord": 0.47058823529411764,
+    "enormous_cl/kcall": 0.1,
+    "enormous_old/kcall": 0.3,
+    "semif_4b/kcall": 0.5,
+    "t_dual/chord": 0.3,
+    "t_dual/kcall": 0.3
+   },
+   "semif_4b/kcall": {
+    "enormous_burst/chord": 0.15,
+    "enormous_cl/kcall": 0.15,
+    "enormous_old/kcall": 0.15,
+    "jev/vendor_single": 0.5,
+    "t_dual/chord": 0.05,
+    "t_dual/kcall": 0.1
+   },
+   "t_dual/chord": {
+    "enormous_burst/chord": 0.6,
+    "enormous_cl/kcall": 0.4,
+    "enormous_old/kcall": 0.6,
+    "jev/vendor_single": 0.7,
+    "semif_4b/kcall": 0.95,
+    "t_dual/kcall": 0.5
+   },
+   "t_dual/kcall": {
+    "enormous_burst/chord": 0.6,
+    "enormous_cl/kcall": 0.3,
+    "enormous_old/kcall": 0.65,
+    "jev/vendor_single": 0.7,
+    "semif_4b/kcall": 0.9,
+    "t_dual/chord": 0.5
+   }
+  }
+ },
+ "out_order": {
+  "booster_gauntlet": {
+   "0": [
+    [
+     8.75,
+     "ENORMOUS-old"
+    ],
+    [
+     8.95,
+     "Jev"
+    ],
+    [
+     9.55,
+     "SemIf-4B"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "1": [
+    [
+     4.4,
+     "SemIf-4B"
+    ],
+    [
+     8.95,
+     "ENORMOUS-old"
+    ],
+    [
+     9.0,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "2": [
+    [
+     4.65,
+     "SemIf-4B"
+    ],
+    [
+     8.15,
+     "ENORMOUS-old"
+    ],
+    [
+     8.2,
+     "Jev"
+    ],
+    [
+     15.3,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "3": [
+    [
+     4.7,
+     "SemIf-4B"
+    ],
+    [
+     8.85,
+     "ENORMOUS-old"
+    ],
+    [
+     8.9,
+     "Jev"
+    ],
+    [
+     19.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "4": [
+    [
+     4.6,
+     "SemIf-4B"
+    ],
+    [
+     8.35,
+     "ENORMOUS-old"
+    ],
+    [
+     8.45,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "5": [
+    [
+     4.65,
+     "SemIf-4B"
+    ],
+    [
+     8.35,
+     "ENORMOUS-old"
+    ],
+    [
+     17.05,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "6": [
+    [
+     4.65,
+     "SemIf-4B"
+    ],
+    [
+     8.5,
+     "ENORMOUS-old"
+    ],
+    [
+     12.3,
+     "Jev"
+    ],
+    [
+     17.25,
+     "ENORMOUS-CL"
+    ],
+    [
+     20.5,
+     "T-dual K-call"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ]
+   ],
+   "7": [
+    [
+     4.85,
+     "SemIf-4B"
+    ],
+    [
+     8.45,
+     "ENORMOUS-old"
+    ],
+    [
+     9.05,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "8": [
+    [
+     4.7,
+     "SemIf-4B"
+    ],
+    [
+     9.95,
+     "ENORMOUS-old"
+    ],
+    [
+     14.8,
+     "ENORMOUS-CL"
+    ],
+    [
+     15.05,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "9": [
+    [
+     4.65,
+     "SemIf-4B"
+    ],
+    [
+     8.55,
+     "ENORMOUS-old"
+    ],
+    [
+     8.6,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.0,
+     "T-dual Burst"
+    ],
+    [
+     22.0,
+     "T-dual K-call"
+    ]
+   ],
+   "10": [
+    [
+     13.35,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "11": [
+    [
+     8.3,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "12": [
+    [
+     14.3,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "13": [
+    [
+     11.8,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "14": [
+    [
+     14.05,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "15": [
+    [
+     8.4,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "16": [
+    [
+     17.3,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "17": [
+    [
+     15.3,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "18": [
+    [
+     8.5,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "19": [
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     22.0,
+     "Jev"
+    ]
+   ],
+   "20": [
+    [
+     8.75,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "21": [
+    [
+     8.75,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "22": [
+    [
+     8.85,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "23": [
+    [
+     14.55,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "24": [
+    [
+     16.55,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "25": [
+    [
+     8.6,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "26": [
+    [
+     8.65,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "27": [
+    [
+     14.8,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "28": [
+    [
+     8.7,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "29": [
+    [
+     8.85,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "30": [
+    [
+     14.8,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "31": [
+    [
+     8.75,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "32": [
+    [
+     14.05,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "33": [
+    [
+     16.3,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS Burst"
+    ]
+   ]
+  },
+  "rotorwash_ramp": {
+   "0": [
+    [
+     3.721,
+     "SemIf-4B"
+    ],
+    [
+     12.867,
+     "ENORMOUS-old"
+    ],
+    [
+     15.367,
+     "T-dual K-call"
+    ],
+    [
+     19.492,
+     "ENORMOUS-CL"
+    ],
+    [
+     20.079,
+     "Jev"
+    ],
+    [
+     24.754,
+     "T-dual Burst"
+    ],
+    [
+     28.554,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "1": [
+    [
+     3.538,
+     "SemIf-4B"
+    ],
+    [
+     13.65,
+     "Jev"
+    ],
+    [
+     14.042,
+     "ENORMOUS-CL"
+    ],
+    [
+     15.196,
+     "ENORMOUS-old"
+    ],
+    [
+     16.421,
+     "ENORMOUS Burst"
+    ],
+    [
+     21.167,
+     "T-dual K-call"
+    ],
+    [
+     21.283,
+     "T-dual Burst"
+    ]
+   ],
+   "2": [
+    [
+     4.171,
+     "SemIf-4B"
+    ],
+    [
+     10.646,
+     "Jev"
+    ],
+    [
+     12.721,
+     "ENORMOUS-CL"
+    ],
+    [
+     16.529,
+     "ENORMOUS-old"
+    ],
+    [
+     22.754,
+     "ENORMOUS Burst"
+    ],
+    [
+     23.254,
+     "T-dual K-call"
+    ],
+    [
+     25.671,
+     "T-dual Burst"
+    ]
+   ],
+   "3": [
+    [
+     4.171,
+     "SemIf-4B"
+    ],
+    [
+     11.938,
+     "ENORMOUS-CL"
+    ],
+    [
+     13.992,
+     "ENORMOUS-old"
+    ],
+    [
+     19.121,
+     "Jev"
+    ],
+    [
+     23.283,
+     "T-dual K-call"
+    ],
+    [
+     25.896,
+     "ENORMOUS Burst"
+    ],
+    [
+     26.404,
+     "T-dual Burst"
+    ]
+   ],
+   "4": [
+    [
+     3.658,
+     "SemIf-4B"
+    ],
+    [
+     12.521,
+     "Jev"
+    ],
+    [
+     12.892,
+     "ENORMOUS Burst"
+    ],
+    [
+     13.042,
+     "ENORMOUS-old"
+    ],
+    [
+     16.512,
+     "ENORMOUS-CL"
+    ],
+    [
+     22.192,
+     "T-dual K-call"
+    ],
+    [
+     28.871,
+     "T-dual Burst"
+    ]
+   ],
+   "5": [
+    [
+     3.758,
+     "SemIf-4B"
+    ],
+    [
+     15.046,
+     "T-dual K-call"
+    ],
+    [
+     15.712,
+     "Jev"
+    ],
+    [
+     18.392,
+     "ENORMOUS-CL"
+    ],
+    [
+     20.617,
+     "ENORMOUS Burst"
+    ],
+    [
+     21.962,
+     "ENORMOUS-old"
+    ],
+    [
+     31.558,
+     "T-dual Burst"
+    ]
+   ],
+   "6": [
+    [
+     3.742,
+     "SemIf-4B"
+    ],
+    [
+     9.388,
+     "Jev"
+    ],
+    [
+     12.229,
+     "ENORMOUS-old"
+    ],
+    [
+     13.062,
+     "T-dual Burst"
+    ],
+    [
+     19.692,
+     "ENORMOUS-CL"
+    ],
+    [
+     26.596,
+     "T-dual K-call"
+    ],
+    [
+     28.004,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "7": [
+    [
+     4.146,
+     "SemIf-4B"
+    ],
+    [
+     11.117,
+     "T-dual K-call"
+    ],
+    [
+     12.575,
+     "T-dual Burst"
+    ],
+    [
+     15.979,
+     "ENORMOUS-old"
+    ],
+    [
+     26.208,
+     "ENORMOUS-CL"
+    ],
+    [
+     26.683,
+     "ENORMOUS Burst"
+    ],
+    [
+     33.762,
+     "Jev"
+    ]
+   ],
+   "8": [
+    [
+     3.854,
+     "SemIf-4B"
+    ],
+    [
+     14.225,
+     "T-dual K-call"
+    ],
+    [
+     14.45,
+     "Jev"
+    ],
+    [
+     17.996,
+     "ENORMOUS-CL"
+    ],
+    [
+     21.279,
+     "ENORMOUS-old"
+    ],
+    [
+     28.371,
+     "T-dual Burst"
+    ],
+    [
+     29.192,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "9": [
+    [
+     3.617,
+     "SemIf-4B"
+    ],
+    [
+     11.188,
+     "T-dual K-call"
+    ],
+    [
+     16.804,
+     "ENORMOUS-old"
+    ],
+    [
+     17.183,
+     "Jev"
+    ],
+    [
+     17.4,
+     "ENORMOUS-CL"
+    ],
+    [
+     27.862,
+     "ENORMOUS Burst"
+    ],
+    [
+     29.75,
+     "T-dual Burst"
+    ]
+   ],
+   "10": [
+    [
+     23.121,
+     "ENORMOUS Burst"
+    ],
+    [
+     31.942,
+     "Jev"
+    ]
+   ],
+   "11": [
+    [
+     12.388,
+     "Jev"
+    ],
+    [
+     29.796,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "12": [
+    [
+     19.125,
+     "ENORMOUS Burst"
+    ],
+    [
+     35.229,
+     "Jev"
+    ]
+   ],
+   "13": [
+    [
+     12.612,
+     "Jev"
+    ],
+    [
+     24.271,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "14": [
+    [
+     12.775,
+     "Jev"
+    ],
+    [
+     18.242,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "15": [
+    [
+     14.712,
+     "Jev"
+    ],
+    [
+     15.162,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "16": [
+    [
+     17.358,
+     "ENORMOUS Burst"
+    ],
+    [
+     38.529,
+     "Jev"
+    ]
+   ],
+   "17": [
+    [
+     7.138,
+     "ENORMOUS Burst"
+    ],
+    [
+     20.783,
+     "Jev"
+    ]
+   ],
+   "18": [
+    [
+     16.158,
+     "Jev"
+    ],
+    [
+     29.296,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "19": [
+    [
+     26.333,
+     "ENORMOUS Burst"
+    ],
+    [
+     32.996,
+     "Jev"
+    ]
+   ],
+   "20": [
+    [
+     22.771,
+     "ENORMOUS Burst"
+    ],
+    [
+     33.546,
+     "Jev"
+    ]
+   ],
+   "21": [
+    [
+     10.275,
+     "Jev"
+    ],
+    [
+     29.679,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "22": [
+    [
+     15.558,
+     "Jev"
+    ],
+    [
+     17.633,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "23": [
+    [
+     19.721,
+     "ENORMOUS Burst"
+    ],
+    [
+     33.3,
+     "Jev"
+    ]
+   ],
+   "24": [
+    [
+     17.362,
+     "Jev"
+    ],
+    [
+     30.308,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "25": [
+    [
+     10.896,
+     "Jev"
+    ],
+    [
+     27.242,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "26": [
+    [
+     20.904,
+     "ENORMOUS Burst"
+    ],
+    [
+     32.338,
+     "Jev"
+    ]
+   ],
+   "27": [
+    [
+     20.504,
+     "ENORMOUS Burst"
+    ],
+    [
+     31.3,
+     "Jev"
+    ]
+   ],
+   "28": [
+    [
+     10.158,
+     "Jev"
+    ],
+    [
+     28.554,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "29": [
+    [
+     15.567,
+     "Jev"
+    ],
+    [
+     27.267,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "30": [
+    [
+     13.971,
+     "Jev"
+    ],
+    [
+     24.496,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "31": [
+    [
+     14.3,
+     "Jev"
+    ],
+    [
+     23.754,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "32": [
+    [
+     21.812,
+     "ENORMOUS Burst"
+    ],
+    [
+     33.308,
+     "Jev"
+    ]
+   ],
+   "33": [
+    [
+     15.879,
+     "Jev"
+    ],
+    [
+     29.329,
+     "ENORMOUS Burst"
+    ]
+   ]
+  },
+  "snake": {
+   "0": [
+    [
+     6.0,
+     "SemIf-4B"
+    ],
+    [
+     6.5,
+     "ENORMOUS-old"
+    ],
+    [
+     6.5,
+     "T-dual Burst"
+    ],
+    [
+     6.5,
+     "T-dual K-call"
+    ],
+    [
+     7.0,
+     "Jev"
+    ],
+    [
+     12.5,
+     "ENORMOUS-CL"
+    ],
+    [
+     13.5,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "1": [
+    [
+     4.5,
+     "SemIf-4B"
+    ],
+    [
+     7.0,
+     "Jev"
+    ],
+    [
+     10.0,
+     "T-dual Burst"
+    ],
+    [
+     12.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     12.5,
+     "ENORMOUS-CL"
+    ],
+    [
+     12.5,
+     "T-dual K-call"
+    ],
+    [
+     15.5,
+     "ENORMOUS-old"
+    ]
+   ],
+   "2": [
+    [
+     3.5,
+     "ENORMOUS-CL"
+    ],
+    [
+     4.5,
+     "SemIf-4B"
+    ],
+    [
+     5.5,
+     "ENORMOUS-old"
+    ],
+    [
+     6.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     9.5,
+     "T-dual Burst"
+    ],
+    [
+     10.0,
+     "T-dual K-call"
+    ],
+    [
+     24.0,
+     "Jev"
+    ]
+   ],
+   "3": [
+    [
+     3.5,
+     "Jev"
+    ],
+    [
+     4.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     4.5,
+     "SemIf-4B"
+    ],
+    [
+     4.5,
+     "T-dual Burst"
+    ],
+    [
+     6.0,
+     "ENORMOUS-old"
+    ],
+    [
+     10.0,
+     "T-dual K-call"
+    ],
+    [
+     11.0,
+     "ENORMOUS-CL"
+    ]
+   ],
+   "4": [
+    [
+     2.0,
+     "Jev"
+    ],
+    [
+     6.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     7.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     7.0,
+     "SemIf-4B"
+    ],
+    [
+     10.0,
+     "ENORMOUS-old"
+    ],
+    [
+     10.0,
+     "T-dual Burst"
+    ],
+    [
+     10.0,
+     "T-dual K-call"
+    ]
+   ],
+   "5": [
+    [
+     5.0,
+     "Jev"
+    ],
+    [
+     5.5,
+     "ENORMOUS-old"
+    ],
+    [
+     5.5,
+     "SemIf-4B"
+    ],
+    [
+     9.5,
+     "T-dual K-call"
+    ],
+    [
+     10.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     10.5,
+     "T-dual Burst"
+    ],
+    [
+     11.0,
+     "ENORMOUS-CL"
+    ]
+   ],
+   "6": [
+    [
+     4.5,
+     "Jev"
+    ],
+    [
+     5.0,
+     "ENORMOUS-old"
+    ],
+    [
+     5.5,
+     "T-dual K-call"
+    ],
+    [
+     6.5,
+     "SemIf-4B"
+    ],
+    [
+     11.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     11.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     13.0,
+     "T-dual Burst"
+    ]
+   ],
+   "7": [
+    [
+     4.5,
+     "SemIf-4B"
+    ],
+    [
+     10.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     10.0,
+     "ENORMOUS-old"
+    ],
+    [
+     10.0,
+     "T-dual Burst"
+    ],
+    [
+     10.0,
+     "T-dual K-call"
+    ],
+    [
+     19.5,
+     "Jev"
+    ],
+    [
+     22.0,
+     "ENORMOUS-CL"
+    ]
+   ],
+   "8": [
+    [
+     2.5,
+     "Jev"
+    ],
+    [
+     4.5,
+     "SemIf-4B"
+    ],
+    [
+     6.5,
+     "ENORMOUS-old"
+    ],
+    [
+     10.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     10.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     10.0,
+     "T-dual Burst"
+    ],
+    [
+     10.0,
+     "T-dual K-call"
+    ]
+   ],
+   "9": [
+    [
+     4.5,
+     "SemIf-4B"
+    ],
+    [
+     10.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     14.0,
+     "Jev"
+    ],
+    [
+     15.5,
+     "T-dual K-call"
+    ],
+    [
+     16.0,
+     "ENORMOUS-CL"
+    ],
+    [
+     16.0,
+     "ENORMOUS-old"
+    ],
+    [
+     16.0,
+     "T-dual Burst"
+    ]
+   ],
+   "10": [
+    [
+     6.5,
+     "Jev"
+    ],
+    [
+     10.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "11": [
+    [
+     4.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     7.5,
+     "Jev"
+    ]
+   ],
+   "12": [
+    [
+     4.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     19.0,
+     "Jev"
+    ]
+   ],
+   "13": [
+    [
+     4.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     7.0,
+     "Jev"
+    ]
+   ],
+   "14": [
+    [
+     3.0,
+     "Jev"
+    ],
+    [
+     7.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "15": [
+    [
+     7.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     17.5,
+     "Jev"
+    ]
+   ],
+   "16": [
+    [
+     8.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     10.0,
+     "Jev"
+    ]
+   ],
+   "17": [
+    [
+     15.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     25.75,
+     "Jev"
+    ]
+   ],
+   "18": [
+    [
+     3.0,
+     "Jev"
+    ],
+    [
+     4.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "19": [
+    [
+     4.0,
+     "Jev"
+    ],
+    [
+     8.5,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "20": [
+    [
+     16.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     17.25,
+     "Jev"
+    ]
+   ],
+   "21": [
+    [
+     9.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     11.5,
+     "Jev"
+    ]
+   ],
+   "22": [
+    [
+     6.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     6.5,
+     "Jev"
+    ]
+   ],
+   "23": [
+    [
+     10.5,
+     "Jev"
+    ],
+    [
+     13.25,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "24": [
+    [
+     7.0,
+     "Jev"
+    ],
+    [
+     12.5,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "25": [
+    [
+     6.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     6.5,
+     "Jev"
+    ]
+   ],
+   "26": [
+    [
+     7.0,
+     "Jev"
+    ],
+    [
+     12.75,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "27": [
+    [
+     6.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     12.5,
+     "Jev"
+    ]
+   ],
+   "28": [
+    [
+     4.5,
+     "ENORMOUS Burst"
+    ],
+    [
+     5.0,
+     "Jev"
+    ]
+   ],
+   "29": [
+    [
+     6.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     18.0,
+     "Jev"
+    ]
+   ],
+   "30": [
+    [
+     15.0,
+     "ENORMOUS Burst"
+    ],
+    [
+     17.0,
+     "Jev"
+    ]
+   ],
+   "31": [
+    [
+     22.0,
+     "Jev"
+    ],
+    [
+     26.0,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "32": [
+    [
+     3.5,
+     "Jev"
+    ],
+    [
+     5.5,
+     "ENORMOUS Burst"
+    ]
+   ],
+   "33": [
+    [
+     8.5,
+     "Jev"
+    ],
+    [
+     10.0,
+     "ENORMOUS Burst"
+    ]
+   ]
+  }
+ },
+ "champion": {
+  "rule": "mean over games of the paired per-seed win rate vs the 3 external competitors; ties: sum RMST<=60, then mean level at failure, then NAGI order",
+  "externals": [
+   "jev/vendor_single",
+   "semif_4b/kcall"
+  ],
+  "table": [
+   {
+    "player": "t_dual/chord",
+    "per_game": {
+     "booster_gauntlet": 1.0,
+     "rotorwash_ramp": 0.95,
+     "snake": 0.825
+    },
+    "composite_vs_externals": 0.9249999999999999,
+    "rmst_sum": 56.2299,
+    "mean_level": 2.4,
+    "order": 3,
+    "rank": 1
+   },
+   {
+    "player": "enormous_cl/kcall",
+    "per_game": {
+     "booster_gauntlet": 0.95,
+     "rotorwash_ramp": 0.85,
+     "snake": 0.875
+    },
+    "composite_vs_externals": 0.8916666666666666,
+    "rmst_sum": 48.924299999999995,
+    "mean_level": 2.1666666666666665,
+    "order": 1,
+    "rank": 2
+   },
+   {
+    "player": "t_dual/kcall",
+    "per_game": {
+     "booster_gauntlet": 1.0,
+     "rotorwash_ramp": 0.75,
+     "snake": 0.8
+    },
+    "composite_vs_externals": 0.85,
+    "rmst_sum": 50.1435,
+    "mean_level": 2.2333333333333334,
+    "order": 2,
+    "rank": 3
+   },
+   {
+    "player": "enormous_old/kcall",
+    "per_game": {
+     "booster_gauntlet": 0.45,
+     "rotorwash_ramp": 0.8,
+     "snake": 0.7749999999999999
+    },
+    "composite_vs_externals": 0.6749999999999999,
+    "rmst_sum": 33.3229,
+    "mean_level": 1.4666666666666666,
+    "order": 0,
+    "rank": 4
+   }
+  ],
+  "champion": "t_dual/chord",
+  "caveat": "best-of-4 selection: the champion's numbers are optimistic (winner's curse); champion-vs-others margins are a screen, not confirmatory; confirmation needs fresh seeds"
+ }
+}

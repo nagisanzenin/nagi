@@ -1,0 +1,343 @@
+{
+ "SELECT": "A",
+ "V_star": "enormous_burst/chord",
+ "selection_inputs": {
+  "constants_sha256": "3032c48b28bda4db06b2e54eec6352f4851d96c8b578cb75970a319786ec4564",
+  "gate_states_sha256": "5e7744cc7c6f1e9add98f1b02d069d670fefe92cf87fd5c3941207c387130121",
+  "latency_summary_sha256": "75d7e24190a68dd630f4cf285821cb5b287e41bc6e9e955cff34f54cd83eaf01",
+  "note": "offline receipts only; no realtime record is read",
+  "offline_kf_summary_sha256": "ed2e0931d1c9fd74ac6eb68e397c7166a70cc1bd07442f246ca96e5e020b3799",
+  "offline_ma_summary_sha256": "e96f023bfa936a2194ab4a239bfb4fdcbe8e1472f9c720c0372be80770987ff3",
+  "preds_chord_sha256": "dac046442f56eed85e98d477964e682d74480ecce2b49eac91c949a512692b09"
+ },
+ "V_rt": {
+  "replay_exact": true,
+  "cells_valid": true,
+  "voids": {
+   "fresh": {
+    "snake": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    },
+    "rotorwash_ramp": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    },
+    "booster_gauntlet": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    }
+   },
+   "screen": {
+    "snake": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    },
+    "rotorwash_ramp": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    },
+    "booster_gauntlet": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    }
+   },
+   "jev_fresh": {
+    "snake": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    },
+    "rotorwash_ramp": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    },
+    "booster_gauntlet": {
+     "void": 0,
+     "missing": [],
+     "valid": true
+    }
+   }
+  },
+  "seeds_0_9_equal_board1": {
+   "ok": true,
+   "compared": 30,
+   "mismatch": []
+  },
+  "serving_path_identical_across_shards": true,
+  "jev": {
+   "version_matches_board1": true,
+   "meta": {
+    "fingerprint": "a58a4a371045e649a11983fa8124f90968314d06c3dfefc6f10d39e629bdba2e",
+    "vendor": {
+     "name": "TypeSafe",
+     "version": "jev-1.13.0"
+    }
+   },
+   "note": "Board 1 v2 recorded the vendor version only (no answer fingerprint): version compared; this run records the fingerprint for later cells"
+  },
+  "passed": true
+ },
+ "fresh_vs_jev": {
+  "W": {
+   "snake": 0.4583333333333333,
+   "rotorwash_ramp": 0.5833333333333334,
+   "booster_gauntlet": 0.9791666666666666
+  },
+  "theta": 0.6736111111111112,
+  "se": 0.04649464354837324,
+  "df": 23,
+  "lb975": 0.577429612891048,
+  "ub975": 0.7697926093311743,
+  "method": "t_23 on c_i (no dropped index)",
+  "n_by_game": {
+   "snake": 24,
+   "rotorwash_ramp": 24,
+   "booster_gauntlet": 24
+  }
+ },
+ "R_RT": {
+  "H0": "Theta <= 0.35",
+  "lb975": 0.577429612891048,
+  "passed": true
+ },
+ "C1": {
+  "lb975": 0.577429612891048,
+  "signflip_p": 0.001809981900180998,
+  "passed": true
+ },
+ "C2": {
+  "tested": true,
+  "games": {
+   "booster_gauntlet": {
+    "W": 0.9791666666666666,
+    "n": 24,
+    "lb": 0.9253746417019976,
+    "signflip_p": 9.99990000099999e-06,
+    "holm_alpha": 0.008333333333333333,
+    "passed": true
+   },
+   "rotorwash_ramp": {
+    "W": 0.5833333333333334,
+    "n": 24,
+    "lb": 0.3368341926480352,
+    "signflip_p": 0.2699273007269927,
+    "holm_alpha": 0.0125,
+    "passed": false
+   },
+   "snake": {
+    "W": 0.4583333333333333,
+    "n": 24,
+    "lb": 0.2526263177861815,
+    "signflip_p": 0.7355126448735513,
+    "holm_alpha": 0.025,
+    "passed": false
+   }
+  }
+ },
+ "decision": "RELEASE (owner P3 click still required)",
+ "RELEASE": true,
+ "claims_allowed": {
+  "NI_offline": true,
+  "realtime_estimate_vs_jev": true,
+  "outperforms_jev_realtime": true,
+  "per_game": [
+   "booster_gauntlet"
+  ]
+ },
+ "estimates": {
+  "V_star_fresh": {
+   "snake": {
+    "n": 24,
+    "rmst60": 9.333333333333334,
+    "rmst60_ci95": [
+     7.1454563244616836,
+     11.521210342204984
+    ],
+    "ladder_mean": 0.02604166666666667,
+    "median_level": 1.0,
+    "censored": 0
+   },
+   "rotorwash_ramp": {
+    "n": 24,
+    "rmst60": 23.075666666666667,
+    "rmst60_ci95": [
+     20.679660722339516,
+     25.471672610993817
+    ],
+    "ladder_mean": 0.4313735244847752,
+    "median_level": 3.0,
+    "censored": 0
+   },
+   "booster_gauntlet": {
+    "n": 24,
+    "rmst60": 22.0,
+    "rmst60_ci95": null,
+    "ladder_mean": 0.3915289256198347,
+    "median_level": 3.0,
+    "censored": 0
+   }
+  },
+  "jev_fresh": {
+   "snake": {
+    "n": 24,
+    "rmst60": 10.666666666666666,
+    "rmst60_ci95": [
+     7.929440746042799,
+     13.403892587290533
+    ],
+    "ladder_mean": 0.059895833333333336,
+    "median_level": 1.0,
+    "censored": 0
+   },
+   "rotorwash_ramp": {
+    "n": 24,
+    "rmst60": 21.495083333333337,
+    "rmst60_ci95": [
+     17.304650223802625,
+     25.68551644286405
+    ],
+    "ladder_mean": 0.343177783597525,
+    "median_level": 2.0,
+    "censored": 0
+   },
+   "booster_gauntlet": {
+    "n": 24,
+    "rmst60": 12.260416666666666,
+    "rmst60_ci95": [
+     10.640742073405688,
+     13.880091259927644
+    ],
+    "ladder_mean": 0.06379132231404959,
+    "median_level": 2.0,
+    "censored": 0
+   }
+  }
+ },
+ "screen_0_9": {
+  "label": "screen, n = 10, not confirmatory; selection caveat (T-dual chord = Board 1 champion on these indices; worst-case optimism 0.076)",
+  "vs": {
+   "enormous_old/kcall": {
+    "W": {
+     "snake": 0.55,
+     "rotorwash_ramp": 0.8,
+     "booster_gauntlet": 1.0
+    },
+    "theta": 0.7833333333333333,
+    "se": 0.07049209744694178,
+    "df": 9,
+    "lb975": 0.6238691301730651,
+    "ub975": 0.9427975364936015,
+    "method": "t_9 on c_i (no dropped index)",
+    "n_by_game": {
+     "snake": 10,
+     "rotorwash_ramp": 10,
+     "booster_gauntlet": 10
+    },
+    "signflip_p": 0.0012999350032498376
+   },
+   "t_dual/chord": {
+    "W": {
+     "snake": 0.4,
+     "rotorwash_ramp": 0.4,
+     "booster_gauntlet": 0.5
+    },
+    "theta": 0.43333333333333335,
+    "se": 0.0753592220347252,
+    "df": 9,
+    "lb975": 0.26285892942457956,
+    "ub975": 0.6038077372420871,
+    "method": "t_9 on c_i (no dropped index)",
+    "n_by_game": {
+     "snake": 10,
+     "rotorwash_ramp": 10,
+     "booster_gauntlet": 10
+    },
+    "signflip_p": 0.8940052997350133
+   },
+   "t_dual/kcall": {
+    "W": {
+     "snake": 0.4,
+     "rotorwash_ramp": 0.7,
+     "booster_gauntlet": 0.55
+    },
+    "theta": 0.55,
+    "se": 0.09638528651609708,
+    "df": 9,
+    "lb975": 0.331961333719254,
+    "ub975": 0.7680386662807461,
+    "method": "t_9 on c_i (no dropped index)",
+    "n_by_game": {
+     "snake": 10,
+     "rotorwash_ramp": 10,
+     "booster_gauntlet": 10
+    },
+    "signflip_p": 0.32338383080845956
+   },
+   "semif_4b/kcall": {
+    "W": {
+     "snake": 0.85,
+     "rotorwash_ramp": 1.0,
+     "booster_gauntlet": 1.0
+    },
+    "theta": 0.9500000000000001,
+    "se": 0.03557291243018249,
+    "df": 9,
+    "lb975": 0.8695284813444695,
+    "ub975": 1.0304715186555307,
+    "method": "t_9 on c_i (no dropped index)",
+    "n_by_game": {
+     "snake": 10,
+     "rotorwash_ramp": 10,
+     "booster_gauntlet": 10
+    },
+    "signflip_p": 4.999750012499375e-05
+   },
+   "enormous_cl/kcall": {
+    "W": {
+     "snake": 0.3,
+     "rotorwash_ramp": 0.9,
+     "booster_gauntlet": 0.7
+    },
+    "theta": 0.6333333333333333,
+    "se": 0.07777777777777779,
+    "df": 9,
+    "lb975": 0.4573877762268064,
+    "ub975": 0.8092788904398602,
+    "method": "t_9 on c_i (no dropped index)",
+    "n_by_game": {
+     "snake": 10,
+     "rotorwash_ramp": 10,
+     "booster_gauntlet": 10
+    },
+    "signflip_p": 0.06944652767361632
+   },
+   "jev/vendor_single": {
+    "W": {
+     "snake": 0.7,
+     "rotorwash_ramp": 0.9,
+     "booster_gauntlet": 1.0
+    },
+    "theta": 0.8666666666666667,
+    "se": 0.07370277311900889,
+    "df": 9,
+    "lb975": 0.6999394105374099,
+    "ub975": 1.0333939227959235,
+    "method": "t_9 on c_i (no dropped index)",
+    "n_by_game": {
+     "snake": 10,
+     "rotorwash_ramp": 10,
+     "booster_gauntlet": 10
+    },
+    "signflip_p": 4.999750012499375e-05
+   }
+  }
+ }
+}

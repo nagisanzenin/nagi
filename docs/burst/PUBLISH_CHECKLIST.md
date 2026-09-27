@@ -5,7 +5,7 @@ Tool: `python3 scripts/burst_page.py check | fill values.json | preview`.
 Guard: `.github/workflows/pages.yml` runs `check` before every deploy, so a merge with any `{{PLACEHOLDER}}` left
 under `site/` fails the deploy instead of publishing it. Do not merge `burst-page` into `main` before this list is done.
 
-Publishing rule (docs/burst_release/APPROVAL.md in nagi-research, owner 2026-09-27 ~17:40): publish only if EVERY gate
+Publishing rule (APPROVAL.md in the private research repo, owner 2026-09-27 ~17:40): publish only if EVERY gate
 and release rule in `docs/burst_release/PREREG.md` passes. If any fails, the page is not published at all; it is not
 rewritten around a failure.
 
@@ -37,7 +37,7 @@ Exact receipt paths are fixed by the release operator; write them into the repor
 | `SDK_BURST_SNIPPET` | reproduce | the public SDK call, tested against the published weights. The model-card draft (burst-package `MODEL_CARD.md` § Use) uses `from nagi import load_enormous_burst` and `nagi.system_one(state, questions, mode="burst")`; copy the final, tested version | 4–8 lines, HTML-escaped |
 | `URL_HF_BURST` | hero, links | final HF repo (draft `nagisanzeninz/Nagi-ENORMOUS-Burst`), PUBLIC | URL |
 | `URL_REPORT` | hero, links | public report with every number, receipts, sha256 (suggested `bench/burst/README.md` in nagi-public) | URL |
-| `URL_PREREG` | gates paragraph, links | public copy of PREREG.md (frozen `f0d6204` + Amendment 1 `0c346f5` in nagi-research) | URL |
+| `URL_PREREG` | gates paragraph, links | public copy of PREREG.md (frozen `f0d6204` + Amendment 1 `0c346f5` in the private research repo) | URL |
 | `URL_PROTOCOL` | links | public copy of Arena v3 PROTOCOL.md | URL |
 | `URL_RECORDS` | links | public round records + replay instructions | URL |
 
@@ -50,53 +50,53 @@ visible, but they are public in the page source).
 
 ## 2. Assets (operator TODO)
 
-- [ ] `site/burst/media/burst-snake-rush.mp4`, `burst-rotorwash-ramp.mp4`, `burst-booster-gauntlet.mp4`: the
-      Burst-labelled release clips (they replace `~/Downloads/Nagi-ArenaV3-{SnakeRush,RotorwashRamp,BoosterGauntlet}.mp4`,
+- [x] `site/burst/media/burst-snake-rush.mp4`, `burst-rotorwash-ramp.mp4`, `burst-booster-gauntlet.mp4`: the
+      Burst-labelled release clips (they replace the earlier `Nagi-ArenaV3-{SnakeRush,RotorwashRamp,BoosterGauntlet}.mp4` renders,
       whose labels say "T-dual Chord"). Re-encode for the web (H.264, `-movflags +faststart`, ≤ 8 MB each; the site is
       served from the repo, so keep total media small) and check with ffprobe.
-- [ ] Posters `site/burst/media/burst-*.jpg` (a representative frame, 540×960).
-- [ ] Clips must show the name "Burst" (never "Chord" or "T-dual Chord") and follow the fixed seed rule (PROTOCOL A1.5).
+- [x] Posters `site/burst/media/burst-*.jpg` (a representative frame, 540×960).
+- [x] Clips must show the name "Burst" (never "Chord" or "T-dual Chord") and follow the fixed seed rule (PROTOCOL A1.5).
 - [x] `site/burst/share.png` 1200×630, rendered from `docs/burst/share.html` (§4). It is deliberately number-free,
       so it needs no update unless the headline changes.
 
 ## 3. Checks before going live
 
 Numbers and claims
-- [ ] `python3 scripts/burst_page.py check` prints `OK`.
-- [ ] Every filled number matches its receipt exactly (spot-check at least the hero, gates table and latency row).
-- [ ] Every PREREG gate passed. If one failed: do not publish (APPROVAL.md).
-- [ ] Every sentence in "What we claim" is allowed by PREREG §8.2 for the tests that passed; nothing on the page
+- [x] `python3 scripts/burst_page.py check` prints `OK`.
+- [x] Every filled number matches its receipt exactly (spot-check at least the hero, gates table and latency row).
+- [x] Every PREREG gate passed. If one failed: do not publish (APPROVAL.md).
+- [x] Every sentence in "What we claim" is allowed by PREREG §8.2 for the tests that passed; nothing on the page
       uses a §8.2 "never allowed" claim (0–9 beyond screen, lockstep claims, order-invariant model for A, K ≥ 5,
       other games, Jev size/hardware, P1 REJECT-ORDER or A1 passed).
-- [ ] The hero facts use the counted variant's gate numbers, not Board 1's.
-- [ ] If SELECT = B: rewrite the "Control order" hero tile and the limitations item with the PREREG §8.2 B wording
+- [x] The hero facts use the counted variant's gate numbers, not Board 1's.
+- [x] (n/a, SELECT = A) If SELECT = B: rewrite the "Control order" hero tile and the limitations item with the PREREG §8.2 B wording
       (order residual φ_B ≤ 10% for K ≤ 3, K = 4 not gated), add "M = K orders batched" to the design statement, and
       relabel the Board 1 Burst row (it is variant A's player, not B's).
-- [ ] If C1 failed: `P2_C1_CLAUSE` is empty and no sentence says "better than" or "outperforms" Jev (PREREG §9).
-- [ ] If the G3 realtime pathology flag triggered (≥ 50% of fresh Rotorwash-Ramp rounds end on the ceiling), add it
+- [x] (n/a, C1 passed) If C1 failed: `P2_C1_CLAUSE` is empty and no sentence says "better than" or "outperforms" Jev (PREREG §9).
+- [x] (triggered: 12/24 ceiling, disclosed) If the G3 realtime pathology flag triggered (≥ 50% of fresh Rotorwash-Ramp rounds end on the ceiling), add it
       to the limitations (PREREG §3.3).
-- [ ] Latency source: the page uses pooled p50 over all requests (player_summary.json), which is what PREREG quotes;
+- [x] Latency source: the page uses pooled p50 over all requests (player_summary.json), which is what PREREG quotes;
       the Board 1 report's table uses the median of per-round p50s (Burst 227/242/249 ms). Keep one definition per
       table and say which.
-- [ ] Confirm the label "Nagi-ENORMOUS (released)": research name ENORMOUS-old = the public adapter
+- [x] Confirm the label "Nagi-ENORMOUS (released)": research name ENORMOUS-old = the public adapter
       `nagisanzeninz/Nagi-ENORMOUS` revision `2e03ec38…` (step 500), which the Burst model card says the Burst weights
       continue from. If not, relabel it in index.html (Board 1 table, table view, glossary) and data.json.
 - [ ] Owner decision: the og/twitter description is number-free now; optionally add the headline P2 number.
-- [ ] No "Chord" outside the history paragraph and the glossary; no "T-dual" outside the glossary.
+- [x] No "Chord" outside the history paragraph and the glossary; no "T-dual" outside the glossary.
 
 Links
 - [ ] Every `{{URL_*}}` resolves publicly (logged out): HF repo public, GitHub files merged to `main`.
-- [ ] No link into the private nagi-research repo (visitors get 404s; see site commit f83f73a).
+- [x] No link into the private research repo (visitors get 404s; see site commit f83f73a).
 - [ ] `../arena/` shows the Arena v3 board (branch `arena-v3-site`); if its anchors change, update the links.
 
 Page
 - [ ] `python3 site/build_chrome.py` re-run after merging with `arena-v3-site` (both branches touch the chrome
       builder, home page and nav; resolve conflicts, then re-stamp every page).
-- [ ] Open locally (`python3 -m http.server -d site 8000`, then /burst/): desktop 1280 px and phone 375 px, no
+- [x] Open locally (`python3 -m http.server -d site 8000`, then /burst/): desktop 1280 px and phone 375 px, no
       horizontal page scroll, chart renders for all 3 games and both datasets, table view present, videos play.
 - [ ] OG card: paste the URL into a card validator after deploy (Twitter/X, LinkedIn post inspector, or
       `curl -s URL | grep og:`), and check that share.png loads (absolute URL).
-- [ ] `docs/burst/share.html` is a generator only; `site/` contains no draft or private files.
+- [x] `docs/burst/share.html` is a generator only; `site/` contains no draft or private files.
 
 ## 4. Share image
 
@@ -106,3 +106,14 @@ Page
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
   --window-size=1200,630 --screenshot=site/burst/share.png docs/burst/share.html
 ```
+
+## 5. Fill log (27 Sep 2026)
+
+Filled from the release receipts; the report with every source and sha256 is `bench/burst/README.md`, the receipts
+are in `bench/burst/receipts/`, and the public PREREG copy is `bench/burst/PREREG.md`. Still open before merge:
+- `nagisanzeninz/Nagi-ENORMOUS-Burst` must exist and be public, and `BURST_REVISION` must be pinned in the SDK
+  (branch `burst-sdk`, tag `v0.6.0`); the page snippet is checked against that branch's signatures on a fake model only.
+- `bench/arena_v3/PROTOCOL.md` is published from another branch; `bench/burst/` must be merged to `main` with this page.
+- Merge with `arena-v3-site` and re-run `python3 site/build_chrome.py` (nav).
+- OG card check after deploy; the og/twitter text stays number-free (owner decision).
+- PREREG §8.2 asks for in-play p90/p99 next to the latency claim; the receipts hold only the in-play p50.

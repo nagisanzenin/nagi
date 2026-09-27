@@ -1,10 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!--
-  Burst landing page. DRAFT: every double-brace NAME is a placeholder that must be filled from a receipt before publishing.
-  Registry of placeholders, their sources and the go-live checks: docs/burst/PUBLISH_CHECKLIST.md.
-  Check / fill: python3 scripts/burst_page.py check | fill values.json
--->
+<!-- Burst landing page. Every number is copied from a release receipt; sources and sha256 are listed in bench/burst/README.md. -->
 <title>Nagi Burst: every control in one forward pass</title>
 <meta name="description" content="Burst reads all K controls of a real-time machine from one forward pass of Nagi-ENORMOUS instead of one pass per control. Same weights. Measured latency, preregistered realtime tests, and what failed.">
 <link rel="canonical" href="https://nagisanzenin.github.io/nagi/burst/">
@@ -99,7 +95,8 @@
 .bp td.l{text-align:left;white-space:normal;min-width:16ch}
 .bp table.wrap td,.bp table.wrap th{white-space:normal}
 .bp table.wrap td[colspan]{text-align:center}
-.bp table.gates td.l{min-width:34ch}
+.bp table.gates td.l{min-width:30ch}
+.bp table.gates td:last-child{white-space:normal;min-width:11ch}
 .bp tr.me td{background:rgba(245,230,66,.07)}
 .bp tr.me td:first-child{box-shadow:inset 3px 0 0 var(--nagi-yellow)}
 .bp tbody tr:last-child td{border-bottom:0}
@@ -152,39 +149,34 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
 <main class="bp" id="top">
 
 <section class="hero" aria-labelledby="h-hero">
- <span class="nx-tape">New · Nagi Burst · <!-- PH RELEASE_DATE: publish date, e.g. "28 Sep 2026" -->{{RELEASE_DATE}}</span>
+ <span class="nx-tape">New · Nagi Burst · 27 Sep 2026</span>
  <h1 id="h-hero">Every control.<br><em>One forward pass.</em></h1>
  <p class="dek"><strong>Burst</strong> sets all K controls of a real-time machine from <strong>a single forward pass</strong> of a 27B Nagi model, instead of one pass per control (K-call). The same weights serve both readouts and return the same output: a probability for every option of every control. It helps when a machine has several controls and the world does not wait for the model.</p>
  <p class="dek sm">Ships as <strong>Nagi-ENORMOUS Burst</strong>: the released Nagi-ENORMOUS adapter (rank-8 LoRA on Qwen3.8-27B) trained for 417 more updates on both formats. Burst needs these weights; the earlier adapter never saw the Burst format.</p>
- <!-- PH P2_WINRATE_VS_JEV(_CI): PREREG §6.2-6.3 composite Θ, Burst (counted variant V*) vs Jev, fresh seed indices 10–33, 95% t CI over n = 24 indices.
-      Source: the P2 realtime analysis (docs/burst_release/ report + results.json). Allowed only if R-RT passed (PREREG §8.2).
-      PH P2_C1_CLAUSE: "" if only R-RT passed; ", a preregistered superiority result (C1)" only if C1 passed. -->
- <p class="key">Preregistered real-time confirmation on 24 fresh seeds × 3 games: Burst survived longer than <strong>Jev</strong> in <strong>{{P2_WINRATE_VS_JEV}}</strong> of head-to-heads (95% CI {{P2_WINRATE_VS_JEV_CI}}){{P2_C1_CLAUSE}}, at a decision latency of <strong>{{LAT_P50_MS_RR}} ms</strong> p50 with three controls on one H100.</p>
+ <p class="key">Preregistered real-time confirmation on 24 fresh seeds × 3 games: Burst survived longer than <strong>Jev</strong> in <strong>67.4%</strong> of head-to-heads (95% CI [57.7%, 77.0%]), a preregistered superiority result. Per game, the lead is significant on Booster Gauntlet only. Decision latency: <strong>248 ms</strong> p50 with three controls at 3 streams per H100 in the preregistered latency check, 264 ms in play.</p>
  <div class="ctas">
-  <!-- PH URL_HF_BURST: final HF repo URL (draft name in burst_config.json: nagisanzeninz/Nagi-ENORMOUS-Burst); must be PUBLIC before go-live -->
-  <a class="nx-btn primary" href="{{URL_HF_BURST}}">Model on Hugging Face <span aria-hidden="true">↗</span></a>
+  <a class="nx-btn primary" href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst">Model on Hugging Face <span aria-hidden="true">↗</span></a>
   <a class="nx-btn" href="https://github.com/nagisanzenin/nagi">Code on GitHub <span aria-hidden="true">↗</span></a>
   <a class="nx-btn" href="../arena/">Arena benchmark <span aria-hidden="true">→</span></a>
-  <!-- PH URL_REPORT: public report with prereg + receipts (planned: https://github.com/nagisanzenin/nagi/blob/main/bench/burst/README.md) -->
-  <a class="nx-btn" href="{{URL_REPORT}}">Report, prereg, receipts <span aria-hidden="true">↗</span></a>
+  <a class="nx-btn" href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst/README.md">Report, prereg, receipts <span aria-hidden="true">↗</span></a>
  </div>
  <dl class="facts">
-  <!-- PH LAT_P50_MS_RR / LAT_P50_MS_BG: PREREG §3.4 LAT, counted variant, 3 concurrent streams, H100, p50 per game (offline-gates receipt); or the P2 in-play p50 if the report quotes that. -->
-  <div><dt>Decision latency, 3–4 controls</dt><dd>{{LAT_P50_MS_RR}} / {{LAT_P50_MS_BG}} ms<small>p50, 3 and 4 controls · one pass per control on the same GPU: 612 / 757 ms (Board 1)</small></dd></div>
-  <!-- PH G2_DELTA / G2_BOUND: PREREG §3.2 G2, MA1(V*) − MA1(K-call), point estimate and decisional one-sided 97.5% lower bound L. -->
-  <div><dt>Decision quality vs one pass per control</dt><dd>{{G2_DELTA}}<small>same weights, 780 offline states · lower bound {{G2_BOUND}}, margin −0.06</small></dd></div>
-  <!-- PH PHI_A: PREREG §3.1 "A model-level disclosure" φ_A with its 95% CI (if SELECT = A). If SELECT = B, rewrite this tile with φ_B (§8.2 B wording). -->
-  <div><dt>Control order</dt><dd>Fixed by the SDK<small>same answer for any client order · the model itself flips on {{PHI_A}} of states when the order rotates (first test: 26.0%, failed)</small></dd></div>
+  <div><dt>Decision latency, 3–4 controls</dt><dd>248 / 196 ms<small>p50, 3 and 4 controls, release latency check · in play: 264 / 290 ms · one pass per control, in play on the same GPU: 612 / 757 ms (Board 1)</small></dd></div>
+  <div><dt>Decision quality vs one pass per control</dt><dd>−0.005<small>same weights, 780 offline states · lower bound −0.045, margin −0.06</small></dd></div>
+  <div><dt>Control order</dt><dd>Fixed by the SDK<small>same answer for any client order, given the environment's declared order · the model itself flips on 24.8% [17.5%, 32.2%] of states when the order rotates (first test: 26.0%, failed)</small></dd></div>
   <div><dt>Real-time games</dt><dd>3<small>fail-first, 250 ms ticks, the world never pauses</small></dd></div>
  </dl>
  <div class="claims">
   <div class="yes"><h3>What we claim</h3><ul>
    <li>Burst decides all K controls with one forward pass, on the same weights as one pass per control.</li>
-   <li>Decision latency p50 of {{LAT_P50_MS_RR}} ms (3 controls) and {{LAT_P50_MS_BG}} ms (4 controls) at 3 concurrent streams on an H100; the preregistered limit was 300 ms.</li>
-   <li>Multi-control decision quality is non-inferior to one pass per control within 0.06 (preregistered margin).</li>
-   <li>In real-time play on fresh seeds, Burst survived longer than Jev in {{P2_WINRATE_VS_JEV}} of head-to-heads ({{P2_WINRATE_VS_JEV_CI}}).</li>
+   <li>Decision latency p50 of 248 ms (3 controls) and 196 ms (4 controls) at 3 concurrent streams on an H100 (merged bf16, fused kernels). The one-sided 97.5% upper bounds, 269 and 264 ms, are under the preregistered 300 ms limit. In play on the release run the p50 was 264 and 290 ms.</li>
+   <li>Multi-control decision quality is non-inferior to one pass per control of the same weights within 0.06 (MA1 difference −0.005, one-sided 97.5% bound −0.045).</li>
+   <li>Through the SDK, answers do not depend on the order in which the client lists the controls, given the environment's declared order. The model itself changes its answer on 24.8% [17.5%, 32.2%] of states when the order is rotated.</li>
+   <li>Burst outperforms Jev in real-time head-to-heads: on 24 fresh seed indices × 3 games it survived longer in 67.4% of them (95% CI [57.7%, 77.0%]; sign-flip p = 0.0018).</li>
+   <li>Per game, only on Booster Gauntlet (97.9% of head-to-heads, significant after Holm correction).</li>
   </ul></div>
   <div class="no"><h3>What we do not claim</h3><ul>
+   <li>That Burst beats Jev on Snake Rush or Rotorwash-Ramp. Neither is individually significant, and on Snake Rush Burst survived longer in under half of the head-to-heads.</li>
    <li>An order-invariant model. The SDK fixes the order of the controls; the model itself still changes its answer when the order changes.</li>
    <li>Better decisions than one pass per control. With time frozen (lockstep), Burst was worse on the helicopter game. Its advantage is latency.</li>
    <li>Anything from the 10-seed screen beyond a screen, including Burst's lead over one pass per control in real time.</li>
@@ -307,11 +299,11 @@ ANSWER:
    <tr><td class="l">Arena v3 Board 1, Snake Rush, 3 streams per H100</td><td>1</td><td>231</td><td>213</td><td>1.08</td></tr>
    <tr><td class="l">Arena v3 Board 1, Rotorwash-Ramp, 3 streams per H100</td><td>3</td><td>239</td><td>612</td><td>0.39</td></tr>
    <tr><td class="l">Arena v3 Board 1, Booster Gauntlet, 3 streams per H100</td><td>4</td><td>271</td><td>757</td><td>0.36</td></tr>
-   <!-- PH LAT_*: PREREG §3.4 LAT probe of the counted variant (3 streams, filler prompts, H100), p50 and one-sided 97.5% upper bound per game; offline-gates receipt. -->
-   <tr class="me"><td class="l">Release check (LAT gate), Rotorwash-Ramp / Booster, 3 streams per H100, upper bound must be ≤ 300 ms</td><td>3 / 4</td><td>{{LAT_P50_MS_RR}} / {{LAT_P50_MS_BG}}</td><td>–</td><td>upper bounds {{LAT_UB_MS_RR}} / {{LAT_UB_MS_BG}}</td></tr>
+   <tr class="me"><td class="l">Release check (LAT gate), Rotorwash-Ramp / Booster, 3 streams per H100, upper bound must be ≤ 300 ms</td><td>3 / 4</td><td>248 / 196</td><td>–</td><td>upper bounds 269 / 264</td></tr>
+   <tr class="me"><td class="l">Release run, in play, Snake Rush / Rotorwash-Ramp / Booster, 3 streams per H100 (102 rounds)</td><td>1 / 3 / 4</td><td>249 / 264 / 290</td><td>–</td><td>–</td></tr>
   </tbody>
  </table></div>
- <p class="note">Rows 1–4: Burst's first test, 26 Sep 2026. Rows 5–7: Arena v3 Board 1, 27 Sep 2026, p50 over all requests of all rounds (player_summary.json). The Board 1 Burst player renders byte-identical prompts to release variant A. Brackets: 95% bootstrap intervals where the report computed one. Ratios without brackets are ratios of the p50s shown. With one control (K = 1) Burst has nothing to save and is slightly slower (longer prompt). Serving 3 streams per GPU instead of 1 multiplies latency by 2.27 for Burst and 2.80 for K-call.</p>
+ <p class="note">Rows 1–4: Burst's first test, 26 Sep 2026. Rows 5–7: Arena v3 Board 1, 27 Sep 2026, p50 over all requests of all rounds (player_summary.json). Row 8: the preregistered latency check of the release, 27 Sep 2026: a probe on each game's frozen filler prompts, p50 with a one-sided 97.5% moving-block bootstrap upper bound. Row 9: the release run itself, p50 over all requests of all rounds (seed indices 0–33, results.json). In play the p50 is higher than in the check on every game, and on Booster Gauntlet (290 ms) it is above the 250 ms tick. The Board 1 Burst player renders byte-identical prompts to release variant A. Brackets: 95% bootstrap intervals where the report computed one. Ratios without brackets are ratios of the p50s shown. With one control (K = 1) Burst has nothing to save and is slightly slower (longer prompt). Serving 3 streams per GPU instead of 1 multiplies latency by 2.27 for Burst and 2.80 for K-call.</p>
 </section>
 
 <section id="evidence" aria-labelledby="h-evidence">
@@ -325,32 +317,40 @@ ANSWER:
  </dl>
 
  <h3 id="confirm">Preregistered confirmation on fresh seeds</h3>
- <!-- PH block: every cell from the Burst release receipts. Offline rows: the offline-gates receipt + docs/burst_release/selection.json (PREREG §3, §5).
-      Real-time rows: the P2 analysis (PREREG §6). Verdicts verbatim (PASS / FAIL / PENDING / not tested). -->
- <p>Every gate below, its threshold, and the rule that picks the readout variant were frozen before any Burst data existed (<a href="{{URL_PREREG}}">preregistration</a>, frozen commit <code>f0d6204</code> plus a pre-data amendment <code>0c346f5</code>). The variant is chosen mechanically from the offline receipts and committed before any real-time result is opened, so game outcomes cannot influence it. Real time: Burst and Jev on seed indices 10–33 of each game, which no player had seen (n = 24 per game). Indices 0–9 are the Board 1 screen below and count only as a screen.</p>
+ <p>Every gate below, its threshold, and the rule that picks the readout variant were frozen before any Burst data existed (<a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst/PREREG.md">preregistration</a>, frozen commit <code>f0d6204</code> plus a pre-data amendment <code>0c346f5</code>). The variant is chosen mechanically from the offline receipts and committed before any real-time result is opened, so game outcomes cannot influence it. Real time: Burst and Jev on seed indices 10–33 of each game, which no player had seen (n = 24 per game). Indices 0–9 are the Board 1 screen below and count only as a screen.</p>
  <div class="tw"><table class="gates">
-  <caption>Release gates · counted variant: {{BURST_VARIANT}}</caption>
+  <caption>Release gates · counted variant: A (canonical order)</caption>
   <thead><tr><th scope="col">Gate</th><th scope="col">Estimate</th><th scope="col">Bound / CI</th><th scope="col">Rule</th><th scope="col">Verdict</th></tr></thead>
   <tbody>
-   <tr><td class="l">G1-SDK · same served answer for all 6 client orders (500 states)</td><td>{{G1_SDK_RESULT}}</td><td>–</td><td>500 / 500</td><td>{{G1_SDK_VERDICT}}</td></tr>
-   <tr><td class="l">Model-level order flips, variant A (disclosure, not a gate)</td><td>{{PHI_A}}</td><td>{{PHI_A_CI}}</td><td>reported</td><td>–</td></tr>
-   <tr><td class="l">G1-B · order residual, variant B (K = 3)</td><td>{{G1B_PHI}}</td><td>upper {{G1B_UB}}</td><td>≤ 0.10</td><td>{{G1B_VERDICT}}</td></tr>
-   <tr><td class="l">G2 · multi-control quality minus K-call (MA1, 780 states)</td><td>{{G2_DELTA}}</td><td>lower {{G2_BOUND}}</td><td>&gt; −0.06</td><td>{{G2_VERDICT}}</td></tr>
-   <tr><td class="l">G3 · extra “climb” commands vs K-call (Rotorwash-Ramp, 200 states)</td><td>{{G3_DELTA}}</td><td>upper {{G3_UB}}</td><td>≤ 0.15</td><td>{{G3_VERDICT}}</td></tr>
-   <tr><td class="l">LAT · p50 at 3 streams, H100 (Snake / RR / Booster, ms)</td><td>{{LAT_P50_MS_SNAKE}} / {{LAT_P50_MS_RR}} / {{LAT_P50_MS_BG}}</td><td>upper {{LAT_UB_MS_SNAKE}} / {{LAT_UB_MS_RR}} / {{LAT_UB_MS_BG}}</td><td>≤ 300 each</td><td>{{LAT_VERDICT}}</td></tr>
-   <tr><td class="l">Validity · replay exact, 3 streams asserted, void rounds</td><td>{{P2_VOID_ROUNDS}} void</td><td>–</td><td>≤ 1 per 24 per cell</td><td>{{V_RT_VERDICT}}</td></tr>
-   <tr class="me"><td class="l">R-RT · head-to-heads won vs Jev, 3 games (release gate)</td><td>{{P2_WINRATE_VS_JEV}}</td><td>{{P2_WINRATE_VS_JEV_CI}}</td><td>lower &gt; 35%</td><td>{{R_RT_VERDICT}}</td></tr>
-   <tr><td class="l">C1 · superiority vs Jev (claim, tested only after R-RT)</td><td>{{P2_WINRATE_VS_JEV}}</td><td>sign-flip p {{C1_P}}</td><td>lower &gt; 50% and p ≤ 0.025</td><td>{{C1_VERDICT}}</td></tr>
-   <tr><td class="l">C2 · per game vs Jev, Holm (Snake / RR / Booster)</td><td>{{C2_WINRATES}}</td><td>–</td><td>Holm, one-sided 0.025</td><td>{{C2_VERDICTS}}</td></tr>
+   <tr><td class="l">G1-SDK · same served answer for all 6 client orders (500 states)</td><td>500 / 500</td><td>–</td><td>500 / 500</td><td>PASS</td></tr>
+   <tr><td class="l">Model-level order flips, variant A (disclosure, not a gate)</td><td>24.8%</td><td>[17.5%, 32.2%]</td><td>reported</td><td>–</td></tr>
+   <tr><td class="l">G1-B · order residual, variant B (K = 3)</td><td>9.0%</td><td>upper 13.2%</td><td>≤ 0.10</td><td>FAIL (variant B, not selected)</td></tr>
+   <tr><td class="l">G2 · multi-control quality minus K-call (MA1, 780 states)</td><td>−0.005</td><td>lower −0.045</td><td>&gt; −0.06</td><td>PASS</td></tr>
+   <tr><td class="l">G3 · extra “climb” commands vs K-call (Rotorwash-Ramp, 200 states)</td><td>−0.015</td><td>upper 0.002</td><td>≤ 0.15</td><td>PASS</td></tr>
+   <tr><td class="l">LAT · p50 at 3 streams, H100 (Snake / RR / Booster, ms)</td><td>216 / 248 / 196</td><td>upper 219 / 269 / 264</td><td>≤ 300 each</td><td>PASS</td></tr>
+   <tr><td class="l">Validity · replay exact, 3 streams asserted, void rounds</td><td>0 of 174 void</td><td>–</td><td>≤ 1 per 24 per cell</td><td>PASS</td></tr>
+   <tr class="me"><td class="l">R-RT · head-to-heads won vs Jev, 3 games (release gate)</td><td>67.4%</td><td>[57.7%, 77.0%]</td><td>lower &gt; 35%</td><td>PASS</td></tr>
+   <tr><td class="l">C1 · superiority vs Jev (claim, tested only after R-RT)</td><td>67.4%</td><td>sign-flip p 0.0018</td><td>lower &gt; 50% and p ≤ 0.025</td><td>PASS</td></tr>
+   <tr><td class="l">C2 · per game vs Jev, Holm (Snake / RR / Booster)</td><td>45.8% / 58.3% / 97.9%</td><td>–</td><td>Holm, one-sided 0.025</td><td>FAIL / FAIL / PASS</td></tr>
   </tbody>
  </table></div>
- <p class="note">Offline gates use one-sided 97.5% bounds (Bonferroni over the two variants). The real-time tests are a fixed sequence at one-sided α = 0.025. A “head-to-head” is one seed index of one game: whoever fails later wins, a tie counts ½. The preregistration's own power analysis: the per-game tests are underpowered unless the effect is large, and Booster's 22 s wall compresses its rates.</p>
+ <p class="note">Offline gates use one-sided 97.5% bounds (Bonferroni over the two variants). The release rule needs the selected variant's offline gates, V_rt and R-RT; G1-B belongs to variant B only. B also failed its latency gate (p50 774 / 1,039 ms on Rotorwash-Ramp / Booster); A passed every gate, and the frozen rule selected it. The real-time tests are a fixed sequence at one-sided α = 0.025. A “head-to-head” is one seed index of one game: whoever fails later wins, a tie counts ½. The preregistration's own power analysis: the per-game tests are underpowered unless the effect is large, and Booster's 22 s wall compresses its rates.</p>
+ <div class="tw"><table>
+  <caption>Fresh seeds 10–33, per game · Nagi-ENORMOUS Burst vs Jev</caption>
+  <thead><tr><th scope="col">Game</th><th scope="col">Head-to-heads won</th><th scope="col">Sign-flip p</th><th scope="col">C2 (Holm)</th><th scope="col">Mean survival ≤ 60 s, Burst</th><th scope="col">Jev</th></tr></thead>
+  <tbody>
+   <tr><td>Snake Rush · K=1</td><td>45.8%</td><td>0.736</td><td>not significant</td><td>9.3 s [7.1, 11.5]</td><td>10.7 s [7.9, 13.4]</td></tr>
+   <tr><td>Rotorwash-Ramp · K=3</td><td>58.3%</td><td>0.270</td><td>not significant</td><td>23.1 s [20.7, 25.5]</td><td>21.5 s [17.3, 25.7]</td></tr>
+   <tr class="me"><td>Booster Gauntlet · K=4</td><td>97.9%</td><td>0.00001</td><td>PASS</td><td>22.0 s <span class="muted">(every round at the 22 s wall)</span></td><td>12.3 s [10.6, 13.9]</td></tr>
+  </tbody>
+ </table></div>
+ <p class="note">n = 24 seed indices per game, 0 void rounds. Mean survival ≤ 60 s is the restricted mean survival time (RMST) with a 95% t interval, an estimate without a hypothesis test. Only Booster Gauntlet is individually significant; Snake Rush and Rotorwash-Ramp are not, and on Snake Rush Burst's point estimate is below Jev's. The Booster p-value is the Monte Carlo floor (100,000 sign flips).</p>
 
  <h3 id="survival">% of rounds still alive vs time</h3>
- <p>Each line is the share of a player's rounds still running at time t (Kaplan-Meier; no round reached the 60 s cap, so nothing is censored in the screen). Higher and further right is better.</p>
+ <p>Each line is the share of a player's rounds still running at time t (Kaplan-Meier; no round reached the 60 s cap in either dataset, so nothing is censored). Higher and further right is better.</p>
  <div class="tabs" role="group" aria-label="Dataset">
-  <button type="button" data-set="confirmation" aria-pressed="false" disabled title="Filled after the release gates">Confirmation (fresh seeds)</button>
-  <button type="button" data-set="board1" aria-pressed="true">Board 1 screen (seeds 0–9)</button>
+  <button type="button" data-set="confirmation" aria-pressed="true">Confirmation (fresh seeds 10–33)</button>
+  <button type="button" data-set="board1" aria-pressed="false">Board 1 screen (seeds 0–9)</button>
  </div>
  <div class="tabs" role="group" aria-label="Game">
   <button type="button" data-game="snake" aria-pressed="false">Snake Rush · K=1</button>
@@ -359,7 +359,7 @@ ANSWER:
  </div>
  <div class="chart" id="km"><p class="note">The chart needs JavaScript; the same numbers are in the table below.</p></div>
  <ul class="legend" id="km-legend"></ul>
- <p class="note" id="km-note">Board 1 screen: realtime, seed indices 0–9 per game, 6 players. Source: Arena v3 Board 1 report, per-round OUT order (<a href="data.json">data.json</a>).</p>
+ <p class="note" id="km-note">Preregistered confirmation: realtime, fresh seed indices 10–33 per game (n = 24), Nagi-ENORMOUS Burst (variant A) vs Jev 1.13.0, 0 void rounds. Per-round times: <a href="data.json">data.json</a>.</p>
  <details class="tv"><summary>Table view: % alive at 10 / 20 / 30 s, Board 1</summary>
  <div class="tw"><table>
   <thead><tr><th scope="col">Player</th><th scope="col">Snake 10/20/30 s</th><th scope="col">Rotorwash-Ramp 10/20/30 s</th><th scope="col">Booster 10/20/30 s</th></tr></thead>
@@ -406,17 +406,17 @@ ANSWER:
  <p class="note">Frozen time: every player gets unlimited time per tick (lockstep). In frozen time every Burst Rotorwash round ended on the cave ceiling (24/24), a flying failure K-call did not show. Real-time Rotorwash with 5 seeds is exploratory, not a decision. "+0.000" on 780 states means Burst was not shown to be worse, but the interval is wider than the preregistered 0.02 margin, so non-inferiority was formally not established.</p>
 
  <h3 id="jev">Versus Jev, the faster player</h3>
- <p>Jev (version 1.13.0, a commercial API) answers all controls in one request, like Burst, and was the fastest player on the two multi-control games: p50 212 and 214 ms including the network, fresh on 88–90% of ticks against Burst's 66%. In the Board 1 screen Burst still survived longer in 70% (Snake Rush), 90% (Rotorwash-Ramp) and 100% (Booster Gauntlet) of head-to-heads. Against a faster opponent, a lead cannot come from speed; it has to come from the decisions, including Nagi's training on similar tasks (below). The screen picked Burst after the fact, so the preregistered test on 24 fresh seeds is the result that counts: {{P2_WINRATE_VS_JEV}} ({{P2_WINRATE_VS_JEV_CI}}).</p>
- <p class="note">Caveats: Jev runs on unknown vendor hardware over the network from a recorded client region; its latency includes the network and is not subtracted. Nagi was trained on similar control tasks (hover, crane, closed-loop snake); Jev's training is unknown. This is a specialist against a general model, on the specialist's kind of task.</p>
+ <p>Jev (version 1.13.0, a commercial API) answers all controls in one request, like Burst, and was the fastest player on the two multi-control games: p50 212 and 214 ms including the network, fresh on 88–90% of ticks against Burst's 66%. In the Board 1 screen Burst still survived longer in 70% (Snake Rush), 90% (Rotorwash-Ramp) and 100% (Booster Gauntlet) of head-to-heads. Against a faster opponent, a lead cannot come from speed; it has to come from the decisions, including Nagi's training on similar tasks (below). The screen picked Burst after the fact, so the preregistered test on 24 fresh seeds is the result that counts: 67.4% ([57.7%, 77.0%]). It passed the superiority test, but the lead is uneven: 97.9% on Booster Gauntlet, 58.3% on Rotorwash-Ramp and 45.8% on Snake Rush, and only Booster is individually significant.</p>
+ <p class="note">Caveats: Jev runs on unknown vendor hardware over the network from a recorded client region; its latency includes the network and is not subtracted. In the release run the first Jev job stopped at its per-job cost guard before Rotorwash-Ramp indices 25–33; a second job played them, and Jev's measured p50 there was 297 ms against 172 ms in the first job (3 streams, latency probe). Jev's answers are not deterministic on repeated identical requests; its version string (jev-1.13.0) matched Board 1 in every job. Nagi was trained on similar control tasks (hover, crane, closed-loop snake); Jev's training is unknown. This is a specialist against a general model, on the specialist's kind of task.</p>
 
  <h3 id="clips">Watch the rounds</h3>
- <p>One clip per game, rendered from verified replays of recorded rounds (every recorded decision is replayed and checked before drawing). The seed is chosen by a fixed rule, never by hand: the round where Burst's survival is its lower median.</p>
- <!-- PH CLIP_*: Burst-labelled clips from the release render replace ~/Downloads/Nagi-ArenaV3-*.mp4. Copy to site/burst/media/ as listed in the checklist, with posters (first frame, jpg). -->
+ <p>One clip per game, rendered from verified replays of recorded rounds (every recorded decision is replayed and checked before drawing). Each clip shows Nagi-ENORMOUS Burst's round from the release run next to Jev's and SemIf-4B's Board 1 rounds on the same seed, so all three face the same seed and difficulty schedule. The seed is chosen by a fixed rule, never by hand: the index of Burst's lower-median survival time, or, if not every shown player has a round there, the next index in order of Burst's survival time, shortest first. SemIf-4B played only indices 0–9, so on Snake Rush and Rotorwash-Ramp the rule lands on Burst's shortest round among those (4.5 s and 12.9 s). On Booster Gauntlet every Burst round ends at the 22 s wall and the rule takes index 0. These clips show Burst's weaker rounds, not its best.</p>
  <div class="clips">
-  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-snake-rush.jpg" aria-label="Snake Rush round"><source src="media/burst-snake-rush.mp4" type="video/mp4"></video></div><figcaption><b>Snake Rush</b> · K = 1 · seed {{CLIP_SEED_SNAKE}}</figcaption></figure>
-  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-rotorwash-ramp.jpg" aria-label="Rotorwash-Ramp round"><source src="media/burst-rotorwash-ramp.mp4" type="video/mp4"></video></div><figcaption><b>Rotorwash-Ramp</b> · K = 3 · seed {{CLIP_SEED_RR}}</figcaption></figure>
-  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-booster-gauntlet.jpg" aria-label="Booster Gauntlet round"><source src="media/burst-booster-gauntlet.mp4" type="video/mp4"></video></div><figcaption><b>Booster Gauntlet</b> · K = 4 · seed {{CLIP_SEED_BG}}</figcaption></figure>
+  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-snake-rush.jpg" aria-label="Snake Rush round: Nagi-ENORMOUS Burst, Jev and SemIf-4B on seed index 3"><source src="media/burst-snake-rush.mp4" type="video/mp4"></video></div><figcaption><b>Snake Rush</b> · K = 1 · seed index 3</figcaption></figure>
+  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-rotorwash-ramp.jpg" aria-label="Rotorwash-Ramp round: Nagi-ENORMOUS Burst, Jev and SemIf-4B on seed index 4"><source src="media/burst-rotorwash-ramp.mp4" type="video/mp4"></video></div><figcaption><b>Rotorwash-Ramp</b> · K = 3 · seed index 4</figcaption></figure>
+  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-booster-gauntlet.jpg" aria-label="Booster Gauntlet round: Nagi-ENORMOUS Burst, Jev and SemIf-4B on seed index 0"><source src="media/burst-booster-gauntlet.mp4" type="video/mp4"></video></div><figcaption><b>Booster Gauntlet</b> · K = 4 · seed index 0</figcaption></figure>
  </div>
+ <p class="note">Seed indices 0–9 are the Board 1 screen, so the clips illustrate rounds; they are not part of the fresh-seed test. The on-screen label “ENORMOUS Burst” is Nagi-ENORMOUS Burst.</p>
 
  <h3>What this benchmark measures, and what it does not</h3>
  <div class="claims">
@@ -438,7 +438,8 @@ ANSWER:
  <h2 id="h-limits">The parts that did not work.</h2>
  <ul class="lims">
   <li class="fail"><b class="k">Failed a preregistered gate</b>Burst was prototyped as “Chord”. That first prototype <strong>failed</strong> its preregistered order gate: rotating the order in which the controls are listed changed the joint answer on <strong>26.0%</strong> of 500 states [18.4%, 34.3%], against a 10% limit. The verdict was REJECT, and it stays REJECT; it is never passed retroactively. Board 1's Burst player used that same readout.</li>
-  <li><b class="k">The fix, tested as a new candidate</b>Two variants, with gates frozen before any data. <strong>A</strong>: the SDK always renders the controls in the environment's declared order, so the served answer cannot depend on the order a client lists them in. This is a software guarantee, not a property of the model: presented in another order, the model still changes its answer on {{PHI_A}} of states, and clients that bypass the SDK must use the canonical order. <strong>B</strong>: render the state under the K rotations of the control order, score the K prompts in one batched forward pass, and average each control's log-probabilities, so every control sits in every slot once. B costs K× the tokens of A and was predicted to miss the latency limit. Selected by the frozen rule: <strong>{{BURST_VARIANT}}</strong>.</li>
+  <li><b class="k">The fix, tested as a new candidate</b>Two variants, with gates frozen before any data. <strong>A</strong>: the SDK always renders the controls in the environment's declared order, so the served answer cannot depend on the order a client lists them in. This is a software guarantee, not a property of the model: presented in another order, the model still changes its answer on 24.8% of states, and clients that bypass the SDK must use the canonical order. <strong>B</strong>: render the state under the K rotations of the control order, score the K prompts in one batched forward pass, and average each control's log-probabilities, so every control sits in every slot once. B costs K× the tokens of A and was predicted to miss the latency limit. It did (p50 774 / 1,039 ms on Rotorwash-Ramp / Booster), and its order residual missed too (9.0%, upper bound 13.2% against 10%). Selected by the frozen rule: <strong>A (canonical order)</strong>. Every gate of variant A passed.</li>
+  <li class="fail"><b class="k">Ceiling crashes in real time</b>On the 24 fresh-seed Rotorwash-Ramp rounds, 12 ended on the cave ceiling (collapse 9, terrain 3). The preregistration requires disclosing this at 50% or more. The offline climb-bias gate (G3) passed, but it detects only gross bias.</li>
   <li class="fail"><b class="k">No coordination gain</b>We hoped reading all controls together would improve coordination between them. It did not: the preregistered “clear win” test on coordination states failed (MA2 −0.016 [−0.113, +0.072], MA2b +0.010 [−0.078, +0.088]).</li>
   <li class="fail"><b class="k">Worse flying with time frozen</b>In frozen-time Rotorwash, Burst hit the cave ceiling in 24 of 24 rounds and survived 43.1 s less than K-call [−53.0, −32.0]. The real-time advantage exists in spite of this.</li>
   <li><b class="k">Screen-level evidence</b>Board 1 is a screen: 10 seeds per game. Burst was picked as the best of four Nagi entries after the results, which inflates its numbers (winner's curse), and two of the four share weights. That is why the release test runs on fresh seeds under a preregistration. It compares Burst with Jev only; Burst versus one pass per control in real time has only this screen and a 5-seed exploratory run. The preregistration bounds the selection optimism at about 0.076 in win-rate units at n = 10.</li>
@@ -448,6 +449,7 @@ ANSWER:
   <li><b class="k">Trained on three controls</b>Every Burst training row had K = 3 slots (with the control order shuffled per row). Booster Gauntlet's K = 4 is outside the trained range, and K ≥ 5 was never evaluated. Two genres were held out of training; on them every readout is weak (joint decisions acceptable: 0.17 Burst vs 0.18 K-call, 120 instances).</li>
   <li><b class="k">One control, no gain</b>With K = 1 (Snake Rush) Burst does one pass either way and is slightly slower (231 vs 213 ms p50) because its prompt is longer. On Snake Rush every model sits near the floor: Burst's median survival (10 s) is below that of the naive reference bot (13.75 s).</li>
   <li><b class="k">The baseline is sequential</b>K-call here is the SDK default: K forward passes one after another. We did not measure a K-call that batches its K prompts or caches the shared state prefix. Such a baseline would close part of the latency gap, at the cost of more tokens.</li>
+  <li><b class="k">Uneven lead over Jev</b>The superiority result is carried by Booster Gauntlet (97.9% of head-to-heads). On Rotorwash-Ramp (58.3%) and Snake Rush (45.8%) the difference from Jev is not significant, and Booster’s 22 s wall means Burst “wins” there by reaching the wall while Jev fails earlier. Jev’s measured latency also differed between its two release jobs (p50 172 vs 297 ms).</li>
   <li><b class="k">Hardware and serving</b>All self-hosted numbers: H100 80 GB, bf16 weights with the adapter merged, fused kernels, 3 streams per GPU. Other GPUs, quantization or batch sizes will give other numbers. Nothing here is a service-level guarantee.</li>
   <li><b class="k">Training history</b>A preregistered pause fired at step 125 of 417 (language benchmark −2.07 points) and was overridden by the project owner; the run continued. At the final step the language score is −0.5 points vs the released ENORMOUS (0.8578 vs 0.8631, n = 200); Arena retention against it was inconclusive, and the public benchmark suite was not re-run.</li>
   <li><b class="k">Probabilities</b>Temperature 1.0 is not learned calibration; probabilities can be overconfident on new domains. Held-out genres in the offline test rest on 2 families only.</li>
@@ -458,25 +460,31 @@ ANSWER:
 <section id="reproduce" aria-labelledby="h-repro">
  <p class="eyebrow">05 / Reproduce</p>
  <h2 id="h-repro">Check it yourself.</h2>
- <!-- PH SDK_*: public SDK version and call once the nagi-public SDK branch with Burst is merged (burst_config.json: sdk_min_version 0.6.0). -->
-<pre><code>python -m pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git@{{SDK_TAG}}"
+<pre><code>python -m pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git@v0.6.0"
 
-{{SDK_BURST_SNIPPET}}</code></pre>
- <p class="note">Needs an 80 GB GPU in bf16 (the base alone is about 56 GB). The answer dictionary has the same shape as the default K-call mode.</p>
+from nagi import load_enormous_burst   # 80 GB GPU, BF16, adapter merged in place
+nagi = load_enormous_burst()
+state = "tick 3: water 0.4 m\n\nCONTROLS (set together each tick): gate = closed | open; pump = down | idle | up."
+questions = {"pump": {"type": "choice", "instructions": "Choose the pump setting.", "criteria": {"down": "pump water out", "idle": "leave pump idle", "up": "pump water in"}},
+             "gate": {"type": "choice", "instructions": "Choose the gate setting.", "criteria": {"closed": "gate stays closed", "open": "gate is open"}}}
+out = nagi.system_one(state, questions, mode="burst")   # one forward pass for every control
+print({qid: a["choice"] for qid, a in out["answers"].items()}, out["burst"])</code></pre>
+ <p class="note">Needs an 80 GB GPU in bf16 (the base alone is about 56 GB). The answer dictionary has the same shape as the default K-call mode; <code>out["burst"]</code> reports the slot order used (here taken from the CONTROLS line, not the dict order) and the number of forward passes.</p>
  <div class="links">
-  <a href="{{URL_PREREG}}"><b>Preregistration ↗</b><span>Gates, thresholds and the variant-selection rule, frozen before data.</span></a>
-  <a href="{{URL_REPORT}}"><b>Report and receipts ↗</b><span>Every number on this page with its source file and sha256.</span></a>
-  <a href="{{URL_PROTOCOL}}"><b>Arena v3 protocol ↗</b><span>Realtime rules, metrics, seeds, void and staleness rules.</span></a>
-  <a href="{{URL_RECORDS}}"><b>Round records ↗</b><span>Every decision of every round; replays reproduce each round without the model.</span></a>
-  <a href="{{URL_HF_BURST}}"><b>Model card ↗</b><span>Weights, adapter sha256, serving path, limits.</span></a>
+  <a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst/PREREG.md"><b>Preregistration ↗</b><span>Gates, thresholds and the variant-selection rule, frozen before data.</span></a>
+  <a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst/README.md"><b>Report and receipts ↗</b><span>Every number on this page with its source file and sha256.</span></a>
+  <a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/PROTOCOL.md"><b>Arena v3 protocol ↗</b><span>Realtime rules, metrics, seeds, void and staleness rules.</span></a>
+  <a href="https://github.com/nagisanzenin/nagi/tree/main/bench/burst/receipts"><b>Receipts ↗</b><span>Gate and selection receipts, the release decision, and every round's survival time per seed.</span></a>
+  <a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst"><b>Model card ↗</b><span>Weights, adapter sha256, serving path, limits.</span></a>
   <a href="https://github.com/nagisanzenin/nagi"><b>SDK source ↗</b><span>Renderer, slot positions, readout.</span></a>
  </div>
  <h3>Names used on this page</h3>
  <dl class="gloss">
   <dt>Burst</dt><dd>The one-pass K-slot readout. Research name “Chord” until 27 Sep 2026.</dd>
+  <dt>Nagi-ENORMOUS Burst</dt><dd>The release: the step-417 weights served with Burst in the environment's declared control order (variant A). Labelled “ENORMOUS Burst” in the clips.</dd>
   <dt>K-call</dt><dd>One forward pass per control, the SDK default.</dd>
   <dt>Same weights</dt><dd>Qwen3.8-27B + rank-8 LoRA at step 417 (research name “T-dual”), trained on both formats. Burst and K-call on this page both use it.</dd>
-  <dt>ENORMOUS (released)</dt><dd>The released Nagi-ENORMOUS adapter (step 500), which Burst's weights continue from; one pass per control. <!-- VERIFY before publishing: research name "ENORMOUS-old" = public Nagi-ENORMOUS revision 2e03ec3… (checklist) --></dd>
+  <dt>ENORMOUS (released)</dt><dd>The released Nagi-ENORMOUS adapter (step 500), which Burst's weights continue from; one pass per control.</dd>
   <dt>ENORMOUS-CL</dt><dd>An unreleased closed-loop fine-tune of ENORMOUS, K-call readout.</dd>
   <dt>Jev</dt><dd>Jev 1.13.0, commercial API, one request with all controls.</dd>
   <dt>SemIf-4B</dt><dd>The OpenJev / SemIf 4B reference, self-hosted on its native stack.</dd>
