@@ -317,3 +317,10 @@ h2{font-size:clamp(34px,6vw,64px)}
 html{scroll-padding-top:112px}
 @media (max-width:640px){html{scroll-padding-top:64px}}
 .callout b{white-space:normal;font-size:24px}
+
+/* legacy label (Arena v3 is the current benchmark: ../arena/) */
+.legacy-banner{background:#1C1C21;border-bottom:1px solid var(--line);padding:14px 0}
+.legacy-banner .wrap{display:flex;gap:14px 18px;align-items:center;flex-wrap:wrap}
+.legacy-banner p{margin:0;font-size:14.5px;line-height:1.5;color:var(--muted);flex:1 1 320px}
+.legacy-banner strong{color:var(--text)}
+.legacy-banner a{color:#F5E642;font-weight:600;white-space:nowrap}

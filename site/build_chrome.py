@@ -16,15 +16,15 @@ GH = "https://github.com/nagisanzenin/nagi"
 # path, depth prefix, active nav key, page kind, optional on-page anchors
 PAGES = [
     ("index.html", "", "bench", "home", [("Results", "#results"), ("Nagi tiers", "#tiers"), ("Method", "#method"), ("Reproduce", "#evidence")]),
-    ("arena-live/index.html", "../", "live", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
-    ("arena/index.html", "../", "replays", "hub", []),
-    ("bomber-huge/index.html", "../", "replays", "legacy", []),
-    ("bomber-realtime/index.html", "../", "replays", "legacy", []),
-    ("bomber/index.html", "../", "replays", "legacy", []),
-    ("snake/index.html", "../", "replays", "legacy", []),
+    ("arena/index.html", "../", "arena", "arena", [("Leaderboard", "#results"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
+    ("arena-live/index.html", "../", "arena", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
+    ("bomber-huge/index.html", "../", "arena", "legacy", []),
+    ("bomber-realtime/index.html", "../", "arena", "legacy", []),
+    ("bomber/index.html", "../", "arena", "legacy", []),
+    ("snake/index.html", "../", "arena", "legacy", []),
 ]
 
-NAV = [("bench", "Benchmark", ""), ("live", "Arena Live", "arena-live/"), ("replays", "Replays", "arena/")]
+NAV = [("bench", "Benchmark", ""), ("arena", "Game Arena", "arena/")]
 
 
 def head(p):
@@ -54,8 +54,8 @@ def footer(p, active, page):
             f'<div class="nx-brand"><img class="m" src="{p}assets/mascot-128.png" alt="Nagi mascot" width="72" height="72">'
             f'<div><img class="w" src="{p}assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div>'
             '<div class="nx-cols">'
-            '<div><h4>Benchmarks</h4><ul>' + link(f"{p}arena-live/", "Arena Live", active == "live") + link(p or "./", "Public decision benchmark", active == "bench") + '</ul></div>'
-            '<div><h4>Replays</h4><ul>' + link(f"{p}arena/", "All replays", page == "hub") + link(f"{p}bomber-huge/", "Real-time Bomber · HUGE")
+            '<div><h4>Benchmarks</h4><ul>' + link(f"{p}arena/", "Game Arena v3", page == "arena") + link(p or "./", "Public decision benchmark", active == "bench") + '</ul></div>'
+            '<div><h4>Archive (legacy)</h4><ul>' + link(f"{p}arena-live/", "Arena v2 · Arena Live", page == "live") + link(f"{p}bomber-huge/", "Real-time Bomber · HUGE")
             + link(f"{p}bomber-realtime/", "Real-time Bomber · BIG") + link(f"{p}bomber/", "Turn-based Bomber") + link(f"{p}snake/", "Snake pilot") + '</ul></div>'
             '<div><h4>Models</h4><ul>' + ext(f"{HF}/Nagi-ENORMOUS", "Nagi-ENORMOUS 27B") + ext(f"{HF}/Nagi-HUGE", "Nagi-HUGE 12B")
             + ext(f"{HF}/nagi-big-v3", "Nagi-BIG 4B") + ext(f"{HF}/nagi-smol-v0", "Nagi-SMOL 0.5B") + '</ul></div>'
