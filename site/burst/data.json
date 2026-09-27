@@ -22,9 +22,9 @@
    "note": "Closed-loop fine-tune of ENORMOUS, K-call readout."
   },
   "enormous_v1": {
-   "label": "ENORMOUS (previous adapter)",
+   "label": "Nagi-ENORMOUS (released)",
    "role": "other",
-   "note": "ENORMOUS adapter before closed-loop training, K-call readout."
+   "note": "Research name 'ENORMOUS-old': the released Nagi-ENORMOUS adapter (step 500), K-call readout. Burst's weights continue from it."
   },
   "semif_4b": {
    "label": "OpenJev / SemIf-4B",

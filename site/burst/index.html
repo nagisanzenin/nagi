@@ -144,7 +144,7 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
  <span class="nx-tape">New · Nagi Burst · <!-- PH RELEASE_DATE: publish date, e.g. "28 Sep 2026" -->{{RELEASE_DATE}}</span>
  <h1 id="h-hero">Every control.<br><em>One forward pass.</em></h1>
  <p class="dek"><strong>Burst</strong> sets all K controls of a real-time machine from <strong>a single forward pass</strong> of a 27B Nagi model, instead of one pass per control (K-call). The same weights serve both readouts and return the same output: a probability for every option of every control. It helps when a machine has several controls and the world does not wait for the model.</p>
- <p class="dek sm">Ships as <strong>Nagi-ENORMOUS Burst</strong>: a new rank-8 LoRA adapter on the Qwen3.8-27B base, trained on both formats. The existing Nagi-ENORMOUS adapter was not trained for Burst.</p>
+ <p class="dek sm">Ships as <strong>Nagi-ENORMOUS Burst</strong>: the released Nagi-ENORMOUS adapter (rank-8 LoRA on Qwen3.8-27B) trained for 417 more updates on both formats. Burst needs these weights; the earlier adapter never saw the Burst format.</p>
  <!-- PH P2_WINRATE_VS_JEV(_CI): PREREG §6.2-6.3 composite Θ, Burst (counted variant V*) vs Jev, fresh seed indices 10–33, 95% t CI over n = 24 indices.
       Source: the P2 realtime analysis (docs/burst_release/ report + results.json). Allowed only if R-RT passed (PREREG §8.2).
       PH P2_C1_CLAUSE: "" if only R-RT passed; ", a preregistered superiority result (C1)" only if C1 passed. -->
@@ -362,7 +362,7 @@ ANSWER:
    <tr class="me"><td>Burst (Board 1 player)</td><td>30 / 0 / 0%</td><td>100 / 80 / 10%</td><td>100 / 100 / 0%</td></tr>
    <tr><td>K-call, same weights</td><td>20 / 0 / 0%</td><td>100 / 50 / 0%</td><td>100 / 100 / 0%</td></tr>
    <tr><td>ENORMOUS-CL</td><td>70 / 10 / 0%</td><td>100 / 10 / 0%</td><td>100 / 60 / 0%</td></tr>
-   <tr><td>ENORMOUS (previous)</td><td>20 / 0 / 0%</td><td>100 / 20 / 0%</td><td>0 / 0 / 0%</td></tr>
+   <tr><td>Nagi-ENORMOUS (released)</td><td>20 / 0 / 0%</td><td>100 / 20 / 0%</td><td>0 / 0 / 0%</td></tr>
    <tr><td>Jev 1.13.0</td><td>30 / 10 / 0%</td><td>90 / 20 / 10%</td><td>30 / 0 / 0%</td></tr>
    <tr><td>OpenJev / SemIf-4B</td><td>0 / 0 / 0%</td><td>0 / 0 / 0%</td><td>0 / 0 / 0%</td></tr>
   </tbody>
@@ -373,15 +373,15 @@ ANSWER:
   <caption>% of head-to-heads survived longer · realtime · 10 seeds per game</caption>
   <thead><tr><th scope="col">Player</th><th scope="col">Snake Rush</th><th scope="col">Rotorwash-Ramp</th><th scope="col">Booster Gauntlet</th><th scope="col">All games [95% CI]</th><th scope="col">p50 latency, RR / BG</th></tr></thead>
   <tbody>
-   <tr class="me"><td>Burst (screened player = variant A prompts)</td><td>63%</td><td>90%</td><td>85%</td><td><b>79%</b> [72, 85]</td><td>239 / 271 ms</td></tr>
+   <tr class="me"><td>Burst (Board 1 player)</td><td>63%</td><td>90%</td><td>85%</td><td><b>79%</b> [72, 85]</td><td>239 / 271 ms</td></tr>
    <tr><td>ENORMOUS-CL (unreleased)</td><td>74%</td><td>58%</td><td>70%</td><td>67% [57, 76]</td><td>609 / 704 ms</td></tr>
    <tr><td>K-call, same weights as Burst</td><td>61%</td><td>54%</td><td>83%</td><td>66% [57, 74]</td><td>612 / 757 ms</td></tr>
-   <tr><td>ENORMOUS (previous adapter)</td><td>53%</td><td>52%</td><td>18%</td><td>41% [34, 47]</td><td>726 / 908 ms</td></tr>
+   <tr><td>Nagi-ENORMOUS (released)</td><td>53%</td><td>52%</td><td>18%</td><td>41% [34, 47]</td><td>726 / 908 ms</td></tr>
    <tr><td>Jev 1.13.0 (API)</td><td>30%</td><td>46%</td><td>40%</td><td>39% [29, 49]</td><td>212 / 214 ms</td></tr>
    <tr><td>OpenJev / SemIf-4B</td><td>19%</td><td>0%</td><td>4%</td><td>8% [4, 12]</td><td>357 / 502 ms</td></tr>
   </tbody>
  </table></div>
- <p class="note">Win rate against the other five players on the same seed index; ties count ½. CI: 95% bootstrap over seed indices. RR = Rotorwash-Ramp, BG = Booster Gauntlet. Latency: p50 over all requests (Board 1 player_summary.json). 0 void rounds, 0 stale replies for every player except ENORMOUS (previous) on Booster Gauntlet (11 stale, 8 expiry resets). A screen: 10 seeds per game, and Burst was picked as the best of four Nagi entries after the fact, so its numbers are optimistic (see <a href="#limits">limitations</a>).</p>
+ <p class="note">Win rate against the other five players on the same seed index; ties count ½. CI: 95% bootstrap over seed indices. RR = Rotorwash-Ramp, BG = Booster Gauntlet. Latency: p50 over all requests (Board 1 player_summary.json). 0 void rounds, 0 stale replies for every player except Nagi-ENORMOUS (released) on Booster Gauntlet (11 stale, 8 expiry resets). A screen: 10 seeds per game, and Burst was picked as the best of four Nagi entries after the fact, so its numbers are optimistic (see <a href="#limits">limitations</a>).</p>
 
  <h3 id="same-weights">Same weights: the gain is speed, not judgment</h3>
  <p>Because Burst and K-call share weights, comparing them isolates the readout. Burst's first test gives a consistent picture: with time frozen, the two make decisions of the same quality, and K-call even gets three passes per move to Burst's one. Once the clock is real, the direction reverses, because Burst's answers arrive in time. That reversal rests on a 5-seed exploratory run and the 10-seed screen; there is no preregistered real-time test of Burst against K-call.</p>
@@ -440,10 +440,11 @@ ANSWER:
   <li><b class="k">A player we could not rank</b>CLM-8B was entered but failed its own conformance gate (rule D15), so it is not ranked. Board 1 therefore has 6 players, and Burst was selected against 2 external models (Jev, SemIf-4B), not 3.</li>
   <li><b class="k">In-domain training</b>Burst's weights, K-call's and ENORMOUS-CL's were trained on similar machine tasks (hover, crane, closed-loop snake). This was intended and is flagged on every row. No game engine, seed or state from the Arena appears in training (audited). External players' training is unknown.</li>
   <li><b class="k">A timing wall in Booster Gauntlet</b>Each landing must happen within 22 s, and many of the strongest rounds end at exactly 22.0 s. Those head-to-heads are ties, so Booster separates strong from weak players more than it separates the strong ones.</li>
-  <li><b class="k">One control, no gain</b>With K = 1 (Snake Rush) Burst does one pass either way and is slightly slower (227 vs 211 ms p50) because its prompt is longer.</li>
+  <li><b class="k">Trained on three controls</b>Every Burst training row had K = 3 slots (with the control order shuffled per row). Booster Gauntlet's K = 4 is outside the trained range, and K ≥ 5 was never evaluated. Two genres were held out of training; on them every readout is weak (joint decisions acceptable: 0.17 Burst vs 0.18 K-call, 120 instances).</li>
+  <li><b class="k">One control, no gain</b>With K = 1 (Snake Rush) Burst does one pass either way and is slightly slower (231 vs 213 ms p50) because its prompt is longer. On Snake Rush every model sits near the floor: Burst's median survival (10 s) is below that of the naive reference bot (13.75 s).</li>
   <li><b class="k">The baseline is sequential</b>K-call here is the SDK default: K forward passes one after another. We did not measure a K-call that batches its K prompts or caches the shared state prefix. Such a baseline would close part of the latency gap, at the cost of more tokens.</li>
   <li><b class="k">Hardware and serving</b>All self-hosted numbers: H100 80 GB, bf16 weights with the adapter merged, fused kernels, 3 streams per GPU. Other GPUs, quantization or batch sizes will give other numbers. Nothing here is a service-level guarantee.</li>
-  <li><b class="k">Training history</b>A preregistered pause fired at step 125 of 417 (language benchmark −2.07 points) and was overridden by the project owner; the run continued. At the final step the language score is −0.5 points vs the previous ENORMOUS (0.8578 vs 0.8631, n = 200).</li>
+  <li><b class="k">Training history</b>A preregistered pause fired at step 125 of 417 (language benchmark −2.07 points) and was overridden by the project owner; the run continued. At the final step the language score is −0.5 points vs the released ENORMOUS (0.8578 vs 0.8631, n = 200); Arena retention against it was inconclusive, and the public benchmark suite was not re-run.</li>
   <li><b class="k">Probabilities</b>Temperature 1.0 is not learned calibration; probabilities can be overconfident on new domains. Held-out genres in the offline test rest on 2 families only.</li>
   <li><b class="k">Who ran this</b>Nagi's developers designed, ran and analysed every test on this page. Everything needed to check it is linked below.</li>
  </ul>
@@ -470,7 +471,7 @@ ANSWER:
   <dt>Burst</dt><dd>The one-pass K-slot readout. Research name “Chord” until 27 Sep 2026.</dd>
   <dt>K-call</dt><dd>One forward pass per control, the SDK default.</dd>
   <dt>Same weights</dt><dd>Qwen3.8-27B + rank-8 LoRA at step 417 (research name “T-dual”), trained on both formats. Burst and K-call on this page both use it.</dd>
-  <dt>ENORMOUS (previous)</dt><dd>The ENORMOUS adapter before closed-loop training. <!-- PH VERIFY_ENORMOUS_OLD: confirm this is the public Nagi-ENORMOUS revision 2e03ec3… before claiming "released" --></dd>
+  <dt>ENORMOUS (released)</dt><dd>The released Nagi-ENORMOUS adapter (step 500), which Burst's weights continue from; one pass per control. <!-- VERIFY before publishing: research name "ENORMOUS-old" = public Nagi-ENORMOUS revision 2e03ec3… (checklist) --></dd>
   <dt>ENORMOUS-CL</dt><dd>An unreleased closed-loop fine-tune of ENORMOUS, K-call readout.</dd>
   <dt>Jev</dt><dd>Jev 1.13.0, commercial API, one request with all controls.</dd>
   <dt>SemIf-4B</dt><dd>The OpenJev / SemIf 4B reference, self-hosted on its native stack.</dd>

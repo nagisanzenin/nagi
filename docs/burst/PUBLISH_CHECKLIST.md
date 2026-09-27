@@ -34,7 +34,7 @@ Exact receipt paths are fixed by the release operator; write them into the repor
 | `P2_RESULTS_SOURCE` | data.json → confirmation_schema | remove the whole `confirmation_schema` block once `confirmation` is filled | – |
 | `CLIP_SEED_SNAKE`, `CLIP_SEED_RR`, `CLIP_SEED_BG` | clip captions | render job log (fixed seed rule, PROTOCOL A1.5) → seed index per clip | `N` |
 | `SDK_TAG` | reproduce | nagi-public tag/commit that ships Burst (burst_config.json: sdk_min_version 0.6.0) | tag or sha |
-| `SDK_BURST_SNIPPET` | reproduce | the public SDK call, tested against the published weights | 4–8 lines, HTML-escaped |
+| `SDK_BURST_SNIPPET` | reproduce | the public SDK call, tested against the published weights. The model-card draft (burst-package `MODEL_CARD.md` § Use) uses `from nagi import load_enormous_burst` and `nagi.system_one(state, questions, mode="burst")`; copy the final, tested version | 4–8 lines, HTML-escaped |
 | `URL_HF_BURST` | hero, links | final HF repo (draft `nagisanzeninz/Nagi-ENORMOUS-Burst`), PUBLIC | URL |
 | `URL_REPORT` | hero, links | public report with every number, receipts, sha256 (suggested `bench/burst/README.md` in nagi-public) | URL |
 | `URL_PREREG` | gates paragraph, links | public copy of PREREG.md (frozen `f0d6204` + Amendment 1 `0c346f5` in nagi-research) | URL |
@@ -78,8 +78,9 @@ Numbers and claims
 - [ ] Latency source: the page uses pooled p50 over all requests (player_summary.json), which is what PREREG quotes;
       the Board 1 report's table uses the median of per-round p50s (Burst 227/242/249 ms). Keep one definition per
       table and say which.
-- [ ] Glossary: confirm "ENORMOUS (previous)" = the adapter published as `nagisanzeninz/Nagi-ENORMOUS` revision
-      `2e03ec38…`; if yes, you may call it "Nagi-ENORMOUS (released 25 Sep)" in the tables and data.json labels.
+- [ ] Confirm the label "Nagi-ENORMOUS (released)": research name ENORMOUS-old = the public adapter
+      `nagisanzeninz/Nagi-ENORMOUS` revision `2e03ec38…` (step 500), which the Burst model card says the Burst weights
+      continue from. If not, relabel it in index.html (Board 1 table, table view, glossary) and data.json.
 - [ ] Owner decision: the og/twitter description is number-free now; optionally add the headline P2 number.
 - [ ] No "Chord" outside the history paragraph and the glossary; no "T-dual" outside the glossary.
 
