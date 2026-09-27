@@ -14,15 +14,14 @@
 <meta property="og:site_name" content="Nagi">
 <meta property="og:url" content="https://nagisanzenin.github.io/nagi/burst/">
 <meta property="og:title" content="Burst: every control in one forward pass">
-<!-- PH OG_DESCRIPTION: write from the P2 report once gates pass; <= 200 chars, numbers only from docs/burst_release/ receipts -->
-<meta property="og:description" content="{{OG_DESCRIPTION}}">
+<meta property="og:description" content="Burst reads all K controls of a real-time machine from one forward pass of Nagi-ENORMOUS instead of one pass per control. Same weights. Measured latency, preregistered real-time tests, and what failed.">
 <meta property="og:image" content="https://nagisanzenin.github.io/nagi/burst/share.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Nagi Burst: K-call runs one forward pass per control; Burst reads every control from one pass.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Burst: every control in one forward pass">
-<meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+<meta name="twitter:description" content="Burst reads all K controls of a real-time machine from one forward pass of Nagi-ENORMOUS instead of one pass per control. Same weights. Measured latency, preregistered real-time tests, and what failed.">
 <meta name="twitter:image" content="https://nagisanzenin.github.io/nagi/burst/share.png">
 <link rel="preload" href="data.json" as="fetch" crossorigin>
 <style>
@@ -49,6 +48,7 @@
 .hero{padding-top:44px}
 .hero .dek{font-size:clamp(18px,2.2vw,21px);line-height:1.55;color:var(--nagi-muted);max-width:62ch}
 .hero .dek strong{color:var(--nagi-bone)}
+.hero .dek.sm{font-size:16px;margin-top:-4px}
 .hero .key{border-left:4px solid var(--nagi-yellow);background:var(--nagi-panel);padding:16px 20px;margin:22px 0 26px;max-width:78ch;font-size:17px}
 .ctas{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}
 .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--nagi-bone);border-bottom:1px solid var(--nagi-line);margin:0}
@@ -142,7 +142,8 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
 <section class="hero" aria-labelledby="h-hero">
  <span class="nx-tape">New · Nagi Burst · <!-- PH RELEASE_DATE: publish date, e.g. "28 Sep 2026" -->{{RELEASE_DATE}}</span>
  <h1 id="h-hero">Every control.<br><em>One forward pass.</em></h1>
- <p class="dek"><strong>Burst</strong> is a readout for Nagi-ENORMOUS (27B) that sets all K controls of a real-time machine from <strong>a single forward pass</strong>, instead of one pass per control. The weights and the output (a probability for every option of every control) are the same. It helps when a machine has several controls and the world does not wait for the model.</p>
+ <p class="dek"><strong>Burst</strong> sets all K controls of a real-time machine from <strong>a single forward pass</strong> of a 27B Nagi model, instead of one pass per control (K-call). The same weights serve both readouts and return the same output: a probability for every option of every control. It helps when a machine has several controls and the world does not wait for the model.</p>
+ <p class="dek sm">Ships as <strong>Nagi-ENORMOUS Burst</strong>: a new rank-8 LoRA adapter on the Qwen3.8-27B base, trained on both formats. The existing Nagi-ENORMOUS adapter was not trained for Burst.</p>
  <!-- PH P2_*: the confirmation sentence below is filled from the Burst release P2 realtime analysis on FRESH seeds
       (docs/burst_release/ report + results.json: composite paired per-seed win rate, 95% CI over seed indices).
       If a gate fails, the page is not published (docs/burst_release/APPROVAL.md). -->
@@ -160,7 +161,7 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
   <div><dt>Decision latency, 3 controls</dt><dd>{{P2_BURST_P50_MS}} ms<small>vs {{P2_KCALL_P50_MS}} ms one pass per control · p50 · H100</small></dd></div>
   <!-- PH P2_ORDER_FLIP_RATE: offline order-sensitivity gate of the release variant (PREREG gate; P1 prototype was 26.0%) -->
   <div><dt>Answer flips when control order changes</dt><dd>{{P2_ORDER_FLIP_RATE}}<small>preregistered limit {{PREREG_ORDER_LIMIT}} · first prototype: 26.0% (failed)</small></dd></div>
-  <div><dt>Decision quality vs K-call, same weights</dt><dd>+0.000<small>offline joint accuracy, 95% CI [−0.040, +0.040], n = 780 states</small></dd></div>
+  <div><dt>Decision quality vs K-call, same weights</dt><dd>+0.000<small>share of acceptable joint decisions, offline, 95% CI [−0.040, +0.040], n = 780 states</small></dd></div>
   <div><dt>Real-time games</dt><dd>3<small>fail-first, 250 ms ticks, the world never pauses</small></dd></div>
  </dl>
  <div class="claims">
@@ -183,7 +184,7 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
  <h2 id="h-problem">Latency is error in control.</h2>
  <p>A helicopter in a collapsing cave has three controls: collective, cyclic and winch. The game advances every 250 ms whether or not the model has answered. An answer that arrives late acts on a state that no longer exists; an answer that has not arrived means the previous controls keep running.</p>
  <p>Nagi answers a question by reading option-letter probabilities from one forward pass. With K controls, the plain way is <strong>K-call</strong>: one forward pass per control, one after the other. At three controls that is three passes per tick, and on an H100 they do not fit in 250 ms.</p>
- <p>This is not a small effect. In our previous test the same K-call model scored R = 0.324 on the helicopter game when time was frozen and 0.108 when it had to keep up with the clock. It survived 75.1 s on average frozen (24 seeds) and 22.9 s in real time (5 seeds). So we rank models only in <strong>real time</strong>: the world never pauses, and latency is never subtracted or normalized away. A benchmark that freezes time measures a product nobody can run.</p>
+ <p>This is not a small effect. In our previous test the same K-call model reached a normalized score of R = 0.324 on the helicopter game when time was frozen (24 seeds) and 0.108 when it had to keep up with the clock (5 seeds). It survived 75.1 s on average frozen (24 seeds) and 22.9 s in real time (5 seeds). So we rank models only in <strong>real time</strong>: the world never pauses, and latency is never subtracted or normalized away. A benchmark that freezes time measures a product nobody can run.</p>
  <details class="tv"><summary>The frozen real-time rules (same for every player)</summary>
  <ul class="note">
   <li>Clock: 4 Hz (250 ms ticks). At each tick, collect a finished reply, then send a new request on the current state if none is in flight. One request in flight per stream.</li>
@@ -308,11 +309,11 @@ ANSWER:
  <p class="eyebrow">03 / Evidence</p>
  <h2 id="h-evidence">Survive longer when the clock is real.</h2>
  <p>Arena v3 is a set of three <strong>fail-first</strong> games: difficulty rises every tick, on the same schedule for every player, until everyone fails (cap 60 s, six 10 s levels). The metric is simple: on the same seed, whoever fails later wins that head-to-head; a tie counts ½. We average over opponents, then over games. It is invariant to how the difficulty ramp is shaped.</p>
- <div class="gloss" role="list">
-  <div role="listitem" style="display:contents"><dt>Snake Rush</dt><dd>1 control (direction). Speed and walls ramp up. Burst has nothing to save here.</dd></div>
-  <div role="listitem" style="display:contents"><dt>Rotorwash-Ramp</dt><dd>3 controls (collective, cyclic, winch). Helicopter in a collapsing cave.</dd></div>
-  <div role="listitem" style="display:contents"><dt>Booster Gauntlet</dt><dd>4 controls. Consecutive rocket landings with rising wind and heavier engines. The least-seen game for Nagi.</dd></div>
- </div>
+ <dl class="gloss">
+  <dt>Snake Rush</dt><dd>1 control (direction). Speed and walls ramp up. Burst has nothing to save here.</dd>
+  <dt>Rotorwash-Ramp</dt><dd>3 controls (collective, cyclic, winch). Helicopter in a collapsing cave.</dd>
+  <dt>Booster Gauntlet</dt><dd>4 controls. Consecutive rocket landings with rising wind and heavier engines. The least-seen game for Nagi.</dd>
+ </dl>
 
  <h3 id="confirm">Preregistered confirmation on fresh seeds</h3>
  <!-- PH block: fill every cell from the Burst release P2 analysis (fresh seed indices; docs/burst_release/PREREG.md defines rows, thresholds and the frozen variant-selection rule). Adapt row labels to the PREREG gate names exactly. -->
@@ -389,7 +390,7 @@ ANSWER:
  <p class="note">Frozen time: every player gets unlimited time per tick (lockstep). In frozen time every Burst Rotorwash round ended on the cave ceiling (24/24), a flying failure K-call did not show. Real-time Rotorwash with 5 seeds is exploratory, not a decision. "+0.000" on 780 states means Burst was not shown to be worse, but the interval is wider than the preregistered 0.02 margin, so non-inferiority was formally not established.</p>
 
  <h3 id="jev">Versus Jev: slower, but better decisions</h3>
- <p>Jev (version 1.13.0, a commercial API) answers all controls in one request, like Burst, and was the fastest player on the two multi-control games: p50 213 and 216 ms including the network, fresh on 88–90% of ticks against Burst's 66%. Burst still survived longer in 70% (Snake Rush), 90% (Rotorwash-Ramp) and 100% (Booster Gauntlet) of head-to-heads in the Board 1 screen. Speed cannot explain that; the difference is in the decisions. The frozen-time test agrees: Burst − Jev on the two-game composite was +0.067 [+0.003, +0.138] over 24 seeds (descriptive, not a preregistered contrast).</p>
+ <p>Jev (version 1.13.0, a commercial API) answers all controls in one request, like Burst, and was the fastest player on the two multi-control games: p50 213 and 216 ms including the network, fresh on 88–90% of ticks against Burst's 66%. Burst still survived longer in 70% (Snake Rush), 90% (Rotorwash-Ramp) and 100% (Booster Gauntlet) of head-to-heads in the Board 1 screen. Speed does not explain that gap; it comes from the decisions themselves, which includes Nagi's training on similar tasks (below). The frozen-time test agrees: Burst − Jev on the two-game composite was +0.067 [+0.003, +0.138] over 24 seeds (descriptive, not a preregistered contrast).</p>
  <!-- PH P2_JEV_SENTENCE: optional one-line update from the confirmation run, e.g. fresh-seed Jev latency p50 and win rate. Source: P2 results.json (Jev cells on fresh seeds). -->
  <p>{{P2_JEV_SENTENCE}}</p>
  <p class="note">Caveats: Jev runs on unknown vendor hardware over the network from a recorded client region; its latency includes the network and is not subtracted. Nagi was trained on similar control tasks (hover, crane, closed-loop snake); Jev's training is unknown. This is a specialist against a general model, on the specialist's kind of task.</p>

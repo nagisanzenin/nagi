@@ -18,7 +18,6 @@ Exact receipt paths are fixed by the release operator; write them into the repor
 | Placeholder | Where | Source (file → field) | Format (shape only, not a value) |
 |---|---|---|---|
 | `RELEASE_DATE` | hero tape | publish date | `28 Sep 2026` |
-| `OG_DESCRIPTION` | og/twitter description | written from the P2 report; only numbers present on the page | ≤ 200 chars |
 | `BURST_VARIANT` | latency table, gates caption, limitations | offline-gates receipt → selected variant (frozen rule, never Arena outcomes) | `A, canonical order` or `B, permutation-averaged` |
 | `P2_N_SEEDS` | hero key sentence | PREREG / P2 results.json → number of fresh seed indices per game | `NN` |
 | `P2_SEED_RANGE` | confirmation paragraph | P2 results.json → seed index range | `NN–NN` |
@@ -74,6 +73,8 @@ Numbers and claims
       `2e03ec38…`; if yes, you may call it "Nagi-ENORMOUS (released 25 Sep)" in the tables and data.json labels.
 - [ ] If variant B is selected: the latency row and the hero latency must be B's own measurement (B processes K× the
       tokens of A), and the "tokens processed" row of the comparison table should gain a B column (≈ K × (S + K·q)).
+- [ ] Owner decision: the og/twitter description is number-free now; optionally add the headline P2 number.
+- [ ] Variant B text ("all K rotations") matches the frozen implementation (cyclic orbit vs all K! orders).
 - [ ] No "Chord" outside the history paragraph, the latency-table note and the glossary; no "T-dual" outside the glossary.
 
 Links
