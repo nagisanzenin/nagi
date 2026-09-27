@@ -94,3 +94,6 @@ body.nx-legacy .nx-foot p{color:var(--nagi-muted)}
 body.nx-legacy .nx-legal{color:var(--nagi-dim)}
 .nx-brand{align-self:start}
 @media (max-width:640px){body.nx-legacy table{display:block;overflow-x:auto;white-space:nowrap}}
+/* "New" marker in the site nav (Burst page) */
+.nx-new{display:inline-block;margin-left:6px;padding:2px 5px 1px;background:var(--nagi-green);color:var(--nagi-ink);font:700 9.5px/1.2 var(--nagi-mono);letter-spacing:.08em;vertical-align:1px}
+.nx-nav a[aria-current="page"] .nx-new{background:var(--nagi-ink);color:var(--nagi-yellow)}

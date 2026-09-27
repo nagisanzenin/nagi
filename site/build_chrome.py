@@ -18,13 +18,15 @@ PAGES = [
     ("index.html", "", "bench", "home", [("Results", "#results"), ("Nagi tiers", "#tiers"), ("Method", "#method"), ("Reproduce", "#evidence")]),
     ("arena-live/index.html", "../", "live", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
     ("arena/index.html", "../", "replays", "hub", []),
+    ("burst/index.html", "../", "burst", "burst", [("Problem", "#problem"), ("How it works", "#how"), ("Evidence", "#evidence"), ("Limitations", "#limits"), ("Reproduce", "#reproduce")]),
     ("bomber-huge/index.html", "../", "replays", "legacy", []),
     ("bomber-realtime/index.html", "../", "replays", "legacy", []),
     ("bomber/index.html", "../", "replays", "legacy", []),
     ("snake/index.html", "../", "replays", "legacy", []),
 ]
 
-NAV = [("bench", "Benchmark", ""), ("live", "Arena Live", "arena-live/"), ("replays", "Replays", "arena/")]
+NAV = [("bench", "Benchmark", ""), ("live", "Arena Live", "arena-live/"), ("replays", "Replays", "arena/"),
+       ("burst", 'Burst <span class="nx-new">New</span>', "burst/")]
 
 
 def head(p):
@@ -54,7 +56,7 @@ def footer(p, active, page):
             f'<div class="nx-brand"><img class="m" src="{p}assets/mascot-128.png" alt="Nagi mascot" width="72" height="72">'
             f'<div><img class="w" src="{p}assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div>'
             '<div class="nx-cols">'
-            '<div><h4>Benchmarks</h4><ul>' + link(f"{p}arena-live/", "Arena Live", active == "live") + link(p or "./", "Public decision benchmark", active == "bench") + '</ul></div>'
+            '<div><h4>Benchmarks</h4><ul>' + link(f"{p}arena-live/", "Arena Live", active == "live") + link(p or "./", "Public decision benchmark", active == "bench") + link(f"{p}burst/", "Burst architecture", active == "burst") + '</ul></div>'
             '<div><h4>Replays</h4><ul>' + link(f"{p}arena/", "All replays", page == "hub") + link(f"{p}bomber-huge/", "Real-time Bomber · HUGE")
             + link(f"{p}bomber-realtime/", "Real-time Bomber · BIG") + link(f"{p}bomber/", "Turn-based Bomber") + link(f"{p}snake/", "Snake pilot") + '</ul></div>'
             '<div><h4>Models</h4><ul>' + ext(f"{HF}/Nagi-ENORMOUS", "Nagi-ENORMOUS 27B") + ext(f"{HF}/Nagi-HUGE", "Nagi-HUGE 12B")

@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!--
+  Burst landing page. DRAFT: every double-brace NAME is a placeholder that must be filled from a receipt before publishing.
+  Registry of placeholders, their sources and the go-live checks: docs/burst/PUBLISH_CHECKLIST.md.
+  Check / fill: python3 scripts/burst_page.py check | fill values.json
+-->
+<title>Nagi Burst: every control in one forward pass</title>
+<meta name="description" content="Burst reads all K controls of a real-time machine from one forward pass of Nagi-ENORMOUS instead of one pass per control. Same weights. Measured latency, preregistered realtime tests, and what failed.">
+<link rel="canonical" href="https://nagisanzenin.github.io/nagi/burst/">
+<meta name="theme-color" content="#111114">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nagi">
+<meta property="og:url" content="https://nagisanzenin.github.io/nagi/burst/">
+<meta property="og:title" content="Burst: every control in one forward pass">
+<!-- PH OG_DESCRIPTION: write from the P2 report once gates pass; <= 200 chars, numbers only from docs/burst_release/ receipts -->
+<meta property="og:description" content="{{OG_DESCRIPTION}}">
+<meta property="og:image" content="https://nagisanzenin.github.io/nagi/burst/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nagi Burst: K-call runs one forward pass per control; Burst reads every control from one pass.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Burst: every control in one forward pass">
+<meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+<meta name="twitter:image" content="https://nagisanzenin.github.io/nagi/burst/share.png">
+<link rel="preload" href="data.json" as="fetch" crossorigin>
+<style>
+.bp{max-width:var(--nagi-width);margin:0 auto;padding:0 var(--nagi-gut)}
+.bp section{padding:64px 0 8px;border-top:1px solid var(--nagi-line);margin-top:56px}
+.bp section:first-of-type{border-top:0;margin-top:0}
+.bp h1,.bp h2{font-family:var(--nagi-display);font-style:italic;font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.95;margin:0}
+.bp h1{font-size:clamp(46px,9vw,104px);margin:22px 0 22px}
+.bp h1 em{color:var(--nagi-yellow);font-style:italic}
+.bp h2{font-size:clamp(34px,5.4vw,58px);margin:0 0 20px}
+.bp h3{font:700 21px/1.3 var(--nagi-body);letter-spacing:-.01em;margin:36px 0 10px}
+.bp p,.bp li{font-size:17px;line-height:1.65;color:var(--nagi-bone)}
+.bp p{max-width:72ch;margin:0 0 16px}
+.bp .muted,.bp .note{color:var(--nagi-muted)}
+.bp .note{font-size:14px;line-height:1.6;max-width:80ch}
+.bp .eyebrow{font:600 11px var(--nagi-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--nagi-muted);margin:0 0 16px}
+.bp a{color:var(--nagi-bone);text-underline-offset:3px}
+.bp a:hover{color:var(--nagi-yellow)}
+.bp code,.bp pre{font-family:var(--nagi-mono);font-size:14px}
+.bp code{background:var(--nagi-panel2);padding:1px 5px}
+.bp pre{background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:16px 18px;overflow-x:auto;line-height:1.55;margin:0 0 18px;color:var(--nagi-bone)}
+.bp pre code{background:none;padding:0}
+.bp .ph{background:rgba(255,77,148,.14);outline:1px dashed var(--nagi-pink);padding:0 3px;font-family:var(--nagi-mono);font-size:.9em}
+.hero{padding-top:44px}
+.hero .dek{font-size:clamp(18px,2.2vw,21px);line-height:1.55;color:var(--nagi-muted);max-width:62ch}
+.hero .dek strong{color:var(--nagi-bone)}
+.hero .key{border-left:4px solid var(--nagi-yellow);background:var(--nagi-panel);padding:16px 20px;margin:22px 0 26px;max-width:78ch;font-size:17px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--nagi-bone);border-bottom:1px solid var(--nagi-line);margin:0}
+.facts>div{padding:18px 16px 16px 0}
+.facts>div+div{border-left:1px solid var(--nagi-line);padding-left:16px}
+.facts dt{font:600 11px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--nagi-dim);margin-bottom:8px}
+.facts dd{margin:0;font:800 clamp(24px,3.2vw,34px)/1.1 var(--nagi-body);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.facts dd small{display:block;font:500 13px/1.45 var(--nagi-body);color:var(--nagi-muted);letter-spacing:0;margin-top:6px}
+.claims{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px 0 0}
+.claims>div{background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:20px 22px}
+.claims>div.no{border-top:3px solid var(--nagi-pink)}
+.claims>div.yes{border-top:3px solid var(--nagi-green)}
+.claims h3{margin:0 0 10px;font-size:17px}
+.claims ul{margin:0;padding-left:18px}
+.claims li{font-size:15px;line-height:1.55;margin:0 0 8px;color:var(--nagi-bone)}
+.fig{margin:26px 0 10px;background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:18px}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:14px;line-height:1.55;color:var(--nagi-muted);margin-top:12px;max-width:90ch}
+.dg-box{fill:var(--nagi-panel2);stroke:var(--nagi-line);stroke-width:1.5}
+.dg-model{fill:#2d2d35;stroke:var(--nagi-muted);stroke-width:1.5}
+.dg-hot{fill:rgba(245,230,66,.14);stroke:var(--nagi-yellow);stroke-width:2}
+.dg-t{fill:var(--nagi-bone);font:600 15px var(--nagi-body)}
+.dg-s{fill:var(--nagi-muted);font:500 13px var(--nagi-mono)}
+.dg-h{fill:var(--nagi-bone);font:700 13px var(--nagi-mono);letter-spacing:.12em;text-transform:uppercase}
+.dg-y{fill:var(--nagi-yellow)}
+.dg-line{stroke:var(--nagi-muted);stroke-width:1.5;fill:none}
+.dg-tick{stroke:var(--nagi-line);stroke-width:1;stroke-dasharray:3 4}
+.tw{overflow-x:auto;margin:14px 0 10px;border:1px solid var(--nagi-line)}
+.bp table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.bp caption{text-align:left;font:600 12px var(--nagi-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--nagi-muted);padding:12px 14px;border-bottom:1px solid var(--nagi-line)}
+.bp th,.bp td{padding:10px 14px;border-bottom:1px solid var(--nagi-line);text-align:right;white-space:nowrap}
+.bp th{font:600 11.5px var(--nagi-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--nagi-muted)}
+.bp th:first-child,.bp td:first-child{text-align:left}
+.bp td.l{text-align:left;white-space:normal;min-width:16ch}
+.bp tr.me td{background:rgba(245,230,66,.07)}
+.bp tr.me td:first-child{box-shadow:inset 3px 0 0 var(--nagi-yellow)}
+.bp tbody tr:last-child td{border-bottom:0}
+.tabs{display:flex;flex-wrap:wrap;gap:0;margin:18px 0 0;border:1px solid var(--nagi-muted);width:max-content;max-width:100%}
+.tabs button{min-height:44px;padding:0 16px;border:0;background:transparent;color:var(--nagi-muted);font:600 14px var(--nagi-body);cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--nagi-bone);color:var(--nagi-ink)}
+.tabs button:disabled{opacity:.45;cursor:not-allowed}
+.chart{position:relative;margin-top:14px}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.chart .ax{stroke:var(--nagi-line);stroke-width:1}
+.chart .gl{stroke:#2b2b31;stroke-width:1}
+.chart text{fill:var(--nagi-muted);font:500 12px var(--nagi-mono)}
+.chart .tip{position:absolute;pointer-events:none;background:var(--nagi-ink);border:1px solid var(--nagi-muted);padding:8px 10px;font:500 12.5px/1.5 var(--nagi-mono);color:var(--nagi-bone);min-width:190px;display:none;z-index:2}
+.chart .tip b{display:block;margin-bottom:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--nagi-bone)}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid}
+.legend i.d{border-top-style:dashed;border-top-width:2px}
+.pending{border:1px dashed var(--nagi-pink);background:rgba(255,77,148,.06);padding:16px 18px;margin:14px 0;font-size:15px;color:var(--nagi-bone)}
+.pending b{color:var(--nagi-pink);font:700 12px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px}
+.clips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 8px}
+.clip{margin:0;background:var(--nagi-panel);border:1px solid var(--nagi-line)}
+.clip .frame{aspect-ratio:9/16;background:#0b0b0d;display:grid;place-items:center;position:relative;overflow:hidden}
+.clip video{width:100%;height:100%;object-fit:cover;display:block}
+.clip .frame span{font:600 12px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--nagi-dim);text-align:center;padding:0 12px}
+.clip figcaption{padding:10px 12px;font-size:14px;line-height:1.45;color:var(--nagi-muted)}
+.clip figcaption b{color:var(--nagi-bone)}
+.lims{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+.lims li{background:var(--nagi-panel);border:1px solid var(--nagi-line);border-left:4px solid var(--nagi-line);padding:16px 18px;font-size:16px}
+.lims li.fail{border-left-color:var(--nagi-pink)}
+.lims li b.k{display:block;font:700 11.5px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--nagi-muted);margin-bottom:6px}
+.lims li.fail b.k{color:var(--nagi-pink)}
+.gloss{display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;margin:14px 0;font-size:15px}
+.gloss dt{font:600 14px var(--nagi-mono);color:var(--nagi-bone)}
+.gloss dd{margin:0;color:var(--nagi-muted)}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+.links a{display:block;padding:14px 16px;background:var(--nagi-panel);border:1px solid var(--nagi-line);text-decoration:none}
+.links a:hover{border-color:var(--nagi-yellow);color:var(--nagi-bone)}
+.links a b{display:block;font-size:16px}
+.links a span{font-size:14px;color:var(--nagi-muted)}
+details.tv{margin:10px 0}
+details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nagi-muted);min-height:32px}
+@media (max-width:860px){.facts{grid-template-columns:1fr 1fr}.facts>div:nth-child(3){border-left:0;padding-left:0}.facts>div:nth-child(n+3){border-top:1px solid var(--nagi-line)}.claims{grid-template-columns:1fr}.clips{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.clips{grid-template-columns:1fr}.links{grid-template-columns:1fr}.bp p,.bp li{font-size:16px}.gloss{grid-template-columns:1fr}.gloss dd{margin-bottom:8px}.tabs{width:auto}.tabs button{flex:1 1 auto;padding:0 10px}}
+</style>
+<!--nx:head--><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="../assets/nagi.css"><!--/nx:head--></head>
+<body>
+<!--nx:header--><header class="nx-bar"><div class="nx-in"><div class="nx-row"><a class="nx-mark" href="../" aria-label="Nagi home"><img src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><span>System One</span></a><nav class="nx-nav" aria-label="Site"><a href="../">Benchmark</a><a href="../arena-live/">Arena Live</a><a href="../arena/">Replays</a><a href="../burst/" aria-current="page">Burst <span class="nx-new">New</span></a><a href="https://huggingface.co/nagisanzeninz">Models ↗</a><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></nav></div><nav class="nx-sub" aria-label="On this page"><b>On this page</b><a href="#problem">Problem</a><a href="#how">How it works</a><a href="#evidence">Evidence</a><a href="#limits">Limitations</a><a href="#reproduce">Reproduce</a></nav></div></header><!--/nx:header-->
+
+<main class="bp" id="top">
+
+<section class="hero" aria-labelledby="h-hero">
+ <span class="nx-tape">New · Nagi Burst · <!-- PH RELEASE_DATE: publish date, e.g. "28 Sep 2026" -->{{RELEASE_DATE}}</span>
+ <h1 id="h-hero">Every control.<br><em>One forward pass.</em></h1>
+ <p class="dek"><strong>Burst</strong> is a readout for Nagi-ENORMOUS (27B) that sets all K controls of a real-time machine from <strong>a single forward pass</strong>, instead of one pass per control. The weights and the output (a probability for every option of every control) are the same. It helps when a machine has several controls and the world does not wait for the model.</p>
+ <!-- PH P2_*: the confirmation sentence below is filled from the Burst release P2 realtime analysis on FRESH seeds
+      (docs/burst_release/ report + results.json: composite paired per-seed win rate, 95% CI over seed indices).
+      If a gate fails, the page is not published (docs/burst_release/APPROVAL.md). -->
+ <p class="key">Preregistered realtime confirmation, {{P2_N_SEEDS}} fresh seeds per game × 3 games: Burst survived longer than <strong>Jev</strong> in <strong>{{P2_WINRATE_VS_JEV}}</strong> of head-to-heads (95% CI {{P2_WINRATE_VS_JEV_CI}}) and longer than <strong>the same weights read one control at a time</strong> in <strong>{{P2_WINRATE_VS_KCALL}}</strong> ({{P2_WINRATE_VS_KCALL_CI}}).</p>
+ <div class="ctas">
+  <!-- PH URL_HF_BURST: final HF repo URL (draft name in burst_config.json: nagisanzeninz/Nagi-ENORMOUS-Burst); must be PUBLIC before go-live -->
+  <a class="nx-btn primary" href="{{URL_HF_BURST}}">Model on Hugging Face <span aria-hidden="true">↗</span></a>
+  <a class="nx-btn" href="https://github.com/nagisanzenin/nagi">Code on GitHub <span aria-hidden="true">↗</span></a>
+  <a class="nx-btn" href="../arena/">Arena benchmark <span aria-hidden="true">→</span></a>
+  <!-- PH URL_REPORT: public report with prereg + receipts (planned: https://github.com/nagisanzenin/nagi/blob/main/bench/burst/README.md) -->
+  <a class="nx-btn" href="{{URL_REPORT}}">Report, prereg, receipts <span aria-hidden="true">↗</span></a>
+ </div>
+ <dl class="facts">
+  <!-- PH P2_BURST_P50_MS / P2_KCALL_P50_MS: realtime decision latency p50 on the release serving path, Rotorwash-Ramp (3 controls), P2 results.json latency block -->
+  <div><dt>Decision latency, 3 controls</dt><dd>{{P2_BURST_P50_MS}} ms<small>vs {{P2_KCALL_P50_MS}} ms one pass per control · p50 · H100</small></dd></div>
+  <!-- PH P2_ORDER_FLIP_RATE: offline order-sensitivity gate of the release variant (PREREG gate; P1 prototype was 26.0%) -->
+  <div><dt>Answer flips when control order changes</dt><dd>{{P2_ORDER_FLIP_RATE}}<small>preregistered limit {{PREREG_ORDER_LIMIT}} · first prototype: 26.0% (failed)</small></dd></div>
+  <div><dt>Decision quality vs K-call, same weights</dt><dd>+0.000<small>offline joint accuracy, 95% CI [−0.040, +0.040], n = 780 states</small></dd></div>
+  <div><dt>Real-time games</dt><dd>3<small>fail-first, 250 ms ticks, the world never pauses</small></dd></div>
+ </dl>
+ <div class="claims">
+  <div class="yes"><h3>What we claim</h3><ul>
+   <li>With 3–4 controls, a Burst decision takes 0.33–0.52× the time of one pass per control on an H100 (five separate measurements below).</li>
+   <li>On the same weights, Burst and K-call make decisions of indistinguishable offline quality (the interval is too wide to prove a 0.02 margin).</li>
+   <li>In real-time games, where a late answer is a wrong answer, the latency saving turns into longer survival ({{P2_WINRATE_VS_KCALL}} of head-to-heads vs K-call on fresh seeds).</li>
+  </ul></div>
+  <div class="no"><h3>What we do not claim</h3><ul>
+   <li>That Burst decides better per decision. When time is frozen (lockstep), it does not beat K-call, and on the helicopter game it was worse.</li>
+   <li>Results beyond these three games, the H100, and the serving path we pinned.</li>
+   <li>A new mechanism. Reading several discrete actions from one pass is known (e.g. OpenVLA-OFT, action branching). This is an engineering combination with an evaluation.</li>
+   <li>That Nagi is a better general model than Jev. Nagi trained on similar control tasks; Jev is a general API.</li>
+  </ul></div>
+ </div>
+</section>
+
+<section id="problem" aria-labelledby="h-problem">
+ <p class="eyebrow">01 / The problem</p>
+ <h2 id="h-problem">Latency is error in control.</h2>
+ <p>A helicopter in a collapsing cave has three controls: collective, cyclic and winch. The game advances every 250 ms whether or not the model has answered. An answer that arrives late acts on a state that no longer exists; an answer that has not arrived means the previous controls keep running.</p>
+ <p>Nagi answers a question by reading option-letter probabilities from one forward pass. With K controls, the plain way is <strong>K-call</strong>: one forward pass per control, one after the other. At three controls that is three passes per tick, and on an H100 they do not fit in 250 ms.</p>
+ <p>This is not a small effect. In our previous test the same K-call model scored R = 0.324 on the helicopter game when time was frozen and 0.108 when it had to keep up with the clock. It survived 75.1 s on average frozen (24 seeds) and 22.9 s in real time (5 seeds). So we rank models only in <strong>real time</strong>: the world never pauses, and latency is never subtracted or normalized away. A benchmark that freezes time measures a product nobody can run.</p>
+ <details class="tv"><summary>The frozen real-time rules (same for every player)</summary>
+ <ul class="note">
+  <li>Clock: 4 Hz (250 ms ticks). At each tick, collect a finished reply, then send a new request on the current state if none is in flight. One request in flight per stream.</li>
+  <li>A reply is applied at the first tick after it arrives. A reply older than 1,000 ms is <em>stale</em>: rejected and logged.</li>
+  <li>Persistent controls hold their last value; after 1,000 ms without an applied reply they reset to the game's safe default (an <em>expiry reset</em>).</li>
+  <li>If the harness itself processes a tick more than 100 ms late, the round is <em>void</em>: replayed once with the same seed, then dropped from both sides of every comparison. More than 1 void in a 10-round screen invalidates the whole cell.</li>
+  <li>Latency is measured end to end on the serving path: prompt rendering, tokenization, forward pass(es), readout and, for an API, the network round trip.</li>
+ </ul></details>
+</section>
+
+<section id="how" aria-labelledby="h-how">
+ <p class="eyebrow">02 / How Burst works</p>
+ <h2 id="h-how">K answer slots, one pass.</h2>
+ <figure class="fig">
+  <svg viewBox="0 0 1040 470" role="img" aria-labelledby="dg-t dg-d">
+   <title id="dg-t">K-call versus Burst</title>
+   <desc id="dg-d">Left: K-call builds one prompt per control and runs the model three times in sequence, reading one letter distribution each time. Right: Burst builds one prompt listing all controls with an answer slot per control, runs the model once, and reads a letter distribution at each slot.</desc>
+   <text class="dg-h" x="20" y="30">K-call · K passes per tick</text>
+   <g>
+    <rect class="dg-box" x="20" y="52" width="170" height="54"/><text class="dg-t" x="34" y="75">state + control 1</text><text class="dg-s" x="34" y="95">"collective?"</text>
+    <rect class="dg-model" x="220" y="52" width="120" height="54"/><text class="dg-t" x="242" y="84">forward</text>
+    <rect class="dg-box" x="370" y="52" width="110" height="54"/><text class="dg-t" x="384" y="75">A B C</text><text class="dg-s" x="384" y="95">p(letter)</text>
+    <path class="dg-line" d="M190 79H220M340 79H370"/>
+    <rect class="dg-box" x="20" y="126" width="170" height="54"/><text class="dg-t" x="34" y="149">state + control 2</text><text class="dg-s" x="34" y="169">"cyclic?"</text>
+    <rect class="dg-model" x="220" y="126" width="120" height="54"/><text class="dg-t" x="242" y="158">forward</text>
+    <rect class="dg-box" x="370" y="126" width="110" height="54"/><text class="dg-t" x="384" y="149">A B C D</text><text class="dg-s" x="384" y="169">p(letter)</text>
+    <path class="dg-line" d="M190 153H220M340 153H370"/>
+    <rect class="dg-box" x="20" y="200" width="170" height="54"/><text class="dg-t" x="34" y="223">state + control 3</text><text class="dg-s" x="34" y="243">"winch?"</text>
+    <rect class="dg-model" x="220" y="200" width="120" height="54"/><text class="dg-t" x="242" y="232">forward</text>
+    <rect class="dg-box" x="370" y="200" width="110" height="54"/><text class="dg-t" x="384" y="223">A B C</text><text class="dg-s" x="384" y="243">p(letter)</text>
+    <path class="dg-line" d="M190 227H220M340 227H370"/>
+   </g>
+   <text class="dg-h" x="560" y="30">Burst · 1 pass per tick</text>
+   <g>
+    <rect class="dg-box" x="560" y="52" width="250" height="202"/>
+    <text class="dg-s" x="576" y="78">STATE:</text><text class="dg-s" x="576" y="98">…altitude, fuel, cave…</text>
+    <text class="dg-s" x="576" y="128">CONTROLS (all at once):</text>
+    <text class="dg-s" x="576" y="148">[1] collective: A) B) C)</text>
+    <text class="dg-s" x="576" y="168">[2] cyclic: A) B) C) D)</text>
+    <text class="dg-s" x="576" y="188">[3] winch: A) B) C)</text>
+    <text class="dg-s" x="576" y="214">ANSWER:</text>
+    <text class="dg-s" x="576" y="236"><tspan class="dg-y">[1]</tspan>□ <tspan class="dg-y">[2]</tspan>□ <tspan class="dg-y">[3]</tspan>□</text>
+    <rect class="dg-hot" x="836" y="52" width="70" height="202"/><text class="dg-t" x="848" y="150">one</text><text class="dg-t" x="848" y="170">pass</text>
+    <path class="dg-line" d="M810 153H836"/>
+    <rect class="dg-box" x="930" y="52" width="92" height="54"/><text class="dg-t" x="942" y="75">slot 1</text><text class="dg-s" x="942" y="95">A B C</text>
+    <rect class="dg-box" x="930" y="126" width="92" height="54"/><text class="dg-t" x="942" y="149">slot 2</text><text class="dg-s" x="942" y="169">A B C D</text>
+    <rect class="dg-box" x="930" y="200" width="92" height="54"/><text class="dg-t" x="942" y="223">slot 3</text><text class="dg-s" x="942" y="243">A B C</text>
+    <path class="dg-line" d="M906 79H930M906 153H930M906 227H930"/>
+   </g>
+   <text class="dg-h" x="20" y="306">One 250 ms tick, measured p50 on H100 (Board 1, 3 streams per GPU)</text>
+   <path class="dg-tick" d="M170 322V446M420 322V446M670 322V446M920 322V446"/>
+   <text class="dg-s" x="160" y="462">0</text><text class="dg-s" x="396" y="462">250 ms</text><text class="dg-s" x="646" y="462">500 ms</text><text class="dg-s" x="896" y="462">750 ms</text>
+   <text class="dg-t" x="20" y="352">K-call</text>
+   <rect x="170" y="334" width="610" height="28" fill="#36D988" fill-opacity=".85"/>
+   <text class="dg-s" x="790" y="353">610 ms · 3 passes</text>
+   <text class="dg-t" x="20" y="414">Burst</text>
+   <rect x="170" y="396" width="242" height="28" fill="#F5E642"/>
+   <text class="dg-s" x="422" y="415">242 ms · 1 pass</text>
+  </svg>
+  <figcaption>Left: K-call renders one prompt per control and runs the model once per prompt. Right: Burst renders one prompt with all controls and one answer slot per control, runs the model once, and reads each slot's option letters. Bars: measured decision latency p50 on Rotorwash-Ramp (3 controls), Arena v3 Board 1, H100, 3 streams per GPU, prototype readout. At 4 Hz, K-call's reply is fresh on 33% of ticks and Burst's on 66%.</figcaption>
+ </figure>
+
+ <h3>The readout</h3>
+ <p>Burst renders one prompt: the state, then every control with its lettered options, then an answer block with one slot per control. Each slot is a marker <code>[k]</code> followed by a blank token <code>□</code>:</p>
+<pre><code>STATE:
+&lt;state&gt;
+
+CONTROLS (choose all at the same time):
+[1] collective: A) &lt;option&gt;  B) &lt;option&gt;  C) &lt;option&gt;
+[2] cyclic: A) …  B) …  C) …  D) …
+[3] winch: A) …  B) …  C) …
+
+ANSWER:
+[1]□
+[2]□
+[3]□</code></pre>
+ <p>One forward pass over this prompt. For slot k we take the hidden state h<sub>k</sub> at the last token of <code>[k]</code> and project it only onto the letter tokens of that control's options, through the model's own output head:</p>
+ <p><code>p<sub>k</sub> = softmax( softcap(h<sub>k</sub> · W<sub>letters(k)</sub>) / T )</code>, answer = argmax. T = 1.0.</p>
+ <p>The token after each <code>[k]</code> is always the blank, never an answer, so no slot sees another slot's choice. The K distributions are read in parallel and are conditionally independent given the prompt. Training targets for each slot are the <em>max-marginals</em> of an exact joint oracle, so that per-slot argmax recovers the best joint action when it is unique. Ties are the known failure mode of this design, and they matter below.</p>
+
+ <h3>What is shared, what changes</h3>
+ <div class="tw"><table>
+  <caption>K-call and Burst on the same model</caption>
+  <thead><tr><th scope="col"></th><th scope="col">K-call</th><th scope="col">Burst</th></tr></thead>
+  <tbody>
+   <tr><td>Weights</td><td colspan="2" style="text-align:center">identical: Qwen3.8-27B + rank-8 LoRA (54.4M trainable), step 417, co-trained on both formats</td></tr>
+   <tr><td>Output head, softcap, temperature</td><td colspan="2" style="text-align:center">identical</td></tr>
+   <tr><td>Answer format</td><td colspan="2" style="text-align:center">identical: per control, a probability for every option, plus the argmax</td></tr>
+   <tr><td>Prompts per tick</td><td>K (one control each)</td><td>1 (all controls)</td></tr>
+   <tr><td>Forward passes per tick</td><td>K, sequential</td><td>1</td></tr>
+   <tr><td>Tokens processed per tick</td><td>≈ K × (S + q)</td><td>≈ S + K·q</td></tr>
+   <tr><td>Prompt budget per request</td><td>≤ 700 tokens</td><td>≤ 900 tokens</td></tr>
+  </tbody>
+ </table></div>
+ <p class="note">S = state tokens, q = tokens for one control's question and options. The state dominates the prompt, so K-call re-reads it K times while Burst reads it once.</p>
+
+ <h3>Latency: every measurement we have</h3>
+ <div class="tw"><table>
+  <caption>Decision latency, Burst vs K-call, same weights (ms, p50)</caption>
+  <thead><tr><th scope="col">Setting</th><th scope="col">K</th><th scope="col">Burst</th><th scope="col">K-call</th><th scope="col">Ratio</th></tr></thead>
+  <tbody>
+   <tr><td class="l">Offline, H100, batch 1, 100 frozen states (training-worker kernels, slower than serving)</td><td>varies</td><td>315</td><td>881</td><td>0.358 <span class="muted">median of per-state ratios</span></td></tr>
+   <tr><td class="l">Frozen-time Arena, Rotorwash, per tick (3,080 / 7,210 ticks)</td><td>3</td><td>129.1</td><td>273.9</td><td>0.471 <span class="muted">[0.469, 0.475]</span></td></tr>
+   <tr><td class="l">Frozen-time Arena, Lightcycle, per tick</td><td>1</td><td>85.4</td><td>78.1</td><td>1.094 <span class="muted">[1.034, 1.108]</span></td></tr>
+   <tr><td class="l">Real time, Rotorwash, 1 stream, serving path (5 seeds)</td><td>3</td><td>164</td><td>313</td><td>0.52</td></tr>
+   <tr><td class="l">Arena v3 Board 1, Snake Rush, 3 streams per H100</td><td>1</td><td>227</td><td>211</td><td>1.08</td></tr>
+   <tr><td class="l">Arena v3 Board 1, Rotorwash-Ramp, 3 streams per H100</td><td>3</td><td>242</td><td>610</td><td>0.40</td></tr>
+   <tr><td class="l">Arena v3 Board 1, Booster Gauntlet, 3 streams per H100</td><td>4</td><td>249</td><td>753</td><td>0.33</td></tr>
+   <!-- PH P2_LAT_*: release variant on the release serving path, from the P2 results.json latency block (p50 per game). Delete this row's placeholder notice once filled. -->
+   <tr class="me"><td class="l">Release variant ({{BURST_VARIANT}}), Rotorwash-Ramp, 3 streams per H100</td><td>3</td><td>{{P2_BURST_P50_MS}}</td><td>{{P2_KCALL_P50_MS}}</td><td>{{P2_LAT_RATIO}}</td></tr>
+  </tbody>
+ </table></div>
+ <p class="note">Rows 1–4: Burst's first test (named "Chord" at the time), 26 Sep 2026. Rows 5–7: Arena v3 Board 1, 27 Sep 2026, prototype readout. Brackets: 95% bootstrap intervals where the report computed one. Ratios without brackets are ratios of the p50s shown. With one control (K = 1) Burst has nothing to save and is slightly slower (longer prompt). Serving 3 streams per GPU instead of 1 multiplies latency by 2.27 for Burst and 2.80 for K-call.</p>
+</section>
+
+<section id="evidence" aria-labelledby="h-evidence">
+ <p class="eyebrow">03 / Evidence</p>
+ <h2 id="h-evidence">Survive longer when the clock is real.</h2>
+ <p>Arena v3 is a set of three <strong>fail-first</strong> games: difficulty rises every tick, on the same schedule for every player, until everyone fails (cap 60 s, six 10 s levels). The metric is simple: on the same seed, whoever fails later wins that head-to-head; a tie counts ½. We average over opponents, then over games. It is invariant to how the difficulty ramp is shaped.</p>
+ <div class="gloss" role="list">
+  <div role="listitem" style="display:contents"><dt>Snake Rush</dt><dd>1 control (direction). Speed and walls ramp up. Burst has nothing to save here.</dd></div>
+  <div role="listitem" style="display:contents"><dt>Rotorwash-Ramp</dt><dd>3 controls (collective, cyclic, winch). Helicopter in a collapsing cave.</dd></div>
+  <div role="listitem" style="display:contents"><dt>Booster Gauntlet</dt><dd>4 controls. Consecutive rocket landings with rising wind and heavier engines. The least-seen game for Nagi.</dd></div>
+ </div>
+
+ <h3 id="confirm">Preregistered confirmation on fresh seeds</h3>
+ <!-- PH block: fill every cell from the Burst release P2 analysis (fresh seed indices; docs/burst_release/PREREG.md defines rows, thresholds and the frozen variant-selection rule). Adapt row labels to the PREREG gate names exactly. -->
+ <p>Gates, thresholds and the rule that picks the readout variant were frozen before any data (<a href="{{URL_PREREG}}">preregistration</a>). The variant was chosen by the offline gates, never by Arena outcomes. Seed indices {{P2_SEED_RANGE}}, never seen by any player before.</p>
+ <div class="tw"><table>
+  <caption>Release gates, Burst ({{BURST_VARIANT}})</caption>
+  <thead><tr><th scope="col">Gate</th><th scope="col">Estimate</th><th scope="col">95% CI</th><th scope="col">Threshold</th><th scope="col">Verdict</th></tr></thead>
+  <tbody>
+   <tr><td>Order sensitivity (answer flips)</td><td>{{P2_ORDER_FLIP_RATE}}</td><td>{{P2_ORDER_FLIP_CI}}</td><td>≤ {{PREREG_ORDER_LIMIT}}</td><td>{{P2_ORDER_VERDICT}}</td></tr>
+   <tr><td>Offline joint quality vs K-call</td><td>{{P2_MA1_DELTA}}</td><td>{{P2_MA1_CI}}</td><td>{{PREREG_MA1_RULE}}</td><td>{{P2_MA1_VERDICT}}</td></tr>
+   <tr><td>Real-time win rate vs K-call</td><td>{{P2_WINRATE_VS_KCALL}}</td><td>{{P2_WINRATE_VS_KCALL_CI}}</td><td>{{PREREG_KCALL_RULE}}</td><td>{{P2_KCALL_VERDICT}}</td></tr>
+   <tr><td>Real-time win rate vs Jev</td><td>{{P2_WINRATE_VS_JEV}}</td><td>{{P2_WINRATE_VS_JEV_CI}}</td><td>{{PREREG_JEV_RULE}}</td><td>{{P2_JEV_VERDICT}}</td></tr>
+   <tr><td>Void rounds</td><td>{{P2_VOID_ROUNDS}}</td><td>–</td><td>≤ 1 per 24 rounds per cell</td><td>{{P2_VOID_VERDICT}}</td></tr>
+  </tbody>
+ </table></div>
+
+ <h3 id="survival">% of rounds still alive vs time</h3>
+ <p>Each line is the share of a player's rounds still running at time t (Kaplan-Meier; no round reached the 60 s cap, so nothing is censored in the screen). Higher and further right is better.</p>
+ <div class="tabs" role="group" aria-label="Dataset">
+  <button type="button" data-set="confirmation" aria-pressed="false" disabled title="Filled after the release gates">Confirmation (fresh seeds)</button>
+  <button type="button" data-set="board1" aria-pressed="true">Board 1 screen (seeds 0–9)</button>
+ </div>
+ <div class="tabs" role="group" aria-label="Game">
+  <button type="button" data-game="snake" aria-pressed="false">Snake Rush · K=1</button>
+  <button type="button" data-game="rotorwash_ramp" aria-pressed="true">Rotorwash-Ramp · K=3</button>
+  <button type="button" data-game="booster_gauntlet" aria-pressed="false">Booster Gauntlet · K=4</button>
+ </div>
+ <div class="chart" id="km"><p class="note">The chart needs JavaScript; the same numbers are in the table below.</p></div>
+ <ul class="legend" id="km-legend"></ul>
+ <p class="note" id="km-note">Board 1 screen: realtime, 10 seeds per game, 6 players, prototype readout. Source: Arena v3 Board 1 report, per-round OUT order (<a href="data.json">data.json</a>).</p>
+ <details class="tv"><summary>Table view: % alive at 10 / 20 / 30 s, Board 1</summary>
+ <div class="tw"><table>
+  <thead><tr><th scope="col">Player</th><th scope="col">Snake 10/20/30 s</th><th scope="col">Rotorwash-Ramp 10/20/30 s</th><th scope="col">Booster 10/20/30 s</th></tr></thead>
+  <tbody>
+   <tr class="me"><td>Burst (prototype)</td><td>30 / 0 / 0%</td><td>100 / 80 / 10%</td><td>100 / 100 / 0%</td></tr>
+   <tr><td>K-call, same weights</td><td>20 / 0 / 0%</td><td>100 / 50 / 0%</td><td>100 / 100 / 0%</td></tr>
+   <tr><td>ENORMOUS-CL</td><td>70 / 10 / 0%</td><td>100 / 10 / 0%</td><td>100 / 60 / 0%</td></tr>
+   <tr><td>ENORMOUS (previous)</td><td>20 / 0 / 0%</td><td>100 / 20 / 0%</td><td>0 / 0 / 0%</td></tr>
+   <tr><td>Jev 1.13.0</td><td>30 / 10 / 0%</td><td>90 / 20 / 10%</td><td>30 / 0 / 0%</td></tr>
+   <tr><td>OpenJev / SemIf-4B</td><td>0 / 0 / 0%</td><td>0 / 0 / 0%</td><td>0 / 0 / 0%</td></tr>
+  </tbody>
+ </table></div></details>
+
+ <h3 id="board1">Board 1 screen: all players, same seeds</h3>
+ <div class="tw"><table>
+  <caption>% of head-to-heads survived longer · realtime · 10 seeds per game</caption>
+  <thead><tr><th scope="col">Player</th><th scope="col">Snake Rush</th><th scope="col">Rotorwash-Ramp</th><th scope="col">Booster Gauntlet</th><th scope="col">All games [95% CI]</th><th scope="col">p50 latency, RR / BG</th></tr></thead>
+  <tbody>
+   <tr class="me"><td>Burst (prototype readout)</td><td>63%</td><td>90%</td><td>85%</td><td><b>79%</b> [72, 85]</td><td>242 / 249 ms</td></tr>
+   <tr><td>ENORMOUS-CL (unreleased)</td><td>74%</td><td>58%</td><td>70%</td><td>67% [57, 76]</td><td>599 / 702 ms</td></tr>
+   <tr><td>K-call, same weights as Burst</td><td>61%</td><td>54%</td><td>83%</td><td>66% [57, 74]</td><td>610 / 753 ms</td></tr>
+   <tr><td>ENORMOUS (previous adapter)</td><td>53%</td><td>52%</td><td>18%</td><td>41% [34, 47]</td><td>727 / 841 ms</td></tr>
+   <tr><td>Jev 1.13.0 (API)</td><td>30%</td><td>46%</td><td>40%</td><td>39% [29, 49]</td><td>213 / 216 ms</td></tr>
+   <tr><td>OpenJev / SemIf-4B</td><td>19%</td><td>0%</td><td>4%</td><td>8% [4, 12]</td><td>347 / 501 ms</td></tr>
+  </tbody>
+ </table></div>
+ <p class="note">Win rate against the other five players on the same seed index; ties count ½. CI: 95% bootstrap over seed indices. RR = Rotorwash-Ramp, BG = Booster Gauntlet. 0 void rounds, 0 stale replies for every player except ENORMOUS (previous) on Booster Gauntlet (11 stale, 8 expiry resets). A screen: 10 seeds per game, and Burst was picked as the best of four Nagi entries after the fact, so its numbers are optimistic (see <a href="#limits">limitations</a>).</p>
+
+ <h3 id="same-weights">Same weights: the gain is speed, not judgment</h3>
+ <p>Because Burst and K-call share weights, comparing them isolates the readout. Burst's first test gives a consistent picture: with time frozen, the two make decisions of the same quality, and K-call even gets three passes per move to Burst's one. Once the clock is real, Burst is ahead because its answers arrive in time.</p>
+ <div class="tw"><table>
+  <caption>Burst − K-call, same weights (first test, prototype readout)</caption>
+  <thead><tr><th scope="col">Measure</th><th scope="col">Mode</th><th scope="col">n</th><th scope="col">Burst − K-call</th><th scope="col">95% CI</th></tr></thead>
+  <tbody>
+   <tr><td class="l">Joint decision acceptable (offline, 13 genres)</td><td>offline</td><td>780 states</td><td>+0.000</td><td>[−0.040, +0.040]</td></tr>
+   <tr><td class="l">Coordination states (MA2 / MA2b)</td><td>offline</td><td>125 / 298</td><td>−0.016 / +0.010</td><td>[−0.113, +0.072] / [−0.078, +0.088]</td></tr>
+   <tr><td class="l">Arena composite, Rotorwash + Lightcycle</td><td>frozen time</td><td>24 seeds</td><td>−0.016</td><td>[−0.086, +0.055]</td></tr>
+   <tr><td class="l">Rotorwash score R</td><td>frozen time</td><td>24 seeds</td><td>−0.101</td><td>[−0.165, −0.043]</td></tr>
+   <tr><td class="l">Rotorwash score R</td><td>real time</td><td>5 seeds</td><td>+0.049</td><td>[+0.009, +0.080]</td></tr>
+   <tr><td class="l">Rotorwash fresh-action share of ticks</td><td>real time</td><td>5 seeds</td><td>0.99 vs 0.49</td><td>–</td></tr>
+   <tr><td class="l">Arena v3 head-to-heads, Rotorwash-Ramp / Booster / Snake</td><td>real time</td><td>10 seeds each</td><td>90% / 55% / 50%</td><td>screen</td></tr>
+  </tbody>
+ </table></div>
+ <p class="note">Frozen time: every player gets unlimited time per tick (lockstep). In frozen time every Burst Rotorwash round ended on the cave ceiling (24/24), a flying failure K-call did not show. Real-time Rotorwash with 5 seeds is exploratory, not a decision. "+0.000" on 780 states means Burst was not shown to be worse, but the interval is wider than the preregistered 0.02 margin, so non-inferiority was formally not established.</p>
+
+ <h3 id="jev">Versus Jev: slower, but better decisions</h3>
+ <p>Jev (version 1.13.0, a commercial API) answers all controls in one request, like Burst, and was the fastest player on the two multi-control games: p50 213 and 216 ms including the network, fresh on 88–90% of ticks against Burst's 66%. Burst still survived longer in 70% (Snake Rush), 90% (Rotorwash-Ramp) and 100% (Booster Gauntlet) of head-to-heads in the Board 1 screen. Speed cannot explain that; the difference is in the decisions. The frozen-time test agrees: Burst − Jev on the two-game composite was +0.067 [+0.003, +0.138] over 24 seeds (descriptive, not a preregistered contrast).</p>
+ <!-- PH P2_JEV_SENTENCE: optional one-line update from the confirmation run, e.g. fresh-seed Jev latency p50 and win rate. Source: P2 results.json (Jev cells on fresh seeds). -->
+ <p>{{P2_JEV_SENTENCE}}</p>
+ <p class="note">Caveats: Jev runs on unknown vendor hardware over the network from a recorded client region; its latency includes the network and is not subtracted. Nagi was trained on similar control tasks (hover, crane, closed-loop snake); Jev's training is unknown. This is a specialist against a general model, on the specialist's kind of task.</p>
+
+ <h3 id="clips">Watch the rounds</h3>
+ <p>One clip per game, rendered from verified replays of recorded rounds (every recorded decision is replayed and checked before drawing). The seed is chosen by a fixed rule, never by hand: the round where Burst's survival is its lower median.</p>
+ <!-- PH CLIP_*: Burst-labelled clips from the release render replace ~/Downloads/Nagi-ArenaV3-*.mp4. Copy to site/burst/media/ as listed in the checklist, with posters (first frame, jpg). -->
+ <div class="clips">
+  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-snake-rush.jpg" aria-label="Snake Rush round"><source src="media/burst-snake-rush.mp4" type="video/mp4"></video></div><figcaption><b>Snake Rush</b> · K = 1 · seed {{CLIP_SEED_SNAKE}}</figcaption></figure>
+  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-rotorwash-ramp.jpg" aria-label="Rotorwash-Ramp round"><source src="media/burst-rotorwash-ramp.mp4" type="video/mp4"></video></div><figcaption><b>Rotorwash-Ramp</b> · K = 3 · seed {{CLIP_SEED_RR}}</figcaption></figure>
+  <figure class="clip"><div class="frame"><video controls muted playsinline preload="none" poster="media/burst-booster-gauntlet.jpg" aria-label="Booster Gauntlet round"><source src="media/burst-booster-gauntlet.mp4" type="video/mp4"></video></div><figcaption><b>Booster Gauntlet</b> · K = 4 · seed {{CLIP_SEED_BG}}</figcaption></figure>
+ </div>
+
+ <h3>What this benchmark measures, and what it does not</h3>
+ <div class="claims">
+  <div class="yes"><h3>Measures</h3><ul>
+   <li>How long a model keeps a machine alive under rising difficulty, with real latency, on a pinned serving path.</li>
+   <li>Paired comparisons on identical seeds and identical difficulty schedules.</li>
+   <li>Latency, freshness, stale replies and expiry resets per player, per game.</li>
+  </ul></div>
+  <div class="no"><h3>Does not measure</h3><ul>
+   <li>General intelligence, language ability or anything outside these three games.</li>
+   <li>Hardware-matched speed: Jev's hardware is unknown; self-hosted players share one H100 class.</li>
+   <li>Reading brand-new rules: Nagi trained on similar tasks, which we flag rather than hide.</li>
+  </ul></div>
+ </div>
+</section>
+
+<section id="limits" aria-labelledby="h-limits">
+ <p class="eyebrow">04 / Limitations and what failed</p>
+ <h2 id="h-limits">The parts that did not work.</h2>
+ <ul class="lims">
+  <li class="fail"><b class="k">Failed a preregistered gate</b>Burst was prototyped as “Chord”. That first prototype <strong>failed</strong> its preregistered order gate: rotating the order in which the controls are listed changed the joint answer on <strong>26.0%</strong> of 500 states [18.4%, 34.3%], against a 10% limit. The verdict was REJECT, and it stays REJECT; it is never passed retroactively. The Board 1 numbers above come from that prototype readout.</li>
+  <li><b class="k">The fix, tested as a new candidate</b>Two variants, with gates frozen before any data: <strong>A</strong> always lists controls in a canonical order, so the deployed answer cannot depend on the caller's order (the model itself stays order-sensitive, which A discloses rather than fixes); <strong>B</strong> renders the state under all K rotations of the control order, scores the K prompts in one batched forward pass and averages each control's letter logits, so every control sits in every slot once. B costs K× the tokens of A. Selected: <strong>{{BURST_VARIANT}}</strong>, with an order-flip rate of {{P2_ORDER_FLIP_RATE}} (limit {{PREREG_ORDER_LIMIT}}).</li>
+  <li class="fail"><b class="k">No coordination gain</b>We hoped reading all controls together would improve coordination between them. It did not: the preregistered “clear win” test on coordination states failed (MA2 −0.016 [−0.113, +0.072], MA2b +0.010 [−0.078, +0.088]).</li>
+  <li class="fail"><b class="k">Worse flying with time frozen</b>In frozen-time Rotorwash, Burst hit the cave ceiling in 24 of 24 rounds and survived 43.1 s less than K-call [−53.0, −32.0]. The real-time advantage exists in spite of this.</li>
+  <li><b class="k">Screen-level evidence</b>Board 1 is a screen: 10 seeds per game. Burst was picked as the best of four Nagi entries after the results, which inflates its numbers (winner's curse), and two of the four share weights. That is why the confirmation above runs on fresh seeds under a preregistration.</li>
+  <li><b class="k">A player we could not rank</b>CLM-8B was entered but failed its own conformance gate (rule D15), so it is not ranked. Board 1 therefore has 6 players, and Burst was selected against 2 external models (Jev, SemIf-4B), not 3.</li>
+  <li><b class="k">In-domain training</b>Burst's weights, K-call's and ENORMOUS-CL's were trained on similar machine tasks (hover, crane, closed-loop snake). This was intended and is flagged on every row. No game engine, seed or state from the Arena appears in training (audited). External players' training is unknown.</li>
+  <li><b class="k">A timing wall in Booster Gauntlet</b>Each landing must happen within 22 s, and many of the strongest rounds end at exactly 22.0 s. Those head-to-heads are ties, so Booster separates strong from weak players more than it separates the strong ones.</li>
+  <li><b class="k">One control, no gain</b>With K = 1 (Snake Rush) Burst does one pass either way and is slightly slower (227 vs 211 ms p50) because its prompt is longer.</li>
+  <li><b class="k">The baseline is sequential</b>K-call here is the SDK default: K forward passes one after another. We did not measure a K-call that batches its K prompts or caches the shared state prefix. Such a baseline would close part of the latency gap, at the cost of more tokens.</li>
+  <li><b class="k">Hardware and serving</b>All self-hosted numbers: H100 80 GB, bf16 weights with the adapter merged, fused kernels, 3 streams per GPU. Other GPUs, quantization or batch sizes will give other numbers. Nothing here is a service-level guarantee.</li>
+  <li><b class="k">Training history</b>A preregistered pause fired at step 125 of 417 (language benchmark −2.07 points) and was overridden by the project owner; the run continued. At the final step the language score is −0.5 points vs the previous ENORMOUS (0.8578 vs 0.8631, n = 200).</li>
+  <li><b class="k">Probabilities</b>Temperature 1.0 is not learned calibration; probabilities can be overconfident on new domains. Held-out genres in the offline test rest on 2 families only.</li>
+  <li><b class="k">Who ran this</b>Nagi's developers designed, ran and analysed every test on this page. Everything needed to check it is linked below.</li>
+ </ul>
+</section>
+
+<section id="reproduce" aria-labelledby="h-repro">
+ <p class="eyebrow">05 / Reproduce</p>
+ <h2 id="h-repro">Check it yourself.</h2>
+ <!-- PH SDK_*: public SDK version and call once the nagi-public SDK branch with Burst is merged (burst_config.json: sdk_min_version 0.6.0). -->
+<pre><code>python -m pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git@{{SDK_TAG}}"
+
+{{SDK_BURST_SNIPPET}}</code></pre>
+ <p class="note">Needs an 80 GB GPU in bf16 (the base alone is about 56 GB). The answer dictionary has the same shape as the default K-call mode.</p>
+ <div class="links">
+  <a href="{{URL_PREREG}}"><b>Preregistration ↗</b><span>Gates, thresholds and the variant-selection rule, frozen before data.</span></a>
+  <a href="{{URL_REPORT}}"><b>Report and receipts ↗</b><span>Every number on this page with its source file and sha256.</span></a>
+  <a href="{{URL_PROTOCOL}}"><b>Arena v3 protocol ↗</b><span>Realtime rules, metrics, seeds, void and staleness rules.</span></a>
+  <a href="{{URL_RECORDS}}"><b>Round records ↗</b><span>Every decision of every round; replays reproduce each round without the model.</span></a>
+  <a href="{{URL_HF_BURST}}"><b>Model card ↗</b><span>Weights, adapter sha256, serving path, limits.</span></a>
+  <a href="https://github.com/nagisanzenin/nagi"><b>SDK source ↗</b><span>Renderer, slot positions, readout.</span></a>
+ </div>
+ <h3>Names used on this page</h3>
+ <dl class="gloss">
+  <dt>Burst</dt><dd>The one-pass K-slot readout. Research name “Chord” until 27 Sep 2026.</dd>
+  <dt>K-call</dt><dd>One forward pass per control, the SDK default.</dd>
+  <dt>Same weights</dt><dd>Qwen3.8-27B + rank-8 LoRA at step 417 (research name “T-dual”), trained on both formats. Burst and K-call on this page both use it.</dd>
+  <dt>ENORMOUS (previous)</dt><dd>The ENORMOUS adapter before closed-loop training. <!-- PH VERIFY_ENORMOUS_OLD: confirm this is the public Nagi-ENORMOUS revision 2e03ec3… before claiming "released" --></dd>
+  <dt>ENORMOUS-CL</dt><dd>An unreleased closed-loop fine-tune of ENORMOUS, K-call readout.</dd>
+  <dt>Jev</dt><dd>Jev 1.13.0, commercial API, one request with all controls.</dd>
+  <dt>SemIf-4B</dt><dd>The OpenJev / SemIf 4B reference, self-hosted on its native stack.</dd>
+ </dl>
+ <h3>Prior art</h3>
+ <p class="note">Parallel decoding of action dimensions in one pass: OpenVLA-OFT (Kim, Finn, Liang 2025, arXiv:2502.19645). Shared trunk with independent per-dimension heads: action branching (Tavakoli et al. 2018, arXiv:1711.08946), OpenAI Five (2019). Letter-symbol multiple-choice readout: Robinson et al. (ICLR 2023, arXiv:2210.12353). Independent parallel predictions and the multimodality problem: Gu et al. (ICLR 2018, arXiv:1711.02281). Burst combines a letter readout through the existing LM head at K slots with max-marginal slot targets; we did not find this exact combination, but each piece is standard.</p>
+</section>
+
+</main>
+
+<!--nx:footer--><footer class="nx-foot"><div class="nx-in"><div class="nx-brand"><img class="m" src="../assets/mascot-128.png" alt="Nagi mascot" width="72" height="72"><div><img class="w" src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div><div class="nx-cols"><div><h4>Benchmarks</h4><ul><li><a href="../arena-live/">Arena Live</a></li><li><a href="../">Public decision benchmark</a></li><li><a href="../burst/" aria-current="page">Burst architecture</a></li></ul></div><div><h4>Replays</h4><ul><li><a href="../arena/">All replays</a></li><li><a href="../bomber-huge/">Real-time Bomber · HUGE</a></li><li><a href="../bomber-realtime/">Real-time Bomber · BIG</a></li><li><a href="../bomber/">Turn-based Bomber</a></li><li><a href="../snake/">Snake pilot</a></li></ul></div><div><h4>Models</h4><ul><li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS 27B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/Nagi-HUGE">Nagi-HUGE 12B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-big-v3">Nagi-BIG 4B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-smol-v0">Nagi-SMOL 0.5B ↗</a></li></ul></div><div><h4>Code</h4><ul><li><a href="https://github.com/nagisanzenin/nagi">Nagi SDK on GitHub ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/bench">Benchmark data ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/docs/brand">Brand kit ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/issues">Questions or corrections ↗</a></li></ul></div></div><p class="nx-legal">Self-hosted System One models. Probabilities are model outputs, not guarantees.</p></div></footer><!--/nx:footer-->
+<script src="burst.js" defer></script>
+</body></html>
