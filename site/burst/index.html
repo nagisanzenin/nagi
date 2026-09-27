@@ -67,7 +67,18 @@
 .fig{margin:26px 0 10px;background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:18px}
 .fig svg{display:block;width:100%;height:auto}
 .dg{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
-.dg .dg-wide{grid-column:1/-1;max-width:620px}
+.tl{grid-column:1/-1;max-width:640px;padding-top:6px}
+.tl-h{font:700 11px var(--nagi-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--nagi-bone);margin:0 0 12px}
+.tl-row{display:grid;grid-template-columns:64px 1fr;align-items:center;gap:10px;margin:0 0 10px;padding-right:64px}
+.tl-row>span{font:600 14px var(--nagi-body);color:var(--nagi-bone)}
+.tl-track{position:relative;height:28px;background:repeating-linear-gradient(to right,transparent 0 calc(33.333% - 1px),var(--nagi-line) calc(33.333% - 1px) 33.333%)}
+.tl-track i{position:absolute;left:0;top:0;bottom:0;background:var(--nagi-green)}
+.tl-track i.y{background:var(--nagi-yellow)}
+.tl-track b{position:absolute;top:50%;transform:translate(8px,-50%);font:500 13px var(--nagi-mono);color:var(--nagi-muted);white-space:nowrap;background:var(--nagi-panel);padding:0 4px}
+.tl-axis{margin-top:-2px}
+.tl-axis>div{position:relative;height:18px}
+.tl-axis em{position:absolute;transform:translateX(-50%);font:500 12px var(--nagi-mono);font-style:normal;color:var(--nagi-muted);white-space:nowrap}
+.tl-axis em:first-child{transform:none}
 @media (max-width:760px){.dg{grid-template-columns:1fr}}
 .fig figcaption{font-size:14px;line-height:1.55;color:var(--nagi-muted);margin-top:12px;max-width:90ch}
 .dg-box{fill:var(--nagi-panel2);stroke:var(--nagi-line);stroke-width:1.5}
@@ -240,18 +251,12 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
    <rect class="dg-box" x="386" y="200" width="104" height="58"/><text class="dg-t" x="398" y="224">slot 3</text><text class="dg-s" x="398" y="245">A B C</text>
    <path class="dg-line" d="M362 73H386M362 151H386M362 229H386"/>
   </svg>
-  <svg class="dg-wide" viewBox="0 0 620 170" role="img" aria-labelledby="dg3-t">
-   <title id="dg3-t">Measured decision latency p50 on Rotorwash-Ramp, 3 controls: K-call 612 ms, Burst 239 ms, against a 250 ms tick.</title>
-   <text class="dg-h" x="10" y="22">Measured p50 vs the 250 ms tick</text>
-   <path class="dg-tick" d="M90 36V146M240 36V146M390 36V146M540 36V146"/>
-   <text class="dg-s" x="86" y="164">0</text><text class="dg-s" x="218" y="164">250 ms</text><text class="dg-s" x="368" y="164">500 ms</text><text class="dg-s" x="518" y="164">750 ms</text>
-   <text class="dg-t" x="10" y="68">K-call</text>
-   <rect x="90" y="50" width="367" height="28" fill="#36D988"/>
-   <text class="dg-s" x="465" y="69">612 ms</text>
-   <text class="dg-t" x="10" y="122">Burst</text>
-   <rect x="90" y="104" width="143" height="28" fill="#F5E642"/>
-   <text class="dg-s" x="242" y="123">239 ms</text>
-  </svg>
+  <div class="tl" role="img" aria-label="Measured decision latency p50 on Rotorwash-Ramp, 3 controls: K-call 612 ms, Burst 239 ms, against a 250 ms tick.">
+   <p class="tl-h" aria-hidden="true">Measured p50 vs the 250 ms tick</p>
+   <div class="tl-row" aria-hidden="true"><span>K-call</span><div class="tl-track"><i style="width:81.6%"></i><b style="left:81.6%">612 ms</b></div></div>
+   <div class="tl-row" aria-hidden="true"><span>Burst</span><div class="tl-track"><i class="y" style="width:31.87%"></i><b style="left:31.87%">239 ms</b></div></div>
+   <div class="tl-row tl-axis" aria-hidden="true"><span></span><div><em style="left:0">0</em><em style="left:33.33%">250</em><em style="left:66.67%">500</em><em style="left:100%">750 ms</em></div></div>
+  </div>
   </div>
   <figcaption>Left: K-call renders one prompt per control and runs the model once per prompt. Right: Burst renders one prompt with all controls and one answer slot per control, runs the model once, and reads each slot's option letters (option letters are illustrative). Bars: measured decision latency p50 on Rotorwash-Ramp (3 controls), Arena v3 Board 1, H100, 3 streams per GPU. At 4 Hz, K-call's reply is fresh on 33% of ticks and Burst's on 66%.</figcaption>
  </figure>
