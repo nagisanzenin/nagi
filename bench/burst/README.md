@@ -132,6 +132,23 @@ Further notes from the run:
 - **Jev continuation.** The first Jev job (`br_jev_summary.json`) stopped at its per-job cost guard before
   Rotorwash-Ramp indices 25–33. A second job (`br_jev_c2_summary.json`) played those 9 rounds. Jev's latency probe at
   3 streams gave p50 172 ms in the first job and 297 ms in the second. Both jobs replayed exactly (63/63 and 9/9).
+- **Sensitivity to the Jev continuation (not preregistered).** The first analysis job ran before the continuation, with
+  Jev's Rotorwash-Ramp indices 25–33 missing (V_rt PENDING, so it was never a decision). On that data Θ = 0.657, 95% CI
+  [0.543, 0.771] (Welch–Satterthwaite with dropped indices; Rotorwash-Ramp n = 15, W = 0.533). The lower bound stays
+  above 0.5, so the superiority conclusion does not depend on the 9 rounds Jev played in the slower second job. Receipt:
+  `sensitivity_without_continuation.json`. The preregistered result above is the one that counts.
+- **In-play latency (per request, from the round records of the three Burst shards and the two Jev jobs).** Burst is
+  slower than Jev in play; its lead comes from its decisions, not from speed.
+
+  | Player · job | Snake p50 / p90 / p99 ms | Rotorwash-Ramp | Booster Gauntlet |
+  |---|---|---|---|
+  | Burst · shard 1 | 247 / 333 / 346 | 265 / 362 / 376 | 290 / 333 / 340 |
+  | Burst · shard 2 | 270 / 288 / 322 | 303 / 402 / 419 | 318 / 369 / 383 |
+  | Burst · shard 3 | 247 / 308 / 315 | 249 / 368 / 379 | 267 / 315 / 381 |
+  | Jev · job 1 | 170 / 205 / 290 | 174 / 212 / 263 | 172 / 209 / 280 |
+  | Jev · job 2 (RR 25–33) | – | 295 / 327 / 426 | – |
+
+  Every Burst p99 is below the 1,000 ms stale limit; above the 250 ms tick, the previous action is held (PROTOCOL §1.1).
 - **Jev is not deterministic.** Jev's answer fingerprint on 8 fixed requests changed between calls, including three
   back-to-back calls from one client, so a fingerprint change does not mean a vendor change. The frozen V_rt check
   compares the vendor version string, which was `jev-1.13.0` in every job, as in Board 1.
@@ -171,6 +188,7 @@ inputs`.
 | [replay.json](receipts/replay.json) | `17f1b3b8f421d49eedcbcc8e42c404f1037b4760632820549ba30ee977a4ef32` | Replay verification: 174/174 exact |
 | [br_jev_summary.json](receipts/br_jev_summary.json) | `855c10032eb69dd95188fe50876124dfe5e039997609e311886b0facf455744b` | Jev job 1: version, fingerprint, latency probe, replay, stop reason |
 | [br_jev_c2_summary.json](receipts/br_jev_c2_summary.json) | `a48e5184ea3a7f480c64cf362eff40621c566e02f535ae97bcc1dbaf77ab8e48` | Jev continuation job (Rotorwash-Ramp 25–33) |
+| [sensitivity_without_continuation.json](receipts/sensitivity_without_continuation.json) | `678bdd638ba16f5b91e98996a6177924db44463dc785053dd93a6f1a542e3cf2` | The analysis job's decision file before the Jev continuation (V_rt PENDING; used only for the sensitivity note) |
 | [BURST_REPORT.md](receipts/BURST_REPORT.md) | `711bae79e77ebeb55b100487be7ec7cd4d1a4115af13f227d58c42360701550d` | The analysis job's own report (research labels) |
 | [render_clips.json](receipts/render_clips.json) | `3a04f77b18d178f3c74053c276005a7d0811fa2586a5490471154e8dbb466a8d` | Clip seeds, extracted from the report job's status.json (sha256 `1e721a07e0d7…`, not published because it holds internal output paths) |
 
