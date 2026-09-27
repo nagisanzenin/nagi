@@ -2,9 +2,9 @@
  "_about": "Data for site/burst/. Every number is copied from a receipt; 'source' names it. Pending blocks are null until the Burst release gates are read (docs/burst/PUBLISH_CHECKLIST.md).",
  "players": {
   "burst_proto": {
-   "label": "Burst (prototype readout)",
+   "label": "Burst (Board 1 player)",
    "role": "burst",
-   "note": "Board 1 label 'T-dual Chord': T-dual step-417 weights, one-forward readout on the caller's control order (the readout that failed the order gate)."
+   "note": "Board 1 label 't_dual/chord': T-dual step-417 weights, one-forward readout; its prompts are byte-identical to release variant A (PREREG §1). This readout failed the P1 order gate at the model level."
   },
   "kcall": {
    "label": "K-call, same weights",
@@ -275,34 +275,34 @@
   },
   "latency_p50_ms": {
    "burst_proto": {
-    "snake": 227,
-    "rotorwash_ramp": 242,
-    "booster_gauntlet": 249
+    "snake": 231,
+    "rotorwash_ramp": 239,
+    "booster_gauntlet": 271
    },
    "kcall": {
-    "snake": 211,
-    "rotorwash_ramp": 610,
-    "booster_gauntlet": 753
+    "snake": 213,
+    "rotorwash_ramp": 612,
+    "booster_gauntlet": 757
    },
    "jev": {
     "snake": 217,
-    "rotorwash_ramp": 213,
-    "booster_gauntlet": 216
+    "rotorwash_ramp": 212,
+    "booster_gauntlet": 214
    },
    "enormous_cl": {
     "snake": 209,
-    "rotorwash_ramp": 599,
-    "booster_gauntlet": 702
+    "rotorwash_ramp": 609,
+    "booster_gauntlet": 704
    },
    "enormous_v1": {
     "snake": 244,
-    "rotorwash_ramp": 727,
-    "booster_gauntlet": 841
+    "rotorwash_ramp": 726,
+    "booster_gauntlet": 908
    },
    "semif_4b": {
     "snake": 102,
-    "rotorwash_ramp": 347,
-    "booster_gauntlet": 501
+    "rotorwash_ramp": 357,
+    "booster_gauntlet": 502
    }
   },
   "fresh_share": {
@@ -337,8 +337,9 @@
     "booster_gauntlet": 0.34
    }
   },
-  "note": "Board 1 screen: realtime, 10 seeds per game, 6 players, prototype readout (the one that failed the order gate). Source: Arena v3 Board 1 report, per-round OUT order; data in data.json.",
-  "cap_s": 60
+  "note": "Board 1 screen: realtime, seed indices 0–9 per game, 6 players. Burst here is the Board 1 player whose prompts equal release variant A's. Source: Arena v3 Board 1 report, per-round OUT order; data in data.json.",
+  "cap_s": 60,
+  "latency_source": "~/nagi-wt/arena-v3/runs/arena_v3/board1/*_v2/<player>/player_summary.json → per_game.latency_ms.p50 (all requests pooled); sha256 prefixes: t_dual/chord 292f8b72, t_dual/kcall 74ec0153, jev 58c59005, enormous_cl 4c4dc272, enormous_old 61bb139a, semif_4b 017d5b96 (the pins in Burst PREREG §2). The Board 1 report's table uses the median of per-round p50s instead (227/242/249 ms for Burst)."
  },
  "confirmation": null,
  "confirmation_schema": {

@@ -17,30 +17,29 @@ Exact receipt paths are fixed by the release operator; write them into the repor
 
 | Placeholder | Where | Source (file → field) | Format (shape only, not a value) |
 |---|---|---|---|
-| `RELEASE_DATE` | hero tape | publish date | `28 Sep 2026` |
-| `BURST_VARIANT` | latency table, gates caption, limitations | offline-gates receipt → selected variant (frozen rule, never Arena outcomes) | `A, canonical order` or `B, permutation-averaged` |
-| `P2_N_SEEDS` | hero key sentence | PREREG / P2 results.json → number of fresh seed indices per game | `NN` |
-| `P2_SEED_RANGE` | confirmation paragraph | P2 results.json → seed index range | `NN–NN` |
-| `P2_WINRATE_VS_JEV`, `P2_WINRATE_VS_JEV_CI` | hero, claims, gates table | P2 results.json → composite paired per-seed win rate Burst vs Jev, 95% CI over seed indices | `NN%`, `[NN%, NN%]` |
-| `P2_WINRATE_VS_KCALL`, `P2_WINRATE_VS_KCALL_CI` | hero, claims, gates table | P2 results.json → same, Burst vs K-call (same weights) | as above |
-| `P2_BURST_P50_MS`, `P2_KCALL_P50_MS`, `P2_LAT_RATIO` | hero facts, latency table | P2 results.json → decision latency p50, Rotorwash-Ramp, release serving path, 3 streams per H100; ratio = Burst/K-call p50 (2 decimals) | `NNN`, `NNN`, `0.NN` |
-| `P2_ORDER_FLIP_RATE`, `P2_ORDER_FLIP_CI` | hero facts, gates, limitations | offline-gates receipt → order-sensitivity flip rate of the selected variant, family-bootstrap 95% CI | `N.N%`, `[N.N%, N.N%]` |
-| `PREREG_ORDER_LIMIT` | hero facts, gates, limitations | PREREG.md → order gate threshold | `NN%` |
-| `P2_ORDER_VERDICT`, `P2_MA1_VERDICT`, `P2_KCALL_VERDICT`, `P2_JEV_VERDICT`, `P2_VOID_VERDICT` | gates table | the release report's verdict column, verbatim | `PASS` |
-| `P2_MA1_DELTA`, `P2_MA1_CI`, `PREREG_MA1_RULE` | gates table | offline-gates receipt → MA1 Burst − K-call; PREREG rule text | `+0.NNN`, `[−0.NNN, +0.NNN]`, rule text |
-| `PREREG_KCALL_RULE`, `PREREG_JEV_RULE` | gates table | PREREG.md → the realtime rules, short form | rule text, short |
-| `P2_VOID_ROUNDS` | gates table | P2 results.json → void rounds (all cells) | `N of NNN` |
-| `P2_JEV_SENTENCE` | Jev section | P2 results.json, Jev cells on fresh seeds: one factual sentence (Jev p50, fresh share, win rate); delete the `<p>` if not needed | sentence |
-| `P2_CHART_NOTE` | data.json → confirmation.note | design line: seeds, players, variant, source file + sha256 | sentence |
-| `P2_RESULTS_SOURCE` | data.json → confirmation_schema | remove the `confirmation_schema` block once `confirmation` is filled | – |
-| `CLIP_SEED_SNAKE`, `CLIP_SEED_RR`, `CLIP_SEED_BG` | clip captions | render job log / `showcase_players` rule output → seed index shown in each clip | `N` |
-| `SDK_TAG` | reproduce | nagi-public tag or commit that ships `mode="burst"` (burst_config.json: sdk_min_version 0.6.0) | tag or short sha |
-| `SDK_BURST_SNIPPET` | reproduce | the public SDK call, tested on the published weights (loader name + `system_one(..., mode="burst")`) | 4–8 lines of Python, HTML-escaped |
-| `URL_HF_BURST` | hero button, links | final HF repo (draft name `nagisanzeninz/Nagi-ENORMOUS-Burst`), must be PUBLIC | URL |
-| `URL_REPORT` | hero button, links | public report with every number + receipts + sha256 (suggested `https://github.com/nagisanzenin/nagi/blob/main/bench/burst/README.md`) | URL |
-| `URL_PREREG` | confirmation, links | public copy of PREREG.md with its commit hash (suggested `bench/burst/PREREG.md`) | URL |
-| `URL_PROTOCOL` | links | public copy of Arena v3 PROTOCOL.md (suggested `bench/arena_v3/PROTOCOL.md`) | URL |
-| `URL_RECORDS` | links | public round records (V2 format) + replay instructions (suggested `bench/burst/records/` or an HF dataset) | URL |
+| `RELEASE_DATE` | hero tape | publish date | `DD Mon 2026` |
+| `BURST_VARIANT` | gates caption, limitations | `docs/burst_release/selection.json` → SELECT (PREREG §5) | `A (canonical order)` / `B (cyclic orbit)` |
+| `G1_SDK_RESULT`, `G1_SDK_VERDICT` | gates | offline-gates receipt → G1-SDK for the counted variant (PREREG §3.1) | `500 / 500`, verdict |
+| `PHI_A`, `PHI_A_CI` | hero facts, gates, limitations | offline-gates receipt → φ_A (model-level flips without canonicalization, serving path) + two-stage 95% CI | `NN.N%`, `[NN.N%, NN.N%]` |
+| `G1B_PHI`, `G1B_UB`, `G1B_VERDICT` | gates | offline-gates receipt → G1-B (variant B, measured even if A is selected) | `N.N%`, `N.N%`, verdict |
+| `G2_DELTA`, `G2_BOUND`, `G2_VERDICT` | hero facts, gates | offline-gates receipt → G2 for the counted variant: Δ̂ MA1 and L = min(bootstrap, t12) | `+0.NNN`, `−0.NNN`, verdict |
+| `G3_DELTA`, `G3_UB`, `G3_VERDICT` | gates | offline-gates receipt → G3 Δ_U and t upper bound | `+0.NNN`, `0.NNN`, verdict |
+| `LAT_P50_MS_SNAKE`, `LAT_P50_MS_RR`, `LAT_P50_MS_BG`, `LAT_UB_MS_*`, `LAT_VERDICT` | hero, facts, claims, latency table, gates | offline-gates receipt → LAT probe p50 and one-sided 97.5% upper bound per game, 3 streams (PREREG §3.4) | integers in ms, verdict |
+| `P2_VOID_ROUNDS`, `V_RT_VERDICT` | gates | P2 analysis → void rounds over all P2 cells; V_rt (PREREG §6.1) | `N of NNN`, verdict |
+| `P2_WINRATE_VS_JEV`, `P2_WINRATE_VS_JEV_CI` | hero, claims, gates, Jev section | P2 analysis → Θ (composite paired win rate vs Jev, indices 10–33) and its 95% t CI (PREREG §6.2–6.4) | `NN%`, `[NN%, NN%]` |
+| `R_RT_VERDICT` | gates | P2 analysis → R-RT | verdict (must be PASS to publish) |
+| `C1_P`, `C1_VERDICT`, `P2_C1_CLAUSE` | gates, hero | P2 analysis → C1 sign-flip p and verdict. Clause: `""` unless C1 passed, then `, a preregistered superiority result` | `0.NNNN`, verdict, text |
+| `C2_WINRATES`, `C2_VERDICTS` | gates | P2 analysis → W_g per game and Holm verdicts (only if C1 passed; else `not tested`) | `NN% / NN% / NN%` |
+| `P2_CHART_NOTE` | data.json → confirmation.note | design line for the fresh-seed chart: indices, players, variant, source + sha256 | sentence |
+| `P2_RESULTS_SOURCE` | data.json → confirmation_schema | remove the whole `confirmation_schema` block once `confirmation` is filled | – |
+| `CLIP_SEED_SNAKE`, `CLIP_SEED_RR`, `CLIP_SEED_BG` | clip captions | render job log (fixed seed rule, PROTOCOL A1.5) → seed index per clip | `N` |
+| `SDK_TAG` | reproduce | nagi-public tag/commit that ships Burst (burst_config.json: sdk_min_version 0.6.0) | tag or sha |
+| `SDK_BURST_SNIPPET` | reproduce | the public SDK call, tested against the published weights | 4–8 lines, HTML-escaped |
+| `URL_HF_BURST` | hero, links | final HF repo (draft `nagisanzeninz/Nagi-ENORMOUS-Burst`), PUBLIC | URL |
+| `URL_REPORT` | hero, links | public report with every number, receipts, sha256 (suggested `bench/burst/README.md` in nagi-public) | URL |
+| `URL_PREREG` | gates paragraph, links | public copy of PREREG.md (frozen `f0d6204` + Amendment 1 `0c346f5` in nagi-research) | URL |
+| `URL_PROTOCOL` | links | public copy of Arena v3 PROTOCOL.md | URL |
+| `URL_RECORDS` | links | public round records + replay instructions | URL |
 
 Also fill `site/burst/data.json → confirmation` with the P2 per-round survival times, in the same shape as `board1`
 (`source`, `design`, `note`, `cap_s`, `death_s{game:{player:[seconds per seed index]}}`, `latency_p50_ms`,
@@ -66,16 +65,23 @@ Numbers and claims
 - [ ] `python3 scripts/burst_page.py check` prints `OK`.
 - [ ] Every filled number matches its receipt exactly (spot-check at least the hero, gates table and latency row).
 - [ ] Every PREREG gate passed. If one failed: do not publish (APPROVAL.md).
-- [ ] The "What we claim" box is still true with the filled numbers (e.g. if P2 vs K-call is not significant, the
-      third claim must be rewritten to what the CI supports, or the release does not happen per PREREG).
-- [ ] The hero facts use the release variant's numbers, not Board 1's prototype.
+- [ ] Every sentence in "What we claim" is allowed by PREREG §8.2 for the tests that passed; nothing on the page
+      uses a §8.2 "never allowed" claim (0–9 beyond screen, lockstep claims, order-invariant model for A, K ≥ 5,
+      other games, Jev size/hardware, P1 REJECT-ORDER or A1 passed).
+- [ ] The hero facts use the counted variant's gate numbers, not Board 1's.
+- [ ] If SELECT = B: rewrite the "Control order" hero tile and the limitations item with the PREREG §8.2 B wording
+      (order residual φ_B ≤ 10% for K ≤ 3, K = 4 not gated), add "M = K orders batched" to the design statement, and
+      relabel the Board 1 Burst row (it is variant A's player, not B's).
+- [ ] If C1 failed: `P2_C1_CLAUSE` is empty and no sentence says "better than" or "outperforms" Jev (PREREG §9).
+- [ ] If the G3 realtime pathology flag triggered (≥ 50% of fresh Rotorwash-Ramp rounds end on the ceiling), add it
+      to the limitations (PREREG §3.3).
+- [ ] Latency source: the page uses pooled p50 over all requests (player_summary.json), which is what PREREG quotes;
+      the Board 1 report's table uses the median of per-round p50s (Burst 227/242/249 ms). Keep one definition per
+      table and say which.
 - [ ] Glossary: confirm "ENORMOUS (previous)" = the adapter published as `nagisanzeninz/Nagi-ENORMOUS` revision
       `2e03ec38…`; if yes, you may call it "Nagi-ENORMOUS (released 25 Sep)" in the tables and data.json labels.
-- [ ] If variant B is selected: the latency row and the hero latency must be B's own measurement (B processes K× the
-      tokens of A), and the "tokens processed" row of the comparison table should gain a B column (≈ K × (S + K·q)).
 - [ ] Owner decision: the og/twitter description is number-free now; optionally add the headline P2 number.
-- [ ] Variant B text ("all K rotations") matches the frozen implementation (cyclic orbit vs all K! orders).
-- [ ] No "Chord" outside the history paragraph, the latency-table note and the glossary; no "T-dual" outside the glossary.
+- [ ] No "Chord" outside the history paragraph and the glossary; no "T-dual" outside the glossary.
 
 Links
 - [ ] Every `{{URL_*}}` resolves publicly (logged out): HF repo public, GitHub files merged to `main`.
