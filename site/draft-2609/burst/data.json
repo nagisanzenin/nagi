@@ -1,6 +1,11 @@
 {
- "_about": "Data for site/burst/. Every number is copied from a receipt; 'source' names it. Pending blocks are null until the Burst release gates are read (docs/burst/PUBLISH_CHECKLIST.md).",
+ "_about": "Data for site/burst/. Every number is copied from a receipt; 'source' names it. Receipts and their sha256: https://github.com/nagisanzenin/nagi/blob/main/bench/burst/README.md",
  "players": {
+  "burst": {
+   "label": "Nagi-ENORMOUS Burst (release)",
+   "role": "burst",
+   "note": "Release player: step-417 weights served with the Burst readout in the environment's declared control order (variant A, selected by the frozen rule). Record player id 'enormous_burst/chord'; clip label 'ENORMOUS Burst'."
+  },
   "burst_proto": {
    "label": "Burst (Board 1 player)",
    "role": "burst",
@@ -339,12 +344,227 @@
   },
   "note": "Board 1 screen: realtime, seed indices 0–9 per game, 6 players. Burst here is the Board 1 player whose prompts equal release variant A's. Source: Arena v3 Board 1 report, per-round OUT order; data in data.json.",
   "cap_s": 60,
-  "latency_source": "~/nagi-wt/arena-v3/runs/arena_v3/board1/*_v2/<player>/player_summary.json → per_game.latency_ms.p50 (all requests pooled); sha256 prefixes: t_dual/chord 292f8b72, t_dual/kcall 74ec0153, jev 58c59005, enormous_cl 4c4dc272, enormous_old 61bb139a, semif_4b 017d5b96 (the pins in Burst PREREG §2). The Board 1 report's table uses the median of per-round p50s instead (227/242/249 ms for Burst)."
+  "latency_source": "Board 1 v2 player_summary.json per player -> per_game.latency_ms.p50 (all requests pooled); sha256 prefixes: t_dual/chord 292f8b72, t_dual/kcall 74ec0153, jev 58c59005, enormous_cl 4c4dc272, enormous_old 61bb139a, semif_4b 017d5b96 (the pins in Burst PREREG §2). The Board 1 report's table uses the median of per-round p50s instead (227/242/249 ms for Burst)."
  },
- "confirmation": null,
- "confirmation_schema": {
-  "_todo": "Fill from the Burst release P2 realtime analysis (fresh seeds). Same shape as board1: source, design, death_s{game:{player:[s,...]}}, censored_at_s, latency_p50_ms, fresh_share. Player ids: burst (release variant), kcall, jev, ...",
-  "source": "{{P2_RESULTS_SOURCE}}",
-  "note": "{{P2_CHART_NOTE}}"
+ "confirmation": {
+  "source": "Burst release P2 results.json (bench/burst/receipts/results.json), sha256 cb4875716db62396419e2675aa6f72183140ce1984869f0edfb2e351196407e4 -> out_order[game][seed index], players 'ENORMOUS Burst' (enormous_burst/chord) and 'Jev' (jev/vendor_single), indices 10-33",
+  "design": "Preregistered realtime confirmation (Burst PREREG §6): 4 Hz (250 ms ticks), 60 s cap, fresh seed indices 10-33 per game (n = 24), Nagi-ENORMOUS Burst (variant A) vs Jev 1.13.0, 3 streams per H100 for Burst, 0 void rounds, replay 174/174 exact.",
+  "note": "Preregistered confirmation: realtime, fresh seed indices 10–33 per game (n = 24), Nagi-ENORMOUS Burst (variant A) vs Jev 1.13.0, 0 void rounds, nothing censored. Source: release results.json, sha256 cb487571… (per-round times in data.json).",
+  "cap_s": 60,
+  "seed_indices": [
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33
+  ],
+  "death_s": {
+   "snake": {
+    "burst": [
+     10.0,
+     4.5,
+     4.5,
+     4.0,
+     7.0,
+     7.5,
+     8.5,
+     15.5,
+     4.0,
+     8.5,
+     16.0,
+     9.0,
+     6.5,
+     13.25,
+     12.5,
+     6.5,
+     12.75,
+     6.5,
+     4.5,
+     6.0,
+     15.0,
+     26.0,
+     5.5,
+     10.0
+    ],
+    "jev": [
+     6.5,
+     7.5,
+     19.0,
+     7.0,
+     3.0,
+     17.5,
+     10.0,
+     25.75,
+     3.0,
+     4.0,
+     17.25,
+     11.5,
+     6.5,
+     10.5,
+     7.0,
+     6.5,
+     7.0,
+     12.5,
+     5.0,
+     18.0,
+     17.0,
+     22.0,
+     3.5,
+     8.5
+    ]
+   },
+   "rotorwash_ramp": {
+    "burst": [
+     23.121,
+     29.796,
+     19.125,
+     24.271,
+     18.242,
+     15.162,
+     17.358,
+     7.138,
+     29.296,
+     26.333,
+     22.771,
+     29.679,
+     17.633,
+     19.721,
+     30.308,
+     27.242,
+     20.904,
+     20.504,
+     28.554,
+     27.267,
+     24.496,
+     23.754,
+     21.812,
+     29.329
+    ],
+    "jev": [
+     31.942,
+     12.388,
+     35.229,
+     12.612,
+     12.775,
+     14.712,
+     38.529,
+     20.783,
+     16.158,
+     32.996,
+     33.546,
+     10.275,
+     15.558,
+     33.3,
+     17.362,
+     10.896,
+     32.338,
+     31.3,
+     10.158,
+     15.567,
+     13.971,
+     14.3,
+     33.308,
+     15.879
+    ]
+   },
+   "booster_gauntlet": {
+    "burst": [
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0,
+     22.0
+    ],
+    "jev": [
+     13.35,
+     8.3,
+     14.3,
+     11.8,
+     14.05,
+     8.4,
+     17.3,
+     15.3,
+     8.5,
+     22.0,
+     8.75,
+     8.75,
+     8.85,
+     14.55,
+     16.55,
+     8.6,
+     8.65,
+     14.8,
+     8.7,
+     8.85,
+     14.8,
+     8.75,
+     14.05,
+     16.3
+    ]
+   }
+  },
+  "latency_p50_ms": {
+   "burst": {
+    "snake": 249,
+    "rotorwash_ramp": 264,
+    "booster_gauntlet": 290
+   },
+   "jev": {
+    "snake": 173,
+    "rotorwash_ramp": 209,
+    "booster_gauntlet": 173
+   }
+  },
+  "fresh_share": {
+   "burst": {
+    "snake": 0.64,
+    "rotorwash_ramp": 0.62,
+    "booster_gauntlet": 0.61
+   },
+   "jev": {
+    "snake": 0.9,
+    "rotorwash_ramp": 0.79,
+    "booster_gauntlet": 0.92
+   }
+  },
+  "latency_source": "results.json players[id].games[game].latency_p50_ms and fresh_share: in play, all requests pooled over every round of the player in results.json (Burst: its 102 release-run rounds, indices 0-33; Jev: Board 1 indices 0-9 plus release-run indices 10-33). BURST_REPORT.md quotes the same numbers."
  }
 }
