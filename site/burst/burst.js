@@ -40,7 +40,7 @@
     const deaths = ds.death_s[game], cap = ds.cap_s || 60;
     const players = ORDER.filter(p => deaths[p]);
     const maxT = Math.min(cap, Math.ceil((Math.max(...players.flatMap(p => deaths[p])) + 4) / 10) * 10);
-    const W = 760, H = 330, L = 52, R = 16, T = 14, B = 44;
+    const W = Math.max(300, Math.min(960, root.clientWidth || 760)), H = W < 520 ? 250 : 330, L = 46, R = 12, T = 14, B = 44; // viewBox = CSS px, so text stays 12 px
     const x = t => L + (W - L - R) * t / maxT, y = v => T + (H - T - B) * (1 - v);
     const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Share of rounds still alive vs time, ${data.games[game].label}` }, root);
     for (let v = 0; v <= 1.0001; v += 0.25) {
@@ -49,7 +49,7 @@
     }
     for (let t = 0; t <= maxT; t += 10) {
       el('line', { class: 'ax', x1: x(t), x2: x(t), y1: H - B, y2: H - B + 5 }, svg);
-      el('text', { x: x(t), y: H - B + 20, 'text-anchor': 'middle' }, svg).textContent = t + ' s';
+      el('text', { x: x(t), y: H - B + 20, 'text-anchor': t === 0 ? 'start' : t + 10 > maxT ? 'end' : 'middle' }, svg).textContent = t + ' s';
     }
     el('line', { class: 'ax', x1: L, x2: W - R, y1: H - B, y2: H - B }, svg);
     el('text', { x: W - R, y: H - 6, 'text-anchor': 'end' }, svg).textContent = 'time survived →';
@@ -93,6 +93,8 @@
     for (const b of document.querySelectorAll('[data-game]')) b.addEventListener('click', () => { game = b.dataset.game; sync(); draw(); });
     if (data.confirmation) set = 'confirmation';
     sync(); draw();
+    let rt, lastW = root.clientWidth;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (root.clientWidth !== lastW) { lastW = root.clientWidth; draw(); } }, 150); });
   }
   function sync() {
     for (const b of document.querySelectorAll('[data-set]')) b.setAttribute('aria-pressed', String(b.dataset.set === set));

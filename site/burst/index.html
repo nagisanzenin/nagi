@@ -55,7 +55,7 @@
 .facts>div{padding:18px 16px 16px 0}
 .facts>div+div{border-left:1px solid var(--nagi-line);padding-left:16px}
 .facts dt{font:600 11px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--nagi-dim);margin-bottom:8px}
-.facts dd{margin:0;font:800 clamp(24px,3.2vw,34px)/1.1 var(--nagi-body);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.facts dd{margin:0;overflow-wrap:anywhere;font:800 clamp(24px,3.2vw,34px)/1.1 var(--nagi-body);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .facts dd small{display:block;font:500 13px/1.45 var(--nagi-body);color:var(--nagi-muted);letter-spacing:0;margin-top:6px}
 .claims{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px 0 0}
 .claims>div{background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:20px 22px}
@@ -66,6 +66,9 @@
 .claims li{font-size:15px;line-height:1.55;margin:0 0 8px;color:var(--nagi-bone)}
 .fig{margin:26px 0 10px;background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:18px}
 .fig svg{display:block;width:100%;height:auto}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
+.dg .dg-wide{grid-column:1/-1;max-width:620px}
+@media (max-width:760px){.dg{grid-template-columns:1fr}}
 .fig figcaption{font-size:14px;line-height:1.55;color:var(--nagi-muted);margin-top:12px;max-width:90ch}
 .dg-box{fill:var(--nagi-panel2);stroke:var(--nagi-line);stroke-width:1.5}
 .dg-model{fill:#2d2d35;stroke:var(--nagi-muted);stroke-width:1.5}
@@ -83,6 +86,8 @@
 .bp th{font:600 11.5px var(--nagi-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--nagi-muted)}
 .bp th:first-child,.bp td:first-child{text-align:left}
 .bp td.l{text-align:left;white-space:normal;min-width:16ch}
+.bp table.wrap td,.bp table.wrap th{white-space:normal}
+.bp table.wrap td[colspan]{text-align:center}
 .bp tr.me td{background:rgba(245,230,66,.07)}
 .bp tr.me td:first-child{box-shadow:inset 3px 0 0 var(--nagi-yellow)}
 .bp tbody tr:last-child td{border-bottom:0}
@@ -125,7 +130,7 @@
 .links a span{font-size:14px;color:var(--nagi-muted)}
 details.tv{margin:10px 0}
 details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nagi-muted);min-height:32px}
-@media (max-width:860px){.facts{grid-template-columns:1fr 1fr}.facts>div:nth-child(3){border-left:0;padding-left:0}.facts>div:nth-child(n+3){border-top:1px solid var(--nagi-line)}.claims{grid-template-columns:1fr}.clips{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts>div:nth-child(3){border-left:0;padding-left:0}.facts>div:nth-child(n+3){border-top:1px solid var(--nagi-line)}.claims{grid-template-columns:1fr}.clips{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.clips{grid-template-columns:1fr}.links{grid-template-columns:1fr}.bp p,.bp li{font-size:16px}.gloss{grid-template-columns:1fr}.gloss dd{margin-bottom:8px}.tabs{width:auto}.tabs button{flex:1 1 auto;padding:0 10px}}
 </style>
 <!--nx:head--><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="../assets/nagi.css"><!--/nx:head--></head>
@@ -193,51 +198,56 @@ details.tv summary{cursor:pointer;font:600 13px var(--nagi-mono);color:var(--nag
  <p class="eyebrow">02 / How Burst works</p>
  <h2 id="h-how">K answer slots, one pass.</h2>
  <figure class="fig">
-  <svg viewBox="0 0 1040 470" role="img" aria-labelledby="dg-t dg-d">
-   <title id="dg-t">K-call versus Burst</title>
-   <desc id="dg-d">Left: K-call builds one prompt per control and runs the model three times in sequence, reading one letter distribution each time. Right: Burst builds one prompt listing all controls with an answer slot per control, runs the model once, and reads a letter distribution at each slot.</desc>
-   <text class="dg-h" x="20" y="30">K-call · K passes per tick</text>
-   <g>
-    <rect class="dg-box" x="20" y="52" width="170" height="54"/><text class="dg-t" x="34" y="75">state + control 1</text><text class="dg-s" x="34" y="95">"collective?"</text>
-    <rect class="dg-model" x="220" y="52" width="120" height="54"/><text class="dg-t" x="242" y="84">forward</text>
-    <rect class="dg-box" x="370" y="52" width="110" height="54"/><text class="dg-t" x="384" y="75">A B C</text><text class="dg-s" x="384" y="95">p(letter)</text>
-    <path class="dg-line" d="M190 79H220M340 79H370"/>
-    <rect class="dg-box" x="20" y="126" width="170" height="54"/><text class="dg-t" x="34" y="149">state + control 2</text><text class="dg-s" x="34" y="169">"cyclic?"</text>
-    <rect class="dg-model" x="220" y="126" width="120" height="54"/><text class="dg-t" x="242" y="158">forward</text>
-    <rect class="dg-box" x="370" y="126" width="110" height="54"/><text class="dg-t" x="384" y="149">A B C D</text><text class="dg-s" x="384" y="169">p(letter)</text>
-    <path class="dg-line" d="M190 153H220M340 153H370"/>
-    <rect class="dg-box" x="20" y="200" width="170" height="54"/><text class="dg-t" x="34" y="223">state + control 3</text><text class="dg-s" x="34" y="243">"winch?"</text>
-    <rect class="dg-model" x="220" y="200" width="120" height="54"/><text class="dg-t" x="242" y="232">forward</text>
-    <rect class="dg-box" x="370" y="200" width="110" height="54"/><text class="dg-t" x="384" y="223">A B C</text><text class="dg-s" x="384" y="243">p(letter)</text>
-    <path class="dg-line" d="M190 227H220M340 227H370"/>
-   </g>
-   <text class="dg-h" x="560" y="30">Burst · 1 pass per tick</text>
-   <g>
-    <rect class="dg-box" x="560" y="52" width="250" height="202"/>
-    <text class="dg-s" x="576" y="78">STATE:</text><text class="dg-s" x="576" y="98">…altitude, fuel, cave…</text>
-    <text class="dg-s" x="576" y="128">CONTROLS (all at once):</text>
-    <text class="dg-s" x="576" y="148">[1] collective: A) B) C)</text>
-    <text class="dg-s" x="576" y="168">[2] cyclic: A) B) C) D)</text>
-    <text class="dg-s" x="576" y="188">[3] winch: A) B) C)</text>
-    <text class="dg-s" x="576" y="214">ANSWER:</text>
-    <text class="dg-s" x="576" y="236"><tspan class="dg-y">[1]</tspan>□ <tspan class="dg-y">[2]</tspan>□ <tspan class="dg-y">[3]</tspan>□</text>
-    <rect class="dg-hot" x="836" y="52" width="70" height="202"/><text class="dg-t" x="848" y="150">one</text><text class="dg-t" x="848" y="170">pass</text>
-    <path class="dg-line" d="M810 153H836"/>
-    <rect class="dg-box" x="930" y="52" width="92" height="54"/><text class="dg-t" x="942" y="75">slot 1</text><text class="dg-s" x="942" y="95">A B C</text>
-    <rect class="dg-box" x="930" y="126" width="92" height="54"/><text class="dg-t" x="942" y="149">slot 2</text><text class="dg-s" x="942" y="169">A B C D</text>
-    <rect class="dg-box" x="930" y="200" width="92" height="54"/><text class="dg-t" x="942" y="223">slot 3</text><text class="dg-s" x="942" y="243">A B C</text>
-    <path class="dg-line" d="M906 79H930M906 153H930M906 227H930"/>
-   </g>
-   <text class="dg-h" x="20" y="306">One 250 ms tick, measured p50 on H100 (Board 1, 3 streams per GPU)</text>
-   <path class="dg-tick" d="M170 322V446M420 322V446M670 322V446M920 322V446"/>
-   <text class="dg-s" x="160" y="462">0</text><text class="dg-s" x="396" y="462">250 ms</text><text class="dg-s" x="646" y="462">500 ms</text><text class="dg-s" x="896" y="462">750 ms</text>
-   <text class="dg-t" x="20" y="352">K-call</text>
-   <rect x="170" y="334" width="610" height="28" fill="#36D988" fill-opacity=".85"/>
-   <text class="dg-s" x="790" y="353">610 ms · 3 passes</text>
-   <text class="dg-t" x="20" y="414">Burst</text>
-   <rect x="170" y="396" width="242" height="28" fill="#F5E642"/>
-   <text class="dg-s" x="422" y="415">242 ms · 1 pass</text>
+  <div class="dg">
+  <svg viewBox="0 0 500 270" role="img" aria-labelledby="dg1-t dg1-d">
+   <title id="dg1-t">K-call: K passes per tick</title>
+   <desc id="dg1-d">K-call builds one prompt per control and runs the model three times in sequence, reading one letter distribution each time.</desc>
+   <text class="dg-h" x="10" y="24">K-call · K passes per tick</text>
+   <rect class="dg-box" x="10" y="44" width="180" height="58"/><text class="dg-t" x="24" y="68">state + control 1</text><text class="dg-s" x="24" y="89">"collective?"</text>
+   <rect class="dg-model" x="220" y="44" width="120" height="58"/><text class="dg-t" x="248" y="78">forward</text>
+   <rect class="dg-box" x="370" y="44" width="120" height="58"/><text class="dg-t" x="384" y="68">A B C</text><text class="dg-s" x="384" y="89">p(letter)</text>
+   <path class="dg-line" d="M190 73H220M340 73H370"/>
+   <rect class="dg-box" x="10" y="122" width="180" height="58"/><text class="dg-t" x="24" y="146">state + control 2</text><text class="dg-s" x="24" y="167">"cyclic?"</text>
+   <rect class="dg-model" x="220" y="122" width="120" height="58"/><text class="dg-t" x="248" y="156">forward</text>
+   <rect class="dg-box" x="370" y="122" width="120" height="58"/><text class="dg-t" x="384" y="146">A B C D</text><text class="dg-s" x="384" y="167">p(letter)</text>
+   <path class="dg-line" d="M190 151H220M340 151H370"/>
+   <rect class="dg-box" x="10" y="200" width="180" height="58"/><text class="dg-t" x="24" y="224">state + control 3</text><text class="dg-s" x="24" y="245">"winch?"</text>
+   <rect class="dg-model" x="220" y="200" width="120" height="58"/><text class="dg-t" x="248" y="234">forward</text>
+   <rect class="dg-box" x="370" y="200" width="120" height="58"/><text class="dg-t" x="384" y="224">A B C</text><text class="dg-s" x="384" y="245">p(letter)</text>
+   <path class="dg-line" d="M190 229H220M340 229H370"/>
   </svg>
+  <svg viewBox="0 0 500 270" role="img" aria-labelledby="dg2-t dg2-d">
+   <title id="dg2-t">Burst: one pass per tick</title>
+   <desc id="dg2-d">Burst builds one prompt listing all controls with an answer slot per control, runs the model once, and reads a letter distribution at each slot.</desc>
+   <text class="dg-h" x="10" y="24">Burst · 1 pass per tick</text>
+   <rect class="dg-box" x="10" y="44" width="250" height="214"/>
+   <text class="dg-s" x="24" y="70">STATE:</text><text class="dg-s" x="24" y="90">…altitude, fuel, cave…</text>
+   <text class="dg-s" x="24" y="120">CONTROLS (all at once):</text>
+   <text class="dg-s" x="24" y="140">[1] collective: A B C</text>
+   <text class="dg-s" x="24" y="160">[2] cyclic: A B C D</text>
+   <text class="dg-s" x="24" y="180">[3] winch: A B C</text>
+   <text class="dg-s" x="24" y="210">ANSWER:</text>
+   <text class="dg-s" x="24" y="234"><tspan class="dg-y">[1]</tspan>□ <tspan class="dg-y">[2]</tspan>□ <tspan class="dg-y">[3]</tspan>□</text>
+   <rect class="dg-hot" x="282" y="44" width="80" height="214"/><text class="dg-t" x="300" y="146">one</text><text class="dg-t" x="300" y="166">pass</text>
+   <path class="dg-line" d="M260 151H282"/>
+   <rect class="dg-box" x="386" y="44" width="104" height="58"/><text class="dg-t" x="398" y="68">slot 1</text><text class="dg-s" x="398" y="89">A B C</text>
+   <rect class="dg-box" x="386" y="122" width="104" height="58"/><text class="dg-t" x="398" y="146">slot 2</text><text class="dg-s" x="398" y="167">A B C D</text>
+   <rect class="dg-box" x="386" y="200" width="104" height="58"/><text class="dg-t" x="398" y="224">slot 3</text><text class="dg-s" x="398" y="245">A B C</text>
+   <path class="dg-line" d="M362 73H386M362 151H386M362 229H386"/>
+  </svg>
+  <svg class="dg-wide" viewBox="0 0 620 170" role="img" aria-labelledby="dg3-t">
+   <title id="dg3-t">Measured decision latency p50 on Rotorwash-Ramp, 3 controls: K-call 610 ms, Burst 242 ms, against a 250 ms tick.</title>
+   <text class="dg-h" x="10" y="22">Measured p50 vs the 250 ms tick</text>
+   <path class="dg-tick" d="M90 36V146M240 36V146M390 36V146M540 36V146"/>
+   <text class="dg-s" x="86" y="164">0</text><text class="dg-s" x="218" y="164">250 ms</text><text class="dg-s" x="368" y="164">500 ms</text><text class="dg-s" x="518" y="164">750 ms</text>
+   <text class="dg-t" x="10" y="68">K-call</text>
+   <rect x="90" y="50" width="366" height="28" fill="#36D988"/>
+   <text class="dg-s" x="464" y="69">610 ms</text>
+   <text class="dg-t" x="10" y="122">Burst</text>
+   <rect x="90" y="104" width="145" height="28" fill="#F5E642"/>
+   <text class="dg-s" x="244" y="123">242 ms</text>
+  </svg>
+  </div>
   <figcaption>Left: K-call renders one prompt per control and runs the model once per prompt. Right: Burst renders one prompt with all controls and one answer slot per control, runs the model once, and reads each slot's option letters. Bars: measured decision latency p50 on Rotorwash-Ramp (3 controls), Arena v3 Board 1, H100, 3 streams per GPU, prototype readout. At 4 Hz, K-call's reply is fresh on 33% of ticks and Burst's on 66%.</figcaption>
  </figure>
 
@@ -260,13 +270,13 @@ ANSWER:
  <p>The token after each <code>[k]</code> is always the blank, never an answer, so no slot sees another slot's choice. The K distributions are read in parallel and are conditionally independent given the prompt. Training targets for each slot are the <em>max-marginals</em> of an exact joint oracle, so that per-slot argmax recovers the best joint action when it is unique. Ties are the known failure mode of this design, and they matter below.</p>
 
  <h3>What is shared, what changes</h3>
- <div class="tw"><table>
+ <div class="tw"><table class="wrap">
   <caption>K-call and Burst on the same model</caption>
   <thead><tr><th scope="col"></th><th scope="col">K-call</th><th scope="col">Burst</th></tr></thead>
   <tbody>
-   <tr><td>Weights</td><td colspan="2" style="text-align:center">identical: Qwen3.8-27B + rank-8 LoRA (54.4M trainable), step 417, co-trained on both formats</td></tr>
-   <tr><td>Output head, softcap, temperature</td><td colspan="2" style="text-align:center">identical</td></tr>
-   <tr><td>Answer format</td><td colspan="2" style="text-align:center">identical: per control, a probability for every option, plus the argmax</td></tr>
+   <tr><td>Weights</td><td colspan="2">identical: Qwen3.8-27B + rank-8 LoRA (54.4M trainable), step 417, co-trained on both formats</td></tr>
+   <tr><td>Output head, softcap, temperature</td><td colspan="2">identical</td></tr>
+   <tr><td>Answer format</td><td colspan="2">identical: per control, a probability for every option, plus the argmax</td></tr>
    <tr><td>Prompts per tick</td><td>K (one control each)</td><td>1 (all controls)</td></tr>
    <tr><td>Forward passes per tick</td><td>K, sequential</td><td>1</td></tr>
    <tr><td>Tokens processed per tick</td><td>≈ K × (S + q)</td><td>≈ S + K·q</td></tr>
