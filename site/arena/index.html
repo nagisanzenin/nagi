@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Game Arena v3: who fails first as the games get harder</title>
-<meta name="description" content="Arena v3 ranks AI models in three real-time games that get harder every tick until every player fails. Paired per-seed win rate, survival curves and full rules. Board 1 is a 10-seed screen.">
+<meta name="description" content="Arena v3 ranks AI models in three real-time games that get harder every tick until every player fails. Paired per-seed win rate, survival curves and full rules. Board 1 is a 10-seed screen; a preregistered fresh-seed confirmation of Burst vs Jev passed.">
 <link rel="canonical" href="https://nagisanzenin.github.io/nagi/arena/">
 <meta name="theme-color" content="#111114">
 <meta name="color-scheme" content="dark">
@@ -9,12 +9,12 @@
 <meta property="og:site_name" content="Nagi">
 <meta property="og:url" content="https://nagisanzenin.github.io/nagi/arena/">
 <meta property="og:title" content="Game Arena v3: who fails first?">
-<meta property="og:description" content="Three real-time games that get harder until everyone fails. 6 ranked players, 10 seeds per game, paired win rates with uncertainty. A screen, not a final verdict.">
+<meta property="og:description" content="Three real-time games that get harder until everyone fails. 6 ranked players, 10 seeds per game, paired win rates with uncertainty. A screen, plus a preregistered fresh-seed confirmation of Burst vs Jev.">
 <meta name="twitter:card" content="summary">
 <link rel="preload" href="v3.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="v3.css">
 <!--nx:head--><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="../assets/nagi.css"><!--/nx:head--></head><body>
-<!--nx:header--><header class="nx-bar"><div class="nx-in"><div class="nx-row"><a class="nx-mark" href="../" aria-label="Nagi home"><img src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><span>System One</span></a><nav class="nx-nav" aria-label="Site"><a href="../">Benchmark</a><a href="../arena/" aria-current="page">Game Arena</a><a href="https://huggingface.co/nagisanzeninz">Models ↗</a><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></nav></div><nav class="nx-sub" aria-label="On this page"><b>On this page</b><a href="#results">Leaderboard</a><a href="#read">How to read</a><a href="#survival">Survival</a><a href="#games">Games</a><a href="#rules">Rules</a><a href="#caveats">Caveats</a><a href="#archive">Archive</a></nav></div></header><!--/nx:header-->
+<!--nx:header--><header class="nx-bar"><div class="nx-in"><div class="nx-row"><a class="nx-mark" href="../" aria-label="Nagi home"><img src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><span>System One</span></a><nav class="nx-nav" aria-label="Site"><a href="../">Benchmark</a><a href="../arena/" aria-current="page">Game Arena</a><a href="https://huggingface.co/nagisanzeninz">Models ↗</a><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></nav></div><nav class="nx-sub" aria-label="On this page"><b>On this page</b><a href="#results">Leaderboard</a><a href="#confirm">Confirmation</a><a href="#read">How to read</a><a href="#survival">Survival</a><a href="#games">Games</a><a href="#rules">Rules</a><a href="#caveats">Caveats</a><a href="#archive">Archive</a></nav></div></header><!--/nx:header-->
 <main class="v3" id="top">
 
 <section class="hero" aria-labelledby="h-top">
@@ -31,7 +31,7 @@
   </dl>
   <div class="screen" role="note">
     <b>Read this first: a screen, not a verdict</b>
-    <p>Board 1 uses 10 seeds per game. That is enough to screen, not to settle close comparisons: no “X beats Y” claim is made from it. The Nagi entry at the top was picked as the best of four Nagi entries, which inflates its numbers (winner’s curse). A confirmation on fresh seeds is registered separately.</p>
+    <p>Board 1 uses 10 seeds per game. That is enough to screen, not to settle close comparisons: no “X beats Y” claim is made from it. The Nagi entry at the top was picked as the best of four Nagi entries, which inflates its numbers (winner’s curse). That is why a separate, preregistered confirmation against Jev was run on fresh seeds; it passed, and it is reported <a href="#confirm">in its own panel</a> with its own n.</p>
   </div>
   <div class="ctas">
     <a class="nx-btn primary" href="#results">Leaderboard <span aria-hidden="true">↓</span></a>
@@ -52,12 +52,36 @@
   <details id="champ"><summary>How the top Nagi entry was chosen (frozen rule)</summary><div class="in">
     <p class="small" id="champ-rule"></p>
     <div class="table-wrap"><table id="champ-table"><caption class="sr-only">Nagi champion selection table</caption><thead></thead><tbody></tbody></table></div>
-    <p class="small">The rule was committed before any Board 1 result existed. Selecting the best of four inflates the winner’s own numbers, and two entries share weights (T-dual Burst and T-dual K-call). Confirmation needs fresh seed indices.</p>
+    <p class="small">The rule was committed before any Board 1 result existed. Selecting the best of four inflates the winner’s own numbers, and two entries share weights (T-dual Burst and T-dual K-call). The confirmation on fresh seed indices is <a href="#confirm">the next section</a>.</p>
+  </div></details>
+</section>
+
+<section id="confirm" aria-labelledby="h-confirm">
+  <p class="eyebrow">02 / Preregistered confirmation · fresh seed indices <span data-c="seeds">10–33</span></p>
+  <h2 id="h-confirm">Burst vs Jev on fresh seeds</h2>
+  <p class="lede">Seeds 0–9 chose T-dual Burst as the best of four Nagi entries, so its Board 1 numbers are optimistic. To check the lead without that bias, one comparison was frozen before any new data: <strong>Nagi-ENORMOUS Burst</strong> against <strong>Jev</strong> on fresh seed indices. The leaderboard above is unchanged and stays on seeds 0–9.</p>
+  <div class="confirm" id="confirm-body">
+    <div class="c-head">
+      <p class="c-big"><span data-c="theta">…</span></p>
+      <p class="c-what">of head-to-heads in which Burst survived longer than Jev</p>
+      <p class="c-ci">95% CI <span data-c="ci">…</span> · n = <span data-c="n">…</span> seed indices × 3 games · sign-flip p = <span data-c="p">…</span></p>
+      <span class="cibar" id="c-bar" role="img"><s></s><i></i><b></b></span>
+    </div>
+    <ul class="c-gates" id="c-gates"></ul>
+  </div>
+  <p class="small" id="c-same"></p>
+  <div class="table-wrap"><table id="c-games"><caption class="sr-only">Burst vs Jev per game on fresh seeds</caption><thead></thead><tbody></tbody></table></div>
+  <p class="note" id="c-note"><strong>Only Booster Gauntlet is individually significant.</strong> On Rotorwash-Ramp and Snake Rush the per-game rates are not distinguishable from an even split, so no per-game claim is made for them.</p>
+  <details><summary>How it was tested (frozen before the data)</summary><div class="in">
+    <p class="small" id="c-estimand"></p>
+    <ol class="small c-steps" id="c-steps"></ol>
+    <p class="small" id="c-screen"></p>
+    <p class="small">Jev ran as the same vendor version as in Board 1 (<code>jev-1.13.0</code>). Its answers on a fixed set of requests differ from call to call, so a fingerprint of those answers cannot pin the vendor; the preregistered check compares the version string, which matched in every run.</p>
   </div></details>
 </section>
 
 <section id="read" aria-labelledby="h-read">
-  <p class="eyebrow">02 / How to read the results</p>
+  <p class="eyebrow">03 / How to read the results</p>
   <h2 id="h-read">One question per seed: who lasted longer?</h2>
   <p class="lede">Difficulty is a fixed function of the game clock, never of what a player does. So on a given seed, every player faces exactly the same ramp, and comparing two players on that seed is fair even though the ramp itself is uneven.</p>
   <div class="read-grid">
@@ -73,7 +97,7 @@
 </section>
 
 <section id="survival" aria-labelledby="h-survival">
-  <p class="eyebrow">03 / Survival curves</p>
+  <p class="eyebrow">04 / Survival curves</p>
   <h2 id="h-survival">% of rounds still alive vs time</h2>
   <p class="lede">Pick two players to compare; the other four stay as thin grey context lines. Shaded bands are the six levels. Dotted lines mark the bot anchors: N naive, H heuristic, P planner.</p>
   <div class="pick" role="group" aria-label="Choose two players to compare">
@@ -87,14 +111,14 @@
 </section>
 
 <section id="games" aria-labelledby="h-games">
-  <p class="eyebrow">04 / The three games</p>
+  <p class="eyebrow">05 / The three games</p>
   <h2 id="h-games">Fail-first, real time, same clock</h2>
   <p class="lede">Every game runs at 4 decisions per second for at most 60 s, over six 10-second levels. The world never pauses for a model. The clips replay one scored round each, for the top Nagi entry against the external competitors.</p>
   <div id="game-list"><p class="small">Loading games…</p></div>
 </section>
 
 <section id="realtime" aria-labelledby="h-realtime">
-  <p class="eyebrow">05 / Speed is part of the score</p>
+  <p class="eyebrow">06 / Speed is part of the score</p>
   <h2 id="h-realtime">Latency is measured, never subtracted</h2>
   <p class="lede">A reply is applied at the first 250 ms tick after it arrives, so a slower model acts on older information. A fresh action is one decided on the latest observation. Nagi and SemIf-4B run on the same pinned H100 path with three game streams per GPU; Jev is a remote API and its times include the network.</p>
   <div class="table-wrap"><table id="lat"><caption class="sr-only">Decision latency and freshness per player and game</caption><thead></thead><tbody></tbody></table></div>
@@ -102,7 +126,7 @@
 </section>
 
 <section id="rules" aria-labelledby="h-rules">
-  <p class="eyebrow">06 / Rules and fairness</p>
+  <p class="eyebrow">07 / Rules and fairness</p>
   <h2 id="h-rules">Same seeds. Same clock. Frozen rules.</h2>
   <ul class="rules">
     <li><h3>Same schedule for everyone</h3><p>Difficulty depends only on the game clock. Seeds 0–9 are committed per game and shared by every player.</p></li>
@@ -119,35 +143,36 @@
 </section>
 
 <section id="caveats" aria-labelledby="h-caveats">
-  <p class="eyebrow">07 / Read before quoting</p>
+  <p class="eyebrow">08 / Read before quoting</p>
   <h2 id="h-caveats">What this does and doesn’t show</h2>
   <ul class="caveats" id="caveat-list">
     <li><strong>A screen.</strong> n = 10 seeds per game (seed indices 0–9). The intervals are wide; the ranking of neighbours with overlapping intervals is not established.</li>
-    <li><strong>Winner’s curse.</strong> T-dual Burst was selected as the best of four Nagi entries by a frozen rule, so its numbers are optimistic. Confirmation on fresh seeds is a separate, preregistered run.</li>
+    <li><strong>Winner’s curse.</strong> T-dual Burst was selected as the best of four Nagi entries by a frozen rule, so its Board 1 numbers are optimistic. That is why the preregistered confirmation uses fresh seed indices 10–33 and only one comparison (Burst vs Jev). It passed on the composite; per game, only Booster Gauntlet is significant. It is <a href="#confirm">reported separately</a> and never pooled with seeds 0–9.</li>
     <li><strong>CLM-8B is not ranked</strong> because it failed its own conformance gate before play. The champion rule therefore used two external competitors (Jev, SemIf-4B), not three.</li>
     <li><strong>Survival is ordinal.</strong> Five seconds at Level 2 are not five seconds at Level 5, which is why the primary metric compares players seed by seed instead of averaging seconds.</li>
-    <li id="wall-caveat"><strong>Clustered end times.</strong> Many Snake Rush rounds end at exactly 10.0 s (the opening hunger limit) and many Booster Gauntlet rounds at exactly 22.0 s (the first hop’s landing deadline). Every T-dual Burst Booster round ended at 22.0 s, so its Booster lead reflects staying in control until that deadline. Players who fail on the same tick tie; nothing is re-scored.</li>
+    <li id="wall-caveat"><strong>Clustered end times.</strong> Many Snake Rush rounds end at exactly 10.0 s (the opening hunger limit) and many Booster Gauntlet rounds at exactly 22.0 s (the first hop’s landing deadline). All 25 Booster rounds that ended at exactly 22.0 s, including all 10 of T-dual Burst’s, were hop timeouts: the booster was still flying under control but had not landed its first hop. So its Booster lead comes from not crashing before that deadline, not from landing. Players who fail on the same tick tie; nothing is re-scored.</li>
     <li><strong>Latency is included.</strong> This measures a served product at 4 Hz on the stated hardware, not model quality in isolation. Jev’s hardware and network path are outside our control.</li>
     <li><strong>Our benchmark, our models.</strong> Nagi’s developers built the games and ran the evaluation. The game engines and raw records are not part of this release, to keep the benchmark sealed; the rules, per-seed outcomes and the receipt hash are.</li>
   </ul>
 </section>
 
 <section id="evidence" aria-labelledby="h-evidence">
-  <p class="eyebrow">08 / The audit trail</p>
+  <p class="eyebrow">09 / The audit trail</p>
   <h2 id="h-evidence">Don’t take the table on faith</h2>
   <ul class="links">
     <li><a href="v3.json">Page data (v3.json)</a><small>Every number on this page, per seed</small></li>
-    <li><span class="pending" data-href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/PROTOCOL.md">Protocol</span><small>Rules, metrics, void rule, champion rule · link added at publication</small></li>
-    <li><span class="pending" data-href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BOARD1_REPORT.md">Board 1 report</span><small>All tables and pairwise rates · link added at publication</small></li>
-    <li><span class="pending" data-href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BOARD1_DECISIONS.md">Preregistered decisions and stop log</span><small>Frozen rules, run 1 stop, owner decisions · link added at publication</small></li>
-    <li><span class="pending" data-href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BURST_PREREG.md">Burst confirmation prereg</span><small>Fresh-seed confirmation, gates frozen before data · link added at publication</small></li>
-    <li><span class="pending" data-href="../burst/">Nagi-ENORMOUS Burst</span><small>The release candidate behind T-dual Burst · link added at publication</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/PROTOCOL.md">Protocol</a><small>Rules, metrics, void rule, champion rule</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BOARD1_REPORT.md">Board 1 report</a><small>All tables and pairwise rates</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BOARD1_DECISIONS.md">Preregistered decisions and stop log</a><small>Frozen rules, run 1 stop, owner decisions</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BURST_PREREG.md">Burst confirmation prereg</a><small>Fresh-seed confirmation, gates frozen before data</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BURST_CONFIRMATION.md">Burst confirmation result</a><small>Burst vs Jev on seed indices 10–33, every gate, receipt hashes</small></li>
+    <li><span class="pending" data-href="../burst/">Nagi-ENORMOUS Burst</span><small>Burst page · coming with the weights</small></li>
   </ul>
   <p class="note">Source receipt sha256 <code data-meta="sha">…</code> · job <code data-meta="job">…</code> · generated by <code>site/arena/build/make_v3.py</code>.</p>
 </section>
 
 <section id="archive" aria-labelledby="h-archive">
-  <p class="eyebrow">09 / Archive</p>
+  <p class="eyebrow">10 / Archive</p>
   <h2 id="h-archive">Earlier arenas (legacy)</h2>
   <p class="lede">Kept as published, with their original data. They used different games, scoring and protocols, so their numbers are not comparable with Arena v3.</p>
   <ol class="hub-list">

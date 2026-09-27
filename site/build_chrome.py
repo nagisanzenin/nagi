@@ -16,7 +16,7 @@ GH = "https://github.com/nagisanzenin/nagi"
 # path, depth prefix, active nav key, page kind, optional on-page anchors
 PAGES = [
     ("index.html", "", "bench", "home", [("Results", "#results"), ("Nagi tiers", "#tiers"), ("Method", "#method"), ("Reproduce", "#evidence")]),
-    ("arena/index.html", "../", "arena", "arena", [("Leaderboard", "#results"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
+    ("arena/index.html", "../", "arena", "arena", [("Leaderboard", "#results"), ("Confirmation", "#confirm"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
     ("arena-live/index.html", "../", "arena", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
     ("bomber-huge/index.html", "../", "arena", "legacy", []),
     ("bomber-realtime/index.html", "../", "arena", "legacy", []),

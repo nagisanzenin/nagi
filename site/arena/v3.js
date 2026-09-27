@@ -154,7 +154,7 @@
       copy.innerHTML += '<div class="table-wrap"><table><caption class="sr-only">' + esc(g.name) + ' results</caption><thead><tr><th>Player</th><th>Win rate</th><th>Median survived</th><th>Median level</th><th>RMST ≤60 s</th><th>Ladder</th>' + (g.wall ? '<th>Ended at ' + g.wall.t.toFixed(1) + ' s</th>' : '') + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
       if (g.wall) {
         var champ = P[D.players[0].id].games[g.id].at_wall;
-        copy.innerHTML += '<p class="wall"><strong>Clustered end times.</strong> ' + esc(g.wall.note) + ' ' + esc(D.players[0].label) + ' ended ' + champ + ' of ' + P[D.players[0].id].games[g.id].n + ' rounds at exactly that time. Players failing on the same tick tie (½); per-round causes of failure are in the records, not in this summary.</p>';
+        copy.innerHTML += '<p class="wall"><strong>Clustered end times.</strong> ' + esc(g.wall.note) + ' ' + esc(D.players[0].label) + ' ended ' + champ + ' of ' + P[D.players[0].id].games[g.id].n + ' rounds at exactly that time. Players failing on the same tick tie (½). ' + (g.wall.cause ? esc(g.wall.cause) : 'Per-round causes of failure are in the records, not in this summary.') + '</p>';
       }
       var outs = Object.keys(D.out_order[g.id]).map(function (seed) {
         var row = D.out_order[g.id][seed];
@@ -186,6 +186,48 @@
     });
   }
 
+  /* ---------- fresh-seed confirmation (receipt numbers verbatim, shown to 3 decimals as in the report) ---------- */
+  function confirmation() {
+    var C = D.confirmation, sec_ = $('#confirm');
+    if (!C) { if (sec_) sec_.hidden = true; return; }
+    var p1 = function (x) { return (100 * x).toFixed(1) + '%'; };
+    var pv = function (x) { return x < 0.0001 ? '< 0.0001' : x < 0.01 ? x.toFixed(4) : x.toFixed(2); };
+    var ok = function (b) { return b ? '<b class="pass">PASS</b>' : '<b class="fail">not met</b>'; };
+    var n = C.n_per_game[G[0].id];
+    var set = function (k, v) { document.querySelectorAll('[data-c="' + k + '"]').forEach(function (e) { e.textContent = v; }); };
+    set('seeds', C.seeds); set('theta', p1(C.theta)); set('ci', p1(C.lb975) + ' to ' + p1(C.ub975)); set('n', n); set('p', pv(C.gates.C1.signflip_p));
+    var bar = $('#c-bar'), lo = C.lb975, hi = C.ub975;
+    bar.setAttribute('aria-label', '95% interval ' + p1(lo) + ' to ' + p1(hi) + '; dashed line at 50%');
+    bar.querySelector('i').setAttribute('style', 'left:' + (100 * lo) + '%;width:' + (100 * (hi - lo)) + '%');
+    bar.querySelector('b').setAttribute('style', 'left:' + (100 * C.theta) + '%');
+    var g = C.gates;
+    $('#c-gates').innerHTML =
+      '<li>' + ok(g.V_rt.passed) + '<span><strong>Validity.</strong> Records replay exactly, every cell valid, ' + g.V_rt.voids + ' void rounds.</span></li>' +
+      '<li>' + ok(g.R_RT.passed) + '<span><strong>Release gate.</strong> Not clearly worse than Jev: lower 97.5% bound ' + p1(g.R_RT.lb975) + ' &gt; 35%.</span></li>' +
+      '<li>' + ok(g.C1.passed) + '<span><strong>Superiority.</strong> Lower bound ' + p1(g.C1.lb975) + ' &gt; 50% and sign-flip p ' + pv(g.C1.signflip_p) + ' ≤ 0.025: Burst outperforms Jev in real-time head-to-heads over the three games.</span></li>';
+    $('#c-same').innerHTML = '<strong>' + esc(C.player) + '</strong> is ' + esc(C.same_as) + ' under its release name: ' + esc(C.same_note.replace(/^The released name of [^:]*: /, '')) + ' Its opponent is Jev only, so this is not a leaderboard.';
+    $('#c-games thead').innerHTML = '<tr><th>Game</th><th>Burst outlasted Jev</th><th>Lower 97.5% bound</th><th>Sign-flip p</th><th>Holm level</th><th>Per-game claim</th><th>RMST ≤60 s · Burst / Jev</th></tr>';
+    $('#c-games tbody').innerHTML = G.map(function (gm) {
+      var x = C.per_game[gm.id];
+      return '<tr class="' + (x.passed ? 'nagi' : '') + '"><td class="who">' + esc(gm.name) + '<span class="sub">n = ' + x.n + ' seed indices' + (x.at_wall ? ' · ended at ' + gm.wall.t.toFixed(1) + ' s: Burst ' + x.at_wall.burst + ', Jev ' + x.at_wall.jev : '') + '</span></td>' +
+        '<td><span class="big">' + p1(x.W) + '</span></td><td>' + p1(x.lb) + '</td><td>' + pv(x.signflip_p) + '</td><td>' + x.holm_alpha.toFixed(4) + '</td>' +
+        '<td>' + (x.passed ? '<b class="pass">significant</b>' : '<b class="fail">not significant</b>') + '</td>' +
+        '<td>' + x.rmst.toFixed(1) + ' s / ' + x.rmst_jev.toFixed(1) + ' s</td></tr>';
+    }).join('');
+    var bg = C.per_game.booster_gauntlet, bgw = G.filter(function (x) { return x.id === 'booster_gauntlet'; })[0];
+    if (bg && bg.at_wall && bgw && bgw.wall) {
+      $('#c-note').innerHTML += ' Booster’s margin comes from not crashing, not from landing (' + bgw.wall.t.toFixed(1) + ' s is the first hop’s landing deadline). ' + esc(bg.cause || '');
+    }
+    $('#c-estimand').innerHTML = '<strong>Estimand.</strong> ' + esc(C.estimand);
+    $('#c-steps').innerHTML =
+      '<li><strong>Release gate (R-RT):</strong> ' + esc(g.R_RT.rule) + '.</li>' +
+      '<li><strong>Superiority (C1):</strong> ' + esc(g.C1.rule) + '; tested only after the release gate passed.</li>' +
+      '<li><strong>Per game (C2):</strong> ' + esc(C.c2_rule) + '.</li>' +
+      '<li><strong>Validity:</strong> ' + esc(g.V_rt.rule) + '.</li>';
+    var sc = C.screen_0_9;
+    $('#c-screen').innerHTML = '<strong>Why fresh seeds.</strong> On the selection seeds 0–9 the same pairing read ' + p1(sc.vs_jev.theta) + ' (' + esc(sc.label) + '); on fresh seeds it is ' + p1(C.theta) + '. A second real-time run of the same player on seeds 0–9 scored ' + p1(sc.retest_vs_board1.theta) + ' [' + p1(sc.retest_vs_board1.lb975) + ', ' + p1(sc.retest_vs_board1.ub975) + '] against its own Board 1 records, consistent with 50%: that spread is run-to-run noise in real-time play. The drop from the selection seeds is what selection bias plus that noise look like; only the fresh-seed number is the estimate.';
+  }
+
   function latency() {
     $('#lat thead').innerHTML = '<tr><th>Player</th>' + G.map(function (g) { return '<th>' + esc(g.name) + '<br>p50 · fresh · stale · resets</th>'; }).join('') + '<th>3-vs-1</th></tr>';
     $('#lat tbody').innerHTML = D.players.map(function (p) {
@@ -211,7 +253,7 @@
     var sha = $('[data-meta="sha"]'); if (sha) { sha.textContent = d.meta.source_sha256.slice(0, 16) + '…'; sha.title = d.meta.source_sha256; }
     var job = $('[data-meta="job"]'); if (job) job.textContent = d.meta.job;
     var np = $('[data-bind="nplayers"]'); if (np) np.textContent = d.players.length;
-    board(); anchors(); survival(); games(); latency(); domain();
+    board(); confirmation(); anchors(); survival(); games(); latency(); domain();
   }).catch(function (e) {
     $('#board tbody').innerHTML = '<tr><td colspan="6">The results could not be loaded. All numbers are in <a href="v3.json">v3.json</a>.</td></tr>';
     console.error(e);

@@ -2,6 +2,10 @@
 """Generate site/arena/v3.json (Arena v3 page data) from a Board results.json.
 
   python3 site/arena/build/make_v3.py --results PATH/TO/results.json [--board "Board 1 · run 2"] [--date 2026-09-27]
+      [--confirm PATH/release_decision.json --confirm-results PATH/P2/results.json]
+
+--confirm adds the preregistered Burst fresh-seed confirmation (vs Jev, seed indices 10–33) as its own block;
+the Board 1 leaderboard itself stays on seeds 0–9.
 
 Source of truth: the machine-readable report written by the research repo's
 scripts/arena_v3_report.py (job b1_lx_01_v2 for Board 1 run 2). The page renders
@@ -25,7 +29,7 @@ OUT = os.path.join(SITE_ARENA, "v3.json")
 
 # Internal id -> (public label, one-line description, kind). Order = NAGI order, then externals.
 ROSTER = {
-    "t_dual/chord": ("T-dual Burst", "27B · Nagi-ENORMOUS line, T-dual weights · Burst readout: one forward pass sets every control", "nagi"),
+    "t_dual/chord": ("T-dual Burst", "27B · Nagi-ENORMOUS Burst (T-dual weights) · Burst readout: one forward pass sets every control", "nagi"),
     "t_dual/kcall": ("T-dual K-call", "27B · same weights as T-dual Burst · one model call per control", "nagi"),
     "enormous_cl/kcall": ("ENORMOUS-CL", "27B · Nagi-ENORMOUS with closed-loop control training · one call per control", "nagi"),
     "enormous_old/kcall": ("ENORMOUS-old", "27B · the released Nagi-ENORMOUS, no in-domain training · one call per control", "nagi"),
@@ -63,7 +67,23 @@ WALLS = {
     "booster_gauntlet": (22.0, "22.0 s equals the first hop's landing deadline (a hop must land within 22 s of its drop)."),
 }
 
+# Per-round failure causes behind the Booster 22.0 s cluster. Source: `score.cause` in the private round records
+# (Board 1 run 2 and Burst P2), tallied 2026-09-27. Static prose, checked against the at-wall counts below.
+BOOSTER_CAUSE = {
+    "board": ("In Board 1 every round that ended at exactly 22.0 s (25 of 60, including all 10 of T-dual Burst's) was a "
+              "hop timeout: the booster was still flying under control but had not landed its first hop. None of them "
+              "was a crash.", {"t_dual/chord": 10}, 25),
+    "confirm": "All 24 of Burst's rounds were hop timeouts at 22.0 s (still flying, first hop not landed). Jev crashed "
+               "before 22.0 s in 23 of 24 rounds (landing without legs, torn legs or breakup) and timed out in 1.",
+}
+
 CLIP_DIR = "media/"
+
+# Fresh-seed confirmation (Burst prereg §6.3, P2): V* vs Jev on seed indices 10–33. Shown as its own panel, never
+# pooled with the Board 1 leaderboard (seeds 0–9 selected the champion, so pooling would keep winner's-curse bias).
+CONFIRM_V = "enormous_burst/chord"   # internal id in the receipt; never written to v3.json
+CONFIRM_J = "jev/vendor_single"
+CONFIRM_SEEDS = range(10, 34)
 
 
 def sha256(path):
@@ -78,6 +98,73 @@ def r(x, k=4):
     return None if x is None else round(float(x), k)
 
 
+def confirmation(dec_path, res_path, games):
+    """Copy the preregistered P2 numbers verbatim from release_decision.json (no re-rounding) and cross-check the
+    per-game W and the composite against the per-seed out order in the P2 results.json. Fails loudly on any mismatch."""
+    dec = json.load(open(dec_path))
+    res = json.load(open(res_path))
+    fr, c2 = dec["fresh_vs_jev"], dec["C2"]
+    assert dec["V_star"] == CONFIRM_V, dec["V_star"]
+    assert dec["RELEASE"] is True and dec["V_rt"]["passed"] and dec["R_RT"]["passed"] and dec["C1"]["passed"], "a gate failed"
+    by_label = {v["label"]: k for k, v in res["players"].items()}
+    at_wall = {}
+    for g in games:
+        rows = {int(s): {by_label[n]: t for t, n in row} for s, row in res["out_order"][g].items() if int(s) in CONFIRM_SEEDS}
+        assert sorted(rows) == list(CONFIRM_SEEDS), (g, sorted(rows))
+        w = [1.0 if x[CONFIRM_V] > x[CONFIRM_J] else 0.5 if x[CONFIRM_V] == x[CONFIRM_J] else 0.0 for x in rows.values()]
+        assert len(w) == fr["n_by_game"][g] == c2["games"][g]["n"], (g, len(w))
+        assert abs(statistics.mean(w) - fr["W"][g]) < 1e-12, (g, statistics.mean(w), fr["W"][g])
+        assert abs(fr["W"][g] - c2["games"][g]["W"]) < 1e-15, g
+        assert dec["V_rt"]["voids"]["fresh"][g]["void"] == 0 and dec["V_rt"]["voids"]["jev_fresh"][g]["void"] == 0, g
+        wall = WALLS.get(g)
+        at_wall[g] = None if not wall else {
+            who: sum(1 for x in rows.values() if abs(x[pid] - wall[0]) < 1e-9) for who, pid in (("burst", CONFIRM_V), ("jev", CONFIRM_J))}
+    assert at_wall["booster_gauntlet"] == {"burst": 24, "jev": 1}, at_wall["booster_gauntlet"]  # BOOSTER_CAUSE["confirm"]
+    # no dropped index: Theta = mean over indices of the per-index game mean = mean of the per-game W
+    assert abs(statistics.mean(fr["W"][g] for g in games) - fr["theta"]) < 1e-12
+    retest = dec["screen_0_9"]["vs"]["t_dual/chord"]
+    screen_jev = dec["screen_0_9"]["vs"][CONFIRM_J]
+    est = dec["estimates"]
+    return {
+        "title": "Burst vs Jev on fresh seeds",
+        "player": "Nagi-ENORMOUS Burst",
+        "same_as": "T-dual Burst",
+        "same_note": "The released name of T-dual Burst: the same weights and byte-identical prompts (variant A of the "
+                     "preregistration), served on the same pinned H100 path.",
+        "opponent": "Jev",
+        "seeds": "10–33",
+        "n_per_game": fr["n_by_game"],
+        "estimand": "Θ = mean over the 3 games of the paired per-seed win rate of Burst against Jev (fail later = 1, "
+                    "tie = ½); 95% t interval over the 24 seed indices (t with 23 df on the per-index game mean).",
+        "theta": fr["theta"], "lb975": fr["lb975"], "ub975": fr["ub975"], "se": fr["se"], "df": fr["df"],
+        "method": fr["method"],
+        "gates": {
+            "V_rt": {"passed": dec["V_rt"]["passed"], "replay_exact": dec["V_rt"]["replay_exact"],
+                     "voids": sum(dec["V_rt"]["voids"][k][g]["void"] for k in ("fresh", "jev_fresh") for g in games),
+                     "rule": "records replay exactly, every cell valid, seeds 0–9 equal Board 1, identical serving path"},
+            "R_RT": {"passed": dec["R_RT"]["passed"], "H0": dec["R_RT"]["H0"], "lb975": dec["R_RT"]["lb975"],
+                     "rule": "lower 97.5% bound > 0.35, i.e. not clearly worse than Jev"},
+            "C1": {"passed": dec["C1"]["passed"], "lb975": dec["C1"]["lb975"], "signflip_p": dec["C1"]["signflip_p"],
+                   "rule": "lower 97.5% bound > 0.50 and sign-flip p ≤ 0.025"},
+        },
+        "per_game": {g: {"W": c2["games"][g]["W"], "n": c2["games"][g]["n"], "lb": c2["games"][g]["lb"],
+                         "signflip_p": c2["games"][g]["signflip_p"], "holm_alpha": c2["games"][g]["holm_alpha"],
+                         "passed": c2["games"][g]["passed"],
+                         "rmst": est["V_star_fresh"][g]["rmst60"], "rmst_ci95": est["V_star_fresh"][g]["rmst60_ci95"],
+                         "rmst_jev": est["jev_fresh"][g]["rmst60"], "rmst_jev_ci95": est["jev_fresh"][g]["rmst60_ci95"],
+                         "at_wall": at_wall[g],
+                         "cause": BOOSTER_CAUSE["confirm"] if g == "booster_gauntlet" else None}
+                     for g in games},
+        "c2_rule": "tested only because C1 passed: Holm over the 3 games at one-sided 0.025, t and sign-flip "
+                   "both at the Holm level",
+        "screen_0_9": {"vs_jev": {"theta": screen_jev["theta"], "lb975": screen_jev["lb975"], "ub975": screen_jev["ub975"]},
+                       "retest_vs_board1": {"theta": retest["theta"], "lb975": retest["lb975"], "ub975": retest["ub975"]},
+                       "label": "screen, n = 10, not confirmatory"},
+        "decision": "RELEASE",
+        "receipts": {"release_decision.json": sha256(dec_path), "results.json": sha256(res_path)},
+    }
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", required=True)
@@ -85,7 +172,10 @@ def main():
     ap.add_argument("--date", default="2026-09-27")
     ap.add_argument("--seeds", default="0–9")
     ap.add_argument("--job", default="b1_lx_01_v2")
+    ap.add_argument("--confirm", help="Burst P2 release_decision.json (fresh-seed confirmation vs Jev)")
+    ap.add_argument("--confirm-results", help="Burst P2 results.json (per-seed cross-check of --confirm)")
     a = ap.parse_args()
+    assert bool(a.confirm) == bool(a.confirm_results), "--confirm and --confirm-results go together"
 
     src = json.load(open(a.results))
     games = [g[0] for g in GAMES]
@@ -154,6 +244,11 @@ def main():
             "serving": {k: sp["serving_info"].get(k) for k in ("gpu", "weights_format", "kernels", "concurrency_mode")},
             "games": gs,
         })
+    if a.seeds == "0–9":  # the Board 1 cause note is only valid for these records
+        cnt = sum(p["games"]["booster_gauntlet"]["at_wall"] for p in players)
+        assert cnt == BOOSTER_CAUSE["board"][2], cnt
+        for pid, k in BOOSTER_CAUSE["board"][1].items():
+            assert next(p for p in players if p["id"] == pid)["games"]["booster_gauntlet"]["at_wall"] == k, pid
     players.sort(key=lambda p: -p["composite"])
     for i, p in enumerate(players, 1):
         p["rank"] = i
@@ -180,7 +275,8 @@ def main():
         game_rows.append({
             "id": g, "name": name, "what": what, "controls": controls,
             "anchors": ANCHORS[g],
-            "wall": {"t": wall[0], "note": wall[1]} if wall else None,
+            "wall": ({"t": wall[0], "note": wall[1], "cause": BOOSTER_CAUSE["board"][0] if g == "booster_gauntlet" else None}
+                     if wall else None),
             "clip": {"src": f"{CLIP_DIR}v3-{slug}-burst.mp4", "poster": f"{CLIP_DIR}v3-{slug}-burst.jpg",
                      "seed_index": seed, "players": [label[ch["champion"]]] + [label[e] for e in ch["externals"]]},
         })
@@ -206,6 +302,8 @@ def main():
         "pairwise": pairwise,
         "out_order": out_order,
     }
+    if a.confirm:
+        out["confirmation"] = confirmation(a.confirm, a.confirm_results, games)
     text = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
     assert "chord" not in text.replace("t_dual/chord", "").lower(), "public label still says Chord"
     open(OUT, "w").write(text + "\n")

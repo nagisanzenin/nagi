@@ -22,7 +22,8 @@ been pushed or published. Work through every box before merging to `main`, which
   `make_v3.py` fails if the word "Chord" would appear in any label.
 
 ## 1. Placeholders to fill (grep `pending` and `media/`)
-- [ ] **Clips.** Copy the Burst-labelled renders to these paths, and delete the Chord-labelled
+- [x] **Clips.** (Done 2026-09-27: copied from the Board 1 Burst render job; already faststart, not re-encoded;
+      posters made with the command below.) Copy the Burst-labelled renders to these paths, and delete the Chord-labelled
       `~/Downloads/Nagi-ArenaV3-*.mp4` files only after the swap. None of the Chord clips are committed.
 
       | Game | Clip | Poster (one frame, ~540 px wide JPG) |
@@ -35,13 +36,18 @@ been pushed or published. Work through every box before merging to `main`, which
       `ffmpeg -ss 8 -i CLIP.mp4 -frames:v 1 -vf scale=540:-1 -q:v 3 POSTER.jpg`.
 
       Until the files exist, the page shows "Clip publishing soon", so a missing clip never breaks the layout.
-- [ ] **Clip checks.**
+- [x] **Clip checks.** (Done: OCR of every frame at 2 fps finds "T-dual Burst" and never "Chord"; players are
+      T-dual Burst, Jev, SemIf-4B; seeds 1 / 2 / 0; end times match the Board 1 out order; 1.7 / 7.9 / 4.0 MB.
+      Note: the HUD header still reads "ARENA LIVE · real decisions, replayed", and the Snake clip shows the engine
+      seed number.)
   - Each clip's HUD says "T-dual Burst", with no "Chord" in any frame.
   - It shows exactly T-dual Burst, Jev and SemIf-4B, which is what the caption says.
   - Its seed matches the page: Snake **1**, Rotorwash-Ramp **2**, Booster **0**. `make_v3.py` recomputes this from
     PROTOCOL §A1.5 (the lower median of the champion's rounds, ties going to the lowest index).
   - Keep each clip under about 10 MB (the current ones are 1.7–7.9 MB). GitHub Pages has no LFS.
-- [ ] **Audit-trail links** (`#evidence`, `<span class="pending" data-href=…>`). Publish each target, then change it
+- [x] **Audit-trail links** (done except the Burst landing page, which stays an unlinked `pending` span with the
+      caption "Burst page · coming with the weights" until `site/burst/` is live; a sixth item links
+      `bench/arena_v3/BURST_CONFIRMATION.md`) (`#evidence`, `<span class="pending" data-href=…>`). Publish each target, then change it
       to `<a href="…">` and drop "· link added at publication" from its caption:
   - Protocol: `bench/arena_v3/PROTOCOL.md`, a public copy of `docs/arena_v3/PROTOCOL.md` (§A1 + §1.1).
   - Board 1 report: `bench/arena_v3/BOARD1_REPORT.md`, with "Chord" relabelled to "Burst" and the "7 players" /
@@ -51,13 +57,20 @@ been pushed or published. Work through every box before merging to `main`, which
   - Burst prereg: `bench/arena_v3/BURST_PREREG.md`, a copy of `docs/burst_release/PREREG.md` once frozen.
   - Burst landing page: `../burst/` (assumed to be `site/burst/`; confirm the path the page agent used).
   - Any file you choose not to publish: delete its `<li>` instead of leaving a dead link.
-- [ ] **Raw receipt.** Decide whether to publish the source results.json, for example as
+- [ ] **Raw receipt.** (Owner decision, not published on this branch. The Burst receipts are not published either;
+      BURST_CONFIRMATION.md lists their sha256.) Decide whether to publish the source results.json, for example as
       `bench/arena_v3/board1_run2_results.json`. The page prints its sha256 (`2173f762133957b8…`). Note that the raw
       file still says "T-dual Chord" in its `label` fields.
-- [ ] **Burst in the nav.** Once `site/burst/` exists, add it to `NAV` in `site/build_chrome.py`, then run
+- [ ] **Burst in the nav.** (Blocked: the Burst page is not live yet.) Once `site/burst/` exists, add it to `NAV` in `site/build_chrome.py`, then run
       `python3 site/build_chrome.py`.
 
 ## 2. Numbers to refresh after tonight's Burst run (seeds 0–33)
+
+Done with the recommended option: the Board 1 leaderboard stays on seeds 0–9 (n = 10), and the confirmation is its
+own panel (`#confirm`), built by `make_v3.py --confirm release_decision.json --confirm-results results.json`. Prose
+was changed only where the panel changes it (descriptions, "Read this first", champion note, winner's-curse and
+Booster caveats, home card).
+
 Every number on the page comes from `v3.json`, except the static prose listed here.
 1. Rebuild the data:
    `python3 site/arena/build/make_v3.py --results MERGED/results.json --board "Board 1 + Burst confirmation" --seeds "0–33" --job <job id>`.
@@ -92,20 +105,20 @@ Every number on the page comes from `v3.json`, except the static prose listed he
    `ROSTER` in `make_v3.py`. The label itself stays "T-dual Burst" unless the owner renames it.
 
 ## 3. Checks before publishing
-- [ ] Every PREREG release gate passed. That is the operator's condition for publishing. If any gate failed, do not
+- [x] Every PREREG release gate passed. (V_rt, R-RT and C1 PASS; C2 Booster only; decision RELEASE.) That is the operator's condition for publishing. If any gate failed, do not
       merge this branch as is: the leaderboard would still be correct as a screen, but the Burst links and labels
       assume a release.
-- [ ] `python3 site/arena/build/make_v3.py --results …` runs clean, and `git diff site/arena/v3.json` shows only the
+- [x] `python3 site/arena/build/make_v3.py --results …` runs clean, and `git diff site/arena/v3.json` shows only the
       expected changes.
-- [ ] `grep -rni "chord" site/ --include=*.html --include=*.js --include=*.css` returns nothing. `v3.json` may contain
+- [x] `grep -rni "chord" site/ --include=*.html --include=*.js --include=*.css` returns nothing. `v3.json` may contain
       only the id `t_dual/chord`.
-- [ ] `python3 site/build_chrome.py` is idempotent: a second run gives no diff.
-- [ ] Local review with `python3 -m http.server 8765 --directory site`:
+- [x] `python3 site/build_chrome.py` is idempotent: a second run gives no diff.
+- [x] Local review with `python3 -m http.server 8765 --directory site`:
   - `/arena/` at 1280 px and at 375 px, with no horizontal page scroll (tables scroll inside their frames);
   - `/arena-live/` shows the legacy banner;
   - `/` shows the new card;
   - the console has no errors other than 404s for clips that are not there yet.
-- [ ] Survival charts: switch Player A and B, and check that hovering or tapping reads "% alive" and that the paired
+- [x] Survival charts: switch Player A and B, and check that hovering or tapping reads "% alive" and that the paired
       line ("outlasted … on k of n seeds") matches the pairwise table.
 - [ ] Merge conflicts with the Burst page branch: both branches may touch `site/build_chrome.py` (NAV and footer) and
       the stamped header/footer in every page. Resolve `build_chrome.py` by hand, then re-run it. Never hand-merge
@@ -123,4 +136,5 @@ Every number on the page comes from `v3.json`, except the static prose listed he
 - Booster Gauntlet: 25 of 60 rounds, including all 10 of T-dual Burst's, ended at exactly 22.0 s, the first hop's
   landing deadline. The page says this, and ties are scored ½. The per-round cause (hop timeout or another failure) is
   in the private records. **Confirm it from the records before publishing**, and if every one is a hop timeout, say
-  so plainly.
+  so plainly. (Confirmed 2026-09-27 from `score.cause`: all 25 were hop timeouts, and none was a crash; the page now says
+  so. In the Burst P2 run all 24 of Burst's Booster rounds were hop timeouts too.)
