@@ -152,6 +152,12 @@ Further notes from the run:
 - **Jev is not deterministic.** Jev's answer fingerprint on 8 fixed requests changed between calls, including three
   back-to-back calls from one client, so a fingerprint change does not mean a vendor change. The frozen V_rt check
   compares the vendor version string, which was `jev-1.13.0` in every job, as in Board 1.
+- **Booster Gauntlet: the win is a stall, not landings (found after the gates passed).** Burst never landed a hop:
+  all 34 of its Booster rounds ended at the 22 s hop timeout with the booster still climbing. Fail-first ranking
+  (later failure ranks first) rewards that, so C2 on Booster (W 0.979) measures not crashing, not landing. Under a
+  stall-proof scoring (hops landed plus touchdown credit, no time term; not preregistered) Booster is a tie (0.500),
+  and on Rotorwash-Ramp and Snake Rush together Burst is non-inferior to Jev, not better (0.521 [0.378, 0.663]). The
+  preregistered verdicts stand as registered; this is a disclosure, not a re-test.
 
 ## 4. Clips
 
