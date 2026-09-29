@@ -1,7 +1,7 @@
 # Burst: every control in one forward pass
 
-> **SDK 0.6.0.** `load_enormous_burst()` refuses to load until `BURST_REVISION` in `src/nagi/enormous.py` is pinned to
-> the published Hugging Face commit of the weights. If the weights repo is missing, still private or the revision is
+> **SDK 0.6.0.** `load_enormous_burst()` loads the weights pinned by `BURST_REVISION` in `src/nagi/enormous.py`
+> (Hugging Face commit `55b1a036478633f9bb1b32c5e304cca4174edefc`). If the repo is unreachable or the revision is
 > wrong, it stops with a clear error before downloading the 27B base model.
 >
 > [Burst benchmark report](../bench/burst/README.md) · [Burst page](https://nagisanzenin.github.io/nagi/burst/) ·

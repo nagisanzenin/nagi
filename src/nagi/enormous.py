@@ -20,7 +20,7 @@ ENORMOUS_BASE_REVISION='1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0'
 ENORMOUS_TRAINED_MAX_TOKENS=768
 BURST_REPO='nagisanzeninz/Nagi-ENORMOUS-Burst'
 # Pinned to the published adapter commit at release (owner click). load_enormous_burst() refuses while None.
-BURST_REVISION=None
+BURST_REVISION='55b1a036478633f9bb1b32c5e304cca4174edefc'
 class NagiEnormous:
     """Typed closed-set decisions, no generation or silent truncation.
 
