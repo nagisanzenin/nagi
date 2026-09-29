@@ -1,3 +1,33 @@
+# 0.6.0 — Burst mode (Nagi-ENORMOUS Burst, 2026-09-27)
+
+- **Burst mode:** `system_one(state, questions, mode="burst")` answers every question (control) from ONE forward pass,
+  one answer slot per control. Same answer shape as K-call, keyed in your question order, plus `out["burst"]` (slot
+  order, its source, forwards). The default `mode="kcall"` is unchanged.
+- Adds `load_enormous_burst()` for [`nagisanzeninz/Nagi-ENORMOUS-Burst`](https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst)
+  (Qwen3.8-27B + rank 8 LoRA, T-dual step 417), loaded BF16 with the adapter merged in place (the measured serving
+  path; `merge=False` available). It refuses to load until `BURST_REVISION` is pinned, and a missing, private or
+  wrongly pinned weights repo now fails fast with a clear message, before the base model is downloaded.
+- Canonical control order: `control_order`, else the state's `CONTROLS (set together each tick):` line, else the
+  question ids sorted by code point. Through the SDK, answers do not depend on the order in which you list the
+  controls. The model itself is **not** order-invariant: rotating the order without canonicalization changes 24.8%
+  [17.5%, 32.2%] of joint answers (Chord P1 REJECT-ORDER; not passed). Declare your environment's order and keep it.
+- Release results (preregistered gates, H100, merged BF16, fused kernels):
+  - decision latency p50 at 3 concurrent streams: 216.3 ms (Snake Rush), 247.7 ms (Rotorwash-Ramp), 196.2 ms
+    (Booster Gauntlet); one-sided 97.5% upper bounds 219.5 / 269.0 / 263.6 ms;
+  - non-inferior to K-call of the same weights within 0.06 on MA1 (Δ̂ −0.005, one-sided 97.5% bound −0.045);
+  - Arena v3 realtime, 24 fresh seeds × 3 games: survived longer than Jev in 67.4% [57.7%, 77.0%] of head-to-heads,
+    outperforming Jev overall; per game only on Booster Gauntlet (Rotorwash-Ramp and Snake Rush not significant).
+- Limitations: realtime only (a compute-matched lockstep test favoured K-call); up to 4 controls evaluated; half of
+  the fresh Rotorwash-Ramp rounds ended in a ceiling crash. Details in [docs/BURST.md](docs/BURST.md), the
+  [model card](https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS-Burst) and the
+  [Burst benchmark report](bench/burst/README.md) ([page](https://nagisanzenin.github.io/nagi/burst/),
+  [Game Arena](https://nagisanzenin.github.io/nagi/arena/)).
+- Experimental `permutations="cyclic" | "all"` averages over slot orders at one forward per order; off by default and
+  not the released configuration (the permutation-averaged variant failed its latency and order-residual gates).
+- Renamed from the research name **Chord**: `mode="chord"`, `encode_chord()`, `render_chord_prompt()` and the
+  `CHORD_*` constants remain as deprecated aliases (`DeprecationWarning`). Prompt strings are byte-identical to the
+  trained format (golden sha256 test). `mode="burst"` on weights not trained for it (`load_enormous()`) warns.
+
 # 0.5.0 — Nagi-ENORMOUS 27B (2026-09-25)
 
 - Adds `load_enormous()` for the pinned Qwen3.8 27B (hybrid Gated-DeltaNet + gated full attention) + rank8 LoRA checkpoint, a fourth tier alongside Smol, Big and Huge.
