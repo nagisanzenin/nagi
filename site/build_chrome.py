@@ -17,6 +17,7 @@ GH = "https://github.com/nagisanzenin/nagi"
 PAGES = [
     ("index.html", "", "bench", "home", [("Results", "#results"), ("Nagi tiers", "#tiers"), ("Method", "#method"), ("Reproduce", "#evidence")]),
     ("arena/index.html", "../", "arena", "arena", [("Leaderboard", "#results"), ("Confirmation", "#confirm"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
+    ("burst/index.html", "../", "burst", "burst", [("Problem", "#problem"), ("How it works", "#how"), ("Evidence", "#evidence"), ("Limitations", "#limits"), ("Reproduce", "#reproduce")]),
     ("arena-live/index.html", "../", "arena", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
     ("bomber-huge/index.html", "../", "arena", "legacy", []),
     ("bomber-realtime/index.html", "../", "arena", "legacy", []),
@@ -24,7 +25,7 @@ PAGES = [
     ("snake/index.html", "../", "arena", "legacy", []),
 ]
 
-NAV = [("bench", "Benchmark", ""), ("arena", "Game Arena", "arena/")]
+NAV = [("bench", "Benchmark", ""), ("arena", "Game Arena", "arena/"), ("burst", 'Burst <span class="nx-new">New</span>', "burst/")]
 
 
 def head(p):

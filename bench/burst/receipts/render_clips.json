@@ -1,0 +1,31 @@
+{
+ "_about": "Clip render seeds, extracted from the release report job's status.json (step 'render', log tail). The Modal output paths are omitted; nothing else is changed.",
+ "returncode": 0,
+ "snake": {
+  "players": [
+   "enormous_burst/chord",
+   "jev/vendor_single",
+   "semif_4b/kcall"
+  ],
+  "index": 3,
+  "frames": 19
+ },
+ "rotorwash_ramp": {
+  "players": [
+   "enormous_burst/chord",
+   "jev/vendor_single",
+   "semif_4b/kcall"
+  ],
+  "index": 4,
+  "frames": 53
+ },
+ "booster_gauntlet": {
+  "players": [
+   "enormous_burst/chord",
+   "jev/vendor_single",
+   "semif_4b/kcall"
+  ],
+  "index": 0,
+  "frames": 89
+ }
+}
