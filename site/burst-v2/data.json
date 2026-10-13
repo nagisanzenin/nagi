@@ -13,6 +13,7 @@
   "bench/burst_v2/receipts/arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
   "bench/burst_v2/receipts/fill_receipt.json": "e817120b92e4ffc29a129b21f99faddae1783c82b86621a42c720761ccb146b4",
   "bench/burst_v2/receipts/replay.json": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
+  "bench/burst_v2/receipts/robot_example.json": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
   "docs/BURST_V2.md": "9102227d521c34013daf532df850be904438414a06503e27f95dff7da21a2e59",
   "pyproject.toml": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
   "src/nagi/burst2/_api.py": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14"
@@ -156,6 +157,17 @@
   "replay_exact": "72",
   "replay_n": "72",
   "reply_profile": "nominal 1-tick (decision for boundary t applies at t+1)",
+  "robot_goal": "9",
+  "robot_session": "robot-1",
+  "robot_unw_best": "−33.1",
+  "robot_unw_states": "116",
+  "robot_unw_still": "6",
+  "robot_unw_tied": "9",
+  "robot_wait": "6",
+  "robot_wait_b0": "4",
+  "robot_wait_b1": "8",
+  "robot_wall_tick": "0",
+  "robot_wall_tied": "3",
   "sdk_tag": "v0.7.0",
   "sdk_version": "0.7.0",
   "serving_class": "cpu-m2-1t",
@@ -404,7 +416,13 @@
    "bench/burst_v2/receipts/CANDIDATE.json": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
    "bench/burst_v2/receipts/arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
    "bench/burst_v2/receipts/replay.json": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
+   "bench/burst_v2/receipts/robot_example.json": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
    "bench/burst_v2/receipts/MANIFEST.json": "9045b5be66fe719919a6980d2e9711a12007e15a9c1cbc5beddad796dc9088fc"
+  },
+  "block:robot-rules": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "rules_text"
   },
   "c83": {
    "file": "bench/burst_v2/README.md",
@@ -1047,6 +1065,72 @@
    "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
    "key": "meta|reply_profile",
    "raw": "nominal 1-tick (decision for boundary t applies at t+1)"
+  },
+  "robot_goal": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.goal_ticks",
+   "raw": 9
+  },
+  "robot_session": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "session",
+   "raw": "robot-1"
+  },
+  "robot_unw_best": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.unwinnable.best_value",
+   "raw": -33.1
+  },
+  "robot_unw_states": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.unwinnable.reachable_states",
+   "raw": 116
+  },
+  "robot_unw_still": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.unwinnable.still_from",
+   "raw": 6
+  },
+  "robot_unw_tied": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.unwinnable.first_tied",
+   "raw": 9
+  },
+  "robot_wait": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.wait_tick",
+   "raw": 6
+  },
+  "robot_wait_b0": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.wait_battery_before",
+   "raw": 4
+  },
+  "robot_wait_b1": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.wait_battery_after",
+   "raw": 8
+  },
+  "robot_wall_tick": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.wall_tick",
+   "raw": 0
+  },
+  "robot_wall_tied": {
+   "file": "bench/burst_v2/receipts/robot_example.json",
+   "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+   "key": "values|robot.wall_tied",
+   "raw": 3
   },
   "sdk_tag": {
    "file": "pyproject.toml",

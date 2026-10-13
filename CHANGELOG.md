@@ -1,3 +1,14 @@
+# Unreleased (docs only, after 0.7.0; no SDK code change)
+
+- **Docs: "Example: your own game"** in [docs/QUICKSTART_MACHINE.md](docs/QUICKSTART_MACHINE.md) §6. A delivery robot
+  with the user's own game class, the rules, the decision loop, a per-tick trace, and three caveats: tied moves
+  (Nagi plays for the goal, not for battery), the charger wait that the lookahead finds on its own, and an unwinnable
+  layout (the robot stands still instead of crashing; how to see it in `out["stats"]`).
+- **Verified like the other doc examples.** `scripts/burst2_robot_example.py` runs the documented blocks with the
+  released core and writes `bench/burst_v2/receipts/robot_example.json`. `tests/test_burst2_robot_example.py` checks
+  the doc against the receipt, and re-runs the trace when `NAGI_BURST2_CORE` is set.
+- **Site:** the Burst V2 page (`site/burst-v2/`) has a short version of the example.
+
 # 0.7.0: Nagi Burst V2 (one frozen evaluation, M4)
 
 - **New: `nagi.burst2`.** It contains `operate()`, `operate_structured()` and `load_core()`.
