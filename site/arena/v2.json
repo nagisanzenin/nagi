@@ -15,7 +15,7 @@
    "jev1s_snake.json": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
    "jev1s_rr.json": "5cd53676b8db2b82551685ec179e15e058bc1515202c3f056849d95e46352be5",
    "jev1s_booster.json": "eb9c6ad3b1803229148e4b14d2dc166d985553732239c11b937d87c3859992bc",
-   "arena_v2_videos.json": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108"
+   "arena_v2_videos.json": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab"
   },
   "replay_pack": {
    "exact": 72,
@@ -341,7 +341,7 @@
    "replay": "https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2/replays/snake",
    "video": "media/v2-SnakeRush-V2-V1-Jev-seed32.mp4",
    "poster": "media/v2-SnakeRush-V2-V1-Jev-seed32.jpg",
-   "video_sha256": "7a37de42a4239d252b5ff608665e060c89e93cf7d5202f57c0f0b709e4011bbe",
+   "video_sha256": "5896c66f5a34fbf8d88736b3597c1afe0aa4196df537c6b443c3729f10944442",
    "video_seed_index": 32,
    "video_seed_rule": "per game, margin_i = V2_i - Jev_i (V2 from docs/burst_v2_general/receipts/m4/<cell>/v2g_<game>.csv, Jev from docs/burst_v2_next/p3/jev1s_<game>.json per_seed[].score), rounded 1e-9"
   },
@@ -639,7 +639,7 @@
    "replay": "https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2/replays/rotorwash_ramp",
    "video": "media/v2-RotorwashRamp-V2-V1-Jev-seed44.mp4",
    "poster": "media/v2-RotorwashRamp-V2-V1-Jev-seed44.jpg",
-   "video_sha256": "e0f917ad3afa33f97d5dcf825ffed01757b6b3c64e5ee5ce2713ec21f5afa077",
+   "video_sha256": "f8d3e6a75e22176c8441646d2984df15f6299682545d488d1c90b91b8129ebff",
    "video_seed_index": 44,
    "video_seed_rule": "per game, margin_i = V2_i - Jev_i (V2 from docs/burst_v2_general/receipts/m4/<cell>/v2g_<game>.csv, Jev from docs/burst_v2_next/p3/jev1s_<game>.json per_seed[].score), rounded 1e-9"
   },
@@ -942,7 +942,7 @@
     "v1": 0,
     "jev": 0
    },
-   "video_sha256": "1237ec1cd86b829df090a0f1a700df548b5edfcd10e43148e31e7bc6b680b0e3",
+   "video_sha256": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4",
    "video_seed_index": 34,
    "video_seed_rule": "per game, margin_i = V2_i - Jev_i (V2 from docs/burst_v2_general/receipts/m4/<cell>/v2g_<game>.csv, Jev from docs/burst_v2_next/p3/jev1s_<game>.json per_seed[].score), rounded 1e-9"
   }

@@ -5,8 +5,8 @@
  "plays_a_model": false,
  "seed_rule": "per game, margin_i = V2_i - Jev_i (V2 from docs/burst_v2_general/receipts/m4/<cell>/v2g_<game>.csv, Jev from docs/burst_v2_next/p3/jev1s_<game>.json per_seed[].score), rounded 1e-9; choose the index at the lower median of the margins (ties -> lowest index); if that seed fails any verification for any seat, take the next index ordered by (|margin - median|, index). RR additionally requires each 4-seat source round (V1, Jev) to be state-hash-exact over that seat's flight in the bv2n-rr:py31112-np246 linux/amd64 image.",
  "wording": "descriptive only: per-seat scores and labels, seat order V2, V1, Jev; no winner banner, no ranks",
- "playback": "1x game time (arena_live_edit full_rounds / snake 1x replay); live games keep the standard 0.2 s x1/2 slow-mo + 0.6 s freeze at each elimination, RR keeps its 0.25 s touchdown slow-mo",
- "v2g_m4_head": "de5335e36cfd62a27158e37dd547cf45326fdec2",
+ "playback": "raw 1x, no edits",
+ "v2g_m4_head": "86ebf074a2d053f8298059d2a0e88b8346e2520b",
  "games": {
   "snake": {
    "chosen_index": 32,
@@ -69,27 +69,39 @@
     "~/nagi-wt/v2g-m4/docs/burst_v2_next/p2/operator/bv2np2_jev1s_sn_01/jev__vendor_single/snake/32.json": "9b2144f068c44d0df971e1ab6a89b6044feb5182b686ab456cc5595366135296"
    },
    "render": {
-    "frames": 1629,
+    "frames": 1479,
     "fps": null,
-    "seconds": 54.3,
+    "seconds": 49.3,
     "lufs": -17.61,
-    "render_s": 50.6,
+    "render_s": 72.4,
     "edl_segments": null
    },
    "output": {
-    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_SnakeRush_V2-V1-Jev_seed32.mp4",
-    "mp4_bytes": 5630768,
-    "mp4_sha256": "7a37de42a4239d252b5ff608665e060c89e93cf7d5202f57c0f0b709e4011bbe",
-    "duration_s": 54.3,
+    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_raw_SnakeRush_V2-V1-Jev_seed32.mp4",
+    "mp4_bytes": 5222186,
+    "mp4_sha256": "5896c66f5a34fbf8d88736b3597c1afe0aa4196df537c6b443c3729f10944442",
+    "duration_s": 49.3,
     "video": {
      "codec_name": "h264",
      "width": 1080,
-     "height": 1920
+     "height": 1920,
+     "pix_fmt": "yuv420p",
+     "r_frame_rate": "30/1",
+     "duration": "49.300000",
+     "nb_frames": "1479"
     },
-    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_SnakeRush_V2-V1-Jev_seed32.jpg",
-    "poster_t_s": 2.5,
-    "poster_bytes": 239202,
-    "poster_sha256": "fbfd476c073957028b00e03d0ea0a6f4816bf33b6fbf4cb0a0ba092584afed0d"
+    "raw": {
+     "round_ms": 48250,
+     "hold_ms": 1050,
+     "fps": 30,
+     "expected_frames": 1479,
+     "expected_duration_s": 49.3
+    },
+    "duration_exact": true,
+    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_raw_SnakeRush_V2-V1-Jev_seed32.jpg",
+    "poster_t_s": 24.0,
+    "poster_bytes": 247986,
+    "poster_sha256": "3ba349c188b78f13353533a5f2f25f3c9ca3cdd69e4a947b93bec2ca237fe844"
    }
   },
   "rr": {
@@ -206,11 +218,11 @@
     "<scratch>/vid3/rr/prep_rr_report.json": "bf634a9b75ca60f65aff409e933c56f249427384d3433327032ede564eab7077"
    },
    "render": {
-    "frames": 1683,
+    "frames": 1479,
     "fps": 30,
-    "seconds": 56.1,
-    "lufs": -14.130165949929882,
-    "render_s": 39.281879901885986,
+    "seconds": 49.3,
+    "lufs": -14.088179274290887,
+    "render_s": 174.8999490737915,
     "edl_segments": [
      {
       "kind": "play",
@@ -218,133 +230,46 @@
       "reason": null,
       "ms": null,
       "t0": 0,
-      "t1": 20496,
+      "t1": 48250,
       "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 0.5,
-      "reason": null,
-      "ms": null,
-      "t0": 20496,
-      "t1": 20696,
-      "t": null
-     },
-     {
-      "kind": "hold",
-      "speed": null,
-      "reason": "elim",
-      "ms": 600,
-      "t0": null,
-      "t1": null,
-      "t": 20696
-     },
-     {
-      "kind": "play",
-      "speed": 1,
-      "reason": null,
-      "ms": null,
-      "t0": 20696,
-      "t1": 23462,
-      "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 0.5,
-      "reason": null,
-      "ms": null,
-      "t0": 23462,
-      "t1": 23662,
-      "t": null
-     },
-     {
-      "kind": "hold",
-      "speed": null,
-      "reason": "elim",
-      "ms": 600,
-      "t0": null,
-      "t1": null,
-      "t": 23662
-     },
-     {
-      "kind": "play",
-      "speed": 1,
-      "reason": null,
-      "ms": null,
-      "t0": 23662,
-      "t1": 39950,
-      "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 0.5,
-      "reason": "touchdown",
-      "ms": null,
-      "t0": 39950,
-      "t1": 40200,
-      "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 1,
-      "reason": null,
-      "ms": null,
-      "t0": 40200,
-      "t1": 48046,
-      "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 0.5,
-      "reason": null,
-      "ms": null,
-      "t0": 48046,
-      "t1": 48246,
-      "t": null
-     },
-     {
-      "kind": "hold",
-      "speed": null,
-      "reason": "elim",
-      "ms": 600,
-      "t0": null,
-      "t1": null,
-      "t": 48246
      },
      {
       "kind": "hold",
       "speed": null,
       "reason": "result",
-      "ms": 1200,
+      "ms": 1050,
       "t0": null,
       "t1": null,
       "t": 48250
-     },
-     {
-      "kind": "card",
-      "speed": null,
-      "reason": null,
-      "ms": 4000,
-      "t0": null,
-      "t1": null,
-      "t": null
      }
     ]
    },
    "output": {
-    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_RotorwashRamp_V2-V1-Jev_seed44.mp4",
-    "mp4_bytes": 7456691,
-    "mp4_sha256": "e0f917ad3afa33f97d5dcf825ffed01757b6b3c64e5ee5ce2713ec21f5afa077",
-    "duration_s": 56.1,
+    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_raw_RotorwashRamp_V2-V1-Jev_seed44.mp4",
+    "mp4_bytes": 6985714,
+    "mp4_sha256": "f8d3e6a75e22176c8441646d2984df15f6299682545d488d1c90b91b8129ebff",
+    "duration_s": 49.3,
     "video": {
      "codec_name": "h264",
      "width": 1080,
-     "height": 1920
+     "height": 1920,
+     "pix_fmt": "yuv420p",
+     "r_frame_rate": "30/1",
+     "duration": "49.300000",
+     "nb_frames": "1479"
     },
-    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_RotorwashRamp_V2-V1-Jev_seed44.jpg",
-    "poster_t_s": 1.6,
-    "poster_bytes": 192047,
-    "poster_sha256": "13b30a36fe9e52497f2713ff33977d4d92b42227e73ad0c7595b4b24e76cabe8"
+    "raw": {
+     "round_ms": 48250,
+     "hold_ms": 1050,
+     "fps": 30,
+     "expected_frames": 1479,
+     "expected_duration_s": 49.3
+    },
+    "duration_exact": true,
+    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_raw_RotorwashRamp_V2-V1-Jev_seed44.jpg",
+    "poster_t_s": 6.0,
+    "poster_bytes": 197942,
+    "poster_sha256": "da93841722d66b81adbf0c2873fa4f70900059154e57e0551e56e233530943d1"
    }
   },
   "booster": {
@@ -420,11 +345,11 @@
     "~/nagi-wt/v2g-m4/docs/burst_v2_next/p2/operator/bv2np2_jev1s_bg_01/jev__vendor_single/booster_gauntlet_v31/34.json": "7fc814cec81a54773e10b00b3e373cb56692495c467d7258ff1db8f03acffb04"
    },
    "render": {
-    "frames": 864,
+    "frames": 690,
     "fps": 30,
-    "seconds": 28.8,
-    "lufs": -16.10377889389316,
-    "render_s": 64.28429508209229,
+    "seconds": 23.0,
+    "lufs": -16.111819158230375,
+    "render_s": 259.3169379234314,
     "edl_segments": [
      {
       "kind": "play",
@@ -432,94 +357,52 @@
       "reason": null,
       "ms": null,
       "t0": 0,
-      "t1": 15600,
-      "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 0.5,
-      "reason": null,
-      "ms": null,
-      "t0": 15600,
-      "t1": 15800,
-      "t": null
-     },
-     {
-      "kind": "hold",
-      "speed": null,
-      "reason": "elim",
-      "ms": 600,
-      "t0": null,
-      "t1": null,
-      "t": 15800
-     },
-     {
-      "kind": "play",
-      "speed": 1,
-      "reason": null,
-      "ms": null,
-      "t0": 15800,
-      "t1": 21800,
-      "t": null
-     },
-     {
-      "kind": "play",
-      "speed": 0.5,
-      "reason": null,
-      "ms": null,
-      "t0": 21800,
       "t1": 22000,
       "t": null
      },
      {
       "kind": "hold",
       "speed": null,
-      "reason": "elim",
-      "ms": 600,
-      "t0": null,
-      "t1": null,
-      "t": 22000
-     },
-     {
-      "kind": "hold",
-      "speed": null,
       "reason": "result",
-      "ms": 1200,
+      "ms": 1000,
       "t0": null,
       "t1": null,
       "t": 22000
-     },
-     {
-      "kind": "card",
-      "speed": null,
-      "reason": null,
-      "ms": 4000,
-      "t0": null,
-      "t1": null,
-      "t": null
      }
     ]
    },
    "output": {
-    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_BoosterGauntlet_V2-V1-Jev_seed34.mp4",
-    "mp4_bytes": 3858324,
-    "mp4_sha256": "1237ec1cd86b829df090a0f1a700df548b5edfcd10e43148e31e7bc6b680b0e3",
-    "duration_s": 28.8,
+    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_raw_BoosterGauntlet_V2-V1-Jev_seed34.mp4",
+    "mp4_bytes": 3556842,
+    "mp4_sha256": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4",
+    "duration_s": 23.0,
     "video": {
      "codec_name": "h264",
      "width": 1080,
-     "height": 1920
+     "height": 1920,
+     "pix_fmt": "yuv420p",
+     "r_frame_rate": "30/1",
+     "duration": "23.000000",
+     "nb_frames": "690"
     },
-    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_BoosterGauntlet_V2-V1-Jev_seed34.jpg",
-    "poster_t_s": 1.6,
-    "poster_bytes": 173611,
-    "poster_sha256": "b652f7956bbbc5f22adcab3789af693cdbabbeb9176e1240c59acddd67e5c1e2"
+    "raw": {
+     "round_ms": 22000,
+     "hold_ms": 1000,
+     "fps": 30,
+     "expected_frames": 690,
+     "expected_duration_s": 23.0
+    },
+    "duration_exact": true,
+    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_raw_BoosterGauntlet_V2-V1-Jev_seed34.jpg",
+    "poster_t_s": 13.0,
+    "poster_bytes": 185903,
+    "poster_sha256": "f30eb1e7c20401cc1fa01ddf6a9dde60972b5b9c684f8bce313ee40146658577"
    }
   }
  },
  "tool_files": {
-  "<scratch>/vid3/v3v.py": "c7ef331b78539e0f09218ffc13fa9aa0e84016e1ff37510d701d0bc65827e2d9",
-  "<scratch>/vid3/finalize.py": "4311973a4e3f1592ed9c63d2cdd3d8d525cd80f4673afa2082049449d8a32bac",
+  "<scratch>/vid3/v3v.py": "403e97505bc39aa02f318d76de7ebfdcc04596eb44d111d42a65eabe99220afd",
+  "<scratch>/vid3/finalize.py": "f20613c7cfe9c9213191d09c07753ada122a19cedb96b8e602f52bb7e7c830a7",
   "~/nagi-wt/v2g-m4/scripts/snake_rush_render.py": "d9ca18f679f63b6bc6bb08fb97b502930767bc987026c79ce6bf022dc838d948",
   "~/nagi-wt/v2g-m4/scripts/arena_live_render.py": "c86c8f4decdbf98c54d6ce96b4be2f9c0401acda09b515a2531f8d506fdf4f2b",
   "~/nagi-wt/v2g-m4/scripts/arena_live_edit.py": "26c642e9c3c61e7302d47967c1835697f9b396cfaf6cea25f571b922e07bbfb4",
@@ -536,12 +419,15 @@
   "id": "",
   "flags": "--network none --platform linux/amd64"
  },
+ "poster_rule": "mid-round frame where all three seats are visible and labelled (time chosen by visual check of the rendered frames; recorded per game as poster_t_s)",
+ "raw_rule": "one 1x play segment over the whole round, then the final frame held with the neutral per-seat score panel for hold_ms = smallest >= 1000 ms (50 ms steps) making round + hold a whole number of 30 fps frames; no hook/intro, no ROUND label, no slow-mo, no freeze, no end card",
+ "note": "raw_rr / raw_booster were rendered before a display-only snake edit in v3v.py (null reply latency shown as '\u2013' instead of 'bot' for V1/Jev); their code path is unchanged by it. tool_files hashes the final v3v.py; logs/v3v_as_in_receipt_json.py is the version behind receipt.json.",
  "published_as": {
-  "site/arena/media/v2-SnakeRush-V2-V1-Jev-seed32.mp4": "7a37de42a4239d252b5ff608665e060c89e93cf7d5202f57c0f0b709e4011bbe",
-  "site/arena/media/v2-SnakeRush-V2-V1-Jev-seed32.jpg": "fbfd476c073957028b00e03d0ea0a6f4816bf33b6fbf4cb0a0ba092584afed0d",
-  "site/arena/media/v2-RotorwashRamp-V2-V1-Jev-seed44.mp4": "e0f917ad3afa33f97d5dcf825ffed01757b6b3c64e5ee5ce2713ec21f5afa077",
-  "site/arena/media/v2-RotorwashRamp-V2-V1-Jev-seed44.jpg": "13b30a36fe9e52497f2713ff33977d4d92b42227e73ad0c7595b4b24e76cabe8",
-  "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4": "1237ec1cd86b829df090a0f1a700df548b5edfcd10e43148e31e7bc6b680b0e3",
-  "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.jpg": "b652f7956bbbc5f22adcab3789af693cdbabbeb9176e1240c59acddd67e5c1e2"
+  "site/arena/media/v2-SnakeRush-V2-V1-Jev-seed32.mp4": "5896c66f5a34fbf8d88736b3597c1afe0aa4196df537c6b443c3729f10944442",
+  "site/arena/media/v2-SnakeRush-V2-V1-Jev-seed32.jpg": "3ba349c188b78f13353533a5f2f25f3c9ca3cdd69e4a947b93bec2ca237fe844",
+  "site/arena/media/v2-RotorwashRamp-V2-V1-Jev-seed44.mp4": "f8d3e6a75e22176c8441646d2984df15f6299682545d488d1c90b91b8129ebff",
+  "site/arena/media/v2-RotorwashRamp-V2-V1-Jev-seed44.jpg": "da93841722d66b81adbf0c2873fa4f70900059154e57e0551e56e233530943d1",
+  "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4",
+  "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.jpg": "f30eb1e7c20401cc1fa01ddf6a9dde60972b5b9c684f8bce313ee40146658577"
  }
 }
