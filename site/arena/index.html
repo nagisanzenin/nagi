@@ -34,10 +34,35 @@
     <p>Board 1 uses 10 seeds per game. That is enough to screen, not to settle close comparisons: no “X beats Y” claim is made from it. The Nagi entry at the top was picked as the best of four Nagi entries, which inflates its numbers (winner’s curse). That is why a separate, preregistered confirmation against Jev was run on fresh seeds; it passed, and it is reported <a href="#confirm">in its own panel</a> with its own n.</p>
   </div>
   <div class="ctas">
-    <a class="nx-btn primary" href="#results">Leaderboard <span aria-hidden="true">↓</span></a>
+    <a class="nx-btn primary" href="#v2">New: Burst V2 · V1 · Jev <span aria-hidden="true">↓</span></a>
+    <a class="nx-btn" href="#results">Leaderboard <span aria-hidden="true">↓</span></a>
     <a class="nx-btn" href="#read">How to read it</a>
     <a class="nx-btn" href="#games">Watch the games</a>
   </div>
+</section>
+
+<section id="v2" class="v2" aria-labelledby="h-v2">
+  <p class="eyebrow">New · Nagi Burst V2 · frozen eval seeds <span data-v2="seeds">…</span></p>
+  <h2 id="h-v2">Burst V2, V1 and Jev on the same sealed seeds</h2>
+  <p class="lede"><strong>Nagi Burst V2</strong> (<span data-v2="v2sub">…</span>) played the three Arena games once, on eval seeds that were sealed before it existed. <strong>Nagi Burst V1</strong> and <strong>Jev</strong> are their recorded rounds on exactly the same seeds and rules. Each game is scored by the metric frozen for this release, not by Board 1’s survival time.</p>
+  <div class="table-wrap"><table id="v2-means"><caption class="sr-only">Mean score per game, with 95% t intervals over seeds</caption><thead></thead><tbody><tr><td>Loading…</td></tr></tbody></table></div>
+  <p class="legend-line">Mean over the sealed seeds, 95% t interval in brackets. Higher is better in every game.</p>
+  <h3 class="v2-h3">Seed by seed</h3>
+  <p class="small">On each seed the higher score wins the head-to-head, an equal score is a tie (½). W is the share won. The test is the release’s frozen gate-A form: the t lower 97.5% bound of W above ½ and an exact one-sided sign test.</p>
+  <div class="table-wrap"><table id="v2-h2h"><caption class="sr-only">Paired head-to-heads per game</caption><thead></thead><tbody></tbody></table></div>
+  <div class="v2-claims">
+    <div class="v2-claim ok"><b>Claim · V2 vs V1</b><p id="v2-claim-v1">…</p></div>
+    <div class="v2-claim desc"><b>Descriptive · Jev</b><p id="v2-claim-jev">…</p></div>
+  </div>
+  <ul class="caveats v2-notes" id="v2-notes"></ul>
+  <details><summary>Why the Jev rows count as paired (and why they are still not a claim)</summary><div class="in">
+    <div class="table-wrap"><table id="v2-pair"><caption class="sr-only">Jev pairing checks per game</caption><thead></thead><tbody></tbody></table></div>
+    <p class="small" id="v2-pair-note"></p>
+  </div></details>
+  <details><summary>Every seed (V2, V1, Jev)</summary><div class="in"><div id="v2-seeds"></div></div></details>
+  <h3 class="v2-h3">Replays</h3>
+  <div id="v2-clips" class="v2-clips"></div>
+  <p class="small" id="v2-src"></p>
 </section>
 
 <section id="results" aria-labelledby="h-results">
@@ -152,6 +177,7 @@
     <li><strong>Survival is ordinal.</strong> Five seconds at Level 2 are not five seconds at Level 5, which is why the primary metric compares players seed by seed instead of averaging seconds.</li>
     <li id="wall-caveat"><strong>Clustered end times.</strong> Many Snake Rush rounds end at exactly 10.0 s (the opening hunger limit) and many Booster Gauntlet rounds at exactly 22.0 s (the first hop’s landing deadline). All 25 Booster rounds that ended at exactly 22.0 s, including all 10 of T-dual Burst’s, were hop timeouts: the booster was still flying under control but had not landed its first hop. So its Booster lead comes from not crashing before that deadline, not from landing. Players who fail on the same tick tie; nothing is re-scored.</li>
     <li><strong>Latency is included.</strong> This measures a served product at 4 Hz on the stated hardware, not model quality in isolation. Jev’s hardware and network path are outside our control.</li>
+    <li><strong>Burst V2 section.</strong> It uses the Burst V2 release’s frozen eval seeds and metrics, not Board 1’s, so its numbers are not comparable with the leaderboard. V2 vs V1 is the release’s preregistered gate; every Jev comparison there is descriptive by preregistration. V2 was trained on these three games. See <a href="#v2">its own notes</a>.</li>
     <li><strong>Our benchmark, our models.</strong> Nagi’s developers built the games and ran the evaluation. The game engines and raw records are not part of this release, to keep the benchmark sealed; the rules, per-seed outcomes and the receipt hash are.</li>
   </ul>
 </section>
@@ -160,7 +186,11 @@
   <p class="eyebrow">09 / The audit trail</p>
   <h2 id="h-evidence">Don’t take the table on faith</h2>
   <ul class="links">
-    <li><a href="v3.json">Page data (v3.json)</a><small>Every number on this page, per seed</small></li>
+    <li><a href="v3.json">Page data (v3.json)</a><small>Every Board 1 and confirmation number, per seed</small></li>
+    <li><a href="v2.json">Burst V2 section data (v2.json)</a><small>Every number in the Burst V2 · V1 · Jev section, per seed, with receipt sha256</small></li>
+    <li><a href="../burst-v2/">Nagi Burst V2</a><small>What V2 is, how to use it, every release gate</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/README.md">Burst V2 release report</a><small>Gates A, G, L, I, R, the claims and the audit</small></li>
+    <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/jev_pair_check.json">Jev pairing check</a><small>The release’s V1 comparator check, run on the Jev records</small></li>
     <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/PROTOCOL.md">Protocol</a><small>Rules, metrics, void rule, champion rule</small></li>
     <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BOARD1_REPORT.md">Board 1 report</a><small>All tables and pairwise rates</small></li>
     <li><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/arena_v3/BOARD1_DECISIONS.md">Preregistered decisions and stop log</a><small>Frozen rules, run 1 stop, owner decisions</small></li>
@@ -185,6 +215,7 @@
 </section>
 </main>
 <!--nx:footer--><footer class="nx-foot"><div class="nx-in"><div class="nx-brand"><img class="m" src="../assets/mascot-128.png" alt="Nagi mascot" width="72" height="72"><div><img class="w" src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div><div class="nx-cols"><div><h4>Benchmarks</h4><ul><li><a href="../arena/" aria-current="page">Game Arena v3</a></li><li><a href="../">Public decision benchmark</a></li></ul></div><div><h4>Archive (legacy)</h4><ul><li><a href="../arena-live/">Arena v2 · Arena Live</a></li><li><a href="../bomber-huge/">Real-time Bomber · HUGE</a></li><li><a href="../bomber-realtime/">Real-time Bomber · BIG</a></li><li><a href="../bomber/">Turn-based Bomber</a></li><li><a href="../snake/">Snake pilot</a></li></ul></div><div><h4>Models</h4><ul><li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS 27B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/Nagi-HUGE">Nagi-HUGE 12B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-big-v3">Nagi-BIG 4B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-smol-v0">Nagi-SMOL 0.5B ↗</a></li></ul></div><div><h4>Code</h4><ul><li><a href="https://github.com/nagisanzenin/nagi">Nagi SDK on GitHub ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/bench">Benchmark data ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/docs/brand">Brand kit ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/issues">Questions or corrections ↗</a></li></ul></div></div><p class="nx-legal">Self-hosted System One models. Probabilities are model outputs, not guarantees.</p></div></footer><!--/nx:footer-->
-<noscript><p style="max-width:1120px;margin:0 auto;padding:0 20px">This page draws its tables and charts with JavaScript. All numbers are in <a href="v3.json">v3.json</a>.</p></noscript>
+<noscript><p style="max-width:1120px;margin:0 auto;padding:0 20px">This page draws its tables and charts with JavaScript. All numbers are in <a href="v3.json">v3.json</a> and <a href="v2.json">v2.json</a>.</p></noscript>
 <script src="v3.js" defer></script>
+<script src="v2.js" defer></script>
 </body></html>

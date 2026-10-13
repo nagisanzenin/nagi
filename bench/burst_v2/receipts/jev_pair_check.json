@@ -1,0 +1,1336 @@
+{
+ "schema": "nagi-burst-v2-jev-pair-check-v1",
+ "what": "The M4 V1 comparator check (PREREG_V2G \u00a76.2 ii, scripts/nc_r_arena_rt.pair_check_in_job, the code scripts/v2g/m4_pair_check.py runs) applied unchanged to the 72 single-stream Jev records pinned in jev1s_<game>.json: sha256 equal to the pin, static identity (rules id, frozen eval seed, protocol, realtime mode), exact state-hash replay on this platform, every live prompt regenerated, score recomputed. Each record's gate-A metric is read as M4 read V1: Snake score.survival_s, RR and Booster score.raw.",
+ "research_repo_commit": "de5335e36cfd62a27158e37dd547cf45326fdec2",
+ "image": {
+  "tag": "bv2n-rr:py31112-np246",
+  "id": "sha256:bf9b6dae746787f7b3eacbce8f62446b93ea90991b0aad9ebca5ee468d61bb84",
+  "platform": "linux/amd64 under Rosetta 2 on Apple M2 (SSE4.2; no AVX/FMA)"
+ },
+ "command": "docker run --rm --platform linux/amd64 --cpus 1 --network none -v <research repo>:/repo:ro -v <repo>/docs/burst_v2_next/p2/operator:/jev:ro bv2n-rr:py31112-np246 python jev_pair_check.py /repo /jev out.json snake,booster,rr",
+ "driver_sha256": "49767c08545b3bc249efd189c07cc669a7cde50d01a292dc2be6e8b0905ae703",
+ "engine_identity": "src/arena, src/bv2n/contract, src/bv2n/data, scripts/nc_r_arena_rt.py and scripts/fair_public_jev.py are byte-identical (empty git diff) between the Jev re-play harness commit c938276ae9a37af3fd25166ef4c7fa60e14e2d9d and the M4 commit de5335e36cfd62a27158e37dd547cf45326fdec2",
+ "rr_note": "RR replays state-hash-exact on 8/24 records here because Rosetta lacks the AVX/FMA paths of the recording hosts (the M4 V1 RR check needed a real x86-64 CPU for the same reason, RUNBOOK_M4 B1); the recomputed score equals the recorded score on 24/24, and the recording job checked its own replay in-venue (jev1s_rr.json jobs[0].replay_exact_all = true).",
+ "result": {
+  "cpu_features": [
+   "CX16",
+   "LAHF",
+   "MMX",
+   "POPCNT",
+   "SSE",
+   "SSE2",
+   "SSE3",
+   "SSE41",
+   "SSE42",
+   "SSSE3",
+   "X86_V2"
+  ],
+  "games": {
+   "snake": {
+    "n": 24,
+    "checked": 24,
+    "refused_other_platform": 0,
+    "replay_exact": 24,
+    "static_ok": 24,
+    "prompts": 966,
+    "prompt_mismatch": 0,
+    "score_equal": 24,
+    "void": 0,
+    "ok": true,
+    "sha_mismatch": [],
+    "n_pinned": 24,
+    "harness_sha256": "3707374dc4677c6836d2052bbb1704696e5390476c36be74a289f97bd0e23b56",
+    "platform": {
+     "system": "Linux",
+     "machine": "x86_64",
+     "python": "3.11.12",
+     "numpy": "2.4.6",
+     "libc": "glibc-2.36"
+    },
+    "rows": [
+     {
+      "index": 10,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 11,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 12,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 13,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 14,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 15,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 16,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 17,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 18,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 19,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 20,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 21,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 22,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 23,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 24,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 25,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 26,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 27,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 28,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 29,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 30,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 31,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 32,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 33,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     }
+    ],
+    "m4_metric": [
+     {
+      "index": 10,
+      "seed": 1729125481,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 6.5,
+      "receipt_score": 6.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 11,
+      "seed": 532168729,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 8.5,
+      "receipt_score": 8.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 12,
+      "seed": 957618623,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 19.0,
+      "receipt_score": 19.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 13,
+      "seed": 206514868,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 10.0,
+      "receipt_score": 10.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 14,
+      "seed": 626850533,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 3.0,
+      "receipt_score": 3.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 15,
+      "seed": 1150166326,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 18.0,
+      "receipt_score": 18.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 16,
+      "seed": 928849423,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 10.0,
+      "receipt_score": 10.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 17,
+      "seed": 1115084172,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 11.5,
+      "receipt_score": 11.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 18,
+      "seed": 1954269682,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 4.5,
+      "receipt_score": 4.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 19,
+      "seed": 220883336,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 4.0,
+      "receipt_score": 4.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 20,
+      "seed": 134963249,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 16.0,
+      "receipt_score": 16.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 21,
+      "seed": 898002520,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 19.5,
+      "receipt_score": 19.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 22,
+      "seed": 385912263,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 6.5,
+      "receipt_score": 6.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 23,
+      "seed": 81718780,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 10.5,
+      "receipt_score": 10.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 24,
+      "seed": 2125293014,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 7.0,
+      "receipt_score": 7.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 25,
+      "seed": 791674996,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 6.5,
+      "receipt_score": 6.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 26,
+      "seed": 2000442638,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 4.5,
+      "receipt_score": 4.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 27,
+      "seed": 1638123596,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 12.5,
+      "receipt_score": 12.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 28,
+      "seed": 1475788145,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 5.0,
+      "receipt_score": 5.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 29,
+      "seed": 1851417534,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 25.0,
+      "receipt_score": 25.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 30,
+      "seed": 140764203,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 17.0,
+      "receipt_score": 17.0,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 31,
+      "seed": 780576269,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 11.5,
+      "receipt_score": 11.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 32,
+      "seed": 1805007521,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 3.5,
+      "receipt_score": 3.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     },
+     {
+      "index": 33,
+      "seed": 1783304786,
+      "rules_id": "snake_rush:rush-2:base:announced:L0",
+      "m4_score": 8.5,
+      "receipt_score": 8.5,
+      "equal": true,
+      "scoring": null,
+      "landing": null
+     }
+    ],
+    "m4_metric_equal_receipt": 24
+   },
+   "booster": {
+    "n": 24,
+    "checked": 24,
+    "refused_other_platform": 0,
+    "replay_exact": 24,
+    "static_ok": 24,
+    "prompts": 1013,
+    "prompt_mismatch": 0,
+    "score_equal": 24,
+    "void": 0,
+    "ok": true,
+    "sha_mismatch": [],
+    "n_pinned": 24,
+    "harness_sha256": "3707374dc4677c6836d2052bbb1704696e5390476c36be74a289f97bd0e23b56",
+    "platform": {
+     "system": "Linux",
+     "machine": "x86_64",
+     "python": "3.11.12",
+     "numpy": "2.4.6",
+     "libc": "glibc-2.36"
+    },
+    "rows": [
+     {
+      "index": 34,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 35,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 36,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 37,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 38,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 39,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 40,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 41,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 42,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 43,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 44,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 45,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 46,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 47,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 48,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 49,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 50,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 51,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 52,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 53,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 54,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 55,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 56,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 57,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     }
+    ],
+    "m4_metric": [
+     {
+      "index": 34,
+      "seed": 1636330441,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 35,
+      "seed": 366125730,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 36,
+      "seed": 586983780,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 37,
+      "seed": 2116701015,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 38,
+      "seed": 1591650288,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 39,
+      "seed": 1648056398,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 40,
+      "seed": 933113555,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 41,
+      "seed": 359876553,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 42,
+      "seed": 963747841,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 43,
+      "seed": 1382794440,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 44,
+      "seed": 1800540133,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 45,
+      "seed": 755044608,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 46,
+      "seed": 1194435068,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 47,
+      "seed": 452817344,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 48,
+      "seed": 929521102,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 49,
+      "seed": 1003369363,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 50,
+      "seed": 5246151,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 51,
+      "seed": 1524652023,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 52,
+      "seed": 596673862,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 53,
+      "seed": 1592964193,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 54,
+      "seed": 1483049570,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 55,
+      "seed": 1758577711,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 56,
+      "seed": 928955108,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     },
+     {
+      "index": 57,
+      "seed": 387129241,
+      "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+      "m4_score": 0.0,
+      "receipt_score": 0.0,
+      "equal": true,
+      "scoring": "K3",
+      "landing": null
+     }
+    ],
+    "m4_metric_equal_receipt": 24
+   },
+   "rr": {
+    "n": 24,
+    "checked": 24,
+    "refused_other_platform": 0,
+    "replay_exact": 8,
+    "static_ok": 24,
+    "prompts": 1179,
+    "prompt_mismatch": 0,
+    "score_equal": 24,
+    "void": 0,
+    "ok": false,
+    "sha_mismatch": [],
+    "n_pinned": 24,
+    "harness_sha256": "3707374dc4677c6836d2052bbb1704696e5390476c36be74a289f97bd0e23b56",
+    "platform": {
+     "system": "Linux",
+     "machine": "x86_64",
+     "python": "3.11.12",
+     "numpy": "2.4.6",
+     "libc": "glibc-2.36"
+    },
+    "rows": [
+     {
+      "index": 34,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 35,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 36,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 37,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 38,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 39,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 40,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 41,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 42,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 43,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 44,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 45,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 46,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 47,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 48,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 49,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 50,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 51,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 52,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 53,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 54,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 55,
+      "replay": true,
+      "score": true,
+      "ok": true,
+      "static_ok": true
+     },
+     {
+      "index": 56,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     },
+     {
+      "index": 57,
+      "replay": false,
+      "score": true,
+      "ok": false,
+      "static_ok": true
+     }
+    ],
+    "m4_metric": [
+     {
+      "index": 34,
+      "seed": 1573483930,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.3,
+      "receipt_score": 0.3,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 35,
+      "seed": 1276506956,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.1,
+      "receipt_score": 0.1,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 36,
+      "seed": 688035671,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.1,
+      "receipt_score": 0.1,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 37,
+      "seed": 1829884556,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.35,
+      "receipt_score": 0.35,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 38,
+      "seed": 134911655,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.2,
+      "receipt_score": 0.2,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 39,
+      "seed": 1886341571,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.15,
+      "receipt_score": 0.15,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 40,
+      "seed": 812869557,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.1,
+      "receipt_score": 0.1,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 41,
+      "seed": 947752742,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.3,
+      "receipt_score": 0.3,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 42,
+      "seed": 1812224925,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.4,
+      "receipt_score": 0.4,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 43,
+      "seed": 1687470739,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.5,
+      "receipt_score": 0.5,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 44,
+      "seed": 1181143952,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.25,
+      "receipt_score": 0.25,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 45,
+      "seed": 1205738295,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.1,
+      "receipt_score": 0.1,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 46,
+      "seed": 543573612,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.2,
+      "receipt_score": 0.2,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 47,
+      "seed": 704075304,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.3,
+      "receipt_score": 0.3,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 48,
+      "seed": 2026972281,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.15,
+      "receipt_score": 0.15,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 49,
+      "seed": 433784576,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.3,
+      "receipt_score": 0.3,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 50,
+      "seed": 1269055079,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.25,
+      "receipt_score": 0.25,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 51,
+      "seed": 1513302480,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.5,
+      "receipt_score": 0.5,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 52,
+      "seed": 932654653,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.15,
+      "receipt_score": 0.15,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 53,
+      "seed": 193623682,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.3,
+      "receipt_score": 0.3,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 54,
+      "seed": 1025847886,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.1,
+      "receipt_score": 0.1,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 55,
+      "seed": 206109221,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.4,
+      "receipt_score": 0.4,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 56,
+      "seed": 1929627173,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.15,
+      "receipt_score": 0.15,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     },
+     {
+      "index": 57,
+      "seed": 1257136617,
+      "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+      "m4_score": 0.2,
+      "receipt_score": 0.2,
+      "equal": true,
+      "scoring": "K3-RR2.1",
+      "landing": null
+     }
+    ],
+    "m4_metric_equal_receipt": 24
+   }
+  }
+ }
+}

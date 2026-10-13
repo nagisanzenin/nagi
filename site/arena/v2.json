@@ -1,0 +1,978 @@
+{
+ "schema": "nagi-arena-v2-update-v1",
+ "meta": {
+  "title": "Nagi Burst V2, Nagi Burst V1 and Jev on the frozen Arena eval seeds",
+  "status": "frozen eval (M4)",
+  "split": "eval",
+  "tick_ms": 250,
+  "v2_reply_profile": "nominal 1-tick (decision for boundary t applies at t+1)",
+  "model_sha256": "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624",
+  "generated_by": "site/arena/build/make_v2.py",
+  "sources_sha256": {
+   "arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "jev_pair_check.json": "13cc6835c0304b58ff178b5ba8174e085bd41b7200499e5cf764282b3d2ef12e",
+   "jev1s_snake.json": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
+   "jev1s_rr.json": "5cd53676b8db2b82551685ec179e15e058bc1515202c3f056849d95e46352be5",
+   "jev1s_booster.json": "eb9c6ad3b1803229148e4b14d2dc166d985553732239c11b937d87c3859992bc"
+  },
+  "replay_pack": {
+   "exact": 72,
+   "replayed": 72
+  },
+  "jev_pair_check_image": {
+   "tag": "bv2n-rr:py31112-np246",
+   "id": "sha256:bf9b6dae746787f7b3eacbce8f62446b93ea90991b0aad9ebca5ee468d61bb84",
+   "platform": "linux/amd64 under Rosetta 2 on Apple M2 (SSE4.2; no AVX/FMA)"
+  },
+  "jev_engine_identity": "src/arena, src/bv2n/contract, src/bv2n/data, scripts/nc_r_arena_rt.py and scripts/fair_public_jev.py are byte-identical (empty git diff) between the Jev re-play harness commit c938276ae9a37af3fd25166ef4c7fa60e14e2d9d and the M4 commit de5335e36cfd62a27158e37dd547cf45326fdec2"
+ },
+ "players": {
+  "v2": {
+   "label": "Nagi Burst V2",
+   "sub": "3.1M-param core + exact lookahead, SDK text path"
+  },
+  "v1": {
+   "label": "Nagi Burst V1",
+   "sub": "Nagi-ENORMOUS-Burst (27B), pinned eval records (PREREG_V2G §3)"
+  },
+  "jev": {
+   "label": "Jev",
+   "sub": "jev-1.13.0, vendor API, single-stream re-play (PREREG_V2G §3, descriptive)"
+  }
+ },
+ "claim_rule": {
+  "v2_vs_v1": "Gate A (PREREG_V2G §5.3): PASS iff the t lower 97.5% bound of W > 1/2 and the exact sign test p <= 0.025, per game.",
+  "jev": "Descriptive only (PREREG_V2G §3, §5.6, R3.15): Jev contrasts were preregistered as descriptive, on identical seeds, with no claim words. The gate-A numbers are shown for reference; they are not a claim."
+ },
+ "games": [
+  {
+   "game": "snake",
+   "label": "Snake Rush",
+   "metric": "survival time (s, capped at 60 s)",
+   "unit": "s",
+   "decimals": 2,
+   "rules_id": "snake_rush:rush-2:base:announced:L0",
+   "n": 24,
+   "seeds": "10–33",
+   "means": {
+    "v2": 50.65625,
+    "v1": 12.572916666666666,
+    "jev": 10.354166666666666
+   },
+   "ci95": {
+    "v2": [
+     45.37256690715566,
+     55.93993309284434
+    ],
+    "v1": [
+     9.815090818336474,
+     15.330742514996858
+    ],
+    "jev": [
+     7.838645926560162,
+     12.86968740677317
+    ]
+   },
+   "pairing_jev": "PAIRED",
+   "pairing_detail": {
+    "same_index_and_seed": 24,
+    "rules_id_equal": true,
+    "record_sha256_pinned": 24,
+    "replay_exact_local_image": 24,
+    "score_recomputed_equal": 24,
+    "prompts_regenerated": 966,
+    "prompt_mismatch": 0,
+    "replay_exact_in_venue": true
+   },
+   "jev_profile": {
+    "model": "jev-1.13.0",
+    "client_streams": 1,
+    "one_tick_share": 0.9958592132505176,
+    "latency_p50_ms": 171.991,
+    "latency_p95_ms": 210.502,
+    "nonok_replies": 0
+   },
+   "pairs": [
+    {
+     "n": 24,
+     "W": 1.0,
+     "W_ci95": [
+      1.0,
+      1.0
+     ],
+     "sd": 0.0,
+     "t_lb": 1.0,
+     "p": 5.960464477539063e-08,
+     "wins": 24,
+     "ties": 0,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": true,
+     "a": "v2",
+     "b": "v1",
+     "a_vs": "v1",
+     "claim": "gate A",
+     "result": "PASS"
+    },
+    {
+     "n": 24,
+     "W": 1.0,
+     "W_ci95": [
+      1.0,
+      1.0
+     ],
+     "sd": 0.0,
+     "t_lb": 1.0,
+     "p": 5.960464477539063e-08,
+     "wins": 24,
+     "ties": 0,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": true,
+     "a": "v2",
+     "b": "jev",
+     "a_vs": "jev",
+     "claim": "descriptive",
+     "result": null
+    },
+    {
+     "n": 24,
+     "W": 0.6875,
+     "W_ci95": [
+      0.49247337130562663,
+      0.8825266286943734
+     ],
+     "sd": 0.4618606038528339,
+     "t_lb": 0.49247337130562663,
+     "p": 0.04656982421875,
+     "wins": 16,
+     "ties": 1,
+     "losses": 7,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": false,
+     "a": "v1",
+     "b": "jev",
+     "a_vs": "jev",
+     "claim": "descriptive",
+     "result": null
+    }
+   ],
+   "per_seed": [
+    {
+     "index": 10,
+     "seed": 1729125481,
+     "v2": 60.0,
+     "v1": 19.5,
+     "jev": 6.5
+    },
+    {
+     "index": 11,
+     "seed": 532168729,
+     "v2": 36.5,
+     "v1": 9.5,
+     "jev": 8.5
+    },
+    {
+     "index": 12,
+     "seed": 957618623,
+     "v2": 44.75,
+     "v1": 5.5,
+     "jev": 19.0
+    },
+    {
+     "index": 13,
+     "seed": 206514868,
+     "v2": 60.0,
+     "v1": 3.0,
+     "jev": 10.0
+    },
+    {
+     "index": 14,
+     "seed": 626850533,
+     "v2": 59.75,
+     "v1": 4.0,
+     "jev": 3.0
+    },
+    {
+     "index": 15,
+     "seed": 1150166326,
+     "v2": 59.25,
+     "v1": 21.25,
+     "jev": 18.0
+    },
+    {
+     "index": 16,
+     "seed": 928849423,
+     "v2": 20.0,
+     "v1": 6.0,
+     "jev": 10.0
+    },
+    {
+     "index": 17,
+     "seed": 1115084172,
+     "v2": 54.5,
+     "v1": 13.0,
+     "jev": 11.5
+    },
+    {
+     "index": 18,
+     "seed": 1954269682,
+     "v2": 60.0,
+     "v1": 25.75,
+     "jev": 4.5
+    },
+    {
+     "index": 19,
+     "seed": 220883336,
+     "v2": 34.5,
+     "v1": 6.5,
+     "jev": 4.0
+    },
+    {
+     "index": 20,
+     "seed": 134963249,
+     "v2": 18.75,
+     "v1": 12.0,
+     "jev": 16.0
+    },
+    {
+     "index": 21,
+     "seed": 898002520,
+     "v2": 58.0,
+     "v1": 11.5,
+     "jev": 19.5
+    },
+    {
+     "index": 22,
+     "seed": 385912263,
+     "v2": 60.0,
+     "v1": 7.0,
+     "jev": 6.5
+    },
+    {
+     "index": 23,
+     "seed": 81718780,
+     "v2": 60.0,
+     "v1": 12.0,
+     "jev": 10.5
+    },
+    {
+     "index": 24,
+     "seed": 2125293014,
+     "v2": 52.5,
+     "v1": 18.5,
+     "jev": 7.0
+    },
+    {
+     "index": 25,
+     "seed": 791674996,
+     "v2": 51.5,
+     "v1": 9.5,
+     "jev": 6.5
+    },
+    {
+     "index": 26,
+     "seed": 2000442638,
+     "v2": 60.0,
+     "v1": 20.5,
+     "jev": 4.5
+    },
+    {
+     "index": 27,
+     "seed": 1638123596,
+     "v2": 46.0,
+     "v1": 6.0,
+     "jev": 12.5
+    },
+    {
+     "index": 28,
+     "seed": 1475788145,
+     "v2": 58.25,
+     "v1": 18.0,
+     "jev": 5.0
+    },
+    {
+     "index": 29,
+     "seed": 1851417534,
+     "v2": 60.0,
+     "v1": 11.5,
+     "jev": 25.0
+    },
+    {
+     "index": 30,
+     "seed": 140764203,
+     "v2": 39.5,
+     "v1": 25.25,
+     "jev": 17.0
+    },
+    {
+     "index": 31,
+     "seed": 780576269,
+     "v2": 60.0,
+     "v1": 11.5,
+     "jev": 11.5
+    },
+    {
+     "index": 32,
+     "seed": 1805007521,
+     "v2": 48.25,
+     "v1": 11.0,
+     "jev": 3.5
+    },
+    {
+     "index": 33,
+     "seed": 1783304786,
+     "v2": 53.75,
+     "v1": 13.5,
+     "jev": 8.5
+    }
+   ],
+   "replay": "https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2/replays/snake",
+   "video": null,
+   "poster": null
+  },
+  {
+   "game": "rotorwash_ramp",
+   "label": "Rotorwash-Ramp",
+   "metric": "K3-RR2.1 score Y",
+   "unit": "",
+   "decimals": 3,
+   "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+   "n": 24,
+   "seeds": "34–57",
+   "means": {
+    "v2": 1.0479166666666668,
+    "v1": 0.3509151777424368,
+    "jev": 0.24375
+   },
+   "ci95": {
+    "v2": [
+     1.0297873821602508,
+     1.0660459511730829
+    ],
+    "v1": [
+     0.2976156750425404,
+     0.4042146804423332
+    ],
+    "jev": [
+     0.19154400848416375,
+     0.29595599151583624
+    ]
+   },
+   "pairing_jev": "PAIRED",
+   "pairing_detail": {
+    "same_index_and_seed": 24,
+    "rules_id_equal": true,
+    "record_sha256_pinned": 24,
+    "replay_exact_local_image": 8,
+    "score_recomputed_equal": 24,
+    "prompts_regenerated": 1179,
+    "prompt_mismatch": 0,
+    "replay_exact_in_venue": true
+   },
+   "jev_profile": {
+    "model": "jev-1.13.0",
+    "client_streams": 1,
+    "one_tick_share": 0.49363867684478374,
+    "latency_p50_ms": 248.887,
+    "latency_p95_ms": 300.012,
+    "nonok_replies": 2
+   },
+   "pairs": [
+    {
+     "n": 24,
+     "W": 1.0,
+     "W_ci95": [
+      1.0,
+      1.0
+     ],
+     "sd": 0.0,
+     "t_lb": 1.0,
+     "p": 5.960464477539063e-08,
+     "wins": 24,
+     "ties": 0,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": true,
+     "a": "v2",
+     "b": "v1",
+     "a_vs": "v1",
+     "claim": "gate A",
+     "result": "PASS"
+    },
+    {
+     "n": 24,
+     "W": 1.0,
+     "W_ci95": [
+      1.0,
+      1.0
+     ],
+     "sd": 0.0,
+     "t_lb": 1.0,
+     "p": 5.960464477539063e-08,
+     "wins": 24,
+     "ties": 0,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": true,
+     "a": "v2",
+     "b": "jev",
+     "a_vs": "jev",
+     "claim": "descriptive",
+     "result": null
+    },
+    {
+     "n": 24,
+     "W": 0.6666666666666666,
+     "W_ci95": [
+      0.46332871687006694,
+      0.8700046164632663
+     ],
+     "sd": 0.48154341234307685,
+     "t_lb": 0.46332871687006694,
+     "p": 0.07579481601715088,
+     "wins": 16,
+     "ties": 0,
+     "losses": 8,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": false,
+     "a": "v1",
+     "b": "jev",
+     "a_vs": "jev",
+     "claim": "descriptive",
+     "result": null
+    }
+   ],
+   "per_seed": [
+    {
+     "index": 34,
+     "seed": 1573483930,
+     "v2": 1.05,
+     "v1": 0.1,
+     "jev": 0.3
+    },
+    {
+     "index": 35,
+     "seed": 1276506956,
+     "v2": 1.15,
+     "v1": 0.5,
+     "jev": 0.1
+    },
+    {
+     "index": 36,
+     "seed": 688035671,
+     "v2": 1.05,
+     "v1": 0.45,
+     "jev": 0.1
+    },
+    {
+     "index": 37,
+     "seed": 1829884556,
+     "v2": 1.0,
+     "v1": 0.5,
+     "jev": 0.35
+    },
+    {
+     "index": 38,
+     "seed": 134911655,
+     "v2": 1.0,
+     "v1": 0.45,
+     "jev": 0.2
+    },
+    {
+     "index": 39,
+     "seed": 1886341571,
+     "v2": 1.05,
+     "v1": 0.4,
+     "jev": 0.15
+    },
+    {
+     "index": 40,
+     "seed": 812869557,
+     "v2": 1.0,
+     "v1": 0.45,
+     "jev": 0.1
+    },
+    {
+     "index": 41,
+     "seed": 947752742,
+     "v2": 1.05,
+     "v1": 0.25,
+     "jev": 0.3
+    },
+    {
+     "index": 42,
+     "seed": 1812224925,
+     "v2": 1.1,
+     "v1": 0.25,
+     "jev": 0.4
+    },
+    {
+     "index": 43,
+     "seed": 1687470739,
+     "v2": 1.0,
+     "v1": 0.25,
+     "jev": 0.5
+    },
+    {
+     "index": 44,
+     "seed": 1181143952,
+     "v2": 1.05,
+     "v1": 0.3,
+     "jev": 0.25
+    },
+    {
+     "index": 45,
+     "seed": 1205738295,
+     "v2": 1.1,
+     "v1": 0.4,
+     "jev": 0.1
+    },
+    {
+     "index": 46,
+     "seed": 543573612,
+     "v2": 1.0,
+     "v1": 0.3,
+     "jev": 0.2
+    },
+    {
+     "index": 47,
+     "seed": 704075304,
+     "v2": 1.05,
+     "v1": 0.2,
+     "jev": 0.3
+    },
+    {
+     "index": 48,
+     "seed": 2026972281,
+     "v2": 1.05,
+     "v1": 0.3,
+     "jev": 0.15
+    },
+    {
+     "index": 49,
+     "seed": 433784576,
+     "v2": 1.1,
+     "v1": 0.5,
+     "jev": 0.3
+    },
+    {
+     "index": 50,
+     "seed": 1269055079,
+     "v2": 1.05,
+     "v1": 0.2,
+     "jev": 0.25
+    },
+    {
+     "index": 51,
+     "seed": 1513302480,
+     "v2": 1.05,
+     "v1": 0.25,
+     "jev": 0.5
+    },
+    {
+     "index": 52,
+     "seed": 932654653,
+     "v2": 1.1,
+     "v1": 0.5,
+     "jev": 0.15
+    },
+    {
+     "index": 53,
+     "seed": 193623682,
+     "v2": 1.05,
+     "v1": 0.6219642658184833,
+     "jev": 0.3
+    },
+    {
+     "index": 54,
+     "seed": 1025847886,
+     "v2": 1.0,
+     "v1": 0.35,
+     "jev": 0.1
+    },
+    {
+     "index": 55,
+     "seed": 206109221,
+     "v2": 1.0,
+     "v1": 0.25,
+     "jev": 0.4
+    },
+    {
+     "index": 56,
+     "seed": 1929627173,
+     "v2": 1.1,
+     "v1": 0.35,
+     "jev": 0.15
+    },
+    {
+     "index": 57,
+     "seed": 1257136617,
+     "v2": 1.0,
+     "v1": 0.3,
+     "jev": 0.2
+    }
+   ],
+   "replay": "https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2/replays/rotorwash_ramp",
+   "video": null,
+   "poster": null
+  },
+  {
+   "game": "booster_gauntlet",
+   "label": "Booster Gauntlet",
+   "metric": "K3 landing score Y (first hop)",
+   "unit": "",
+   "decimals": 3,
+   "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+   "n": 24,
+   "seeds": "34–57",
+   "means": {
+    "v2": 0.9583333333333334,
+    "v1": 0.0,
+    "jev": 0.0
+   },
+   "ci95": {
+    "v2": [
+     0.8721392662325397,
+     1.044527400434127
+    ],
+    "v1": [
+     0.0,
+     0.0
+    ],
+    "jev": [
+     0.0,
+     0.0
+    ]
+   },
+   "pairing_jev": "PAIRED",
+   "pairing_detail": {
+    "same_index_and_seed": 24,
+    "rules_id_equal": true,
+    "record_sha256_pinned": 24,
+    "replay_exact_local_image": 24,
+    "score_recomputed_equal": 24,
+    "prompts_regenerated": 1013,
+    "prompt_mismatch": 0,
+    "replay_exact_in_venue": true
+   },
+   "jev_profile": {
+    "model": "jev-1.13.0",
+    "client_streams": 1,
+    "one_tick_share": 0.9486673247778875,
+    "latency_p50_ms": 204.163,
+    "latency_p95_ms": 249.202,
+    "nonok_replies": 0
+   },
+   "pairs": [
+    {
+     "n": 24,
+     "W": 0.9791666666666666,
+     "W_ci95": [
+      0.9360696331162698,
+      1.0
+     ],
+     "sd": 0.10206207261596575,
+     "t_lb": 0.9360696331162698,
+     "p": 1.1920928955078125e-07,
+     "wins": 23,
+     "ties": 1,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": true,
+     "a": "v2",
+     "b": "v1",
+     "a_vs": "v1",
+     "claim": "gate A",
+     "result": "PASS"
+    },
+    {
+     "n": 24,
+     "W": 0.9791666666666666,
+     "W_ci95": [
+      0.9360696331162698,
+      1.0
+     ],
+     "sd": 0.10206207261596575,
+     "t_lb": 0.9360696331162698,
+     "p": 1.1920928955078125e-07,
+     "wins": 23,
+     "ties": 1,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": true,
+     "a": "v2",
+     "b": "jev",
+     "a_vs": "jev",
+     "claim": "descriptive",
+     "result": null
+    },
+    {
+     "n": 24,
+     "W": 0.5,
+     "W_ci95": [
+      0.5,
+      0.5
+     ],
+     "sd": 0.0,
+     "t_lb": 0.5,
+     "p": 1.0,
+     "wins": 0,
+     "ties": 24,
+     "losses": 0,
+     "dropped_per_shard": [
+      0,
+      0
+     ],
+     "gate_A_form": false,
+     "a": "v1",
+     "b": "jev",
+     "a_vs": "jev",
+     "claim": "descriptive",
+     "result": null
+    }
+   ],
+   "per_seed": [
+    {
+     "index": 34,
+     "seed": 1636330441,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 35,
+     "seed": 366125730,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 36,
+     "seed": 586983780,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 37,
+     "seed": 2116701015,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 38,
+     "seed": 1591650288,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 39,
+     "seed": 1648056398,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 40,
+     "seed": 933113555,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 41,
+     "seed": 359876553,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 42,
+     "seed": 963747841,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 43,
+     "seed": 1382794440,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 44,
+     "seed": 1800540133,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 45,
+     "seed": 755044608,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 46,
+     "seed": 1194435068,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 47,
+     "seed": 452817344,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 48,
+     "seed": 929521102,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 49,
+     "seed": 1003369363,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 50,
+     "seed": 5246151,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 51,
+     "seed": 1524652023,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 52,
+     "seed": 596673862,
+     "v2": 0.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 53,
+     "seed": 1592964193,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 54,
+     "seed": 1483049570,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 55,
+     "seed": 1758577711,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 56,
+     "seed": 928955108,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    },
+    {
+     "index": 57,
+     "seed": 387129241,
+     "v2": 1.0,
+     "v1": 0.0,
+     "jev": 0.0
+    }
+   ],
+   "replay": "https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2/replays/booster_gauntlet",
+   "video": null,
+   "poster": null,
+   "landings": {
+    "v2": 23,
+    "v1": 0,
+    "jev": 0
+   }
+  }
+ ],
+ "overall": {
+  "v2_vs_v1": {
+   "theta": 0.9930555555555555,
+   "se": 0.006944444444444444,
+   "df_ws": 23.0,
+   "lb97_5": 0.9786898777054232,
+   "wins": 71,
+   "ties": 1,
+   "losses": 0,
+   "n": 72
+  },
+  "v2_vs_jev": {
+   "theta": 0.9930555555555555,
+   "se": 0.006944444444444444,
+   "df_ws": 23.0,
+   "lb97_5": 0.9786898777054232,
+   "wins": 71,
+   "ties": 1,
+   "losses": 0,
+   "n": 72
+  },
+  "v1_vs_jev": {
+   "theta": 0.6180555555555555,
+   "se": 0.045399424625286074,
+   "df_ws": 45.92011529282934,
+   "lb97_5": 0.5266669632776854,
+   "wins": 32,
+   "ties": 25,
+   "losses": 15,
+   "n": 72
+  }
+ },
+ "notes": [
+  "Seen tasks: the V2 core was trained on these three Arena games. The eval seeds were sealed and played once.",
+  "Timing: V2 was played with the nominal 1-tick reply (the decision for tick t applies at t+1), justified by its measured latency gate L. The V1 and Jev numbers come from live realtime records, where a slow reply lands later.",
+  "Booster Gauntlet: V2 landed the first hop on 23/24 seeds; V1 on 0/24 and Jev on 0/24 (K3 = 0), so V1 vs Jev is all ties there. Board 1 below documents V1's Booster pattern: flying under control until the first hop's landing deadline, without landing.",
+  "Rotorwash-Ramp is a float64 engine. Re-checked here under Rosetta (no AVX/FMA), the Jev records recompute the recorded score on 24/24 seeds but replay state-hash-exactly on only 8/24. The recording job's own replay check on its x86-64 host passed on every seed. The release's V1 Rotorwash-Ramp check needed a real x86-64 CPU for the same reason.",
+  "Not comparable with the Board 1 leaderboard below: different seeds (the release's sealed eval seeds here, Board 1's screen seeds there), Rotorwash-Ramp and Booster Gauntlet are scored by their K3 scores here and by survival time there, and Jev here is the single-stream re-play."
+ ]
+}
