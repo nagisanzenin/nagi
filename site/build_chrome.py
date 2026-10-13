@@ -17,7 +17,7 @@ GH = "https://github.com/nagisanzenin/nagi"
 PAGES = [
     ("index.html", "", "bench", "home", [("Results", "#results"), ("Nagi tiers", "#tiers"), ("Method", "#method"), ("Reproduce", "#evidence")]),
     ("arena/index.html", "../", "arena", "arena", [("V2 · V1 · Jev", "#v2"), ("Leaderboard", "#results"), ("Confirmation", "#confirm"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
-    ("burst-v2/index.html", "../", "burst2", "burst2", [("Use it", "#use"), ("Gates", "#gates"), ("Research", "#research"), ("Arena", "#arena"), ("Limits", "#limits"), ("Receipts", "#receipts")]),
+    ("burst-v2/index.html", "../", "burst2", "burst2", [("How it works", "#how"), ("See it play", "#play"), ("Benchmarks", "#bench"), ("What we learned", "#learned"), ("Method", "#method"), ("Use it", "#use"), ("FAQ", "#faq")]),
     ("burst/index.html", "../", "burst", "burst", [("Problem", "#problem"), ("How it works", "#how"), ("Evidence", "#evidence"), ("Limitations", "#limits"), ("Reproduce", "#reproduce")]),
     ("arena-live/index.html", "../", "arena", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
     ("bomber-huge/index.html", "../", "arena", "legacy", []),

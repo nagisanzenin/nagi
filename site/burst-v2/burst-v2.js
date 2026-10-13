@@ -92,3 +92,22 @@
     .then(d => { if (d && d.schema === 'nagi-arena-v2-update-v1' && Array.isArray(d.games) && d.games.length) render(d); })
     .catch(() => {});
 })();
+
+// Hero loop: muted, lazy (no bytes until it is on screen), never starts when the reader prefers reduced motion.
+(function () {
+  const v = document.querySelector('.hero-loop video[data-src]');
+  if (!v) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  const start = () => {
+    if (v.getAttribute('src')) return;
+    v.muted = true;
+    v.setAttribute('src', v.getAttribute('data-src'));
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); } });
+    io.observe(v);
+  } else start();
+})();
