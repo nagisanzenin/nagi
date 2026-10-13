@@ -39,6 +39,8 @@ def core():
 
 def test_fixture_is_dev_only_and_large_enough():
     meta, rows = _load()
+    if burst2.CORE_SHA256 is not None:  # the golden file was made with the released core
+        assert meta["core_sha256"] == burst2.CORE_SHA256
     assert meta["n"] == len(rows) >= 2000
     assert sum(r["route"] == "zoo" for r in rows) >= 2000
     assert {r["route"] for r in rows} == {"zoo", "snake", "rr", "booster"}

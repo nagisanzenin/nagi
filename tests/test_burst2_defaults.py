@@ -34,6 +34,9 @@ def test_defaults_equal_the_frozen_candidate():
     assert burst2.FROZEN_DEFAULTS == {"max_sims": burst2.S_STAR, "k_max": burst2.K_MAX, "belief": "v1b",
                                       "tau": 0.6, "deterministic": True, "core_value": False}
     assert burst2.SNAKE_POLICY in ("sdk_pack", "core_head")
+    if cand.get("status") == "FROZEN":  # filled by scripts/burst2_fill_frozen.py from the FROZEN CANDIDATE.json
+        assert burst2.SNAKE_POLICY == cand["snake_policy"]
+        assert burst2.CORE_SHA256 == cand["core_weights_sha256"]
 
 
 def test_unpinned_build_refuses_to_download():
