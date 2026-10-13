@@ -55,13 +55,23 @@ FILES = {
     "api": "src/nagi/burst2/_api.py",
     "pyproject": "pyproject.toml",
 }
+# optional content modules next to this file (diagrams.py, research.py): FILES_ADD, register(b), blocks
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+MODULES = {}
+for _m in ("diagrams", "research"):
+    if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), _m + ".py")):
+        MODULES[_m] = __import__(_m)
+        FILES.update(getattr(MODULES[_m], "FILES_ADD", {}))
+
 # RESULT.json game keys -> arena_v2.json game ids (structural mapping, no numbers)
 GAMES = [("snake", "snake"), ("rotorwash", "rotorwash_ramp"), ("booster", "booster_gauntlet")]
 LAT_POPS = [("zoo_d", "Zoo-Unseen-D (unseen machines)"), ("snake", None), ("rr", None), ("booster", None)]
 STRATA = [("snake_like", "Snake-like"), ("booster_like", "Booster-like"), ("mixed", "Mixed"), ("rr_like", "Rotorwash-like")]
 # digits allowed in page text outside stamped content: names, not measurements
 ALLOW = [r"\bV[123](?:\.1)?\b", r"\bV2G\b", r"\bmz-1x?\b", r"\bp(?:50|95|99)\b", r"\b0[1-9] / ", r"\bC8\b",
-         r"\bG[123]\b", r"\bR[12]\b", r"\bv3\b", r"\bburst2\b", r"\bsha256\b", r"\bM2\b"]
+         r"\bG[123]\b", r"\bR[12]\b", r"\bv3\b", r"\bburst2\b", r"\bsha256\b", r"\bM2\b",
+         r"\bE[123]\b", r"\b1-tick\b", r"×\d\b", r"\b\d populations\b", r"\bV2\.1\b",
+         r"\b[\w.-]+\.(?:json|md|py|mp4|jpg|png)\b", r"\bM[1-5]\b"]
 
 
 def rel(k):
@@ -408,6 +418,9 @@ def build():
     req(R["release"]["path"] == "parser" and R["release"]["R"] == "FAIL", "path rule: expected R FAIL -> parser")
 
     clips(b, AR)
+    for mod in MODULES.values():
+        mod.register(b)
+    b.ctx = (R, A, AR)
     blocks(b, R, A, AR)
     return b
 
@@ -450,11 +463,14 @@ def clips(b, AR):
 
 
 # ---------- generated HTML blocks ----------
+_LINT = False  # True while blocks are rendered for the digit lint: every stamped value becomes a placeholder
+
+
 def V(b, k):
     if k not in b.values:
         raise SystemExit(f"block uses unknown key {k}")
     b.used.add(k)
-    return html.escape(b.values[k])
+    return "◊" if _LINT else html.escape(b.values[k])
 
 
 def badge(word):
@@ -464,7 +480,7 @@ def badge(word):
 
 def blocks(b, R, A, AR):
     v = lambda k: V(b, k)
-    vb = lambda k: (b.used.add(k), b.values[k])[1]  # raw (unescaped) value, marked as used
+    vb = lambda k: (b.used.add(k), "◊" if _LINT else b.values[k])[1]  # raw (unescaped) value, marked as used
     B = b.blocks
     B["hero-facts"] = (
         '<dl class="facts">'
@@ -581,10 +597,13 @@ def blocks(b, R, A, AR):
 
     srow = "".join(f'<tr{" class=\"me\"" if sk == "rr_like" else ""}><td>{lab}</td><td>{v(f"st_{sk}_G")}</td><td><b>{v(f"st_{sk}")}</b></td><td>{v(f"st_{sk}_dp")}</td></tr>'
                    for sk, lab in STRATA)
+    bars = "".join(
+        f'<li{" class=\"me\"" if sk == "rr_like" else ""}><span class="lab">{lab}<small>{v(f"st_{sk}_G")} families · Δ̂+ {v(f"st_{sk}_dp")}</small></span>'
+        f'<span class="bar" role="img" aria-label="{lab}: success {v(f"st_{sk}")}"><i style="width:{100 * float(b.sources[f"st_{sk}"]["raw"]):.1f}%"></i></span>'
+        f'<b>{v(f"st_{sk}")}</b></li>' for sk, lab in STRATA)
     B["strata"] = (
-        '<div class="tw"><table><caption>Zoo-Unseen-D by stratum (descriptive, no test)</caption><thead><tr><th scope="col">Stratum</th>'
-        '<th scope="col">Families</th><th scope="col">θ̂ (success)</th><th scope="col">Δ̂+ (core minus search only)</th></tr></thead><tbody>'
-        + srow + '</tbody></table></div>')
+        '<figure class="bars"><figcaption>Zoo-Unseen-D success θ̂ by stratum (descriptive, no test) · Δ̂+ = core minus the same search without it</figcaption>'
+        f'<ul>{bars}</ul></figure>')
 
     B["extras"] = (
         '<ul class="lims">'
@@ -592,6 +611,12 @@ def blocks(b, R, A, AR):
         f'<li><b class="k">Zoo-Unseen-C · descriptive</b>A second unseen set ({v("zc_G")} families / {v("zc_D")} domains): θ̂ {v("zc_theta")}; Δ̂+ {v("zc_dp")} (lower bound {v("zc_dp_lo")}). Learning is not shown there either.</li>'
         f'<li class="fail"><b class="k">Prose path · descriptive</b>With the frozen prose reader in front, G would be {v("prose_G")}: {v("prose_diff")} per family against the exact parser (lower bound {v("prose_diff_lo")}). That is why the reader moves to V2.1.</li>'
         '</ul>')
+
+    if "diagrams" in MODULES:
+        B["arch-decision"] = MODULES["diagrams"].svg_decision(v)
+        B["arch-core"] = MODULES["diagrams"].svg_core(v)
+    if "research" in MODULES:
+        B.update(MODULES["research"].blocks(v, vb))
 
     rec = [
         ("bench/burst_v2/README.md", "M5 report", "Every gate, claim, coverage table, budget and disclosure"),
@@ -664,6 +689,29 @@ def lint(page):
     return bad
 
 
+def lint_blocks(b):
+    """Render every block with each stamped value replaced by a placeholder; any digit left in the visible text
+    (outside pre/code and the allowlist) was typed by hand."""
+    global _LINT
+    keep, used = dict(b.blocks), set(b.used)
+    _LINT = True
+    try:
+        blocks(b, *b.ctx)
+        out = {}
+        for name, h in b.blocks.items():
+            t = re.sub(r"<(pre|code|style|script)\b.*?</\1>", " ", h, flags=re.S)
+            t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+            for a in ALLOW:
+                t = re.sub(a, "", t)
+            bad = [t[max(0, m.start() - 30):m.end() + 30].replace("\n", " ") for m in re.finditer(r"\d", t)]
+            if bad:
+                out[name] = bad
+        return out
+    finally:
+        _LINT = False
+        b.blocks, b.used = keep, used
+
+
 def data_json(b, used):
     out = {
         "schema": "nagi-burst-v2-page-v1",
@@ -685,6 +733,8 @@ def main():
     used |= b.used  # values referenced inside generated blocks
     dj = data_json(b, used)
     bad = lint(new_page)
+    for name, hits in lint_blocks(b).items():
+        bad += [f"[block {name}] …{x}…" for x in hits]
     if mode == "build":
         if b.errors:
             sys.exit("re-derivation failed:\n  " + "\n  ".join(b.errors))
