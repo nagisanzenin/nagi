@@ -27,7 +27,7 @@
   "bench/burst_v2/receipts/zoo_d_admission.json": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
   "docs/BURST_V2.md": "9102227d521c34013daf532df850be904438414a06503e27f95dff7da21a2e59",
   "pyproject.toml": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
-  "site/arena/v2.json": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
+  "site/arena/v2.json": "9620691ee02d5ab5b838ca45c5962ffb6d991f08cd8755dbd0bbaef88bf80206",
   "src/nagi/burst2/_api.py": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
   "src/nagi/burst2/_rt/machine_zoo/tokens.py": "99a18116e859ea44388a4ffc971f56c84bee0af8234bc7794ee92490107e35c9",
   "src/nagi/burst2/_rt/v2g/core/game_data.py": "527b2f50821f2aab6ff24632ae0756077882d5fec1ff88d78ab53e3a33118e60",
@@ -1434,25 +1434,25 @@
   },
   "rs_jev_l": {
    "file": "site/arena/v2.json",
-   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
+   "sha256": "9620691ee02d5ab5b838ca45c5962ffb6d991f08cd8755dbd0bbaef88bf80206",
    "key": "overall|v2_vs_jev|losses",
    "raw": 0
   },
   "rs_jev_n": {
    "file": "site/arena/v2.json",
-   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
+   "sha256": "9620691ee02d5ab5b838ca45c5962ffb6d991f08cd8755dbd0bbaef88bf80206",
    "key": "overall|v2_vs_jev|n",
    "raw": 72
   },
   "rs_jev_t": {
    "file": "site/arena/v2.json",
-   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
+   "sha256": "9620691ee02d5ab5b838ca45c5962ffb6d991f08cd8755dbd0bbaef88bf80206",
    "key": "overall|v2_vs_jev|ties",
    "raw": 1
   },
   "rs_jev_w": {
    "file": "site/arena/v2.json",
-   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
+   "sha256": "9620691ee02d5ab5b838ca45c5962ffb6d991f08cd8755dbd0bbaef88bf80206",
    "key": "overall|v2_vs_jev|wins",
    "raw": 71
   },

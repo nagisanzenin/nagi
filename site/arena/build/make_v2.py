@@ -157,7 +157,7 @@ def booster_note(games):
     g = next(x for x in games if x["game"] == "booster_gauntlet")
     L = g["landings"]
     return (f"Booster Gauntlet: V2 landed the first hop on {L['v2']}/{g['n']} seeds; V1 on {L['v1']}/{g['n']} and Jev on "
-            f"{L['jev']}/{g['n']} (K3 = 0), so V1 vs Jev is all ties there. Board 1 on the Game Arena page documents V1's Booster "
+            f"{L['jev']}/{g['n']} (K3 = 0), so V1 vs Jev is all ties there. Game Arena v3's Board 1 documents V1's Booster "
             "pattern: flying under control until the first hop's landing deadline, without landing.")
 
 

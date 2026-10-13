@@ -563,7 +563,7 @@ def blocks(b, R, A, AR):
         '<th scope="col">Lower bounds</th><th scope="col">Rule</th><th scope="col">Result</th></tr></thead><tbody>'
         + "".join(f'<tr><td><b>{g}</b></td><td class="l">{w}</td><td>{e}</td><td class="l">{lo}</td><td class="l">{r}</td><td>{badge(res.split(" ")[0])}{(" " + res.split(" ", 1)[1]) if " " in res else ""}</td></tr>'
                   for g, w, e, lo, r, res in rows)
-        + f'</tbody></table></div><p class="note">Decision: <b>{v("decision")}</b> on the {v("path")} path. Independent recount of every number: <b>{v("audit_verdict")}</b>.</p>')
+        + f'</tbody></table></div><p class="note">Decision: <b>{v("decision")}</b> on the {v("path")} path. In-house recount of every number by a separate agent: <b>{v("audit_verdict")}</b>.</p>')
 
     arow = []
     for rk, _ in GAMES:
