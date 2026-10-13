@@ -1,0 +1,7 @@
+{
+ "candidate_policy": "G100000b1b",
+ "file": "docs/burst_v2_general/lanes/runtime_search_config_v1b.json",
+ "sha256": "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b9179c8b94d",
+ "source": "research docs/burst_v2_general/CANDIDATE.json predeclared.search_config (status DRAFT at vendoring; replace from the FROZEN CANDIDATE)",
+ "tau": 0.6
+}

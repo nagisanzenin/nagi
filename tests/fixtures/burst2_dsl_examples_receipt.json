@@ -1,0 +1,371 @@
+{
+ "examples": [
+  {
+   "episode": {
+    "first_ticks": [
+     {
+      "choice": {
+       "throttle": "keep"
+      },
+      "state": {
+       "f": 9,
+       "h": 18,
+       "v": -2
+      },
+      "t": 0
+     },
+     {
+      "choice": {
+       "throttle": "keep"
+      },
+      "state": {
+       "f": 9,
+       "h": 15,
+       "v": -3
+      },
+      "t": 1
+     },
+     {
+      "choice": {
+       "throttle": "inc"
+      },
+      "state": {
+       "f": 9,
+       "h": 11,
+       "v": -4
+      },
+      "t": 2
+     },
+     {
+      "choice": {
+       "throttle": "inc"
+      },
+      "state": {
+       "f": 8,
+       "h": 8,
+       "v": -3
+      },
+      "t": 3
+     }
+    ],
+    "outcome": "success",
+    "return": 43.0,
+    "ticks": 7
+   },
+   "family": "opus:lander_soft_touchdown",
+   "first_choice": {
+    "throttle": "keep"
+   },
+   "first_ms": 7.7,
+   "first_probabilities": {
+    "throttle": {
+     "inc": 0.0,
+     "keep": 1.0
+    }
+   },
+   "first_state": {
+    "f": 9,
+    "h": 18,
+    "v": -2
+   },
+   "machine_id": "bd73b09f32bee094",
+   "params": {
+    "fuel": 9,
+    "safe_v": 1,
+    "start": 0,
+    "v_limit": 6
+   },
+   "text": "machine mz-1\nvars:\n  h in [0, 30], start {16, 18}, out of range: clamp\n  v in [-6, 3], start {-3, -2}, out of range: crash\n  f in [0, 9], start {9}, out of range: clamp\ncontrols:\n  @throttle: DEC none, KEEP 0, INC 1\nrandom $w: none\nrules (in order, each tick):\n  1. if all(f >= 1): v := v + 2*@throttle - 1\n  2. if all(f <= 0): v := v - 1\n  3. f := f - @throttle\n  4. h := h + v\ncrash if any holds:\n  1. all(h == 0, v < -1)\ngoal: all(h == 0, v >= -1)\n",
+   "text_equals_structured": true,
+   "train_source": "zoo/pools/split.json train_sets.ps_all rank 1"
+  },
+  {
+   "episode": {
+    "first_ticks": [
+     {
+      "choice": {
+       "engine": "inc"
+      },
+      "state": {
+       "f": 12,
+       "v": 4,
+       "x": 5
+      },
+      "t": 0
+     },
+     {
+      "choice": {
+       "engine": "keep"
+      },
+      "state": {
+       "f": 11,
+       "v": 4,
+       "x": 9
+      },
+      "t": 1
+     },
+     {
+      "choice": {
+       "engine": "keep"
+      },
+      "state": {
+       "f": 11,
+       "v": 3,
+       "x": 12
+      },
+      "t": 2
+     },
+     {
+      "choice": {
+       "engine": "keep"
+      },
+      "state": {
+       "f": 11,
+       "v": 2,
+       "x": 14
+      },
+      "t": 3
+     }
+    ],
+    "outcome": "success",
+    "return": 41.0,
+    "ticks": 9
+   },
+   "family": "opus:ship_berth_tide",
+   "first_choice": {
+    "engine": "inc"
+   },
+   "first_ms": 11.3,
+   "first_probabilities": {
+    "engine": {
+     "dec": 0.0,
+     "inc": 1.0,
+     "keep": 0.0
+    }
+   },
+   "first_state": {
+    "f": 12,
+    "v": 4,
+    "x": 5
+   },
+   "machine_id": "6540c4c6b835b763",
+   "params": {
+    "budget": 12,
+    "calm": 8,
+    "limit": 2,
+    "start": 1
+   },
+   "text": "machine mz-1\nvars:\n  x in [0, 24], start {3, 5}, out of range: clamp\n  v in [-1, 4], start {3, 4}, out of range: clamp\n  f in [0, 12], start {12}, out of range: clamp\ncontrols:\n  @engine: DEC -1, KEEP 0, INC 1\nrandom $w each tick:\n  -1 with probability 1/10\n  0 with probability 8/10\n  1 with probability 1/10\nrules (in order, each tick):\n  1. if all(@engine != 0, f >= 1): v := v + @engine\n  2. if any(@engine == 0, f <= 0): v := v - sgn(v)\n  3. f := f - abs(@engine)\n  4. v := v + $w\n  5. x := x + v\ncrash if any holds:\n  1. all(x >= 20, v >= 3)\ngoal: all(x >= 20, v <= 2)\n",
+   "text_equals_structured": true,
+   "train_source": "zoo/pools/split.json train_sets.ps_all rank 1"
+  },
+  {
+   "episode": {
+    "first_ticks": [
+     {
+      "choice": {
+       "acc": "inc"
+      },
+      "state": {
+       "dec": [
+        null,
+        {
+         "acc": "keep"
+        }
+       ],
+       "obs": [
+        null,
+        null,
+        {
+         "o": 0,
+         "v": 0,
+         "y": 1
+        }
+       ]
+      },
+      "t": 0
+     },
+     {
+      "choice": {
+       "acc": "inc"
+      },
+      "state": {
+       "dec": [
+        {
+         "acc": "keep"
+        },
+        {
+         "acc": "inc"
+        }
+       ],
+       "obs": [
+        null,
+        {
+         "o": 0,
+         "v": 0,
+         "y": 1
+        },
+        {
+         "o": 1,
+         "v": 0,
+         "y": 1
+        }
+       ]
+      },
+      "t": 1
+     },
+     {
+      "choice": {
+       "acc": "inc"
+      },
+      "state": {
+       "dec": [
+        {
+         "acc": "inc"
+        },
+        {
+         "acc": "inc"
+        }
+       ],
+       "obs": [
+        {
+         "o": 0,
+         "v": 0,
+         "y": 1
+        },
+        {
+         "o": 1,
+         "v": 0,
+         "y": 1
+        },
+        {
+         "o": 1,
+         "v": 1,
+         "y": 2
+        }
+       ]
+      },
+      "t": 2
+     },
+     {
+      "choice": {
+       "acc": "keep"
+      },
+      "state": {
+       "dec": [
+        {
+         "acc": "inc"
+        },
+        {
+         "acc": "inc"
+        }
+       ],
+       "obs": [
+        {
+         "o": 1,
+         "v": 0,
+         "y": 1
+        },
+        {
+         "o": 1,
+         "v": 1,
+         "y": 2
+        },
+        {
+         "o": 1,
+         "v": 2,
+         "y": 4
+        }
+       ]
+      },
+      "t": 3
+     }
+    ],
+    "outcome": "success",
+    "return": 41.0,
+    "ticks": 9
+   },
+   "family": "c:courier_stream_gap",
+   "first_choice": {
+    "acc": "inc"
+   },
+   "first_ms": 9.6,
+   "first_probabilities": {
+    "acc": {
+     "dec": 0.0,
+     "inc": 1.0,
+     "keep": 0.0
+    }
+   },
+   "first_state": {
+    "dec": [
+     null,
+     {
+      "acc": "keep"
+     }
+    ],
+    "obs": [
+     null,
+     null,
+     {
+      "o": 0,
+      "v": 0,
+      "y": 1
+     }
+    ]
+   },
+   "machine_id": "2d581aca3db4b521",
+   "params": {
+    "cycle": 0,
+    "delay": 1,
+    "kerb": 1,
+    "start": 0
+   },
+   "text": "machine mz-1\nvars:\n  y in [0, 18], start {0, 1}, out of range: clamp\n  v in [0, 2], start {0}, out of range: clamp\n  o in [0, 1], start {0}, out of range: clamp\n  ph in [-1, 5], start {0, 1, 2, 3, 4, 5}, out of range: clamp\ncontrols:\n  @acc: DEC -1, KEEP 0, INC 1\nrandom $w: none\nrules (in order, each tick):\n  1. if all(ph == 5): ph := -1\n  2. ph := ph + 1\n  3. o := 0\n  4. if all(ph <= 2): o := 1\n  5. v := v + @acc\n  6. y := y + v\ncrash if any holds:\n  1. all(y >= 9, y <= 11, o == 1)\ngoal: all(y >= 16)\nextension mz-1x:\n  reply delay: 1 tick (a command decided now is applied that many ticks later; KEEP is in flight at start)\n  hidden vars (never displayed): ph\n  history shown: last 3 displayed observations\n",
+   "text_equals_structured": true,
+   "train_source": "docs/burst_v2_next/zoo_split_v1.json c_train admission rank 1"
+  }
+ ],
+ "options": {
+  "belief": "v1b",
+  "core": "model.npz",
+  "max_sims": 100000,
+  "tau": 0.6
+ },
+ "quickstart": {
+  "canonical_text": "machine mz-1\nvars:\n  level in [0, 12], start {2, 3}, out of range: crash\n  valve in [0, 2], start {0}, out of range: clamp\ncontrols:\n  @pump: DEC none, KEEP 0, INC 1\n  @drain: DEC -1, KEEP 0, INC 1\nrandom $w each tick:\n  0 with probability 3/4\n  1 with probability 1/4\nrules (in order, each tick):\n  1. valve := valve + @drain\n  2. level := level - valve + 2*@pump + $w\ncrash if any holds:\n  1. all(level >= 12)\ngoal: all(level >= 8, level <= 9, valve == 0)\n",
+  "episodes": {
+   "n": 10,
+   "success": 10,
+   "ticks": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    3,
+    2,
+    3,
+    3,
+    3
+   ]
+  },
+  "first_choice": {
+   "drain": "dec",
+   "pump": "inc"
+  },
+  "first_probabilities": {
+   "drain": {
+    "dec": 0.46971195440063795,
+    "inc": 0.0,
+    "keep": 0.530288045599362
+   },
+   "pump": {
+    "inc": 1.0,
+    "keep": 0.0
+   }
+  },
+  "loose_text": "machine mz-1\nvars:\n  level in [0, 12], start {2, 3}, out of range: crash\n  valve in [0, 2], start {0}, out of range: clamp\ncontrols:\n  @pump: DEC none, KEEP 0, INC 1\n  @drain: DEC -1, KEEP 0, INC 1\nrandom $w each tick:\n  0 with probability 3/4\n  1 with probability 1/4\nrules (in order, each tick):\n  1. valve := @drain + valve\n  2. level := level + 2*@pump - valve + $w\ncrash if any holds:\n  1. level >= 12\ngoal: all(level >= 8, level <= 9, valve == 0)\n",
+  "strict_rejects_loose": true
+ }
+}

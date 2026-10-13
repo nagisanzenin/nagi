@@ -1,0 +1,44 @@
+{
+ "authority": "PREREG_V2G \u00a73 (scoring rule) and \u00a74.4 (one search config, S_AB fixed from search-only dev behaviour before any arm is scored); lanes/runtime.md \u00a72, \u00a74, \u00a75",
+ "booster": "no search pack: the core plays one-pass (lanes/runtime.md \u00a76)",
+ "frozen_at": "2026-10-12 18:35 +07",
+ "harness": "scripts/v2g/dev_eval.py run_task: G<S_AB>[k<k_max>] (core-gated) and N<S_AB>[k<k_max>] (search_only); populations P = v2g:T4|T4b --ab-pick 2, X = t4x (salt v2g-eval-t4x-v0), tertiary = v2g:T_reg --ab-pick 1",
+ "k_max_evidence": "as v0 (lanes/runtime.md \u00a77 item 2)",
+ "lane": "runtime (Burst V2 general)",
+ "note": "CANDIDATE search config (not the Phase-1 A/B, which is v0 = runtime_search_config.json): v0 + belief v1b, which passed its preregistered criteria (lanes/runtime.md \u00a75c)",
+ "rr": "no search pack: the core plays one-pass (lanes/runtime.md \u00a76)",
+ "runtime_commit": "186717a30049cce6a2a462d7b8255a33b9529bd6",
+ "s_ab_rule": "declared before the N50k/N100k/N200k quality data: the largest budget in {50k, 100k, 200k} whose p95 wall latency is <= 100 ms on scripts/v2g/latency.py (lat_v1: 25k 51, 50k 69, 100k 98, 200k 150, 300k 192 ms p95; 1 core, uncached, contended host) -> 100,000",
+ "snake": {
+  "k": 12,
+  "leaf": "full",
+  "max_sims": 20000,
+  "pack": "v2g.games.snake (lane hybrid Srand12full)",
+  "pick": "deterministic hash tie (the request carries the tick)"
+ },
+ "version": "v2g-search-config-v1b",
+ "zoo": {
+  "belief": "v1b",
+  "belief_enum_max": 200000,
+  "belief_search_max": 512,
+  "core_gate": "conf = core p_opt at the prior's pick inside A; open iff conf >= tau and supported",
+  "core_value": false,
+  "deadline_ms": 200.0,
+  "deadline_role": "serving cap only: reported as stats.over_deadline, never consulted",
+  "deterministic": true,
+  "entry": "v2g.operate.operate(request_bytes, options) / v2g.search.search(machine, view, ...)",
+  "gamma": 0.99,
+  "k_max": 40,
+  "max_layer": 3000000,
+  "max_sims": 100000,
+  "pick": "draw from the returned distribution with the episode policy stream (PREREG_V2G \u00a73): uniform over the exact tie set -> one integers(|A|) (support in increasing joint order); gated core prior inside A -> one random(), inverse CDF over the same order",
+  "preimage_frac": 0.8,
+  "rewards": [
+   -1.0,
+   -200.0,
+   49.0
+  ],
+  "tau_rule": "per arm: scripts/v2g/gate_calib.py --sets v2g:NI_opus at S_AB with the arm's final checkpoint; tau = gate_calib.tau_rule(by_tau): smallest tau in (0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.98) with precision >= 0.95 and family-t lift CI lower bound > 0, else 1.01 (off)",
+  "tie_tol": 1e-06
+ }
+}
