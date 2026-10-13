@@ -23,7 +23,7 @@ FROZEN_CONFIG_SHA256 = "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b91
 
 # ---------------------------------------------------------------- core weights (public repo; no credentials anywhere)
 BURST_V2_REPO = "nagisanzeninz/Nagi-Burst-V2"
-BURST_V2_REVISION = None    # TO FILL: the Hugging Face commit (40 hex) of the released weights
+BURST_V2_REVISION = "803cdcbb384c81c0a7411aa65fe058b933a4545b"
 CORE_SHA256 = "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624"  # FROZEN: CANDIDATE core_weights_sha256
 CORE_FILENAME = "model.npz"
 
