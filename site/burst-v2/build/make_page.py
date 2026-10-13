@@ -47,6 +47,7 @@ FILES = {
     "robot": REC + "robot_example.json",
     "page_media": REC + "page_media.json",
     "prereg_units": REC + "prereg_units.json",
+    "zoo_public": REC + "zoo_public.json",
     "videos": REC + "arena_v2_videos.json",
     "jev_snake": REC + "jev1s_snake.json",
     "jev_rr": REC + "jev1s_rr.json",
@@ -441,6 +442,11 @@ def build():
     put("zoo_cap", mE.group(2), "prereg_units", ptr="lines|294", raw=PU["lines"]["294"], regex=r"cap (\d+) ticks")
     b.rx("i_conf", "audit", r"rule-of-three (\d+%) bound")
     b.j("jev_model", "jev_snake", "jev_model_served", str)
+    ZP = jload("zoo_public")
+    req(ZP["step"] == "make_public" and ZP["private"] is False and ZP["anonymous_ok"] is True, "zoo_public.json: dataset not public")
+    b.j("zoo_repo", "zoo_public", "repo", str, ZP)
+    b.j("zoo_revision", "zoo_public", "revision", str, ZP)
+    put("zoo_revision_short", ZP["revision"][:8], "zoo_public", ptr="revision", raw=ZP["revision"], derived="first 8 hex")
     m27 = re.search(r"\((\d+B)\)", AR["players"][1]["sub"])
     put("v1_size", m27.group(1), "arena", ptr="players|1|sub", raw=AR["players"][1]["sub"], regex=r"\((\d+B)\)")
     for rk, gid in GAMES:
@@ -658,6 +664,16 @@ def blocks(b, R, A, AR):
             B[name] = ""
             if not _LINT:
                 b.errors.append(f"block {name}: content missing")
+
+    zrepo, zrev = vb("zoo_repo"), vb("zoo_revision")
+    B["zoo-data"] = (
+        '<h3>Open data: the Nagi Machine Zoo</h3>'
+        '<p>The machines, their prose, the exact-oracle labels and the opened Zoo-Unseen-D benchmark are public. '
+        f'V2 scores {v("g_theta")} on Zoo-Unseen-D, where an exact oracle reaches at least {v("rs_oracle_min")} on every machine. Can you close the gap?</p>'
+        '<div class="links">'
+        f'<a href="{HF}datasets/{html.escape(zrepo)}/tree/{html.escape(zrev)}"><b>Nagi Machine Zoo on Hugging Face ↗</b><span>Dataset {v("zoo_repo")} at revision <code>{v("zoo_revision_short")}</code>: train families, Zoo-Dev-L and the Zoo-Unseen-D benchmark with its leaderboard and scorer</span></a>'
+        f'<a href="{GH}/tree/main/tools/machine_zoo_factory"><b>Machine Zoo factory ↗</b><span>The open family gate, blind checker and job tools that built and admitted the machines</span></a>'
+        '</div>')
 
     rec = [
         ("bench/burst_v2/README.md", "M5 report", "Every gate, claim, coverage table, budget and disclosure"),

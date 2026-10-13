@@ -3,7 +3,7 @@
  "generated_by": "site/burst-v2/build/make_page.py",
  "note": "Every value shown on site/burst-v2/ with its source receipt. raw = the receipt value; values = the page text.",
  "receipts": {
-  "README.md": "3acddc355774161c41a5da93f12282f0d60ab736e14e352556fc4e1fd34b6bf0",
+  "README.md": "960087a41896385ad9a46f07e69c99ba14d11dc5907a8800cdd6e250cf407f08",
   "bench/burst_v2/MODEL_CARD.md": "fbbc21c4ecf531e7c2cda60bad331e91900d73d75ee5cec7b2724a3816a76d84",
   "bench/burst_v2/README.md": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
   "bench/burst_v2/RELATED_WORK.md": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
@@ -25,6 +25,7 @@
   "bench/burst_v2/receipts/robot_example.json": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
   "bench/burst_v2/receipts/timeline.json": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
   "bench/burst_v2/receipts/zoo_d_admission.json": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
+  "bench/burst_v2/receipts/zoo_public.json": "116d35f4ae92658fdab8b31e07223dd23dc5046033005699558789902aa9bab5",
   "docs/BURST_V2.md": "9102227d521c34013daf532df850be904438414a06503e27f95dff7da21a2e59",
   "pyproject.toml": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
   "site/arena/v2.json": "9620691ee02d5ab5b838ca45c5962ffb6d991f08cd8755dbd0bbaef88bf80206",
@@ -279,7 +280,10 @@
   "zc_dp_lo": "−0.013",
   "zc_theta": "0.893",
   "zoo_E": "16",
-  "zoo_cap": "100"
+  "zoo_cap": "100",
+  "zoo_repo": "nagisanzeninz/Nagi-Machine-Zoo",
+  "zoo_revision": "27e2c7c5f75bd40fb09a96c07c8f8f85cc713291",
+  "zoo_revision_short": "27e2c7c5"
  },
  "sources": {
   "a_booster_W": {
@@ -548,7 +552,7 @@
   },
   "block:quickstart": {
    "file": "README.md",
-   "sha256": "3acddc355774161c41a5da93f12282f0d60ab736e14e352556fc4e1fd34b6bf0",
+   "sha256": "960087a41896385ad9a46f07e69c99ba14d11dc5907a8800cdd6e250cf407f08",
    "regex": "first ```python block after '## Burst V2'"
   },
   "block:receipts": {
@@ -1840,6 +1844,25 @@
    "key": "lines|294",
    "regex": "cap (\\d+) ticks",
    "raw": "  - Machine m: success rate over E = 16 episodes, cap 100 ticks."
+  },
+  "zoo_repo": {
+   "file": "bench/burst_v2/receipts/zoo_public.json",
+   "sha256": "116d35f4ae92658fdab8b31e07223dd23dc5046033005699558789902aa9bab5",
+   "key": "repo",
+   "raw": "nagisanzeninz/Nagi-Machine-Zoo"
+  },
+  "zoo_revision": {
+   "file": "bench/burst_v2/receipts/zoo_public.json",
+   "sha256": "116d35f4ae92658fdab8b31e07223dd23dc5046033005699558789902aa9bab5",
+   "key": "revision",
+   "raw": "27e2c7c5f75bd40fb09a96c07c8f8f85cc713291"
+  },
+  "zoo_revision_short": {
+   "file": "bench/burst_v2/receipts/zoo_public.json",
+   "sha256": "116d35f4ae92658fdab8b31e07223dd23dc5046033005699558789902aa9bab5",
+   "key": "revision",
+   "derived": "first 8 hex",
+   "raw": "27e2c7c5f75bd40fb09a96c07c8f8f85cc713291"
   }
  },
  "unused_on_page": [
