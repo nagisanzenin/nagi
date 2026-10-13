@@ -40,6 +40,8 @@ def test_python_blocks_are_self_contained(relative, monkeypatch):
     monkeypatch.setattr(nagi, 'load_huge', lambda **kwargs: ExampleModel())
     monkeypatch.setattr(nagi, 'load_enormous', lambda **kwargs: ExampleModel())
     monkeypatch.setattr(nagi, 'load_enormous_burst', lambda **kwargs: ExampleModel())
+    monkeypatch.setattr(__import__('importlib').import_module('nagi.burst2'), 'load_core',
+                        lambda *a, **k: None)  # offline: search-only stand-in for the README example
     blocks = re.findall(r'```python\n(.*?)```', (ROOT / relative).read_text(), re.S)
     assert blocks
     for block in blocks:

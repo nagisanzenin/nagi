@@ -1,3 +1,27 @@
+# 0.7.0: Nagi Burst V2 (one frozen evaluation, M4)
+
+- **New: `nagi.burst2`.** It contains `operate()`, `operate_structured()` and `load_core()`.
+  - It makes typed decisions on machines written in the Nagi machine language (mz-1 / mz-1x).
+  - The parser is exact, the lookahead is exact, and a 3.10M-parameter learned core sits on top.
+  - It needs numpy only, runs on CPU, and is single-threaded.
+  - Core weights: [`nagisanzeninz/Nagi-Burst-V2`](https://huggingface.co/nagisanzeninz/Nagi-Burst-V2), pinned to revision `803cdcbb384c81c0a7411aa65fe058b933a4545b` and
+    sha256-checked on load.
+- **Defaults are the released configuration:** τ 0.6, belief v1b, 100,000 simulations, k_max 40.
+- **Release results** (preregistered gates, one look at sealed sets, independent recount MATCH):
+  - **Zoo-Unseen-D** (48 unseen families / 16 domains): success 0.854, with lower 97.5%
+    bounds 0.760 (family) and 0.706 (domain). On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set.
+  - **Arena vs Nagi Burst V1** (Nagi-ENORMOUS-Burst), 24 sealed seeds per game: Snake W 1.000, Rotorwash-Ramp W
+    1.000, Booster W 0.979 (23/24 landings; V1 0). These are seen tasks.
+  - **Latency** on Apple M2 (cpu-m2-1t), native arm64, 1 thread: upper bounds on the p95 are D 41.8 ms, Snake 50.8 ms, RR 0.5 ms and
+    Booster 0.7 ms.
+  - **Text path = structured path** on 7,506 requests.
+  - **Research claim:** We could not show that the learned core adds to the same lookahead on unseen machines: Δ̂+ = -0.003 (p_claim 1.000; Holm not rejected). We therefore do not claim that learning generalizes to unseen machines.
+- **Limitations.**
+  - Prose rulebooks are not supported: the reader is deferred to V2.1 (23/48 exact, below its gate).
+  - Latency is measured on the stated hardware only.
+  - Machines outside mz-1 / mz-1x are out of scope.
+- **Unchanged.** `load_smol`, `load_big`, `load_huge`, `load_enormous` and `load_enormous_burst` are unchanged.
+
 # 0.6.0 — Burst mode (Nagi-ENORMOUS Burst, 2026-09-27)
 
 - **Burst mode:** `system_one(state, questions, mode="burst")` answers every question (control) from ONE forward pass,

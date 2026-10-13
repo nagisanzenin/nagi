@@ -58,6 +58,45 @@ Question types: `choice` (pick a label), `score` (ordered levels), `noul` (proba
 
 [Install guide](docs/INSTALL.md) · [Recipes](docs/RECIPES.md) · [Calibration](docs/CALIBRATION.md) · [Burst](docs/BURST.md) · [ENORMOUS release](docs/ENORMOUS_RELEASE.md) · [HUGE release](docs/HUGE_RELEASE.md) · [Brand](docs/brand/brand-guideline.md)
 
+## Burst V2: fast decisions on machines you describe
+
+Nagi Burst V2 has a **3.10M-parameter core** plus **exact lookahead on your rules**. Write your machine in
+the Nagi machine language (mz-1) and get a typed choice with probabilities. Each decision takes under 200 ms on one
+CPU thread, with no GPU.
+
+```python
+from nagi.burst2 import load_core, operate
+
+RULES = """machine mz-1
+vars:
+  x in [0, 6], start {3}, out of range: clamp
+controls:
+  @m: DEC -1, KEEP 0, INC 1
+random $w: none
+rules (in order, each tick):
+  1. x := x + @m
+crash if any holds:
+  1. all(x <= -1)
+goal: all(x == 6)
+"""
+core = load_core()   # nagisanzeninz/Nagi-Burst-V2, pinned revision, sha256-checked
+out = operate(RULES, {"x": 3}, {"core": core, "session": "episode-1", "step": 0})
+print(out["choice"], out["probabilities"])   # {'m': 'inc'} {'m': {'dec': 0.0, 'keep': 0.0, 'inc': 1.0}}
+```
+
+Results from one frozen evaluation (sealed sets, independent recount: MATCH):
+
+| Gate | Result |
+|---|---|
+| Unseen machines (Zoo-Unseen-D, 48 families / 16 domains) | success 0.854 (lower bounds 0.760 / 0.706): PASS |
+| Arena vs Nagi Burst V1 (Nagi-ENORMOUS-Burst), 24 sealed seeds per game | Snake W 1.000 · Rotorwash-Ramp W 1.000 · Booster W 0.979 (23/24 landed): PASS / PASS / PASS |
+| p95 latency upper bound, Apple M2 (cpu-m2-1t), native arm64, 1 thread | D 41.8 ms · Snake 50.8 ms · RR 0.5 ms · Booster 0.7 ms: PASS |
+| Text path = structured path | 0 mismatches / 7,506: PASS |
+
+On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set. The Arena games were in training, so they are seen tasks. Prose rulebooks are not supported yet:
+the reader moves to V2.1. [Burst V2 guide](docs/BURST_V2.md) · [Model card](https://huggingface.co/nagisanzeninz/Nagi-Burst-V2) ·
+[Report](https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/README.md) · [Replays](https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/arena_v2.json)
+
 ## Burst
 
 **Burst** (`mode="burst"`, ENORMOUS Burst weights) answers several simultaneous controls, such as a gate and a pump in one game tick, in one forward pass instead of one pass per control.

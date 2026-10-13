@@ -1,0 +1,901 @@
+{
+ "meta": {
+  "title": "Nagi Burst V2 vs V1 on the frozen Arena seeds",
+  "split": "eval",
+  "seeds": {
+   "snake": "10–33",
+   "rotorwash_ramp": "34–57",
+   "booster_gauntlet": "34–57"
+  },
+  "tick_ms": 250,
+  "reply_profile": "nominal 1-tick (decision for boundary t applies at t+1)",
+  "platform": {
+   "snake": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "python": "3.11.12",
+    "numpy": "2.4.6",
+    "libc": "glibc-2.36",
+    "cpu_features": [
+     "SSE42"
+    ]
+   },
+   "rotorwash_ramp": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "python": "3.11.12",
+    "numpy": "2.4.6",
+    "libc": "glibc-2.36",
+    "cpu_features": [
+     "AVX",
+     "AVX2",
+     "FMA3",
+     "SSE42"
+    ]
+   },
+   "booster_gauntlet": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "python": "3.11.12",
+    "numpy": "2.4.6",
+    "libc": "glibc-2.36",
+    "cpu_features": [
+     "SSE42"
+    ]
+   }
+  },
+  "model_sha256": "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624",
+  "snake_policy": "sdk",
+  "generated_by": "scripts/v2g/arena_replay_pack.py",
+  "status": "frozen eval (M4)",
+  "source_sha256": {
+   "arena/arena.json": "aedaf6c2b754a5014f5dcb0f5a50b676babfe93018ada603405ede2ef884cc81",
+   "rr/arena.json": "d5954c4f7c6613309ac04d3e52d1713665191bad5084e876b9648f848a0aa231",
+   "RESULT.json": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "arena/v2g_snake.csv": "e729fec44796c16ac5ef0342753a625204dd67d04618c5df56c24fdef7b445db",
+   "arena/v1_snake.csv": "038027483188959d7192deb53c13ac2cf7c921d3a86626a118bf09c31e0c1d99",
+   "arena/episodes_snake.jsonl.gz": "759ef22503bb69f82a12e57f5bc2aeaf0cbfa1703bee000bb12e713e10943e33",
+   "rr/v2g_rr.csv": "9716fd09ec29dae58c5ffe86f3a372e8752fbe0064f49b9fc5ee715e93d173bc",
+   "rr/v1_rr.csv": "b73fb59104863aebc101b63862c602ead6f45f3c9ed7cc487ce1268296b09a17",
+   "rr/episodes_rr.jsonl.gz": "05d08d6952e9ac2bb30e4dd05cf70241d80a17ea8076bc464e44452270d7876d",
+   "arena/v2g_booster.csv": "649256ed1f2b6775441c5618c2bf0ec2744776e653849427c6fc3eadb40b9b03",
+   "arena/v1_booster.csv": "5ae227a93d94624fa1d18280ed499832a98d5e840f3cc8391512ea925f6a5f5f",
+   "arena/episodes_booster.jsonl.gz": "30e8db0860114769a40042c3482050274aa0ea3131dc8c5b400e131ef7e7b370"
+  }
+ },
+ "players": [
+  {
+   "label": "Nagi Burst V2",
+   "kind": "nagi",
+   "sub": "3.1M-param core + exact lookahead, SDK text path"
+  },
+  {
+   "label": "Nagi Burst V1",
+   "kind": "nagi",
+   "sub": "Nagi-ENORMOUS-Burst (27B), pinned eval records (PREREG_V2G §3)"
+  }
+ ],
+ "games": [
+  {
+   "id": "snake",
+   "name": "Snake Rush",
+   "engine": "snake",
+   "rules_id": "snake_rush:rush-2:base:announced:L0",
+   "metric": "survival_s (s, censored at 60 s)",
+   "policy": "v2g-sdk:snake",
+   "deterministic_replay_in_harness": true
+  },
+  {
+   "id": "rotorwash_ramp",
+   "name": "Rotorwash-Ramp",
+   "engine": "rotorwash_ramp_v31",
+   "rules_id": "rotorwash_ramp_v31:ramp2.1:base:announced:L1",
+   "metric": "K3-RR2.1 Y",
+   "policy": "v2g-multi:rr",
+   "deterministic_replay_in_harness": true
+  },
+  {
+   "id": "booster_gauntlet",
+   "name": "Booster Gauntlet",
+   "engine": "booster_gauntlet_v31",
+   "rules_id": "booster_gauntlet:g1.2:base:announced:L0:250ms",
+   "metric": "K3 Y (first hop)",
+   "policy": "v2g-multi:booster",
+   "deterministic_replay_in_harness": true
+  }
+ ],
+ "out_order": {
+  "snake": {
+   "10": [
+    [
+     19.5,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "11": [
+    [
+     9.5,
+     "Nagi Burst V1"
+    ],
+    [
+     36.5,
+     "Nagi Burst V2"
+    ]
+   ],
+   "12": [
+    [
+     5.5,
+     "Nagi Burst V1"
+    ],
+    [
+     44.75,
+     "Nagi Burst V2"
+    ]
+   ],
+   "13": [
+    [
+     3.0,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "14": [
+    [
+     4.0,
+     "Nagi Burst V1"
+    ],
+    [
+     59.75,
+     "Nagi Burst V2"
+    ]
+   ],
+   "15": [
+    [
+     21.25,
+     "Nagi Burst V1"
+    ],
+    [
+     59.25,
+     "Nagi Burst V2"
+    ]
+   ],
+   "16": [
+    [
+     6.0,
+     "Nagi Burst V1"
+    ],
+    [
+     20.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "17": [
+    [
+     13.0,
+     "Nagi Burst V1"
+    ],
+    [
+     54.5,
+     "Nagi Burst V2"
+    ]
+   ],
+   "18": [
+    [
+     25.75,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "19": [
+    [
+     6.5,
+     "Nagi Burst V1"
+    ],
+    [
+     34.5,
+     "Nagi Burst V2"
+    ]
+   ],
+   "20": [
+    [
+     12.0,
+     "Nagi Burst V1"
+    ],
+    [
+     18.75,
+     "Nagi Burst V2"
+    ]
+   ],
+   "21": [
+    [
+     11.5,
+     "Nagi Burst V1"
+    ],
+    [
+     58.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "22": [
+    [
+     7.0,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "23": [
+    [
+     12.0,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "24": [
+    [
+     18.5,
+     "Nagi Burst V1"
+    ],
+    [
+     52.5,
+     "Nagi Burst V2"
+    ]
+   ],
+   "25": [
+    [
+     9.5,
+     "Nagi Burst V1"
+    ],
+    [
+     51.5,
+     "Nagi Burst V2"
+    ]
+   ],
+   "26": [
+    [
+     20.5,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "27": [
+    [
+     6.0,
+     "Nagi Burst V1"
+    ],
+    [
+     46.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "28": [
+    [
+     18.0,
+     "Nagi Burst V1"
+    ],
+    [
+     58.25,
+     "Nagi Burst V2"
+    ]
+   ],
+   "29": [
+    [
+     11.5,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "30": [
+    [
+     25.25,
+     "Nagi Burst V1"
+    ],
+    [
+     39.5,
+     "Nagi Burst V2"
+    ]
+   ],
+   "31": [
+    [
+     11.5,
+     "Nagi Burst V1"
+    ],
+    [
+     60.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "32": [
+    [
+     11.0,
+     "Nagi Burst V1"
+    ],
+    [
+     48.25,
+     "Nagi Burst V2"
+    ]
+   ],
+   "33": [
+    [
+     13.5,
+     "Nagi Burst V1"
+    ],
+    [
+     53.75,
+     "Nagi Burst V2"
+    ]
+   ]
+  },
+  "rotorwash_ramp": {
+   "34": [
+    [
+     0.1,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "35": [
+    [
+     0.5,
+     "Nagi Burst V1"
+    ],
+    [
+     1.15,
+     "Nagi Burst V2"
+    ]
+   ],
+   "36": [
+    [
+     0.45,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "37": [
+    [
+     0.5,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "38": [
+    [
+     0.45,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "39": [
+    [
+     0.4,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "40": [
+    [
+     0.45,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "41": [
+    [
+     0.25,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "42": [
+    [
+     0.25,
+     "Nagi Burst V1"
+    ],
+    [
+     1.1,
+     "Nagi Burst V2"
+    ]
+   ],
+   "43": [
+    [
+     0.25,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "44": [
+    [
+     0.3,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "45": [
+    [
+     0.4,
+     "Nagi Burst V1"
+    ],
+    [
+     1.1,
+     "Nagi Burst V2"
+    ]
+   ],
+   "46": [
+    [
+     0.3,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "47": [
+    [
+     0.2,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "48": [
+    [
+     0.3,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "49": [
+    [
+     0.5,
+     "Nagi Burst V1"
+    ],
+    [
+     1.1,
+     "Nagi Burst V2"
+    ]
+   ],
+   "50": [
+    [
+     0.2,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "51": [
+    [
+     0.25,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "52": [
+    [
+     0.5,
+     "Nagi Burst V1"
+    ],
+    [
+     1.1,
+     "Nagi Burst V2"
+    ]
+   ],
+   "53": [
+    [
+     0.6219642658184833,
+     "Nagi Burst V1"
+    ],
+    [
+     1.05,
+     "Nagi Burst V2"
+    ]
+   ],
+   "54": [
+    [
+     0.35,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "55": [
+    [
+     0.25,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "56": [
+    [
+     0.35,
+     "Nagi Burst V1"
+    ],
+    [
+     1.1,
+     "Nagi Burst V2"
+    ]
+   ],
+   "57": [
+    [
+     0.3,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ]
+  },
+  "booster_gauntlet": {
+   "34": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "35": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "36": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "37": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "38": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "39": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "40": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "41": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "42": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "43": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "44": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "45": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "46": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "47": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "48": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "49": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "50": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "51": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "52": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     0.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "53": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "54": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "55": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "56": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ],
+   "57": [
+    [
+     0.0,
+     "Nagi Burst V1"
+    ],
+    [
+     1.0,
+     "Nagi Burst V2"
+    ]
+   ]
+  }
+ },
+ "gate_A": {
+  "snake": {
+   "source": "RESULT.json",
+   "status": "OK",
+   "n": 24,
+   "W": 1.0,
+   "wins": 24,
+   "ties": 0,
+   "losses": 0,
+   "t_lower": 1.0,
+   "signflip_p": 5.960464477539063e-08,
+   "mean_v2g": 50.65625,
+   "mean_v1": 12.572916666666666,
+   "pass": true,
+   "dropped_per_shard": [
+    0,
+    0
+   ],
+   "rule": "PASS iff t_{n-1} lower 97.5% bound of W > 1/2 and exact sign-flip p <= 0.025 (PREREG_V2G §5.3)"
+  },
+  "rotorwash_ramp": {
+   "source": "RESULT.json",
+   "status": "OK",
+   "n": 24,
+   "W": 1.0,
+   "wins": 24,
+   "ties": 0,
+   "losses": 0,
+   "t_lower": 1.0,
+   "signflip_p": 5.960464477539063e-08,
+   "mean_v2g": 1.0479166666666666,
+   "mean_v1": 0.35091517774243686,
+   "pass": true,
+   "dropped_per_shard": [
+    0,
+    0
+   ],
+   "rule": "PASS iff t_{n-1} lower 97.5% bound of W > 1/2 and exact sign-flip p <= 0.025 (PREREG_V2G §5.3)"
+  },
+  "booster_gauntlet": {
+   "source": "RESULT.json",
+   "status": "OK",
+   "n": 24,
+   "W": 0.9791666666666666,
+   "wins": 23,
+   "ties": 1,
+   "losses": 0,
+   "t_lower": 0.9360696331162698,
+   "signflip_p": 1.1920928955078125e-07,
+   "mean_v2g": 0.9583333333333334,
+   "mean_v1": 0.0,
+   "pass": true,
+   "landings_v2g": 23,
+   "v1_all_zero": true,
+   "dropped_per_shard": [
+    0,
+    0
+   ],
+   "rule": "PASS iff t_{n-1} lower 97.5% bound of W > 1/2 and exact sign-flip p <= 0.025 (PREREG_V2G §5.3)"
+  }
+ },
+ "replay": {
+  "exact": 72,
+  "replayed": 72,
+  "ok": true
+ }
+}

@@ -1,0 +1,34 @@
+{
+ "exact": 72,
+ "failures": [],
+ "ok": true,
+ "replayed": 72,
+ "games": {
+  "snake": {
+   "source": "harness",
+   "replayed": 24,
+   "exact": 24,
+   "failures": []
+  },
+  "rotorwash_ramp": {
+   "source": "harness",
+   "replayed": 24,
+   "exact": 24,
+   "failures": []
+  },
+  "booster_gauntlet": {
+   "source": "harness",
+   "replayed": 24,
+   "exact": 24,
+   "failures": []
+  }
+ },
+ "platform": {
+  "system": "Darwin",
+  "machine": "arm64",
+  "python": "3.14.4",
+  "numpy": "2.5.3",
+  "libc": "-"
+ },
+ "engine_checked": true
+}

@@ -1,0 +1,528 @@
+{
+ "prereg": "docs/burst_v2_general/PREREG_V2G.md",
+ "alpha": 0.025,
+ "zoo_d": {
+  "status": "OK",
+  "admission": {
+   "G": 48,
+   "D": 16,
+   "domains_with_ge2": 16,
+   "over_cap": {},
+   "ok": true,
+   "per_domain": {
+    "avalanche_control": 3,
+    "bobsled_run": 3,
+    "cargo_airdrop": 3,
+    "curling_stone_sweep": 3,
+    "cyclotron_beam_tuning": 3,
+    "goalkeeper_robot": 3,
+    "hydrofoil_craft": 3,
+    "icebreaker_convoy": 3,
+    "kite_power_station": 3,
+    "maglev_levitation": 3,
+    "oil_well_drilling": 3,
+    "pile_driver_rig": 3,
+    "quarry_blast_sequencer": 3,
+    "radio_telescope_slew": 3,
+    "rail_hump_yard": 3,
+    "tower_bell_ringing": 3
+   }
+  },
+  "gate_G": {
+   "estimate": 0.8541666666666666,
+   "family": {
+    "n": 48,
+    "mean": 0.8541666666666666,
+    "sd": 0.3231132151780472,
+    "se": 0.04663737544044276,
+    "df": 47,
+    "lower": 0.7603443690391024,
+    "upper": 0.9479889642942309,
+    "p": 3.7424621385397075e-13
+   },
+   "domain": {
+    "D": 16,
+    "G": 48,
+    "mean": 0.8541666666666666,
+    "se": 0.0694813270112247,
+    "df": 15,
+    "lower": 0.7060707237837016,
+    "upper": 1.0022626095496316,
+    "p": 4.7072165638612585e-06,
+    "descriptive_only": false
+   },
+   "icc_domain": 0.5822845752318528,
+   "lodo_min": 0.8444444444444444,
+   "lodo_argmin": "bobsled_run",
+   "G1_point_ge_floor": true,
+   "G2_bounds_gt_guard": true,
+   "G3_lodo_ge_floor": true,
+   "pass": true
+  },
+  "claims": {
+   "G+": {
+    "estimate": -0.0032552083333333335,
+    "family": {
+     "n": 48,
+     "mean": -0.0032552083333333335,
+     "sd": 0.02062800523452701,
+     "se": 0.002977396093749795,
+     "df": 47,
+     "lower": -0.009244956680550543,
+     "upper": 0.002734540013883876,
+     "p": 0.8600844565358684
+    },
+    "domain": {
+     "D": 16,
+     "G": 48,
+     "mean": -0.0032552083333333335,
+     "se": 0.003648157741177578,
+     "df": 15,
+     "lower": -0.01103107249289666,
+     "upper": 0.004520655826229994,
+     "p": 0.8068353852297405,
+     "descriptive_only": false
+    },
+    "signflip_p": 0.905360473197634,
+    "lodo_min": -0.004861111111111111,
+    "lodo_ok": false,
+    "p_claim": 1.0
+   },
+   "NS": {
+    "estimate": 0.8541666666666666,
+    "family": {
+     "n": 48,
+     "mean": 0.8541666666666666,
+     "sd": 0.3231132151780472,
+     "se": 0.04663737544044276,
+     "df": 47,
+     "lower": 0.7603443690391024,
+     "upper": 0.9479889642942309,
+     "p": 9.056977367412568e-07
+    },
+    "domain": {
+     "D": 16,
+     "G": 48,
+     "mean": 0.8541666666666666,
+     "se": 0.0694813270112247,
+     "df": 15,
+     "lower": 0.7060707237837016,
+     "upper": 1.0022626095496316,
+     "p": 0.0011655165601335662,
+     "descriptive_only": false
+    },
+    "signflip_p": 1.4999925000374999e-05,
+    "lodo_min": 0.8444444444444444,
+    "lodo_ok": true,
+    "p_claim": 0.0011655165601335662
+   }
+  },
+  "holm": {
+   "NS": {
+    "p": 0.0011655165601335662,
+    "level": 0.0125,
+    "reject": true,
+    "rank": 1,
+    "bounds_at_step": {
+     "family_lower": 0.7461782916775855,
+     "domain_lower": 0.681166520770569
+    }
+   },
+   "G+": {
+    "p": 1.0,
+    "level": 0.025,
+    "reject": false,
+    "rank": 2,
+    "bounds_at_step": {
+     "family_lower": -0.009244956680550543,
+     "domain_lower": -0.01103107249289666
+    }
+   }
+  },
+  "icc_domain_d": 0.24290220820189284,
+  "n_invalid_machines": 0,
+  "per_domain": {
+   "avalanche_control": {
+    "families": 3,
+    "candidate": 0.3333333333333333,
+    "search_only": 0.3333333333333333
+   },
+   "bobsled_run": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "cargo_airdrop": {
+    "families": 3,
+    "candidate": 0.14583333333333334,
+    "search_only": 0.14583333333333334
+   },
+   "curling_stone_sweep": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "cyclotron_beam_tuning": {
+    "families": 3,
+    "candidate": 0.9791666666666666,
+    "search_only": 0.9791666666666666
+   },
+   "goalkeeper_robot": {
+    "families": 3,
+    "candidate": 0.9895833333333334,
+    "search_only": 1.0
+   },
+   "hydrofoil_craft": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "icebreaker_convoy": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "kite_power_station": {
+    "families": 3,
+    "candidate": 0.9791666666666666,
+    "search_only": 0.9791666666666666
+   },
+   "maglev_levitation": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "oil_well_drilling": {
+    "families": 3,
+    "candidate": 0.9479166666666666,
+    "search_only": 0.9270833333333334
+   },
+   "pile_driver_rig": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "quarry_blast_sequencer": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "radio_telescope_slew": {
+    "families": 3,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "rail_hump_yard": {
+    "families": 3,
+    "candidate": 0.4583333333333333,
+    "search_only": 0.5104166666666666
+   },
+   "tower_bell_ringing": {
+    "families": 3,
+    "candidate": 0.8333333333333334,
+    "search_only": 0.84375
+   }
+  }
+ },
+ "coverage_d": {
+  "decisions": 46966,
+  "machines": 96,
+  "reach_min_p25_median_p75_max": [
+   72.0,
+   380.5,
+   922.5,
+   2237.75,
+   25921.0
+  ],
+  "share_reach_le_1000": 0.5208333333333334,
+  "share_reach_le_20000": 0.9583333333333334,
+  "share_decisions_exhausted": 0.24932930204829026,
+  "share_decisions_high_coverage": 0.4827108972448154,
+  "low_coverage_machines": [
+   "156c955ebc7f858e",
+   "165ef967fcb11c8e",
+   "1c10d0361c5c96f0",
+   "255da15bacc52eb2",
+   "26ffa56286c782dd",
+   "33558f58fc0deede",
+   "45ae2939178ec5b6",
+   "47f75c82d90f6dd2",
+   "484d08f093ec2686",
+   "4953c968dd525359",
+   "4a194c7d99b30f94",
+   "5a44e4d7ef98f2d6",
+   "7175cfd98537ae7a",
+   "76c19aa39ec7e951",
+   "7c7809697f867511",
+   "8602c653785f8d10",
+   "8d51b908aa6accee",
+   "8e670d00f3fd1497",
+   "96cd224a25f391cb",
+   "af4b068b76e35266",
+   "c37722e45c4c1c9d",
+   "cf57b55f1e9b48c2",
+   "d655166fa2a05b4f",
+   "e640e0b0d524b83a",
+   "f9034ae42e686019",
+   "fbe6d21b0ab7104e"
+  ],
+  "large_machines_policy_free": []
+ },
+ "low_coverage_d": {
+  "G": 14,
+  "D": 9,
+  "theta_hat": 0.7299107142857143,
+  "NS_vs_0.60": {
+   "family": {
+    "n": 14,
+    "mean": 0.7299107142857143,
+    "sd": 0.42364871840611396,
+    "se": 0.11322488261582499,
+    "df": 13,
+    "lower": 0.4853032267508072,
+    "upper": 0.9745182018206213,
+    "p": 0.13595353578988756
+   },
+   "domain": {
+    "D": 9,
+    "G": 14,
+    "mean": 0.7299107142857143,
+    "se": 0.14372331151052103,
+    "df": 8,
+    "lower": 0.39848416361721634,
+    "upper": 1.0613372649542123,
+    "p": 0.19622809349778217,
+    "descriptive_only": false
+   }
+  },
+  "Gplus": {
+   "family": {
+    "n": 14,
+    "mean": -0.006696428571428571,
+    "sd": 0.03713478290832399,
+    "se": 0.009924688198226941,
+    "df": 13,
+    "lower": -0.02813741388004423,
+    "upper": 0.014744556737187085,
+    "p": 0.7441636864903776
+   },
+   "domain": {
+    "D": 9,
+    "G": 14,
+    "mean": -0.006696428571428571,
+    "se": 0.011950731264651453,
+    "df": 8,
+    "lower": -0.03425486428642853,
+    "upper": 0.02086200714357139,
+    "p": 0.7047039292977386,
+    "descriptive_only": false
+   }
+  }
+ },
+ "large_machines_d": {
+  "G": 0,
+  "descriptive_only": true
+ },
+ "gate_R": {
+  "status": "OK",
+  "G": 48,
+  "exact_families": 23,
+  "failing_families": 25,
+  "pi_hat": 0.4791666666666667,
+  "cp_lower_97_5": 0.33286633621366873,
+  "machine_rate": 0.4895833333333333,
+  "missing_families": [],
+  "failures_by_domain": {
+   "avalanche_control": 2,
+   "bobsled_run": 3,
+   "cargo_airdrop": 2,
+   "curling_stone_sweep": 2,
+   "cyclotron_beam_tuning": 2,
+   "goalkeeper_robot": 1,
+   "hydrofoil_craft": 1,
+   "icebreaker_convoy": 3,
+   "kite_power_station": 1,
+   "maglev_levitation": 1,
+   "oil_well_drilling": 1,
+   "pile_driver_rig": 1,
+   "quarry_blast_sequencer": 2,
+   "rail_hump_yard": 2,
+   "tower_bell_ringing": 1
+  },
+  "R1_point_ge_0.95": false,
+  "R2_cp_gt_0.85": false,
+  "pass": false
+ },
+ "arena": {
+  "snake": {
+   "game": "snake",
+   "status": "OK",
+   "n": 24,
+   "dropped_per_shard": [
+    0,
+    0
+   ],
+   "W": 1.0,
+   "wins": 24,
+   "ties": 0,
+   "losses": 0,
+   "t_lower": 1.0,
+   "signflip_p": 5.960464477539063e-08,
+   "mean_v2g": 50.65625,
+   "mean_v1": 12.572916666666666,
+   "pass": true
+  },
+  "rotorwash": {
+   "game": "rotorwash",
+   "status": "OK",
+   "n": 24,
+   "dropped_per_shard": [
+    0,
+    0
+   ],
+   "W": 1.0,
+   "wins": 24,
+   "ties": 0,
+   "losses": 0,
+   "t_lower": 1.0,
+   "signflip_p": 5.960464477539063e-08,
+   "mean_v2g": 1.0479166666666666,
+   "mean_v1": 0.35091517774243686,
+   "pass": true
+  },
+  "booster": {
+   "game": "booster",
+   "status": "OK",
+   "n": 24,
+   "dropped_per_shard": [
+    0,
+    0
+   ],
+   "W": 0.9791666666666666,
+   "wins": 23,
+   "ties": 1,
+   "losses": 0,
+   "t_lower": 0.9360696331162698,
+   "signflip_p": 1.1920928955078125e-07,
+   "mean_v2g": 0.9583333333333334,
+   "mean_v1": 0.0,
+   "pass": true,
+   "landings_v2g": 23,
+   "v1_all_zero": true
+  }
+ },
+ "latency": {
+  "populations": {
+   "booster": {
+    "n": 1506,
+    "u": 1445,
+    "p95_ucb_ms": 0.6701250094920397,
+    "p50_ms": 0.5103125004097819,
+    "p95_ms": 0.6425105093512684,
+    "p99_ms": 0.7781208667438477,
+    "max_ms": 1.1927500017918646,
+    "share_gt_200": 0.0,
+    "share_gt_250": 0.0,
+    "sims_mean": NaN,
+    "sims_p5": NaN,
+    "sims_p50": NaN,
+    "same_decision_share": NaN,
+    "consecutive_same_machine": 71,
+    "pass": true
+   },
+   "rr": {
+    "n": 2000,
+    "u": 1917,
+    "p95_ucb_ms": 0.49229100113734603,
+    "p50_ms": 0.3742704866454005,
+    "p95_ms": 0.4739041207358241,
+    "p99_ms": 0.620483198435977,
+    "max_ms": 0.7928750128485262,
+    "share_gt_200": 0.0,
+    "share_gt_250": 0.0,
+    "sims_mean": NaN,
+    "sims_p5": NaN,
+    "sims_p50": NaN,
+    "same_decision_share": NaN,
+    "consecutive_same_machine": 79,
+    "pass": true
+   },
+   "snake": {
+    "n": 2000,
+    "u": 1917,
+    "p95_ucb_ms": 50.808917032554746,
+    "p50_ms": 0.7704164599999785,
+    "p95_ms": 38.003499983460635,
+    "p99_ms": 194.59114012424834,
+    "max_ms": 284.9533749977127,
+    "share_gt_200": 0.008,
+    "share_gt_250": 0.0005,
+    "sims_mean": NaN,
+    "sims_p5": NaN,
+    "sims_p50": NaN,
+    "same_decision_share": NaN,
+    "consecutive_same_machine": 77,
+    "pass": true
+   },
+   "zoo_d": {
+    "n": 2000,
+    "u": 1917,
+    "p95_ucb_ms": 41.78479197435081,
+    "p50_ms": 9.617478994186968,
+    "p95_ms": 41.08994617708959,
+    "p99_ms": 44.469695533043705,
+    "max_ms": 48.23433299316093,
+    "share_gt_200": 0.0,
+    "share_gt_250": 0.0,
+    "sims_mean": 33574.036,
+    "sims_p5": 72.0,
+    "sims_p50": 9967.0,
+    "same_decision_share": 1.0,
+    "consecutive_same_machine": 32,
+    "pass": true
+   }
+  },
+  "pass": true,
+  "invalid_reasons": []
+ },
+ "interface": {
+  "n": 7506,
+  "mismatches": 0,
+  "roundtrip_failures": 0,
+  "by_population": {
+   "booster": 1506,
+   "rr": 2000,
+   "snake": 2000,
+   "zoo_d": 2000
+  },
+  "mismatch_rate_ucb95": 0.0003996802557953637,
+  "pass": true
+ },
+ "release": {
+  "gates": {
+   "A_snake": "PASS",
+   "A_rotorwash": "PASS",
+   "A_booster": "PASS",
+   "L": "PASS",
+   "I": "PASS",
+   "G": "PASS"
+  },
+  "decision": "RELEASE",
+  "path": "parser",
+  "R": "FAIL",
+  "G_other_path_descriptive": "PENDING"
+ },
+ "identity": {
+  "git_head": "220c99e9d3a3a878aa3c055536365b4ae701318b",
+  "analysis_sha256": "5f4716189c794cad6f81139095fe837ddd48704ce6eb7a9d0eb3441ab03fe8da",
+  "candidate_sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+  "manifest_sha256": "37b1f708592467f18d52e370962dd72fffcdb20817863d823a3a3653722cc3fb",
+  "pinned_m4_li_sha256": "f2a2d20010636af6b2a7154be33a59d0f818716baae8189e0334dc9ce9f8129e"
+ },
+ "notes": {
+  "prose_cell": "descriptive, pending (prose-path ERRATUM run after L/I; RUNBOOK \u00a711)",
+  "leak_check_zoo_devl": "pending (Zoo-Dev-L E16 run after L/I; descriptive guard PREREG \u00a75.6)",
+  "arena_I": "ERRATUM file f347e4d1 (RUNBOOK \u00a711; receipts/m4/I/erratum)",
+  "L_descriptive_sdk_route": "RR/Booster latency via operate(text) reported in receipts/m4/L_descriptive_sdk_route (not the gate)"
+ }
+}

@@ -1,0 +1,449 @@
+{
+ "data_files_opened": [],
+ "files": {
+  "arena/__init__.py": {
+   "sha256": "6f55a8c8ff0679f7b394f2d996425cdfb5c294f2a7f3e19a76251996a61de16b",
+   "source": "arena/__init__.py",
+   "source_sha256": "6f55a8c8ff0679f7b394f2d996425cdfb5c294f2a7f3e19a76251996a61de16b"
+  },
+  "arena/chord.py": {
+   "sha256": "25ffa60ac051f8539413c958a53e0e4839ee4246fefae73f99738409d8d14ebe",
+   "source": "arena/chord.py",
+   "source_sha256": "99d2b27a78379d51110045203646c1aee21c0e3522be5b816587ea61a87b580d"
+  },
+  "arena/core.py": {
+   "sha256": "066c4f9e0a3e26a12c76467067456b5aeb66f44b8e138a5bfa042c288b0c9045",
+   "source": "arena/core.py",
+   "source_sha256": "066c4f9e0a3e26a12c76467067456b5aeb66f44b8e138a5bfa042c288b0c9045"
+  },
+  "arena/games/__init__.py": {
+   "sha256": "245ad52ced79646813aed156385a8ea3b06fad66edae07747c6d076244fe51c9",
+   "source": "arena/games/__init__.py",
+   "source_sha256": "245ad52ced79646813aed156385a8ea3b06fad66edae07747c6d076244fe51c9"
+  },
+  "arena/games/booster.py": {
+   "sha256": "4012fa5a5ea518ac3be3d2c0547761f41092dc5c542e3afc4f5badd3b7e104c3",
+   "source": "arena/games/booster.py",
+   "source_sha256": "409220b0b9d5cfa964400e5e740e62147c313def4b1692d96ff112c1064db689"
+  },
+  "arena/games/booster_gauntlet.py": {
+   "sha256": "861c9bcb8bb709859c7c0e550860d94a0b5b274eb154a5ccd52bddc4f669d420",
+   "source": "arena/games/booster_gauntlet.py",
+   "source_sha256": "db55330ec42855853e6153d22fd866da7a9ed86e55f661b547040bc35efd5053"
+  },
+  "arena/games/booster_gauntlet_arena.py": {
+   "sha256": "29a4c18e36220f23cc6f3a2b7cd680801bc0f6acd86100b430b6aa9026f0d381",
+   "source": "arena/games/booster_gauntlet_arena.py",
+   "source_sha256": "b06a9dee7d262f29d72a2f0a73a8103e3680470252cc6e4f5b4ae7e88566883f"
+  },
+  "arena/games/booster_gauntlet_bots.py": {
+   "sha256": "33140c295401574cbd41ba096033ed09a5264f0a4efe1f331b10b5c3bcfab28f",
+   "source": "arena/games/booster_gauntlet_bots.py",
+   "source_sha256": "7274aee39d9e42d1f7b07cc91523dc615dc41f8caa73d4b53758af15c28200b1"
+  },
+  "arena/games/booster_gauntlet_v31.py": {
+   "sha256": "40f8723ac47e3ad235c21798c9e9026081a5d1962974ca4cbb41bdbe04865460",
+   "source": "arena/games/booster_gauntlet_v31.py",
+   "source_sha256": "efb1404297d2c8a1a9e3d900df1321c2293da22fb82331cfffbbc21c9f9cccf0"
+  },
+  "arena/games/lightcycle.py": {
+   "sha256": "e0a581f31fb43de5e6fe54c72bb9a4f00a236211dbcb508316b695e17b671451",
+   "source": "arena/games/lightcycle.py",
+   "source_sha256": "3ada4200f7907b19bff76701d61a2ec079567f3abc27e0b3cd419d2e9531a55e"
+  },
+  "arena/games/rotorwash.py": {
+   "sha256": "64fb94f76337c6545a7a2ea878eeb36bb35d37ad93081f5d7aa52698cbd56cb0",
+   "source": "arena/games/rotorwash.py",
+   "source_sha256": "d4f9ccafe08f097b4cb8abf4f704a8d20e9628f3fc7e7ad1cb76190ba2f50af0"
+  },
+  "arena/games/rotorwash_ramp.py": {
+   "sha256": "f85cfd32bb6c0541f9a0666f46ea102f863309190e7e3d97a23ebdd40c295d12",
+   "source": "arena/games/rotorwash_ramp.py",
+   "source_sha256": "53cdaf45422c0211afb3d19d615eab3971fe617246900a9edd3215f6d3bcec8b"
+  },
+  "arena/games/rotorwash_ramp_bots.py": {
+   "sha256": "82cb6ac892871dbabd2b3c03728b5102b0f536f0b68037fbca9787e921344ded",
+   "source": "arena/games/rotorwash_ramp_bots.py",
+   "source_sha256": "1c263f9699d1a96875f4f295e721b1d537abf5a2d5429d155cd022622c18496e"
+  },
+  "arena/games/rotorwash_ramp_v31.py": {
+   "sha256": "b770a52e95272b6b96bcc911caa86f188a4d08190e2f83bb82790990509d03e6",
+   "source": "arena/games/rotorwash_ramp_v31.py",
+   "source_sha256": "0b45606d461d62bb5ce19e10a6f402c72ed3653ff8073cf7bc9eb9d257fe08a1"
+  },
+  "arena/games/rotorwash_ramp_v31_bots.py": {
+   "sha256": "c2229c0b0a9156d0c2899e8692b5f879d153dc5d0bc9cd7e8d24c0b5ac5eb9e3",
+   "source": "arena/games/rotorwash_ramp_v31_bots.py",
+   "source_sha256": "e091e3380d9993a0dfee7da2234b0dfe7bdd38482a30992301d50bf753a15217"
+  },
+  "arena/games/rotorwash_ramp_v31_planner.py": {
+   "sha256": "077adebe727beab166c9e9c01c66c270d9d1ba08570b6a03434c2099d206c10d",
+   "source": "arena/games/rotorwash_ramp_v31_planner.py",
+   "source_sha256": "d7849ae3dc72443310cd12df5c8f9f3833f6fe431a8c6a4e03b5861a04e50475"
+  },
+  "arena/games/snake_rush.py": {
+   "sha256": "7eee583e8953eb8e2b14f5cda97937a92c7f80e8a3593068210989d763a04fdf",
+   "source": "arena/games/snake_rush.py",
+   "source_sha256": "1eb0ab78509c64e0103ddca146bfb6b528a825ccc6cf12534ff0ac8a1caf0685"
+  },
+  "arena/games/snake_rush_bots.py": {
+   "sha256": "44126fb97cac4ccbacfd3c44add976c1035dbd91f200d28314f2e8636b0eb19b",
+   "source": "arena/games/snake_rush_bots.py",
+   "source_sha256": "6a07ea9d468e90c1a54615b2fcda5db601300b67912af6b07f1b0193073a84bb"
+  },
+  "arena/games/stack.py": {
+   "sha256": "e1de6087e024dc68c26b72cda4a738eb1284ee60ab5e85eca820faa6201f459a",
+   "source": "arena/games/stack.py",
+   "source_sha256": "7ef65227c4505a40d81a0517041ba49f213c8a445d4ac3056fdfaeffaa40eeee"
+  },
+  "arena/v2/__init__.py": {
+   "sha256": "ab56f47ab3ef5618366add0246f6c2446d32f95550d03a71272fa5bb458b7f3d",
+   "source": "arena/v2/__init__.py",
+   "source_sha256": "ab56f47ab3ef5618366add0246f6c2446d32f95550d03a71272fa5bb458b7f3d"
+  },
+  "arena/v2/bots.py": {
+   "sha256": "bfb8469c842a524035e38ab0cb005441bb897d5fcc1072d6c1a1d8057d01ab8d",
+   "source": "arena/v2/bots.py",
+   "source_sha256": "c12806a952fb1ffd2464bd6d4f536b6f4424e1379a1b0e2438a5b44dbdcb438f"
+  },
+  "arena/v3/__init__.py": {
+   "sha256": "d6490de1f3eb79ab50baf1a45cf3b9dc49cfc3ffd72179f2989f977107cb7c28",
+   "source": "arena/v3/__init__.py",
+   "source_sha256": "d6490de1f3eb79ab50baf1a45cf3b9dc49cfc3ffd72179f2989f977107cb7c28"
+  },
+  "arena/v3/contract.py": {
+   "sha256": "f867f7d3712f060df00a71f09cebc5c1d8de2dca9b223755e75e234a66e025f4",
+   "source": "arena/v3/contract.py",
+   "source_sha256": "1906c2238f5dadf414ea1e2c0eb01b1e4f14c9dad46fe073e87dd2412de62b0a"
+  },
+  "arena/v3/games.py": {
+   "sha256": "9fa845c3549dc92dc26600a39fd4da02207bd261ea34e16ca352c3b343b4d190",
+   "source": "arena/v3/games.py",
+   "source_sha256": "7210d93047c23b4e57bf95c1e7cc9868b801c685835bf404ce5022f47b0355a1"
+  },
+  "arena/v3/runner.py": {
+   "sha256": "126d54a96d3d86469f155cf5afa37a92cdc1de9202e0f7ead70c61a65ecbb4ee",
+   "source": "arena/v3/runner.py",
+   "source_sha256": "9dacf5f58eaab5a7e4b60c0ebbbf80470e0658312eab1361fdcd3d5b1b6f315d"
+  },
+  "burst_v2/__init__.py": {
+   "sha256": "8ef8a714b275b1ba9997d2e117469bc3964f3cc4234a5b4434290946ab9a324b",
+   "source": "burst_v2/__init__.py",
+   "source_sha256": "8ef8a714b275b1ba9997d2e117469bc3964f3cc4234a5b4434290946ab9a324b"
+  },
+  "burst_v2/labels.py": {
+   "sha256": "de6e98ae87b36ed16fb551c8f26d5880b4d9f1f6d8538d1d3618f17f25788830",
+   "source": "burst_v2/labels.py",
+   "source_sha256": "de6e98ae87b36ed16fb551c8f26d5880b4d9f1f6d8538d1d3618f17f25788830"
+  },
+  "burst_v2/latency.py": {
+   "sha256": "1aed72f579db86beec4465f20256d6ae67e2a4406fdda731bc11dcce07af3b00",
+   "source": "burst_v2/latency.py",
+   "source_sha256": "a53f47fd9223f8f7ecb9527ecd79e8b2aca095c41dc22cde7d0117ca71605592"
+  },
+  "burst_v2/prompt.py": {
+   "sha256": "492e92db5714077c979196b0cc58f8739a2a409fd95a6c3c0e958a55106ab486",
+   "source": "burst_v2/prompt.py",
+   "source_sha256": "720f35fe9cc35b129fa40ad152dbff43e372108360ed5f68d332074f38a1974b"
+  },
+  "burst_v2/qengine.py": {
+   "sha256": "623f7f9d4a9b22313d36b9cb0c8993717b6680036d35dfbec983b64423c4005c",
+   "source": "burst_v2/qengine.py",
+   "source_sha256": "2e47f35911ca803cbe65c0c4bc4e3e72cf68015128344fec6311804acf74c4e4"
+  },
+  "burst_v2/rr.py": {
+   "sha256": "7fb396c276a6265080422b6257d77e2b58f230c87989fdba9a162add4ce6df03",
+   "source": "burst_v2/rr.py",
+   "source_sha256": "2a834c1da96413f67db923af51c208f1879e30c3ff0c5bf194dc7ab95c9bbaf7"
+  },
+  "burst_v2/rr_teacher.py": {
+   "sha256": "51309baa767825922f74e3e71f7d6e6c6ac039c0ae33d92a5e388186d20f2bce",
+   "source": "burst_v2/rr_teacher.py",
+   "source_sha256": "c2e35a1f9acb0dcbcc89861b29a3ba7a3b5eb476d6f2ccabbf0e5f3a9bb8465e"
+  },
+  "burst_v2/seeds.py": {
+   "sha256": "46cfeb32a517505ee90f6e8efc7ce0b6926ff46cb2ffadffa92cf0c675ba20fc",
+   "source": "burst_v2/seeds.py",
+   "source_sha256": "269eee60c91105fc87fc5a45da60240e8cbf5d890e06a62f642126ef5789802d"
+  },
+  "bv2n/__init__.py": {
+   "sha256": "64cdece083abbb65a55db574da6a4aaf7e77b5182fea1d04dea4176da9890b24",
+   "source": "bv2n/__init__.py",
+   "source_sha256": "64cdece083abbb65a55db574da6a4aaf7e77b5182fea1d04dea4176da9890b24"
+  },
+  "bv2n/contract/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "bv2n/contract/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bv2n/contract/booster.py": {
+   "sha256": "273346e79cd23f5dae2210cae203eff4cbb66b5e0c5fcaf126e7b39f8cc792bd",
+   "source": "bv2n/contract/booster.py",
+   "source_sha256": "84ed2afac1d55c07611e612f66f5e952f5a5565e5115cc11495448a8f71260b5"
+  },
+  "bv2n/contract/common.py": {
+   "sha256": "ac61352ef0a613b57d31f4c49f21b1b18b55e1a97b07b1dc5633d42473a77fa1",
+   "source": "bv2n/contract/common.py",
+   "source_sha256": "5dfe847d57e8e32f79b565993d66e23c073ab33b6d8cdac05f5c74c4b0e66d7d"
+  },
+  "bv2n/contract/rr.py": {
+   "sha256": "213e18af8913a3b4a61fc3d41cfa3f28962ec507af73b393d4ec4033b57410dc",
+   "source": "bv2n/contract/rr.py",
+   "source_sha256": "100359f1ecf577fe987d4fd22c11bba76800d6eab523bf1d29b7bbb47fa13ded"
+  },
+  "bv2n/contract/snake.py": {
+   "sha256": "1389f799d849088b90cafb078cf729cf782a48beb104c4f906aaa39e57221b30",
+   "source": "bv2n/contract/snake.py",
+   "source_sha256": "618626b78c71b643db97b06dd1f9b4b9a3aa52d28a7daec899a4069f8dd817e5"
+  },
+  "bv2n/data/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "bv2n/data/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bv2n/data/booster_src.py": {
+   "sha256": "2c78d789efea0d1aea770ecd97af26047e899d993e830bfef410672bac88c7ec",
+   "source": "bv2n/data/booster_src.py",
+   "source_sha256": "31cba3b017cbaf8abee91c2be5ee8ff32593a272b592b5d76e34b42e7bd22028"
+  },
+  "bv2n/data/collect.py": {
+   "sha256": "77bdaef11e2f5f75fbc6a68b050a860ebde8031433ed23c17de3efe478410bef",
+   "source": "bv2n/data/collect.py",
+   "source_sha256": "64386233f519e11a145b224af6b765b83f43211e08aa73acf295a204b5612be1"
+  },
+  "bv2n/data/store.py": {
+   "sha256": "f56933a7d5a700338b8a33f8c73e39cf769c062f7b5e39a324dd3a450c373c93",
+   "source": "bv2n/data/store.py",
+   "source_sha256": "ae00e7172bf56719e16e686ae032624574415117e5bf0b5a7065f6aa51eaa6df"
+  },
+  "bv2n/data/validate.py": {
+   "sha256": "f5de433208a7b94d72725eab006d04c9fd7209108ea9a94da0edfd51ae5a78f2",
+   "source": "bv2n/data/validate.py",
+   "source_sha256": "f2a908c82d692fa8e22ca17d631a78526ebea15f435bbb1a48b678fbe4f48595"
+  },
+  "bv2n/data/views.py": {
+   "sha256": "5018ddadc9bb13775420dad396d26970dcdd46d34703e6bf138b2681494b02b3",
+   "source": "bv2n/data/views.py",
+   "source_sha256": "5174ff0e1d4dbcbfe51e333e54c2d9d0a81af0974036b7b828bed2828d3a52e8"
+  },
+  "bv2n/hybrid/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "bv2n/hybrid/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bv2n/hybrid/snake_search.py": {
+   "sha256": "ea7049d1dbb30400df6faad4efbb9c0bae28975a933ff4e68fb527dbfe23c50b",
+   "source": "bv2n/hybrid/snake_search.py",
+   "source_sha256": "4e4135cb322e767bd59cff383c774d915a10ac7f2ff88a481e42795fda724304"
+  },
+  "bv2n/seeds.py": {
+   "sha256": "df10410c3cd41d0f1b5e4ae26a2efd00feb860f6568b6bcef68923dfd1375fb8",
+   "source": "bv2n/seeds.py",
+   "source_sha256": "439bdc0b2644556dbf8b4baa0e411df75d09fcf7e40cf5e3045578c681459e47"
+  },
+  "bv2n/student/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "bv2n/student/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bv2n/student/booster_features.py": {
+   "sha256": "86c419337baa00d22477416b35bf4fa69c25f428850ef82b2d22e918d00e41e2",
+   "source": "bv2n/student/booster_features.py",
+   "source_sha256": "86c419337baa00d22477416b35bf4fa69c25f428850ef82b2d22e918d00e41e2"
+  },
+  "bv2n/student/features.py": {
+   "sha256": "f2b3406c5c3f38377104226590bbaa281d47a00cd37bcba518655c7765703f9a",
+   "source": "bv2n/student/features.py",
+   "source_sha256": "028d15d813121168483982a5aac9fb9491559d0097e0d9cf31e16c43fdf74978"
+  },
+  "bv2n/teachers/__init__.py": {
+   "sha256": "53eb9e9269f9a14b1870fb4fc21b0954478924358b5c2dc63873c45c325ddb85",
+   "source": "bv2n/teachers/__init__.py",
+   "source_sha256": "53eb9e9269f9a14b1870fb4fc21b0954478924358b5c2dc63873c45c325ddb85"
+  },
+  "bv2n/teachers/booster_c.py": {
+   "sha256": "6fa50f1af2ab8a04c9e6a7f0e7708530de4a5055a1abebd55b528b7450ad075d",
+   "source": "bv2n/teachers/booster_c.py",
+   "source_sha256": "70ceaabe519742f9f99a7213efc923aaac7e9ce83f3c59d88ce1c1c0d2750b41"
+  },
+  "bv2n/teachers/rr.py": {
+   "sha256": "1311441adf1d58f351d7bbb66909f22dd06cb596b9b56106bdf66fc85a6fa52f",
+   "source": "bv2n/teachers/rr.py",
+   "source_sha256": "76eb2598224c8e32a45d9f746c2161b001b1671afb5c3366419921a48216aa40"
+  },
+  "bv2n/teachers/snake.py": {
+   "sha256": "d4a41b15b0eac7d7be42142d90225c034ecb9b05bc1e8fbca6866ade8b50e882",
+   "source": "bv2n/teachers/snake.py",
+   "source_sha256": "84c8db1e8ee7c561a2fc3bbfe0219b47d637958821f40e031877b10ef94897b2"
+  },
+  "bv2n/zoo/__init__.py": {
+   "sha256": "496c0f352322bc7f791cb72280296a71bf604e6f8538b150defebfdde59bce74",
+   "source": "bv2n/zoo/__init__.py",
+   "source_sha256": "496c0f352322bc7f791cb72280296a71bf604e6f8538b150defebfdde59bce74"
+  },
+  "bv2n/zoo/render.py": {
+   "sha256": "f0ba0df2532ef8bbb1bb0fc9157029d60de6b87a95b0ea98326fe552e465e3ee",
+   "source": "bv2n/zoo/render.py",
+   "source_sha256": "9aebe65cd7e0add55bf0a5ef951009abf2ec6c35ee7980378f881470d8806931"
+  },
+  "bv2n/zoo/xrequest.py": {
+   "sha256": "12ec0415b5e4d14874fc4efd7f260b6842c5e4669b78ab90630afea864426cde",
+   "source": "bv2n/zoo/xrequest.py",
+   "source_sha256": "c02c5cc3a1a540967df194bb0b9471542aaa8778c6e34ecf2a9314c11fe5f006"
+  },
+  "bv2n/zoo_new/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "bv2n/zoo_new/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bv2n/zoo_new/render_hook.py": {
+   "sha256": "0317bf448e9a0a03036e95edc9d2f1cc395ab0cbac1e802e71d99408b176f014",
+   "source": "bv2n/zoo_new/render_hook.py",
+   "source_sha256": "fe0017795ef5672e0deecf184667fac61a07d1078028022cf78105a0539d2e2e"
+  },
+  "bv2n/zoo_new/xdsl.py": {
+   "sha256": "d117577e984eb62a1cc67eed70eb95038ef1823076dce2aaba4839bc9e762e9c",
+   "source": "bv2n/zoo_new/xdsl.py",
+   "source_sha256": "50606d2e7d746e9fad48e7f0f66057effdf2c41f53003f085236ff1698b02103"
+  },
+  "bv2n/zoo_new/xteacher.py": {
+   "sha256": "7acd806fab69cd02bdc93ce5ffc4e04784a3dcf1be89e5d9763e7a3b73a89545",
+   "source": "bv2n/zoo_new/xteacher.py",
+   "source_sha256": "22f90385df2037fbcd993254c97c823473e611df29477840cb22518dd04d084f"
+  },
+  "machine_zoo/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "machine_zoo/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "machine_zoo/dsl.py": {
+   "sha256": "fdead06c10d5fa7b7efc590a4e498154f90427263256b3c69667cac81b05bd42",
+   "source": "machine_zoo/dsl.py",
+   "source_sha256": "56b52951dc89b50aa89cdc2e3f8d62460acea49d8c5419c64e10b964057d58a7"
+  },
+  "machine_zoo/interp.py": {
+   "sha256": "1d3a1ca723c44d22862f8b2592a823b9e864ec002778d8f48c4330419e314cea",
+   "source": "machine_zoo/interp.py",
+   "source_sha256": "68a6a8b58225208fb844b0107bf02b1c595856aa86dd91b9a1e73817a49fd992"
+  },
+  "machine_zoo/program_student.py": {
+   "sha256": "d8cbf4fc742c908fb9bb97cfd3ff4ac90944231ea39e01626878815f403ab902",
+   "source": "machine_zoo/program_student.py",
+   "source_sha256": "f74e75f70a96978c32f4179f19f1517030d946aa8571b17465b353286966f549"
+  },
+  "machine_zoo/teacher.py": {
+   "sha256": "4ad93f85544e389afa20c38f2d6c553f6c3010530adffabe52af4c2de5093395",
+   "source": "machine_zoo/teacher.py",
+   "source_sha256": "b2db7543758b5524d8a7e4b8674de40c55c5e8cff98cbeea54acab8f9e9345d3"
+  },
+  "machine_zoo/tokens.py": {
+   "sha256": "99a18116e859ea44388a4ffc971f56c84bee0af8234bc7794ee92490107e35c9",
+   "source": "machine_zoo/tokens.py",
+   "source_sha256": "99a18116e859ea44388a4ffc971f56c84bee0af8234bc7794ee92490107e35c9"
+  },
+  "machine_zoo/weak.py": {
+   "sha256": "fdb97eab2200e0bc76d2434689de09d279b1dcd650f3b52f24e21ae7aad4b73f",
+   "source": "machine_zoo/weak.py",
+   "source_sha256": "fdb97eab2200e0bc76d2434689de09d279b1dcd650f3b52f24e21ae7aad4b73f"
+  },
+  "nagi_r/__init__.py": {
+   "sha256": "ab39797173ba0f9bfbe2d940c35ed51426f50edb512b57c7cd92991d98de5e5d",
+   "source": "nagi/__init__.py",
+   "source_sha256": "ab39797173ba0f9bfbe2d940c35ed51426f50edb512b57c7cd92991d98de5e5d"
+  },
+  "nagi_r/render.py": {
+   "sha256": "ad768d3413ff0919a32ea4952a988e281508c78e5f0a5f26050dde20c0f19268",
+   "source": "nagi/render.py",
+   "source_sha256": "ad768d3413ff0919a32ea4952a988e281508c78e5f0a5f26050dde20c0f19268"
+  },
+  "rr_teacher_pilot/__init__.py": {
+   "sha256": "994e2a0155e4865733faf69a9d80a5cda5d3e2bdd648451526d136a3f07f9bd9",
+   "source": "rr_teacher_pilot/__init__.py",
+   "source_sha256": "994e2a0155e4865733faf69a9d80a5cda5d3e2bdd648451526d136a3f07f9bd9"
+  },
+  "rr_teacher_pilot/contract.py": {
+   "sha256": "8fb3a9020c3a7a159552937fd6b326331f83c89b8ced364e683ed487e1d954b2",
+   "source": "rr_teacher_pilot/contract.py",
+   "source_sha256": "1821c0a9553d9e6627e7b98dcd4df6c79152e10230d1ebeddac50ef4c547342e"
+  },
+  "rr_teacher_pilot/teacher.py": {
+   "sha256": "e659a399727a40a96c04abd13093ee5a126d185fab5b85c72ce2e0ed5821f856",
+   "source": "rr_teacher_pilot/teacher.py",
+   "source_sha256": "8db3c56f459a369a8b64d659ce99743c78e956e1b18f1b3a6f4bbd51896aeed3"
+  },
+  "v2g/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "source": "v2g/__init__.py",
+   "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "v2g/core/__init__.py": {
+   "sha256": "107c0570c25df9349fa597bb5f8015a98d65f80f805cb20c749cd0dc75052436",
+   "source": "v2g/core/__init__.py",
+   "source_sha256": "107c0570c25df9349fa597bb5f8015a98d65f80f805cb20c749cd0dc75052436"
+  },
+  "v2g/core/game_data.py": {
+   "sha256": "527b2f50821f2aab6ff24632ae0756077882d5fec1ff88d78ab53e3a33118e60",
+   "source": "v2g/core/game_data.py",
+   "source_sha256": "460e8dc65d791379278ab6a9bcc2bb2b1fa2a98d7f4ca0b9e5b3b2927a7122a5"
+  },
+  "v2g/core/multi_core.py": {
+   "sha256": "5446f0ea2e19f301fdb623fe3a7973abd7f902c6911e07fd0d6bc861e7f6b7c9",
+   "source": "v2g/core/multi_core.py",
+   "source_sha256": "c87f2c720730d201025d1969a3732d0076bf7344e43680083b93bfc73dc1e4db"
+  },
+  "v2g/core/struct_core.py": {
+   "sha256": "ab79783a1b6af86459ff3450aed7d02d573e9601fc396cd83211202d637d4914",
+   "source": "v2g/core/struct_core.py",
+   "source_sha256": "b03db1c7cce3e9a04c49fa60cd6c3e020eb7a75b799a65fffcb9d481ea719876"
+  },
+  "v2g/core/xtokens.py": {
+   "sha256": "ea84e9602a0b7b6b0aafa5cac0ec898908e0ca30d6230ec676d01f6c638a793e",
+   "source": "v2g/core/xtokens.py",
+   "source_sha256": "7c9f539d27c3b102bad4c7ce677c6241c4c6b9c07dbe3c98e8fd427cc1e7e4e4"
+  },
+  "v2g/games/__init__.py": {
+   "sha256": "972e39001553dc4a5f2f6c21d109c8e05d79b79b967dc70bde77789a6796ec48",
+   "source": "v2g/games/__init__.py",
+   "source_sha256": "47c8358dcabd6acea711705c3c3ed7c98b500a602a387496395969f214323d8f"
+  },
+  "v2g/games/arena_core.py": {
+   "sha256": "78e2f989e07f4d72693881383e1db0efff7659122c0da0bfa431dd5ccc75ae11",
+   "source": "v2g/games/arena_core.py",
+   "source_sha256": "242dd4548817cd29a56b72a532e1f3947ecc743c43e6a3f7c0bbb7e2e874ab89"
+  },
+  "v2g/games/snake.py": {
+   "sha256": "3ca7d76075f2edc20795ad1390db2d45be28faa3bcc13e1e3ca21e102bcebbe9",
+   "source": "v2g/games/snake.py",
+   "source_sha256": "765297cc84bf2076977a807abf90b738da8f63f0ceca4f92c7187a3163a30e55"
+  },
+  "v2g/machine.py": {
+   "sha256": "6e775a5c956905b1810800ed4da78533e537021ec5a4b050585722538621e1d6",
+   "source": "v2g/machine.py",
+   "source_sha256": "d4ab8772ff9911566bd04bc0704db536bf1da8e89b0a8e13956cd6bd97f4ce09"
+  },
+  "v2g/operate.py": {
+   "sha256": "22034c948e47d02d7d2313dd765eb6c7e3f56ce3d558044cf4bdf78901800c98",
+   "source": "v2g/operate.py",
+   "source_sha256": "5bd76f1b09745df7dccbe1071b739d366af3bed760f753593e577d7e217e0d51"
+  },
+  "v2g/reader.py": {
+   "sha256": "ecd95bcbd1e593945e2bb81cb1fbe7bfa5dde3fe6b04b3e6f817c6e64d3a8853",
+   "source": "v2g/reader.py",
+   "source_sha256": "4e8061cc0f2276df3076139223dfea11ac9a78d9ea73f8411966e8dd3844d2c9"
+  },
+  "v2g/search.py": {
+   "sha256": "b8b63f4da1bfe90dc377e4c9bf5c8e87c5a4a78aadb70e215f479282a0f23581",
+   "source": "v2g/search.py",
+   "source_sha256": "d046bcfd8b1234c1a6bb74d66fbd9d36042027be8509f3f2d75da2959957b818"
+  }
+ },
+ "research_commit": "82c4f402bc54e65393ceacb09c340c77a6c896f3",
+ "routes": [
+  "dev_t4x/requests.jsonl.gz",
+  "dev_lx/requests.jsonl.gz",
+  "dev_zoo/requests.jsonl.gz",
+  "snake",
+  "rr",
+  "booster"
+ ]
+}
