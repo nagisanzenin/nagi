@@ -45,6 +45,10 @@ FILES = {
     "replay": REC + "replay.json",
     "arena": REC + "arena_v2.json",
     "robot": REC + "robot_example.json",
+    "videos": REC + "arena_v2_videos.json",
+    "jev_snake": REC + "jev1s_snake.json",
+    "jev_rr": REC + "jev1s_rr.json",
+    "jev_booster": REC + "jev1s_booster.json",
     "report": "bench/burst_v2/README.md",
     "guide": "docs/BURST_V2.md",
     "readme": "README.md",
@@ -403,8 +407,46 @@ def build():
     req(R["release"]["decision"] == "RELEASE" and all(v == "PASS" for v in gates.values()), "release gates not all PASS")
     req(R["release"]["path"] == "parser" and R["release"]["R"] == "FAIL", "path rule: expected R FAIL -> parser")
 
+    clips(b, AR)
     blocks(b, R, A, AR)
     return b
+
+
+# arena_v2_videos.json game keys and the jev1s receipt per game (structural mapping, no numbers)
+CLIP_GAMES = [("snake", "snake", "snake", "jev_snake"), ("rotorwash", "rotorwash_ramp", "rr", "jev_rr"),
+              ("booster", "booster_gauntlet", "booster", "jev_booster")]
+
+
+def clips(b, AR):
+    """The three 3-seat Arena clips (shared with site/arena/): seed, per-seat scores and file bytes all checked
+    against the render receipt, the sealed per-seed scores (arena_v2.json) and the Jev receipts."""
+    VR = jload("videos")
+    req = b.require
+    req(VR["plays_a_model"] is False and VR["network"] == "none", "video receipt: not a pure replay render")
+    b.clip_files = {}
+    for rk, gid, vk, jk in CLIP_GAMES:
+        g = VR["games"][vk]
+        i = g["chosen_index"]
+        req(g["all_checks_ok"] is True, f"video receipt: {vk} checks not all ok")
+        req(abs(g["margin_v2_minus_jev"] - g["median_margin"]) < 1e-9, f"video receipt: {vk} seed is not at the median margin")
+        oo = {who: sc for sc, who in AR["out_order"][gid][str(i)]}
+        jev = {x["index"]: x for x in jload(jk)["per_seed"]}[i]
+        req(abs(g["scores"]["v2"] - oo["Nagi Burst V2"]) < 1e-9 and abs(g["scores"]["v1"] - oo["Nagi Burst V1"]) < 1e-9,
+            f"video receipt: {vk} #{i} V2/V1 scores != arena_v2.json")
+        req(abs(g["scores"]["jev"] - jev["score"]) < 1e-9 and g["seed"] == jev["seed"], f"video receipt: {vk} #{i} Jev != jev1s receipt")
+        mp4 = [k for k in VR["published_as"] if k.endswith(".mp4") and f"seed{i}." in k and k.startswith("site/arena/media/v2-")
+               and {"snake": "SnakeRush", "rotorwash": "RotorwashRamp", "booster": "BoosterGauntlet"}[rk] in k]
+        req(len(mp4) == 1, f"video receipt: {vk} published clip not unique")
+        for f_ in (mp4[0], mp4[0][:-4] + ".jpg"):
+            h = hashlib.sha256(open(os.path.join(ROOT, f_), "rb").read()).hexdigest()
+            req(h == VR["published_as"][f_], f"{f_}: bytes != video receipt")
+        b.clip_files[rk] = "../arena/" + mp4[0][len("site/arena/"):]
+        b.put(f"clip_{rk}_seed", str(i), "videos", ptr=f"games|{vk}|chosen_index", raw=i)
+        for arm in ("v2", "v1", "jev"):
+            b.put(f"clip_{rk}_{arm}", f(g["scores"][arm], 2), "videos", ptr=f"games|{vk}|scores|{arm}", raw=g["scores"][arm])
+    sk = [(vk, x) for _, _, vk, _ in CLIP_GAMES for x in VR["games"][vk].get("skipped", [])]
+    b.put("clip_skipped", "; ".join(f'{x["reason"].split(":", 1)[0]} skipped ({x["reason"].split(":", 1)[1].strip()})' for _, x in sk) or "none",
+          "videos", ptr="games|*|skipped", raw=[x for _, x in sk])
 
 
 # ---------- generated HTML blocks ----------
@@ -487,6 +529,25 @@ def blocks(b, R, A, AR):
         f'<p class="note">Seeds: Snake {v("a_seeds_snake")}, Rotorwash-Ramp and Booster {v("a_seeds_other")}; {v("tick_ms")} ticks; reply profile: {v("reply_profile")}. '
         f'Booster: {v("a_booster_landings")}/{v("a_booster_n")} landed (rule: at least {v("thr_landings")}); V1 landed none, and a Booster round is its first hop. '
         f'Exact replay from the recorded controls: {v("replay_exact")}/{v("replay_n")}.</p>')
+
+    units = {"snake": " s", "rotorwash": "", "booster": ""}
+    figs = []
+    for rk, gid, vk, jk in CLIP_GAMES:
+        src = html.escape(b.clip_files[rk])
+        name = v(f"a_{rk}_name")
+        sc = " · ".join(f'{lab} {v(f"clip_{rk}_{arm}")}{units[rk]}' for arm, lab in (("v2", "V2"), ("v1", "V1"), ("jev", "Jev")))
+        figs.append(
+            f'<figure class="clip"><video controls preload="none" playsinline poster="{src[:-4]}.jpg" src="{src}" '
+            f'aria-label="{name} replay, median-margin sealed seed {v(f"clip_{rk}_seed")}: Nagi Burst V2, Nagi Burst V1 and Jev side by side"></video>'
+            f'<figcaption><b>{name}</b> · median-margin sealed seed #{v(f"clip_{rk}_seed")}<br>{sc} ({v(f"metric_{rk}")})<br>'
+            'V2: offline 1-tick replies; V1, Jev: live records</figcaption></figure>')
+    B["arena-clips"] = (
+        '<div class="clips" id="clips">' + "".join(figs) + '</div>'
+        '<p class="note">Each clip replays one sealed round from the recorded controls, three players on the same seed: '
+        'Nagi Burst V2, Nagi Burst V1 and, for reference only, Jev (descriptive; the release gates compare with V1 only). '
+        'The seed is fixed by rule, not picked: the round at the median V2 − Jev margin for that game '
+        f'(skipped when a seat cannot be replayed exactly: {v("clip_skipped")}). Real time, with brief slow motion at eliminations. '
+        f'Every on-screen score equals its record; render receipt <a href="{GH_BLOB}bench/burst_v2/receipts/arena_v2_videos.json"><code>arena_v2_videos.json</code></a>.</p>')
 
     lrow = []
     for pk, label in LAT_POPS:
