@@ -157,8 +157,15 @@ def booster_note(games):
     g = next(x for x in games if x["game"] == "booster_gauntlet")
     L = g["landings"]
     return (f"Booster Gauntlet: V2 landed the first hop on {L['v2']}/{g['n']} seeds; V1 on {L['v1']}/{g['n']} and Jev on "
-            f"{L['jev']}/{g['n']} (K3 = 0), so V1 vs Jev is all ties there. Board 1 below documents V1's Booster pattern: "
-            "flying under control until the first hop's landing deadline, without landing.")
+            f"{L['jev']}/{g['n']} (K3 = 0), so V1 vs Jev is all ties there. Board 1 on the Game Arena page documents V1's Booster "
+            "pattern: flying under control until the first hop's landing deadline, without landing.")
+
+
+def v2_sub(pack):
+    """V2's released policy differs per game (arena_v2.json games[].policy): say so instead of one label."""
+    pol = {g["id"]: g["policy"] for g in pack["games"]}
+    assert pol["snake"] == "v2g-sdk:snake" and pol["rotorwash_ramp"].startswith("v2g-multi") and pol["booster_gauntlet"].startswith("v2g-multi"), pol
+    return "release policies: Snake Rush = SDK search pack (no learned core); Rotorwash-Ramp and Booster Gauntlet = the core's game head (no lookahead)"
 
 
 def snake_note(cand):
@@ -288,13 +295,13 @@ def build():
             "jev_pair_check_image": pc["image"], "jev_engine_identity": pc["engine_identity"],
         },
         "players": {
-            "v2": {"label": V2L, "sub": pack["players"][0]["sub"]},
+            "v2": {"label": V2L, "sub": v2_sub(pack)},
             "v1": {"label": V1L, "sub": pack["players"][1]["sub"]},
             "jev": {"label": "Jev", "sub": "jev-1.13.0, vendor API, single-stream re-play (PREREG_V2G §3, descriptive)"},
         },
         "claim_rule": {
             "v2_vs_v1": "Gate A (PREREG_V2G §5.3): PASS iff the t lower 97.5% bound of W > 1/2 and the exact sign test p <= 0.025, per game.",
-            "jev": "Descriptive only (PREREG_V2G §3, §5.6, R3.15): Jev contrasts were preregistered as descriptive, on identical seeds, with no claim words. The gate-A numbers are shown for reference; they are not a claim.",
+            "jev": "Descriptive only (PREREG_V2G §3, §5.6, R3.15): Jev contrasts were preregistered as descriptive, on identical seeds, with no test and no claim words. Only counts are shown.",
         },
         "games": games,
         "overall": ov,

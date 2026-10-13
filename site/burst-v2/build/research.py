@@ -279,7 +279,8 @@ def blocks(v, vb=None):
         '<p>What is narrowly ours: the learned prior can only reorder the planner\'s exact ties, so it can never pick a move '
         'the planner proves worse (safe by construction, and the reason it could not help here); the C8 rule that every '
         'unseen-task number carries how much of the state space the search saw; and the protocol below. '
-        f'<a href="{rw}">The full review</a> has {v("rs_rw_refs")} references, each marked as re-checked or cited from memory.</p>')
+        f'<a href="{rw}">The full review</a> lists {v("rs_rw_refs")} references; on this page, works the review could not re-check '
+        'are named without venue or year.</p>')
 
     B["next"] = (
         '<ul class="next">'
@@ -295,10 +296,13 @@ def blocks(v, vb=None):
         'preregistered G+ test again: refuted if core-guided search does not beat the same search alone at equal latency. A '
         'positive result would be the claim V2 could not make: a learned prior that transfers to unseen rules and improves '
         'search.</li>'
-        '<li><b>E3 · Agent alone vs agent + Nagi.</b> The same agent on the same tasks, with and without Nagi as its decision '
-        'tool. Prediction: the agent with Nagi succeeds more often; refuted if it does no better than the agent alone. Not '
-        'yet designed or preregistered.</li>'
+        '<li><b>E3 · Unseen Game Arena: agent alone vs agent + Nagi.</b> The same coding agent plays unseen games, with and '
+        'without Nagi as its decision tool, against a Jev decision baseline and an exact-oracle ceiling. Prediction: the agent '
+        'with Nagi succeeds more often; refuted if it does no better than the agent alone. Planned: the preregistration is in '
+        'progress; no results.</li>'
         '</ul>'
+        '<p class="note">The Zoo-Unseen benchmark itself will be released with the Nagi Machine Zoo data (coming), so others '
+        'can run these comparisons too.</p>'
         '<p class="note">No result is claimed for any of these. Each gets a preregistration with its refutation rule before it '
         'runs.</p>')
 

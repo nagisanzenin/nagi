@@ -1,0 +1,425 @@
+{
+ "schema": "bv2-page-media-1",
+ "what": "Media files of the Nagi Burst V2 page (site/burst-v2/): hero loop and posters, highlights clip and poster, social card and its frame. Every file is re-encoded or composed from an existing replay render; nothing plays a model.",
+ "cost_usd": 0.0,
+ "network": "none",
+ "plays_a_model": false,
+ "tools": {
+  "ffmpeg": "8.0.1 (Homebrew, libx264, libwebp, libfreetype)",
+  "os": "macOS 14.6, Apple M2"
+ },
+ "highlights_verification": {
+  "clip": "~/Downloads/Nagi-Burst-V2-Arena/social/Nagi-Burst-V2_3-3-3_raw_16x9_1920x1080.mp4 (raw full rounds, 1x, back to back, 0.5 s hold on each final frame; 418.57 s, 12,557 frames)",
+  "built_by": {
+   "social/social_raw.py": "391732633540ccdbd95d875d4c7f807cbcf151e8099416376fa893f81f4ffc9e",
+   "social/compose_raw.py": "50ab9b673b2ba531b5949689b40c87f6e4a56cd5f8878d614a10224e5108d00f",
+   "social/social.py": "819738b0046d1b45ea2eb70dd4da8f410047bf774dc913b5825a9e32e8c5ed33",
+   "social/cut.py": "1d571acea756a76f58aa595d84d40226471e9c4c19b88ee37f98ffc4761fe67b",
+   "vid3/v3v.py": "403e97505bc39aa02f318d76de7ebfdcc04596eb44d111d42a65eabe99220afd"
+  },
+  "stated_rule": "per game, the 24 sealed eval indices ordered by V2 score descending, ties -> larger V2 - V1 margin -> lowest index; walk the order and keep the first 3 that pass every replay/score check for every seat (RR: plus the per-seat state-hash drift check in the bv2n-rr:py31112-np246 linux/amd64 image). Skipped: Rotorwash-Ramp #42 (Nagi Burst V1 seat not hash-exact over its flight on the render platform, first mismatch tick 101 <= end tick 117).",
+  "recomputed_from": "bench/burst_v2/receipts/arena_v2.json out_order (sealed eval split, 24 indices per game; snake 10-33, rotorwash_ramp 34-57, booster_gauntlet 34-57)",
+  "recomputed_order_head": {
+   "booster_gauntlet": [
+    [
+     34,
+     1.0,
+     0.0
+    ],
+    [
+     35,
+     1.0,
+     0.0
+    ],
+    [
+     36,
+     1.0,
+     0.0
+    ],
+    [
+     37,
+     1.0,
+     0.0
+    ],
+    [
+     38,
+     1.0,
+     0.0
+    ]
+   ],
+   "rotorwash_ramp": [
+    [
+     35,
+     1.15,
+     0.5
+    ],
+    [
+     42,
+     1.1,
+     0.25
+    ],
+    [
+     56,
+     1.1,
+     0.35
+    ],
+    [
+     45,
+     1.1,
+     0.4
+    ],
+    [
+     49,
+     1.1,
+     0.5
+    ],
+    [
+     52,
+     1.1,
+     0.5
+    ]
+   ],
+   "snake": [
+    [
+     13,
+     60.0,
+     3.0
+    ],
+    [
+     22,
+     60.0,
+     7.0
+    ],
+    [
+     29,
+     60.0,
+     11.5
+    ],
+    [
+     31,
+     60.0,
+     11.5
+    ],
+    [
+     23,
+     60.0,
+     12.0
+    ]
+   ]
+  },
+  "order_head_format": "[index, V2 score, V1 score]",
+  "seeds_by_rule": {
+   "booster_gauntlet": [
+    34,
+    35,
+    36
+   ],
+   "rotorwash_ramp": [
+    35,
+    56,
+    45
+   ],
+   "snake": [
+    13,
+    22,
+    29
+   ]
+  },
+  "seeds_on_screen": {
+   "booster_gauntlet": [
+    34,
+    35,
+    36
+   ],
+   "rotorwash_ramp": [
+    35,
+    56,
+    45
+   ],
+   "snake": [
+    13,
+    22,
+    29
+   ]
+  },
+  "seeds_on_screen_method": "the per-round 'sealed seed #N' label read from frames at 3, 25.5, 48, 70.5, 131, 189, 239.75, 300.25, 360.75 s; final live scores read at round ends (booster #34 V2 1.00; rr #35 V2 1.15 / V1 0.50; snake #29 V2 60.0 s / V1 11.5 s) equal arena_v2.json",
+  "ties_at_top_v2": {
+   "booster_gauntlet": 23,
+   "rotorwash_ramp": 1,
+   "snake": 8
+  },
+  "verdict": "The shown seeds equal the rule's output. 'Best 3 of 24 sealed seeds per game' holds only in the sense 'highest V2 score': every shown seed's V2 score is >= every unshown seed's V2 score in all three games. It is not a unique top 3: Booster Gauntlet has 23 seeds tied at V2 1.00 (V1 0.00 on all, so the lowest indices 34-36 are shown); Snake Rush has 8 seeds tied at the 60 s cap (ties broken by V2 - V1 margin); on Rotorwash-Ramp #42 (V2 1.10) ranks second by the rule but was skipped for replay drift, so #56 and #45 (also 1.10) are shown. The selection favours V2 by construction; these are not typical rounds (the page's median-margin clips are).",
+  "label_exact": "Highlights: V2's best 3 of 24 sealed seeds per game, by V2 score (ties: larger V2-V1 margin, then lowest seed; Rotorwash-Ramp #42 skipped for replay drift). Same seeds for all three seats.",
+  "label_short": "Highlights: best 3 of 24 sealed seeds per game by V2 score (picked for V2, not typical)"
+ },
+ "files": [
+  {
+   "path": "site/burst-v2/media/hero-loop.mp4",
+   "sha256": "3574671897b92d6885a5ea8e3c05755b8f12820adf9a3764b6beef5b433af434",
+   "bytes": 649383,
+   "width": 720,
+   "height": 900,
+   "duration_s": 9.0,
+   "video": {
+    "codec_name": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "30/1",
+    "nb_frames": "270"
+   },
+   "audio": null,
+   "faststart_moov_before_mdat": true,
+   "sources": [
+    {
+     "path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+     "sha256": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4"
+    }
+   ],
+   "page_role": "hero-loop",
+   "role": "hero autoplay loop (muted, no audio track), 4:5",
+   "game": "booster_gauntlet",
+   "seed_index": 34,
+   "seed": 1636330441,
+   "seed_rule": "median V2-Jev margin (bench/burst_v2/receipts/arena_v2_videos.json seed_rule; same clip as the page's Game Arena section)",
+   "source_path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+   "start_s": 3.0,
+   "end_s": 12.0,
+   "seats_visible": [
+    "Nagi Burst V2",
+    "Nagi Burst V1",
+    "Jev"
+   ],
+   "range": {
+    "source_frames": [
+     90,
+     359
+    ],
+    "source_fps": 30,
+    "source_s": [
+     3.0,
+     12.0
+    ],
+    "end_exclusive": true,
+    "continuity": "one continuous, uncut segment of one real round from the raw 1x render (arena_v2_videos.json playback 'raw 1x, no edits'): on-screen game clock = frame/30 s (read at frames 0, 45, 300, 330, 345, 360 -> 0.0, 1.5, 10.0, 11.0, 11.5, 12.0 s); ffmpeg freezedetect (n=0.0005, d=0.2) finds no frozen span in the cropped segment.",
+    "why_this_window": "all three rockets descending at the same seed, V2 lowest and closing on the deck; it ends before the first in-scene status text about another seat (Jev 'LOW FUEL' tag from about 12.5 s; 'Jev OUT' banner and V2 touchdown at 15.8 s are outside the loop).",
+    "crop_in_source": "768x960 at x=156, y=380 of 1080x1920 (sky, three rockets with their seat tags, ship, sea; the HUD, seat chips, header line with scores and the AI BRAINS table are outside the crop)",
+    "edits": "0.3 s fade-in from black and 0.4 s fade-out to black at the loop seam only"
+   },
+   "cmd": "ffmpeg -i site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4 -an -vf \"trim=start_frame=90:end_frame=360,setpts=PTS-STARTPTS,crop=768:960:156:380,scale=720:900:flags=lanczos,fade=t=in:st=0:d=0.3,fade=t=out:st=8.6:d=0.4,format=yuv420p\" -c:v libx264 -preset veryslow -tune animation -crf 20 -profile:v high -movflags +faststart -fflags +bitexact -flags +bitexact site/burst-v2/media/hero-loop.mp4"
+  },
+  {
+   "path": "site/burst-v2/media/hero-loop.jpg",
+   "sha256": "5a2294e3d6c4b83ffad4cfd99b96ffb5bbdac4e31386d5ba89297a11186458be",
+   "bytes": 34205,
+   "width": 720,
+   "height": 900,
+   "duration_s": null,
+   "codec": "mjpeg",
+   "sources": [
+    {
+     "path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+     "sha256": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4"
+    }
+   ],
+   "page_role": "hero-poster",
+   "role": "hero poster (JPEG)",
+   "game": "booster_gauntlet",
+   "seed_index": 34,
+   "source_path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+   "start_s": 10.0,
+   "end_s": 10.0,
+   "range": {
+    "source_frame": 300,
+    "source_s": 10.0,
+    "inside_loop_s": 7.0
+   },
+   "cmd": "ffmpeg -i site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4 -vf \"select=eq(n\\,300),crop=768:960:156:380,scale=720:900:flags=lanczos\" -frames:v 1 -q:v 4 -fflags +bitexact -flags +bitexact site/burst-v2/media/hero-loop.jpg"
+  },
+  {
+   "path": "site/burst-v2/media/hero-loop.webp",
+   "sha256": "71c21c812cf48cd822aa59ee2a22f65a6ae707d0ccf44005228d52150ed685c4",
+   "bytes": 17332,
+   "width": 720,
+   "height": 900,
+   "duration_s": null,
+   "codec": "webp",
+   "sources": [
+    {
+     "path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+     "sha256": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4"
+    }
+   ],
+   "page_role": "hero-poster",
+   "role": "hero poster (WebP, smaller than the JPEG)",
+   "game": "booster_gauntlet",
+   "seed_index": 34,
+   "source_path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+   "start_s": 10.0,
+   "end_s": 10.0,
+   "range": {
+    "source_frame": 300,
+    "source_s": 10.0,
+    "inside_loop_s": 7.0
+   },
+   "cmd": "ffmpeg -i site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4 -vf \"select=eq(n\\,300),crop=768:960:156:380,scale=720:900:flags=lanczos\" -frames:v 1 -c:v libwebp -quality 80 -compression_level 6 -fflags +bitexact -flags +bitexact site/burst-v2/media/hero-loop.webp"
+  },
+  {
+   "path": "site/burst-v2/media/highlights-3-3-3.mp4",
+   "sha256": "32c24b5fd26ade33779abbf53a88310109cba542531cf561acffb937c6a69843",
+   "bytes": 7848081,
+   "width": 1280,
+   "height": 720,
+   "duration_s": 418.567,
+   "video": {
+    "codec_name": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "30/1",
+    "nb_frames": "12557"
+   },
+   "audio": {
+    "codec_name": "aac",
+    "sample_rate": "48000",
+    "channels": 1,
+    "bit_rate": "31894"
+   },
+   "faststart_moov_before_mdat": true,
+   "sources": [
+    {
+     "path": "~/Downloads/Nagi-Burst-V2-Arena/social/Nagi-Burst-V2_3-3-3_raw_16x9_1920x1080.mp4",
+     "sha256": "8115caf6b597460e3f3ab63809d70b3ca87769160d4821fd91e6a27d9f0061e4"
+    }
+   ],
+   "page_role": "highlights",
+   "role": "highlights clip: 9 raw full rounds (3 per game) back to back, three seats on the same sealed seed, 1x",
+   "label": "Highlights: V2's best 3 of 24 sealed seeds per game, by V2 score (ties: larger V2-V1 margin, then lowest seed; Rotorwash-Ramp #42 skipped for replay drift). Same seeds for all three seats.",
+   "label_short": "Highlights: best 3 of 24 sealed seeds per game by V2 score (picked for V2, not typical)",
+   "seeds": {
+    "booster_gauntlet": [
+     34,
+     35,
+     36
+    ],
+    "rotorwash_ramp": [
+     35,
+     56,
+     45
+    ],
+    "snake": [
+     13,
+     22,
+     29
+    ]
+   },
+   "seed_rule": "best by V2 score; see highlights_verification",
+   "source_path": "~/Downloads/Nagi-Burst-V2-Arena/social/Nagi-Burst-V2_3-3-3_raw_16x9_1920x1080.mp4 (not in the repo)",
+   "start_s": 0.0,
+   "end_s": 418.567,
+   "range": {
+    "source_s": [
+     0.0,
+     418.567
+    ],
+    "note": "whole clip, re-encoded only (no cuts); the burned-in footer reads 'Best 3 of 24 sealed seeds per game · same seeds for all three · V2: offline 1-tick replies; V1, Jev: live records'"
+   },
+   "cmd": "ffmpeg -i SRC -an -vf \"scale=1280:720:flags=lanczos,format=yuv420p\" -c:v libx264 -preset slow -tune animation -b:v 110k -maxrate 450k -bufsize 900k -g 300 -pass 1 -f mp4 /dev/null && ffmpeg -i SRC -vf \"scale=1280:720:flags=lanczos,format=yuv420p\" -c:v libx264 -preset slow -tune animation -b:v 110k -maxrate 450k -bufsize 900k -g 300 -pass 2 -profile:v high -c:a aac -b:a 32k -ac 1 -movflags +faststart -fflags +bitexact -flags +bitexact site/burst-v2/media/highlights-3-3-3.mp4  (SRC = the source above)",
+   "notes": "1280x720 chosen over 1920x1080 for the 8 MB budget (418.6 s => ~150 kbps total); round labels, live scores and seat names checked readable at 720p on Booster, Rotorwash-Ramp and Snake frames. Audio kept as AAC-LC 32 kbps mono."
+  },
+  {
+   "path": "site/burst-v2/media/highlights-3-3-3.jpg",
+   "sha256": "43df46a6afe848b04eec2fd33483c90d1a122c33e14f31dbe6b596db545746cc",
+   "bytes": 69195,
+   "width": 1280,
+   "height": 720,
+   "duration_s": null,
+   "codec": "mjpeg",
+   "sources": [
+    {
+     "path": "~/Downloads/Nagi-Burst-V2-Arena/social/Nagi-Burst-V2_3-3-3_raw_16x9_1920x1080.mp4",
+     "sha256": "8115caf6b597460e3f3ab63809d70b3ca87769160d4821fd91e6a27d9f0061e4"
+    }
+   ],
+   "page_role": "highlights-poster",
+   "role": "highlights poster: round 1 (Booster Gauntlet sealed seed #34), three rockets descending, round label and seat panel visible",
+   "seeds": {
+    "booster_gauntlet": [
+     34
+    ]
+   },
+   "source_path": "~/Downloads/Nagi-Burst-V2-Arena/social/Nagi-Burst-V2_3-3-3_raw_16x9_1920x1080.mp4 (not in the repo)",
+   "start_s": 13.0,
+   "end_s": 13.0,
+   "range": {
+    "source_frame": 390,
+    "source_s": 13.0
+   },
+   "cmd": "ffmpeg -i SRC -vf \"select=eq(n\\,390),scale=1280:720:flags=lanczos\" -frames:v 1 -fps_mode passthrough -q:v 5 -fflags +bitexact -flags +bitexact site/burst-v2/media/highlights-3-3-3.jpg"
+  },
+  {
+   "path": "site/burst-v2/media/og-frame.jpg",
+   "sha256": "5d6a75fc7e73977b1fce502a32e455b03e8c308195ce010d523e581ce5d1112b",
+   "bytes": 27759,
+   "width": 440,
+   "height": 630,
+   "duration_s": null,
+   "codec": "mjpeg",
+   "sources": [
+    {
+     "path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+     "sha256": "ded887ad4e927a33ce95e3f783f30b001a67503fec1a16314b9155a66a1d35b4"
+    }
+   ],
+   "page_role": "og-frame",
+   "role": "game frame used by the social card (input of make_og.py)",
+   "game": "booster_gauntlet",
+   "seed_index": 34,
+   "seed_rule": "median V2-Jev margin",
+   "source_path": "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4",
+   "start_s": 10.0,
+   "end_s": 10.0,
+   "range": {
+    "source_frame": 300,
+    "source_s": 10.0,
+    "crop_in_source": "662x948 at x=209, y=381"
+   },
+   "cmd": "python3 site/burst-v2/build/make_og.py frame  (= ffmpeg -i site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4 -frames:v 1 -fps_mode passthrough -vf \"select=eq(n\\,300),crop=662:948:209:381,scale=440:630:flags=lanczos\" -q:v 2 -fflags +bitexact -flags +bitexact site/burst-v2/media/og-frame.jpg; the source sha256 is pinned in make_og.py)"
+  },
+  {
+   "path": "site/burst-v2/og.png",
+   "sha256": "b6443f0dce56bbbef86a602c67f7292d502b36f64674757a39830d70529a940e",
+   "bytes": 196120,
+   "width": 1200,
+   "height": 630,
+   "duration_s": null,
+   "codec": "png",
+   "sources": [
+    {
+     "path": "site/burst-v2/media/og-frame.jpg",
+     "sha256": "5d6a75fc7e73977b1fce502a32e455b03e8c308195ce010d523e581ce5d1112b"
+    },
+    {
+     "path": "site/burst-v2/data.json",
+     "sha256": "169eb9de865f1dc447ca6f9dbbf14af89734ff1e98c7bc38f4dcf7d80da1b01e"
+    },
+    {
+     "path": "site/burst-v2/build/make_og.py",
+     "sha256": "f1f872bf2cc03c4c9d44e2a8a5c0c483aca55791c1e39ded120102cd18c0227e"
+    }
+   ],
+   "page_role": "og",
+   "role": "social card (og:image / twitter:image), 1200x630",
+   "cmd": "python3 site/burst-v2/build/make_og.py   (check: python3 site/burst-v2/build/make_og.py check -> rebuilds in a temp dir and compares sha256; deterministic for this ffmpeg build and these macOS fonts: Impact, Arial Bold, Arial, Menlo)",
+   "values_used": {
+    "g_theta": "0.854",
+    "g_families": "48",
+    "a_snake_W": "1.000",
+    "a_rotorwash_W": "1.000",
+    "a_booster_W": "0.979",
+    "core_params": "3.10M",
+    "l_max_ucb": "50.8 ms",
+    "sdk_tag": "v0.7.0"
+   },
+   "notes": "Card text: title 'NAGI BURST V2', subtitle 'Write the rules.' / 'Get the decision.', four stats whose numbers are read by make_og.py from data.json values: UNSEEN MACHINES g_theta (success, g_families unseen families); ARENA VS NAGI BURST V1 a_snake_W · a_rotorwash_W · a_booster_W (win share, Snake · Rotorwash · Booster); LEARNED CORE core_params (parameters, numpy only); DECISION LATENCY '≤ ' + l_max_ucb (largest p95 upper bound, one CPU thread); eyebrow 'NAGI SDK ' + sdk_tag. Labels are prose with no measured number. Game panel = og-frame.jpg (all three seats, seat tags only, no scores)."
+  }
+ ]
+}

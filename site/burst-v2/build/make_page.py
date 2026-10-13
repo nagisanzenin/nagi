@@ -46,6 +46,7 @@ FILES = {
     "arena": REC + "arena_v2.json",
     "robot": REC + "robot_example.json",
     "page_media": REC + "page_media.json",
+    "prereg_units": REC + "prereg_units.json",
     "videos": REC + "arena_v2_videos.json",
     "jev_snake": REC + "jev1s_snake.json",
     "jev_rr": REC + "jev1s_rr.json",
@@ -72,7 +73,8 @@ STRATA = [("snake_like", "Snake-like"), ("booster_like", "Booster-like"), ("mixe
 ALLOW = [r"\bV[123](?:\.1)?\b", r"\bV2G\b", r"\bmz-1x?\b", r"\bp(?:50|95|99)\b", r"\b0[1-9] / ", r"\bC8\b",
          r"\bG[123]\b", r"\bR[12]\b", r"\bv3\b", r"\bburst2\b", r"\bsha256\b", r"\bM2\b",
          r"\bE[123]\b", r"\b1-tick\b", r"×\d\b", r"\b\d populations\b", r"\bV2\.1\b",
-         r"\b[\w.-]+\.(?:json|md|py|mp4|jpg|png)\b", r"\bM[1-5]\b"]
+         r"\b[\w.-]+\.(?:json|md|py|mp4|jpg|png)\b", r"\bM[1-5]\b",
+         r"\bK3(?:-RR2\.1)?\b", r"\bcpu-m2-1t\b"]
 
 
 def rel(k):
@@ -136,6 +138,18 @@ def ms(x):
 
 def num(x):
     return f"{int(x):,}"
+
+
+def cp_lower(x, n, alpha=0.025):
+    """Exact (Clopper-Pearson) one-sided lower bound: the p with P(Bin(n, p) >= x) = alpha (bisection, stdlib)."""
+    if x == 0:
+        return 0.0
+    tail = lambda p: sum(math.comb(n, j) * p ** j * (1 - p) ** (n - j) for j in range(x, n + 1))
+    lo, hi = 0.0, 1.0
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if tail(mid) < alpha else (lo, mid)
+    return (lo + hi) / 2
 
 
 class Build:
@@ -418,6 +432,23 @@ def build():
     req(R["release"]["decision"] == "RELEASE" and all(v == "PASS" for v in gates.values()), "release gates not all PASS")
     req(R["release"]["path"] == "parser" and R["release"]["R"] == "FAIL", "path rule: expected R FAIL -> parser")
 
+    # ---------- estimand (frozen prereg excerpt), comparator identity, extra bounds ----------
+    PU = jload("prereg_units")
+    mp = re.search(r"PREREG_V2G, sha `([0-9a-f]{8})", text("report"))
+    req(bool(mp) and PU["sha256"].startswith(mp.group(1)), "prereg excerpt is not from the PREREG_V2G the report names")
+    mE = re.search(r"success rate over E = (\d+) episodes, cap (\d+) ticks", PU["lines"]["294"])
+    put("zoo_E", mE.group(1), "prereg_units", ptr="lines|294", raw=PU["lines"]["294"], regex=r"E = (\d+) episodes")
+    put("zoo_cap", mE.group(2), "prereg_units", ptr="lines|294", raw=PU["lines"]["294"], regex=r"cap (\d+) ticks")
+    b.rx("i_conf", "audit", r"rule-of-three (\d+%) bound")
+    b.j("jev_model", "jev_snake", "jev_model_served", str)
+    m27 = re.search(r"\((\d+B)\)", AR["players"][1]["sub"])
+    put("v1_size", m27.group(1), "arena", ptr="players|1|sub", raw=AR["players"][1]["sub"], regex=r"\((\d+B)\)")
+    for rk, gid in GAMES:
+        ga = AR["gate_A"][gid]
+        k_, w_ = ga["wins"] + ga["losses"], ga["wins"]
+        put(f"a_{rk}_cp", f(cp_lower(w_, k_), 3), "arena", ptr=f"gate_A|{gid}|wins,losses", raw=[w_, k_],
+            derived="Clopper-Pearson one-sided 97.5% lower bound of wins / untied seeds")
+
     clips(b, AR)
     for mod in MODULES.values():
         mod.register(b)
@@ -459,8 +490,8 @@ def clips(b, AR):
         for arm in ("v2", "v1", "jev"):
             b.put(f"clip_{rk}_{arm}", f(g["scores"][arm], 2), "videos", ptr=f"games|{vk}|scores|{arm}", raw=g["scores"][arm])
     sk = [(vk, x) for _, _, vk, _ in CLIP_GAMES for x in VR["games"][vk].get("skipped", [])]
-    b.put("clip_skipped", "; ".join(f'{x["reason"].split(":", 1)[0]} skipped ({x["reason"].split(":", 1)[1].strip()})' for _, x in sk) or "none",
-          "videos", ptr="games|*|skipped", raw=[x for _, x in sk])
+    req([vk for vk, _ in sk] == ["rr"], "video receipt: expected exactly one skipped seed (Rotorwash-Ramp)")
+    b.put("clip_skip_idx", str(sk[0][1]["index"]), "videos", ptr="games|rr|skipped|0|index", raw=sk[0][1])
 
 
 # ---------- generated HTML blocks ----------
@@ -485,10 +516,10 @@ def blocks(b, R, A, AR):
     B = b.blocks
     B["hero-facts"] = (
         '<dl class="facts">'
-        f'<div><dt>Unseen machines</dt><dd>{v("g_theta")}<small>success on Zoo-Unseen-D, {v("g_families")} families / {v("g_domains")} domains · lower bounds {v("g_fam_lo")} family, {v("g_dom_lo")} domain · gate G {v("g_pass")}</small></dd></div>'
-        f'<div><dt>Arena vs Nagi Burst V1</dt><dd>{v("a_snake_W")} · {v("a_rotorwash_W")} · {v("a_booster_W")}<small>win share W on Snake Rush · Rotorwash-Ramp · Booster Gauntlet, {v("a_snake_n")} sealed seeds each · gate A {v("a_snake_pass")} ×{len(GAMES)}</small></dd></div>'
+        f'<div><dt>Unseen machines</dt><dd>{v("g_theta")}<small>mean success on Zoo-Unseen-D, {v("g_families")} families / {v("g_domains")} domains from a separate author process · gate G lower bounds (unadjusted) {v("g_fam_lo")} family, {v("g_dom_lo")} domain · {v("g_pass")}</small></dd></div>'
+        f'<div><dt>Arena vs Nagi Burst V1</dt><dd>{v("a_snake_W")} · {v("a_rotorwash_W")} · {v("a_booster_W")}<small>share of {v("a_snake_n")} sealed seeds won, ties count half (Snake Rush · Rotorwash-Ramp · Booster Gauntlet) · seen games: Snake = search pack, the others = the core&#x27;s game head without lookahead · gate A {v("a_snake_pass")} ×{len(GAMES)}</small></dd></div>'
         f'<div><dt>Decision latency</dt><dd>≤ {v("l_max_ucb")}<small>largest p95 upper bound over every population, {v("hardware")} · gate L ({v("thr_l")}) {v("l_pass")}</small></dd></div>'
-        f'<div><dt>Learned core</dt><dd>{v("core_params")}<small>parameters, numpy only · text path = structured path on {v("i_n")} requests ({v("i_mis")} mismatches) · gate I {v("i_pass")}</small></dd></div>'
+        f'<div><dt>Learned core</dt><dd>{v("core_params")}<small>parameters, numpy only · on unseen machines it added no measurable gain over the same search (G+ not shown)</small></dd></div>'
         '</dl>')
     B["install"] = (
         '<pre><code># the SDK (module nagi.burst2), pinned to this release\n'
@@ -521,7 +552,7 @@ def blocks(b, R, A, AR):
          f'θ̂ ≥ {v("thr_g1")}; both lower bounds &gt; {v("thr_g2")}; leave-one-domain-out ≥ {v("thr_g3")}', v("g_pass")),
         ("L", "Latency, one thread", f'p95 ≤ {v("l_max_ucb")} (upper bound)', f'{len(LAT_POPS)} populations, {v("serving_class")}',
          f'p95 upper bound ≤ {v("thr_l")} in every population', v("l_pass")),
-        ("I", "Text path = structured path", f'{v("i_mis")} mismatches / {v("i_n")}', f'rate upper bound {v("i_ucb")}',
+        ("I", "Text path = structured path", f'{v("i_mis")} mismatches / {v("i_n")}', f'rate upper bound {v("i_ucb")} (rule of three, {v("i_conf")})',
          'identical probability vectors and draws', v("i_pass")),
         ("R", "Prose reader (routes the shipped path)", f'{v("r_exact")}/{v("r_G")} families exact', f'π̂ {v("r_pi")} · CP lower {v("r_cp")}',
          f'π̂ ≥ {v("thr_r1")} and CP lower bound &gt; {v("thr_r2")}; FAIL ships the {v("path")} path', v("r_result")),
@@ -537,15 +568,17 @@ def blocks(b, R, A, AR):
     arow = []
     for rk, _ in GAMES:
         arow.append(f'<tr><td>{v(f"a_{rk}_name")}</td><td class="l">{v(f"metric_{rk}")}</td><td>{v(f"a_{rk}_n")}</td><td>{v(f"a_{rk}_v2")}</td><td>{v(f"a_{rk}_v1")}</td>'
-                    f'<td>{v(f"a_{rk}_wtl")}</td><td>{v(f"a_{rk}_W")}</td><td>{v(f"a_{rk}_tlo")}</td><td>{v(f"a_{rk}_p")}</td><td>{badge(vb(f"a_{rk}_pass"))}</td></tr>')
+                    f'<td>{v(f"a_{rk}_wtl")}</td><td>{v(f"a_{rk}_W")}</td><td>{v(f"a_{rk}_tlo")}</td><td>{v(f"a_{rk}_cp")}</td><td>{v(f"a_{rk}_p")}</td><td>{badge(vb(f"a_{rk}_pass"))}</td></tr>')
     B["arena-a"] = (
         '<div class="tw"><table><caption>Gate A · V2 vs Nagi Burst V1 on the same sealed seeds (paired)</caption><thead><tr>'
         '<th scope="col">Game</th><th scope="col">Metric</th><th scope="col">n</th><th scope="col">V2 mean</th><th scope="col">V1 mean</th>'
-        f'<th scope="col">Wins / ties / losses</th><th scope="col">W</th><th scope="col">t lower {v("conf")}</th><th scope="col">Sign-flip p</th><th scope="col">Gate</th></tr></thead><tbody>'
+        f'<th scope="col">Wins / ties / losses</th><th scope="col">W</th><th scope="col">t lower {v("conf")} (gate)</th><th scope="col">Exact lower {v("conf")} (win rate, untied)</th><th scope="col">Sign-flip p</th><th scope="col">Gate</th></tr></thead><tbody>'
         + "".join(arow) + '</tbody></table></div>'
         f'<p class="note">Seeds: Snake {v("a_seeds_snake")}, Rotorwash-Ramp and Booster {v("a_seeds_other")}; {v("tick_ms")} ticks; reply profile: {v("reply_profile")}. '
         f'Booster: {v("a_booster_landings")}/{v("a_booster_n")} landed (rule: at least {v("thr_landings")}); V1 landed none, and a Booster round is its first hop. '
-        f'Exact replay from the recorded controls: {v("replay_exact")}/{v("replay_n")}.</p>')
+        f'V2&#x27;s own rounds replay exactly from their recorded controls: {v("replay_exact")}/{v("replay_n")}. '
+        'With no losses the t bound of the gate is degenerate (it equals W), so the exact Clopper–Pearson column shows the real uncertainty. '
+        'Gate A tests improvement over V1, our previous release, and nothing else; V1 never landed a Booster hop, so that game says little about absolute skill.</p>')
 
     units = {"snake": " s", "rotorwash": "", "booster": ""}
     figs = []
@@ -562,8 +595,9 @@ def blocks(b, R, A, AR):
         '<div class="clips" id="clips">' + "".join(figs) + '</div>'
         '<p class="note">Each clip replays one sealed round from the recorded controls, three players on the same seed: '
         'Nagi Burst V2, Nagi Burst V1 and, for reference only, Jev (descriptive; the release gates compare with V1 only). '
-        'The seed is fixed by rule, not picked: the round at the median V2 − Jev margin for that game '
-        f'(skipped when a seat cannot be replayed exactly: {v("clip_skipped")}). Raw full rounds at real speed: no cuts, no slow motion; the last frame holds for about a second on the per-seat scores. '
+        'The seed is fixed by a rule, not picked: the round at the median of V2&#x27;s per-seed margin over Jev, so each clip shows a typical round, not V2&#x27;s best. '
+        f'Rotorwash-Ramp&#x27;s median seed #{v("clip_skip_idx")} could not be replayed exactly for V1 on the render host, so the rule&#x27;s fallback (the next seed by distance to the median) gave #{v("clip_rotorwash_seed")}. '
+        f'Raw full rounds at real speed: no cuts, no slow motion; the last frame holds for about a second on the per-seat scores. '
         f'Every on-screen score equals its record; render receipt <a href="{GH_BLOB}bench/burst_v2/receipts/arena_v2_videos.json"><code>arena_v2_videos.json</code></a>.</p>')
 
     lrow = []
@@ -660,21 +694,24 @@ def media_blocks(b, B, v):
     rel_ = lambda f_: html.escape(f_["path"][len("site/burst-v2/"):])
     names = {g["id"]: g["name"] for g in jload("arena")["games"]}
     hl = by.get("hero-loop")
-    if hl and by.get("hero-poster") and not _LINT:
-        if f"hero_seed" not in b.values:
+    hv = by.get("highlights")
+    if not _LINT:
+        if hl and "hero_seed" not in b.values:
             b.put("hero_seed", str(hl["seed_index"]), "page_media", ptr="files|hero-loop|seed_index", raw=hl["seed_index"])
+        if hv and "hl_label" not in b.values:
+            b.put("hl_label", hv["label"], "page_media", ptr="files|highlights|label", raw=hv["label"])
     if hl and by.get("hero-poster"):
         game = html.escape(names[hl["game"]])
         B["hero-media"] = (
             f'<figure class="hero-loop"><video muted loop playsinline preload="none" poster="{rel_(by["hero-poster"])}" '
             f'data-src="{rel_(hl)}" aria-label="{game}: Nagi Burst V2 playing a sealed round, muted loop"></video>'
-            f'<figcaption>{game} · sealed seed #{v("hero_seed")} ({html.escape(hl["seed_rule"])}) · Nagi Burst V2, uncut, real speed · '
+            f'<figcaption>{game} · sealed seed #{v("hero_seed")}, the median-margin seed · uncut, real speed, three players (V2, V1, Jev) · '
             '<a href="#play">full rounds ↓</a></figcaption></figure>')
     hv = by.get("highlights")
     if hv and by.get("highlights-poster"):
         B["highlights"] = (
             f'<figure class="wide-clip"><video controls preload="none" playsinline poster="{rel_(by["highlights-poster"])}" src="{rel_(hv)}" '
-            f'aria-label="{html.escape(hv["label"])}"></video><figcaption><b>{html.escape(hv["label"])}</b> · raw full rounds back to back, '
+            f'aria-label="Highlights reel: raw full rounds"></video><figcaption><b>{v("hl_label")}</b> · raw full rounds back to back, '
             'chosen by score, so not typical: the per-game clips above are the typical rounds.</figcaption></figure>')
 
 

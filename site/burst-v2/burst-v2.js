@@ -35,7 +35,8 @@
     const p = (g.pairs || []).find(q => q && q.a === 'v2' && (q.b === b || q.a_vs === b));
     if (!p) { td.textContent = '—'; return td; }
     const s = el('span', { class: 'pair' });
-    s.append(el('b', null, 'W ' + minus(fmt(p.W, 3))), ' · t lower ' + minus(fmt(p.t_lb, 3)) + ' · p ' + fmtP(p.p));
+    s.append(el('b', null, 'W ' + minus(fmt(p.W, 3))));
+    if (p.claim !== 'descriptive') s.append(' · t lower ' + minus(fmt(p.t_lb, 3)) + ' · p ' + fmtP(p.p));
     if (Number.isInteger(p.wins) && Number.isInteger(p.ties) && Number.isInteger(p.losses)) s.append(' · ' + p.wins + '/' + p.ties + '/' + p.losses);
     if (b === 'jev' && g.pairing_jev) s.append(' · ' + String(g.pairing_jev).toLowerCase());
     td.append(s, badge(p.claim, p.result));

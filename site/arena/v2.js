@@ -39,15 +39,16 @@
     var rows = D.games.map(function (g) {
       return '<tr><td class="who">' + esc(g.label) + '</td>' + cols.map(function (c) {
         var x = pair(g, c[0], c[1]);
-        var tag = x.claim === 'gate A' ? '<span class="tag ' + (x.result === 'PASS' ? 'pass' : 'fail') + '">gate A ' + esc(x.result) + '</span>' : '<span class="tag desc">descriptive</span>';
+        var gate = x.claim === 'gate A';
+        var tag = gate ? '<span class="tag ' + (x.result === 'PASS' ? 'pass' : 'fail') + '">gate A ' + esc(x.result) + '</span>' : '<span class="tag desc">descriptive</span>';
         return '<td class="num"><span class="big">' + Math.round(100 * x.W) + '%</span><span class="ci">' + wtl(x) + ' (W–T–L)</span>' +
-          '<span class="ci">t lower 97.5% ' + num(x.t_lb, 3) + ' · p ' + pv(x.p) + '</span>' + tag + '</td>';
+          (gate ? '<span class="ci">t lower 97.5% ' + num(x.t_lb, 3) + ' · p ' + pv(x.p) + '</span>' : '') + tag + '</td>';
       }).join('') + '</tr>';
     });
     var o = D.overall;
     rows.push('<tr class="all"><td class="who">All three games<span class="sub">mean of the per-game W</span></td>' + cols.map(function (c) {
       var x = o[c[0] + '_vs_' + c[1]];
-      return '<td class="num"><span class="big">' + Math.round(100 * x.theta) + '%</span><span class="ci">' + wtl(x) + ' over ' + x.n + ' seed-games</span><span class="ci">lower 97.5% ' + num(x.lb97_5, 3) + '</span></td>';
+      return '<td class="num"><span class="big">' + Math.round(100 * x.theta) + '%</span><span class="ci">' + wtl(x) + ' over ' + x.n + ' seed-games</span>' + (c[1] === 'v1' ? '<span class="ci">lower 97.5% ' + num(x.lb97_5, 3) + '</span>' : '') + '</td>';
     }).join('') + '</tr>');
     $('#v2-h2h tbody').innerHTML = rows.join('');
   }

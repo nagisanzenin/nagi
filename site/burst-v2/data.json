@@ -19,14 +19,15 @@
   "bench/burst_v2/receipts/jev1s_booster.json": "eb9c6ad3b1803229148e4b14d2dc166d985553732239c11b937d87c3859992bc",
   "bench/burst_v2/receipts/jev1s_rr.json": "5cd53676b8db2b82551685ec179e15e058bc1515202c3f056849d95e46352be5",
   "bench/burst_v2/receipts/jev1s_snake.json": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
-  "bench/burst_v2/receipts/page_media.json": "181621ef582ae7d3ddbdff470afd67fd97859a7de165cdebd97aaf952e5fe607",
+  "bench/burst_v2/receipts/page_media.json": "853b93d68699340ff8de41dfa35e7d67844498982e776db2aa2befdb7749a7e1",
+  "bench/burst_v2/receipts/prereg_units.json": "73b35acc402aa03535c80ec8290ddcadd11ddaa39016369d38b73a46e10ff9f8",
   "bench/burst_v2/receipts/replay.json": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
   "bench/burst_v2/receipts/robot_example.json": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
   "bench/burst_v2/receipts/timeline.json": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
   "bench/burst_v2/receipts/zoo_d_admission.json": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
   "docs/BURST_V2.md": "9102227d521c34013daf532df850be904438414a06503e27f95dff7da21a2e59",
   "pyproject.toml": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
-  "site/arena/v2.json": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+  "site/arena/v2.json": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
   "src/nagi/burst2/_api.py": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
   "src/nagi/burst2/_rt/machine_zoo/tokens.py": "99a18116e859ea44388a4ffc971f56c84bee0af8234bc7794ee92490107e35c9",
   "src/nagi/burst2/_rt/v2g/core/game_data.py": "527b2f50821f2aab6ff24632ae0756077882d5fec1ff88d78ab53e3a33118e60",
@@ -35,6 +36,7 @@
  },
  "values": {
   "a_booster_W": "0.979",
+  "a_booster_cp": "0.852",
   "a_booster_landings": "23",
   "a_booster_n": "24",
   "a_booster_name": "Booster Gauntlet",
@@ -45,6 +47,7 @@
   "a_booster_v2": "0.96",
   "a_booster_wtl": "23 / 1 / 0",
   "a_rotorwash_W": "1.000",
+  "a_rotorwash_cp": "0.858",
   "a_rotorwash_n": "24",
   "a_rotorwash_name": "Rotorwash-Ramp",
   "a_rotorwash_p": "6.0e-08",
@@ -56,6 +59,7 @@
   "a_seeds_other": "34–57",
   "a_seeds_snake": "10–33",
   "a_snake_W": "1.000",
+  "a_snake_cp": "0.858",
   "a_snake_n": "24",
   "a_snake_name": "Snake Rush",
   "a_snake_p": "6.0e-08",
@@ -94,7 +98,7 @@
   "clip_rotorwash_seed": "44",
   "clip_rotorwash_v1": "0.30",
   "clip_rotorwash_v2": "1.05",
-  "clip_skipped": "rr 38 skipped (Nagi Burst V1 seat not hash-exact over its flight on this platform (first mismatch tick 4 <= end tick 177))",
+  "clip_skip_idx": "38",
   "clip_snake_jev": "3.50",
   "clip_snake_seed": "32",
   "clip_snake_v1": "11.00",
@@ -123,14 +127,18 @@
   "gp_p": "1.000",
   "gp_result": "not shown",
   "hardware": "Apple M2 (cpu-m2-1t), native arm64, 1 thread",
+  "hero_seed": "34",
   "hf_repo": "nagisanzeninz/Nagi-Burst-V2",
   "hf_revision": "803cdcbb384c81c0a7411aa65fe058b933a4545b",
   "hf_revision_short": "803cdcbb",
+  "hl_label": "Highlights: V2's best 3 of 24 sealed seeds per game, by V2 score (ties: larger V2-V1 margin, then lowest seed; Rotorwash-Ramp #42 skipped for replay drift). Same seeds for all three seats.",
+  "i_conf": "95%",
   "i_mis": "0",
   "i_n": "7,506",
   "i_pass": "PASS",
   "i_rt": "0",
   "i_ucb": "0.040%",
+  "jev_model": "jev-1.13.0",
   "l_booster_gt250": "0.00%",
   "l_booster_n": "1,506",
   "l_booster_p50": "0.5 ms",
@@ -264,11 +272,14 @@
   "thr_r1": "0.95",
   "thr_r2": "0.85",
   "tick_ms": "250 ms",
+  "v1_size": "27B",
   "zc_D": "4",
   "zc_G": "16",
   "zc_dp": "+0.012",
   "zc_dp_lo": "−0.013",
-  "zc_theta": "0.893"
+  "zc_theta": "0.893",
+  "zoo_E": "16",
+  "zoo_cap": "100"
  },
  "sources": {
   "a_booster_W": {
@@ -276,6 +287,16 @@
    "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
    "key": "arena|booster|W",
    "raw": 0.9791666666666666
+  },
+  "a_booster_cp": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "gate_A|booster_gauntlet|wins,losses",
+   "derived": "Clopper-Pearson one-sided 97.5% lower bound of wins / untied seeds",
+   "raw": [
+    23,
+    23
+   ]
   },
   "a_booster_landings": {
    "file": "bench/burst_v2/receipts/RESULT.json",
@@ -340,6 +361,16 @@
    "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
    "key": "arena|rotorwash|W",
    "raw": 1.0
+  },
+  "a_rotorwash_cp": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "gate_A|rotorwash_ramp|wins,losses",
+   "derived": "Clopper-Pearson one-sided 97.5% lower bound of wins / untied seeds",
+   "raw": [
+    24,
+    24
+   ]
   },
   "a_rotorwash_n": {
    "file": "bench/burst_v2/receipts/RESULT.json",
@@ -410,6 +441,16 @@
    "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
    "key": "arena|snake|W",
    "raw": 1.0
+  },
+  "a_snake_cp": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "gate_A|snake|wins,losses",
+   "derived": "Clopper-Pearson one-sided 97.5% lower bound of wins / untied seeds",
+   "raw": [
+    24,
+    24
+   ]
   },
   "a_snake_n": {
    "file": "bench/burst_v2/receipts/RESULT.json",
@@ -665,16 +706,14 @@
    "key": "games|rr|scores|v2",
    "raw": 1.05
   },
-  "clip_skipped": {
+  "clip_skip_idx": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
    "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
-   "key": "games|*|skipped",
-   "raw": [
-    {
-     "index": 38,
-     "reason": "rr 38: Nagi Burst V1 seat not hash-exact over its flight on this platform (first mismatch tick 4 <= end tick 177)"
-    }
-   ]
+   "key": "games|rr|skipped|0|index",
+   "raw": {
+    "index": 38,
+    "reason": "rr 38: Nagi Burst V1 seat not hash-exact over its flight on this platform (first mismatch tick 4 <= end tick 177)"
+   }
   },
   "clip_snake_jev": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
@@ -847,6 +886,12 @@
    "regex": "^\\| Hardware \\| (.+?) \\|$",
    "raw": "Apple M2 (cpu-m2-1t), native arm64, 1 thread"
   },
+  "hero_seed": {
+   "file": "bench/burst_v2/receipts/page_media.json",
+   "sha256": "853b93d68699340ff8de41dfa35e7d67844498982e776db2aa2befdb7749a7e1",
+   "key": "files|hero-loop|seed_index",
+   "raw": 34
+  },
   "hf_repo": {
    "file": "src/nagi/burst2/_api.py",
    "sha256": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
@@ -864,6 +909,18 @@
    "sha256": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
    "regex": "^BURST_V2_REVISION = \"([0-9a-f]{40})\"",
    "derived": "first 8 hex"
+  },
+  "hl_label": {
+   "file": "bench/burst_v2/receipts/page_media.json",
+   "sha256": "853b93d68699340ff8de41dfa35e7d67844498982e776db2aa2befdb7749a7e1",
+   "key": "files|highlights|label",
+   "raw": "Highlights: V2's best 3 of 24 sealed seeds per game, by V2 score (ties: larger V2-V1 margin, then lowest seed; Rotorwash-Ramp #42 skipped for replay drift). Same seeds for all three seats."
+  },
+  "i_conf": {
+   "file": "bench/burst_v2/receipts/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "regex": "rule-of-three (\\d+%) bound",
+   "raw": "95%"
   },
   "i_mis": {
    "file": "bench/burst_v2/receipts/RESULT.json",
@@ -894,6 +951,12 @@
    "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
    "key": "interface|mismatch_rate_ucb95",
    "raw": 0.0003996802557953637
+  },
+  "jev_model": {
+   "file": "bench/burst_v2/receipts/jev1s_snake.json",
+   "sha256": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
+   "key": "jev_model_served",
+   "raw": "jev-1.13.0"
   },
   "l_booster_gt250": {
    "file": "bench/burst_v2/receipts/RESULT.json",
@@ -1371,25 +1434,25 @@
   },
   "rs_jev_l": {
    "file": "site/arena/v2.json",
-   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
    "key": "overall|v2_vs_jev|losses",
    "raw": 0
   },
   "rs_jev_n": {
    "file": "site/arena/v2.json",
-   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
    "key": "overall|v2_vs_jev|n",
    "raw": 72
   },
   "rs_jev_t": {
    "file": "site/arena/v2.json",
-   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
    "key": "overall|v2_vs_jev|ties",
    "raw": 1
   },
   "rs_jev_w": {
    "file": "site/arena/v2.json",
-   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "sha256": "7d95897b6ea96d04345a705f79b33bdda2c3873585c49d3cac684bb38b9bf2fb",
    "key": "overall|v2_vs_jev|wins",
    "raw": 71
   },
@@ -1727,6 +1790,13 @@
    "key": "meta|tick_ms",
    "raw": 250
   },
+  "v1_size": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "players|1|sub",
+   "regex": "\\((\\d+B)\\)",
+   "raw": "Nagi-ENORMOUS-Burst (27B), pinned eval records (PREREG_V2G §3)"
+  },
   "zc_D": {
    "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
    "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
@@ -1756,6 +1826,20 @@
    "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
    "key": "zoo_unseen_c|theta_candidate|mean",
    "raw": 0.892578125
+  },
+  "zoo_E": {
+   "file": "bench/burst_v2/receipts/prereg_units.json",
+   "sha256": "73b35acc402aa03535c80ec8290ddcadd11ddaa39016369d38b73a46e10ff9f8",
+   "key": "lines|294",
+   "regex": "E = (\\d+) episodes",
+   "raw": "  - Machine m: success rate over E = 16 episodes, cap 100 ticks."
+  },
+  "zoo_cap": {
+   "file": "bench/burst_v2/receipts/prereg_units.json",
+   "sha256": "73b35acc402aa03535c80ec8290ddcadd11ddaa39016369d38b73a46e10ff9f8",
+   "key": "lines|294",
+   "regex": "cap (\\d+) ticks",
+   "raw": "  - Machine m: success rate over E = 16 episodes, cap 100 ticks."
   }
  },
  "unused_on_page": [

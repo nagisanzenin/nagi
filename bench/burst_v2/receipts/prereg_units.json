@@ -1,0 +1,19 @@
+{
+ "schema": "nagi-burst-v2-prereg-excerpt-v1",
+ "what": "Verbatim lines of the frozen preregistration PREREG_V2G.md (units and metrics), so the page can state the Zoo-Unseen-D estimand from a hashed source.",
+ "file": "docs/burst_v2_general/PREREG_V2G.md",
+ "sha256": "9691f1e6693aa7ceb8238c78b4a6d8f6e7883d3b01fdf56b6b68b24f9020f96a",
+ "commit": "27be92fa89c458c5e1f343c3c9b14522a39fe692",
+ "commit_time": "2026-10-12 18:42:23 +0700",
+ "lines": {
+  "292": "**Units and metrics.**",
+  "293": "- **Zoo.** Unit = family f; cluster = domain d.",
+  "294": "  - Machine m: success rate over E = 16 episodes, cap 100 ticks.",
+  "295": "  - s_f = the mean over the family's m machines.",
+  "296": "  - θ = mean_f s_f (family-weighted).",
+  "297": "- **Arena.** Unit = seed index i. Scores per game:",
+  "298": "  - Snake `survival_s` (fail-first; a tie is the same failure tick or both censored at 60 s);",
+  "299": "  - RR the record's `raw` K3-RR2.1 Y;",
+  "300": "  - Booster K3 Y."
+ }
+}
