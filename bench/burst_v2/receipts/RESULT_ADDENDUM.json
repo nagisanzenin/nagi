@@ -1,0 +1,169 @@
+{
+ "addendum_to": "receipts/m4/RESULT.json (18e96274)",
+ "descriptive_only": true,
+ "comparator_C8": {
+  "decisions": 47117,
+  "machines": 96,
+  "reach_min_p25_median_p75_max": [
+   72.0,
+   380.5,
+   922.5,
+   2237.75,
+   25921.0
+  ],
+  "share_reach_le_1000": 0.5208333333333334,
+  "share_reach_le_20000": 0.9583333333333334,
+  "share_decisions_exhausted": 0.24999469405946897,
+  "share_decisions_high_coverage": 0.48042107944054163,
+  "n_low_coverage_machines": 26
+ },
+ "delta_plus_per_stratum": {
+  "booster_like": {
+   "G": 12,
+   "mean": -0.0026041666666666665,
+   "lower": -0.008335898854405308,
+   "upper": 0.0031275655210719748
+  },
+  "mixed": {
+   "G": 12,
+   "mean": 0.005208333333333333,
+   "lower": -0.002520332771965726,
+   "upper": 0.012936999438632392
+  },
+  "rr_like": {
+   "G": 12,
+   "mean": -0.013020833333333334,
+   "lower": -0.03614233639685468,
+   "upper": 0.010100669730188012
+  },
+  "snake_like": {
+   "G": 12,
+   "mean": -0.0026041666666666665,
+   "lower": -0.008335898854405308,
+   "upper": 0.0031275655210719748
+  }
+ },
+ "theta_per_stratum": {
+  "booster_like": {
+   "G": 12,
+   "mean": 0.953125
+  },
+  "mixed": {
+   "G": 12,
+   "mean": 0.9817708333333334
+  },
+  "rr_like": {
+   "G": 12,
+   "mean": 0.484375
+  },
+  "snake_like": {
+   "G": 12,
+   "mean": 0.9973958333333334
+  }
+ },
+ "zoo_unseen_c": {
+  "G": 16,
+  "D": 4,
+  "theta_candidate": {
+   "n": 16,
+   "mean": 0.892578125,
+   "sd": 0.29314404477932576,
+   "se": 0.07328601119483144,
+   "df": 15,
+   "lower": 0.7363726897428878,
+   "upper": 1.048783560257112,
+   "p": 1.7641808206837307e-09
+  },
+  "theta_search_only": 0.880859375,
+  "delta_plus": {
+   "n": 16,
+   "mean": 0.01171875,
+   "sd": 0.046875,
+   "se": 0.01171875,
+   "df": 15,
+   "lower": -0.013259174362028624,
+   "upper": 0.03669667436202863,
+   "p": 0.1665850679577382
+  },
+  "domain_cluster": {
+   "D": 4,
+   "G": 16,
+   "mean": 0.892578125,
+   "se": 0.1048338820337472,
+   "df": 3,
+   "lower": 0.5589499244531532,
+   "upper": 1.2262063255468467,
+   "p": 0.0017015686180527959,
+   "descriptive_only": false
+  },
+  "per_domain": {
+   "lifeboat_launch": {
+    "families": 4,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "orbital_rendezvous": {
+    "families": 4,
+    "candidate": 0.578125,
+    "search_only": 0.53125
+   },
+   "planetary_aerobrake": {
+    "families": 4,
+    "candidate": 1.0,
+    "search_only": 1.0
+   },
+   "teleop_rover": {
+    "families": 4,
+    "candidate": 0.9921875,
+    "search_only": 0.9921875
+   }
+  }
+ },
+ "prose_path": {
+  "G_prose_rule_form": {
+   "estimate": 0.4694010416666667,
+   "pass": false,
+   "G1_point_ge_floor": false,
+   "G2_bounds_gt_guard": false,
+   "G3_lodo_ge_floor": false,
+   "lodo_min": 0.4340277777777778
+  },
+  "G_prose_family_lower": 0.33000919204189944,
+  "G_prose_domain_lower": 0.3116288437515059,
+  "prose_minus_parser": {
+   "n": 48,
+   "mean": -0.384765625,
+   "sd": 0.45588080050813884,
+   "se": 0.06580072572293902,
+   "df": 47,
+   "lower": -0.5171396107696568,
+   "upper": -0.25239163923034325,
+   "p": 0.9999997711455848
+  },
+  "note": "descriptive (R FAIL); harness = pinned m4_zoo_sdk + prose-arm env-rejection guard (dated ERRATUM, RUNBOOK \u00a711)"
+ },
+ "leak_check_zoo_dev_l": {
+  "D": {
+   "G": 48,
+   "theta": 0.8541666666666666
+  },
+  "zoo_dev_l": {
+   "G": 44,
+   "D": 11,
+   "theta": 0.8856534090909091,
+   "invalid_machines": 0
+  },
+  "leak_check": {
+   "diff": -0.03148674242424243,
+   "se": 0.06246627796742998,
+   "df": 89.5555078877567,
+   "lower": -0.15559529863370813,
+   "flag": false
+  },
+  "rule": "PREREG \u00a75.6 / R2.5: flag iff the one-sided 97.5% lower bound of mean(D) - mean(Zoo-Dev-L) > 0 (Welch); a flag triggers a re-run of the leak guards before the result is final"
+ },
+ "identity": {
+  "git_head": "0a2a02ee7343405cde89444949ea86db5bdb530c",
+  "analysis_sha256": "5f4716189c794cad6f81139095fe837ddd48704ce6eb7a9d0eb3441ab03fe8da"
+ }
+}

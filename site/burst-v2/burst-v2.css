@@ -1,0 +1,77 @@
+/* Nagi Burst V2 page (site/burst-v2/). Tokens, type, header and footer come from ../assets/nagi.css. */
+.bp{max-width:var(--nagi-width);margin:0 auto;padding:0 var(--nagi-gut)}
+.bp section{padding:64px 0 8px;border-top:1px solid var(--nagi-line);margin-top:56px}
+.bp section:first-of-type{border-top:0;margin-top:0}
+.bp h1,.bp h2{font-family:var(--nagi-display);font-style:italic;font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.95;margin:0}
+.bp h1{font-size:clamp(46px,9vw,104px);margin:22px 0 22px}
+.bp h1 em{color:var(--nagi-yellow);font-style:italic}
+.bp h2{font-size:clamp(34px,5.4vw,58px);margin:0 0 20px}
+.bp h3{font:700 21px/1.3 var(--nagi-body);letter-spacing:-.01em;margin:36px 0 10px}
+.bp p,.bp li{font-size:17px;line-height:1.65;color:var(--nagi-bone)}
+.bp p{max-width:72ch;margin:0 0 16px}
+.bp .note{font-size:14px;line-height:1.6;max-width:84ch;color:var(--nagi-muted)}
+.bp .note b{color:var(--nagi-bone)}
+.bp .eyebrow{font:600 11px var(--nagi-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--nagi-muted);margin:0 0 16px}
+.bp a{color:var(--nagi-bone);text-underline-offset:3px}
+.bp a:hover{color:var(--nagi-yellow)}
+.bp code,.bp pre{font-family:var(--nagi-mono);font-size:14px}
+.bp code{background:var(--nagi-panel2);padding:1px 5px;overflow-wrap:anywhere}
+.bp pre{background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:16px 18px;overflow-x:auto;line-height:1.55;margin:0 0 18px;color:var(--nagi-bone);max-width:100%}
+.bp pre code{background:none;padding:0;overflow-wrap:normal}
+.hero{padding-top:44px}
+.hero .dek{font-size:clamp(18px,2.2vw,21px);line-height:1.55;color:var(--nagi-muted);max-width:64ch}
+.hero .dek strong{color:var(--nagi-bone)}
+.key{border-left:4px solid var(--nagi-yellow);background:var(--nagi-panel);padding:16px 20px;margin:22px 0 26px;max-width:80ch}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--nagi-bone);border-bottom:1px solid var(--nagi-line);margin:0}
+.facts>div{padding:18px 16px 16px 0}
+.facts>div+div{border-left:1px solid var(--nagi-line);padding-left:16px}
+.facts dt{font:600 11px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--nagi-dim);margin-bottom:8px}
+.facts dd{margin:0;overflow-wrap:anywhere;font:800 clamp(22px,3vw,32px)/1.1 var(--nagi-body);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.facts dd small{display:block;font:500 13px/1.45 var(--nagi-body);color:var(--nagi-muted);letter-spacing:0;margin-top:6px}
+.claims{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px 0 0}
+.claims>div{background:var(--nagi-panel);border:1px solid var(--nagi-line);padding:20px 22px}
+.claims>div.no{border-top:3px solid var(--nagi-pink)}
+.claims>div.yes{border-top:3px solid var(--nagi-green)}
+.claims h3{margin:0 0 10px;font-size:17px}
+.claims ul{margin:0;padding-left:18px}
+.claims li{font-size:15px;line-height:1.55;margin:0 0 8px}
+.parts{padding-left:22px;margin:0 0 18px;max-width:80ch}
+.parts li{margin:0 0 10px}
+.next{padding-left:20px;max-width:80ch}
+.next li{margin:0 0 8px}
+blockquote.c83{margin:6px 0 22px;padding:14px 20px;border-left:4px solid var(--nagi-yellow);background:var(--nagi-panel);font-size:18px;line-height:1.55;max-width:80ch}
+.tw{overflow-x:auto;margin:14px 0 10px;border:1px solid var(--nagi-line)}
+.bp table{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.bp caption{text-align:left;font:600 12px var(--nagi-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--nagi-muted);padding:12px 14px;border-bottom:1px solid var(--nagi-line)}
+.bp th,.bp td{padding:10px 14px;border-bottom:1px solid var(--nagi-line);text-align:right;white-space:nowrap;vertical-align:top}
+.bp th{font:600 11.5px var(--nagi-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--nagi-muted)}
+.bp th:first-child,.bp td:first-child{text-align:left}
+.bp td.l{text-align:left;white-space:normal;min-width:16ch}
+.bp table.wrap td,.bp table.wrap th{white-space:normal}
+.bp table.gates td.l{min-width:22ch}
+.bp tr.me td{background:rgba(245,230,66,.07)}
+.bp tr.me td:first-child{box-shadow:inset 3px 0 0 var(--nagi-yellow)}
+.bp tbody tr:last-child td{border-bottom:0}
+.bdg{display:inline-block;font:700 11.5px/1 var(--nagi-mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 7px;border:1px solid currentColor}
+.bdg.ok{color:var(--nagi-green)}
+.bdg.bad{color:var(--nagi-pink)}
+.bdg.mut{color:var(--nagi-muted)}
+.lims{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+.lims li{background:var(--nagi-panel);border:1px solid var(--nagi-line);border-left:4px solid var(--nagi-green);padding:16px 18px;font-size:16px}
+.lims li.fail{border-left-color:var(--nagi-pink)}
+.lims li b.k{display:block;font:700 11.5px var(--nagi-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--nagi-muted);margin-bottom:6px}
+.lims li.fail b.k{color:var(--nagi-pink)}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+.links a{display:block;padding:14px 16px;background:var(--nagi-panel);border:1px solid var(--nagi-line);text-decoration:none;min-width:0}
+.links a:hover{border-color:var(--nagi-yellow);color:var(--nagi-bone)}
+.links a b{display:block;font-size:16px}
+.links a span{font-size:14px;color:var(--nagi-muted)}
+.arena-v2{margin:18px 0 8px}
+.arena-v2 .pair{display:block;font:500 13px/1.5 var(--nagi-mono);color:var(--nagi-muted)}
+.arena-v2 .pair b{color:var(--nagi-bone);font-weight:600}
+.arena-v2 ul.notes{margin:10px 0 0;padding-left:18px}
+.arena-v2 ul.notes li{font-size:14px;color:var(--nagi-muted)}
+@media (max-width:860px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts>div:nth-child(3){border-left:0;padding-left:0}.facts>div:nth-child(n+3){border-top:1px solid var(--nagi-line)}.claims{grid-template-columns:1fr}}
+@media (max-width:560px){.links{grid-template-columns:1fr}.bp p,.bp li{font-size:16px}.facts{grid-template-columns:1fr}.facts>div+div{border-left:0;padding-left:0;border-top:1px solid var(--nagi-line)}}
+.bp table.gates th,.bp table.wrap th{text-align:left}
