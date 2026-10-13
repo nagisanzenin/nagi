@@ -1,0 +1,65 @@
+{
+ "mode": "final",
+ "decision": "RELEASE",
+ "audit": "MATCH",
+ "release_docs_rendered": true,
+ "sha_conflict": false,
+ "inputs": {
+  "RESULT.json": {
+   "path": "docs/burst_v2_general/receipts/m4/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389"
+  },
+  "CANDIDATE.json": {
+   "path": "/Users/quanduong/nagi-wt/v2g-m4/docs/burst_v2_general/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3"
+  },
+  "core_receipt.json": {
+   "path": "/Users/quanduong/nagi/runs/v2g/core/M3/receipt.json",
+   "sha256": "75f0a745dbb3ecdcf2bc3d6b1cad37aba5b6ddb0e1942a0f29c02650fc25325d"
+  },
+  "arena/arena.json": {
+   "path": "docs/burst_v2_general/receipts/m4/arena/arena.json",
+   "sha256": "aedaf6c2b754a5014f5dcb0f5a50b676babfe93018ada603405ede2ef884cc81"
+  },
+  "rr/arena.json": {
+   "path": "docs/burst_v2_general/receipts/m4/rr/arena.json",
+   "sha256": "d5954c4f7c6613309ac04d3e52d1713665191bad5084e876b9648f848a0aa231"
+  },
+  "stamp.json": {
+   "path": "docs/burst_v2_general/receipts/m4/latency_stamp.json",
+   "sha256": "ddcf46c9af7fe91ab435cc46a2e41d61eec055cc966ac76c645c178b05d593b6"
+  },
+  "replay.json": {
+   "path": "/private/tmp/claude-501/-Users-quanduong-nagi--claude-worktrees-vigilant-keller-cd5119/edd1a80a-29df-40da-90ba-35e0f3e32cd1/scratchpad/v2g_release/arena_pack/replay.json",
+   "sha256": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7"
+  },
+  "AUDIT_M4.md": {
+   "path": "docs/burst_v2_general/receipts/m4/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1"
+  },
+  "budget.json": {
+   "path": "docs/burst_v2_general/release/budget_m4.json",
+   "sha256": "7c9241cfac3f617b7fd56c437a94430f7fc9ed900eafcc8ea302bf98eb6dca0c"
+  }
+ },
+ "templates": {
+  "REPORT_M5": "85da6b013360a3a23cf779c106924a6615ac780ee27332df8d790a272b341ba6",
+  "MODEL_CARD": "0fbe735314c391969577b45a487638e7b6d986cc8b7b3518d7cee779a52926a9",
+  "SDK_README": "b96bda360cf417585ee681bc57df1962cdc599c0481b4228c51ae13320d77dc7"
+ },
+ "missing": {
+  "REPORT_M5": [],
+  "MODEL_CARD": [],
+  "SDK_README": []
+ },
+ "unknown": {
+  "REPORT_M5": [],
+  "MODEL_CARD": [],
+  "SDK_README": []
+ },
+ "outputs": {
+  "REPORT_M5": "629a72affc258fe7764d588bc32acfa3f3e9f64695333a7031372b25230d9365",
+  "MODEL_CARD": "fbbc21c4ecf531e7c2cda60bad331e91900d73d75ee5cec7b2724a3816a76d84",
+  "SDK_README": "b1529d7bb629219e6f89b403d85b653dca4c134e0bc6e02e48c2325a8f622a17"
+ }
+}

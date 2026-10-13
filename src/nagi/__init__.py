@@ -9,7 +9,7 @@ _LAZY = {"Nagi": "nagi.api", "load_big": "nagi.api", "load_smol": "nagi.api",
          "NagiEnormous": "nagi.enormous", "load_enormous": "nagi.enormous", "load_enormous_burst": "nagi.enormous"}
 
 __all__ = ["Nagi", "NagiHuge", "NagiEnormous", "load_smol", "load_big", "load_huge", "load_enormous", "load_enormous_burst"]
-__version__ = "0.6.0"
+__version__ = "0.7.0"
 
 
 def __getattr__(name):

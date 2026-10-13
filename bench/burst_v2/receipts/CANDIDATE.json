@@ -1,0 +1,364 @@
+{
+ "status": "FROZEN",
+ "status_note": "Candidate freeze (PREREG_V2G \u00a76.1 step 2). Sealed runs may start only after this file is committed and pushed and main has been told.",
+ "written_at": "2026-10-13 17:40 +0700",
+ "prereg": {
+  "file": "docs/burst_v2_general/PREREG_V2G.md",
+  "sha256": "9691f1e6693aa7ceb8238c78b4a6d8f6e7883d3b01fdf56b6b68b24f9020f96a"
+ },
+ "predeclared": {
+  "snake_policy_rule": {
+   "decided_by": "main, 2026-10-13 ~17:40 +07, from dev evidence only (RUNBOOK_M4 \u00a79: Arena dev 48-59, SDK pack 51.8 s vs core head 34.9 s; contended-host pack p95 169 ms / p99 692 ms), before any M4 look",
+   "rule": "Snake policy = SDK pack iff its dev p95 upper-95% bound <= 150 ms on cpu-m2-1t measured on a quiet host after M3 finishes (same L procedure); else the M3 core head.",
+   "procedure": "Requests: every Snake request recorded by `m4_arena.py --split dev --games snake --snake-policy sdk --model <M3 model.npz>` (Arena dev 48-59; the SDK pack does not read the core, so the request set is the pack's own trajectories). Timing: `m4_li.py --game snake --n 2000` (first n in sha256('v2g-L-v0|'+request_sha) order, timed once each in sha256('v2g-L-order-v0|'+request_sha) order, 20 untimed warm-up calls, 1 process, BLAS/OMP threads 1, Apple M2 native). Quiet host: 1-minute load average <= 3.0 at start and end, else the run is void and repeated. Statistic: x_(u), u = smallest index with P(Bin(n, 0.95) <= u-1) >= 0.95 (analysis.quantile_ucb_index). Decision: x_(u) <= 150 ms -> 'sdk_pack', else 'core_head'. The timing receipt (latency_snake.csv + stamp.json, sha256) is recorded here before status becomes FROZEN.",
+   "result": {
+    "policy": "sdk_pack",
+    "timing": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 86.14041598048061,
+     "p95_ms": 59.652250027284026,
+     "p99_ms": 243.2671669521369,
+     "max_ms": 348.93525001825765,
+     "load": [
+      1.92919921875,
+      2.43994140625
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "446d06c44cdfebb3526753520d7a6b63f4b3852ef87b156a913078c2534ad3bc",
+     "stamp_sha256": "c5709b7297c0b57e415efff4bb4f1354f3ed831fd97e97be90d703717fe23635"
+    }
+   }
+  },
+  "rr_booster_policy": "the M3 core game head: per-slot argmax, one forward per tick, on the parsed served request (no SDK search pack exists for RR / Booster; RUNBOOK_M4 B2)",
+  "search_config": {
+   "file": "docs/burst_v2_general/lanes/runtime_search_config_v1b.json",
+   "sha256": "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b9179c8b94d",
+   "candidate_policy": "G100000b1b",
+   "tau": 0.6
+  },
+  "serving_class": "cpu-m2-1t",
+  "reader": {
+   "rung": "S-v1",
+   "adapter_sha256": "1b70b944f6bbd3e01fe8c088de34fcb7f021ab97e39e39db9a3b2d31ed6e2408",
+   "code": "a20f9945 --constrained --max-sq-tokens 33554432",
+   "prompt": "v2g-reader-prompt-v1",
+   "retries": "k = 2, seeded per prose"
+  },
+  "d_addendum": {
+   "file": "docs/burst_v2_general/SPLITS_V2G_D_ADDENDUM.json",
+   "sha256": "fa30ca277a19f9ca5d1c248a2b7a5859a19fc8d4651b20bbdcc09e4824680d1f"
+  }
+ },
+ "to_fill_at_freeze": [
+  "core_weights_sha256 (sha256 of the M3 model.npz bytes)",
+  "snake_policy_rule.result + timing receipt sha",
+  "search_only S0* (RUNBOOK R-S0)",
+  "harness commit (m4_*.py)",
+  "Linux image digest",
+  "V1 pair_check receipts (R-V1, R-RR)",
+  "analysis.py sha256",
+  "hardware stamp",
+  "runtime + SDK commit"
+ ],
+ "frozen_at": "2026-10-13 22:07 +0700",
+ "core_weights_sha256": "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624",
+ "core_model_path": "/Users/quanduong/nagi/runs/v2g/core/M3/model.npz",
+ "snake_policy": "sdk_pack",
+ "search_only_policy": "N109375b1b",
+ "search_only_s0_star": 109375,
+ "search_only_s0_rule_value": 106250,
+ "deviations": [
+  {
+   "dated": "2026-10-13 22:07 +0700",
+   "item": "S0* bisection tolerance",
+   "text": "Dated operational deviation (main 22:07 +07): the S0* bisection bracket is 2.9% wide ([106,250 p95 88.8 ms <= 91.7; 109,375 p95 93.4 ms > 91.7]) vs the PREREG \u00a73 2% tolerance, because no quiet window (1-min load <= 2.0) occurred 21:18-22:07 for the last 107,812 run. S0* is set to the UPPER bracket point 109,375 = conservative for G+ (the search-only comparator gets the larger budget; any bias is against the candidate). No gate uses S0*. The 107,812 point may be run later as descriptive only; it cannot change S0*."
+  }
+ ],
+ "candidate_policy": "G100000b1b",
+ "config_sha256": "ba5d3a822ee11b8b3d1e8faf2e713c58e32df14e2b4d6de8c0bde7418d2ca408",
+ "config_resolved": {
+  "config_file_sha256": "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b9179c8b94d",
+  "constants": {
+   "search.GAMMA": 0.99,
+   "search.MAX_LAYER": 3000000,
+   "search.BELIEF_SEARCH_MAX": 512,
+   "search.TOL": 1e-06,
+   "search.PREIMAGE_FRAC": 0.8,
+   "search.rewards": [
+    -1.0,
+    -200.0,
+    49.0
+   ],
+   "machine.BELIEF_ENUM_MAX": 200000,
+   "snake.DEFAULT_K": 12,
+   "snake.DEFAULT_MAX_SIMS": 20000
+  },
+  "candidate": {
+   "max_sims": 100000,
+   "k_max": 40,
+   "belief": "v1b",
+   "tau": 0.6,
+   "core_value": false,
+   "tie": "sample"
+  },
+  "search_only": {
+   "max_sims": 109375,
+   "k_max": 40,
+   "belief": "v1b",
+   "core": null,
+   "core_value": false,
+   "tie": "sample"
+  },
+  "snake": {
+   "max_sims": 20000,
+   "k": 12
+  }
+ },
+ "readiness": {
+  "image": {
+   "tag": "bv2n-rr:py31112-np246",
+   "id": "sha256:bf9b6dae746787f7b3eacbce8f62446b93ea90991b0aad9ebca5ee468d61bb84",
+   "recert_pilot_rr_all_exact": true
+  },
+  "v1_pair_check_eval": {
+   "snake": {
+    "n": 24,
+    "replay_exact": 24,
+    "prompt_mismatch": 0,
+    "score_equal": 24,
+    "ok": true
+   },
+   "booster": {
+    "n": 24,
+    "replay_exact": 24,
+    "prompt_mismatch": 0,
+    "score_equal": 24,
+    "ok": true
+   }
+  },
+  "v1_rr_dev_precheck_modal_x86": "ops 9133890b: 12/12 replay-exact, scores 12/12, prompts 0 mismatch",
+  "arena_dev_m3_docker": {
+   "snake": {
+    "W": 1.0,
+    "wins": 12,
+    "ties": 0,
+    "losses": 0,
+    "pass": true,
+    "mean_v2g": 51.791666666666664,
+    "mean_v1": 10.9375
+   },
+   "rr": {
+    "W": 0.9583333333333334,
+    "wins": 11,
+    "ties": 1,
+    "losses": 0,
+    "pass": true,
+    "mean_v2g": 0.9541666666666667,
+    "mean_v1": 0.3333333333333333
+   },
+   "booster": {
+    "W": 0.9583333333333334,
+    "wins": 11,
+    "ties": 1,
+    "losses": 0,
+    "pass": true,
+    "mean_v2g": 0.9166666666666666,
+    "mean_v1": 0.0
+   }
+  },
+  "I_dev": {
+   "t4x": {
+    "n": 1966,
+    "mismatches": 0,
+    "roundtrip_fail": 0
+   },
+   "dev_l_x": {
+    "n": 1235,
+    "mismatches": 0,
+    "roundtrip_fail": 0
+   }
+  },
+  "replay_dev": {
+   "episodes": 416,
+   "candidate_episodes": 208,
+   "decisions": 5421,
+   "identical": 5421
+  },
+  "reader_checker_qa": "lanes/reader.md \u00a7: tests/test_v2g_prose_reader_check.py 12 tests; dev mutation set 7,070 mutants: declaration 1040/1040, view 172/172, transition 5256/5256 rejected; neutral 602/602 accepted",
+  "d_addendum_sha256": "fa30ca277a19f9ca5d1c248a2b7a5859a19fc8d4651b20bbdcc09e4824680d1f",
+  "timings": {
+   "snake_policy": "sdk_pack",
+   "b3": {
+    "n": 2000,
+    "u": 1917,
+    "ucb_ms": 86.14041598048061,
+    "p95_ms": 59.652250027284026,
+    "p99_ms": 243.2671669521369,
+    "max_ms": 348.93525001825765,
+    "load": [
+     1.92919921875,
+     2.43994140625
+    ],
+    "valid": true,
+    "invalid_reasons": [],
+    "csv_sha256": "446d06c44cdfebb3526753520d7a6b63f4b3852ef87b156a913078c2534ad3bc",
+    "stamp_sha256": "c5709b7297c0b57e415efff4bb4f1354f3ed831fd97e97be90d703717fe23635"
+   },
+   "s_star_100k_ok": true,
+   "rl_candidate": {
+    "n": 2000,
+    "u": 1917,
+    "ucb_ms": 92.9331659572199,
+    "p95_ms": 91.68574999785051,
+    "p99_ms": 105.43441597837955,
+    "max_ms": 116.14649998955429,
+    "load": [
+     1.83935546875,
+     2.28955078125
+    ],
+    "valid": true,
+    "invalid_reasons": [],
+    "csv_sha256": "905578500075b136452870a2cd765add52149c74577a491c28e939a736afc73d",
+    "stamp_sha256": "958ccc95a3fc83d7f1a5bebbe230dc7308f3d11ba0992603057ae098256c13e5"
+   },
+   "s0_grid": {
+    "100000": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 91.8622090248391,
+     "p95_ms": 90.96695802873,
+     "p99_ms": 103.11070800526068,
+     "max_ms": 114.64679200435057,
+     "load": [
+      1.95263671875,
+      2.3291015625
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "20aea1cb142a08c21974bb4753260ea7dc64a5b1d9607eb0ee9b981896e9816c",
+     "stamp_sha256": "5ead0f8518f0df2fbcb24ef0214d4b6ec1de758260cb0b65e21941a56268e3b5"
+    },
+    "106250": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 90.21937497891486,
+     "p95_ms": 88.84437498636544,
+     "p99_ms": 103.86970802210271,
+     "max_ms": 119.23791700974107,
+     "load": [
+      1.84765625,
+      2.41357421875
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "ec310177ca4c58d37105d79d9ba4bd618f37d5f491475814126a61bc0828741d",
+     "stamp_sha256": "4668c389361595a671cbfdb160fa7b7278917f2a522053cae99c245d2080dcbb"
+    },
+    "109375": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 95.39399994537234,
+     "p95_ms": 93.3835000032559,
+     "p99_ms": 125.07975002517924,
+     "max_ms": 133.11687496025115,
+     "load": [
+      1.958984375,
+      2.28173828125
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "f4194f1fca84a1e1045297fdb70c38ec878d8465c845b35108bf5b269620ef7c",
+     "stamp_sha256": "b1d4b5a64f7034482282ac767530e4f854b621de7d41832226c72f93c6f37aa1"
+    },
+    "112500": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 105.99933395860717,
+     "p95_ms": 97.69387496635318,
+     "p99_ms": 127.88162502693012,
+     "max_ms": 133.21791699854657,
+     "load": [
+      1.89111328125,
+      2.17333984375
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "742d5ba71ee7f7f9e2b771bb40654be5824c4df2c38eb2cc55e80b06c4e6b05c",
+     "stamp_sha256": "e28b84a8e48124f14bc06e00d1ae14f49ef53c04232e7a8fb8a33eae9877108b"
+    },
+    "125000": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 129.36724995961413,
+     "p95_ms": 127.99204204929993,
+     "p99_ms": 135.83808398107067,
+     "max_ms": 140.5979169649072,
+     "load": [
+      1.822265625,
+      1.9658203125
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "b7159da87bb34df084c2c5e04062ff5c6faaa16d304b8c855ca8db1740894d92",
+     "stamp_sha256": "939fdea9239de716bd479c60a2a348f080310d375f9264a276fb022725288aa1"
+    },
+    "150000": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 134.166749950964,
+     "p95_ms": 132.39937496837229,
+     "p99_ms": 151.53437497792765,
+     "max_ms": 176.82633403455839,
+     "load": [
+      1.9658203125,
+      2.50439453125
+     ],
+     "valid": true,
+     "invalid_reasons": [],
+     "csv_sha256": "d404bfd8665cad786bf6c5cf78f3a112f485831be4e38c59fb5edca93157684a",
+     "stamp_sha256": "a77af563a0e7498f73c8c6ac93f1717ddced3a6b671c8461de7f99dbf95179eb"
+    },
+    "200000": {
+     "n": 2000,
+     "u": 1917,
+     "ucb_ms": 185.1084170048125,
+     "p95_ms": 183.53033397579566,
+     "p99_ms": 206.28629199927673,
+     "max_ms": 268.1919170427136,
+     "load": [
+      1.95751953125,
+      3.10888671875
+     ],
+     "valid": false,
+     "invalid_reasons": [
+      "load1_end > 3.0"
+     ],
+     "csv_sha256": "a62cbfec3ef629932680244bef29f255a20e93676a4159ab3d6988c96dd07458",
+     "stamp_sha256": "5ff434f335d03d627ac690a2fe0728e04e9ccd1099b049297e4e42265b6b5b55"
+    }
+   },
+   "s0_star": 109375
+  }
+ },
+ "harness_commit": "2de0297551bae22c347a1184a8eb1343222e4801",
+ "harness_sha256": {
+  "scripts/v2g/m4_zoo_sdk.py": "dbbfdb56855104a1f8290104ebe7b07dfe3dcfa0f36bb7486042e37f072fe8c8",
+  "scripts/v2g/m4_arena.py": "4e55a4d60a93c8854c3628b2acb0be9c3ceea05ee07fc341690cfb7984668d24",
+  "scripts/v2g/m4_li.py": "f2a2d20010636af6b2a7154be33a59d0f818716baae8189e0334dc9ce9f8129e",
+  "scripts/v2g/m4_pair_check.py": "e83f767073605098c995f73cfbde542c8a3e06e688865ea2b7cbcc72f208a300",
+  "scripts/v2g/m4_sealed_tasks.py": "28dcce7fb435f9b8de0d899e20d0c1f5ec9559d71655394dba8b3633ac2d9509",
+  "scripts/v2g/analysis.py": "5f4716189c794cad6f81139095fe837ddd48704ce6eb7a9d0eb3441ab03fe8da",
+  "scripts/v2g/m4_config.py": "3a8dc3a626d819c686a81b93216f14c004049f6365f1f37ab82f4ce5492527fd",
+  "scripts/v2g/m4_freeze_candidate.py": "473c271706b8d1f6e8ac1305722efe4010ddef480675c7f124ab2e5b77f9b77f",
+  "src/v2g/operate.py": "5bd76f1b09745df7dccbe1071b739d366af3bed760f753593e577d7e217e0d51",
+  "src/v2g/search.py": "d046bcfd8b1234c1a6bb74d66fbd9d36042027be8509f3f2d75da2959957b818",
+  "src/v2g/reader.py": "4e8061cc0f2276df3076139223dfea11ac9a78d9ea73f8411966e8dd3844d2c9",
+  "src/v2g/machine.py": "d4ab8772ff9911566bd04bc0704db536bf1da8e89b0a8e13956cd6bd97f4ce09",
+  "src/v2g/games/snake.py": "765297cc84bf2076977a807abf90b738da8f63f0ceca4f92c7187a3163a30e55",
+  "src/v2g/core/multi_core.py": "c87f2c720730d201025d1969a3732d0076bf7344e43680083b93bfc73dc1e4db",
+  "docs/burst_v2_general/lanes/runtime_search_config_v1b.json": "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b9179c8b94d"
+ },
+ "analysis_sha256": "5f4716189c794cad6f81139095fe837ddd48704ce6eb7a9d0eb3441ab03fe8da"
+}
