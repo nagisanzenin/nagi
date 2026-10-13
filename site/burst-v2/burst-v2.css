@@ -110,3 +110,11 @@ figure.bars li b{text-align:right;font-variant-numeric:tabular-nums}
 @media (max-width:760px){.clips{grid-template-columns:1fr}.clip video{max-height:72vh;margin:0 auto;width:auto;max-width:100%}
   figure.bars li{grid-template-columns:minmax(0,1fr) 4em}figure.bars .bar{grid-column:1 / -1;grid-row:2}
   .arch svg.wide{display:none}.arch svg.narrow{display:block}}
+.bp details{background:var(--nagi-panel);border:1px solid var(--nagi-line);margin:0 0 10px}
+.bp details>summary{cursor:pointer;padding:14px 18px;font-weight:700;font-size:17px;line-height:1.4}
+.bp details>summary:hover{color:var(--nagi-yellow)}
+.bp details[open]>summary{border-bottom:1px solid var(--nagi-line)}
+.bp details>*:not(summary){margin-left:18px;margin-right:18px}
+.bp details>*:last-child{margin-bottom:14px}
+.bp details>p:first-of-type{margin-top:12px}
+.bp details pre{margin-left:18px;margin-right:18px}

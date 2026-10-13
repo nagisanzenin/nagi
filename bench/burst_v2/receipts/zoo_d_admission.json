@@ -1,0 +1,59 @@
+{
+ "schema": "nagi-burst-v2-zoo-d-admission-v1",
+ "what": "How a Zoo-Unseen-D machine was admitted, as verbatim excerpts of frozen research-repo files (hash-only; no sealed rules, programs or prose). Every scored D machine is a kept instance, and an instance is kept only if every family-gate check passes, including V3: the exact success of the non-privileged view-based oracle (V-infinity label policy, uniform start, 100-tick cap) is at least oracle_min under profile v2g-zud.",
+ "oracle_rule": {
+  "file": "codex_jobs/v2g_common/famgate.py",
+  "commit_introduced": "1b2f0b8e354d446438910498accd71abce6ea09a",
+  "commit_introduced_time": "2026-10-12 16:17:18 +0700",
+  "commit_last_change": "ed1361428bbada102b182398c8535d14b8126c75",
+  "commit_last_change_time": "2026-10-12 16:48:46 +0700",
+  "file_sha256": "3195974b4b390194a899e3877c89d00adf9037baba3e2873118987ea6873f1e1",
+  "profile": "v2g-zud",
+  "oracle_min": 0.95,
+  "lines": {
+   "12": "  V3  oracle (exact V-infinity label policy, uniform start, 100-tick cap) success >= oracle_min (0.95)",
+   "77": "    oracle_min: float = 0.95  # V3 (catalog C admitted at 0.90; V2G is stricter so the D ceiling is >= 0.95)",
+   "108": "    \"v2g-zud\": Profile(\"v2g-zud\", \"v2g-zud-scan-v0\", keep_max_inst=6),",
+   "654": "    if not (orc[\"success\"] >= prof.oracle_min):",
+   "1006": "        if r[\"pass\"] and r[\"machine_id\"] not in seen:"
+  },
+  "used_by": {
+   "file": "codex_jobs/v2g_zoo_unseen_d/validate.py",
+   "line": 37,
+   "text": "PROFILE = fg.PROFILES[\"v2g-zud\"]"
+  }
+ },
+ "d_addendum": {
+  "file": "docs/burst_v2_general/SPLITS_V2G_D_ADDENDUM.json",
+  "sha256": "fa30ca277a19f9ca5d1c248a2b7a5859a19fc8d4651b20bbdcc09e4824680d1f",
+  "built_at": "2026-10-13 17:39 +0700",
+  "gate_version": "v2g-famgate-v1",
+  "families": 48,
+  "domains": 16
+ },
+ "domain_stratum": {
+  "source": {
+   "file": "docs/burst_v2_general/SPLITS_V2G.json",
+   "key": "zoo_unseen_d.reserved_domains",
+   "sha256": "8099f64d5d5ef802a291d3ae137607831d9a512c614551cbebc49613b634c95c"
+  },
+  "map": {
+   "avalanche_control": "rr_like",
+   "bobsled_run": "snake_like",
+   "cargo_airdrop": "rr_like",
+   "curling_stone_sweep": "snake_like",
+   "cyclotron_beam_tuning": "mixed",
+   "goalkeeper_robot": "snake_like",
+   "hydrofoil_craft": "booster_like",
+   "icebreaker_convoy": "rr_like",
+   "kite_power_station": "booster_like",
+   "maglev_levitation": "booster_like",
+   "oil_well_drilling": "mixed",
+   "pile_driver_rig": "mixed",
+   "quarry_blast_sequencer": "mixed",
+   "radio_telescope_slew": "snake_like",
+   "rail_hump_yard": "rr_like",
+   "tower_bell_ringing": "booster_like"
+  }
+ }
+}

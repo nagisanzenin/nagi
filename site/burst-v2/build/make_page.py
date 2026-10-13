@@ -45,6 +45,7 @@ FILES = {
     "replay": REC + "replay.json",
     "arena": REC + "arena_v2.json",
     "robot": REC + "robot_example.json",
+    "page_media": REC + "page_media.json",
     "videos": REC + "arena_v2_videos.json",
     "jev_snake": REC + "jev1s_snake.json",
     "jev_rr": REC + "jev1s_rr.json",
@@ -562,7 +563,7 @@ def blocks(b, R, A, AR):
         '<p class="note">Each clip replays one sealed round from the recorded controls, three players on the same seed: '
         'Nagi Burst V2, Nagi Burst V1 and, for reference only, Jev (descriptive; the release gates compare with V1 only). '
         'The seed is fixed by rule, not picked: the round at the median V2 − Jev margin for that game '
-        f'(skipped when a seat cannot be replayed exactly: {v("clip_skipped")}). Real time, with brief slow motion at eliminations. '
+        f'(skipped when a seat cannot be replayed exactly: {v("clip_skipped")}). Raw full rounds at real speed: no cuts, no slow motion; the last frame holds for about a second on the per-seat scores. '
         f'Every on-screen score equals its record; render receipt <a href="{GH_BLOB}bench/burst_v2/receipts/arena_v2_videos.json"><code>arena_v2_videos.json</code></a>.</p>')
 
     lrow = []
@@ -617,6 +618,12 @@ def blocks(b, R, A, AR):
         B["arch-core"] = MODULES["diagrams"].svg_core(v)
     if "research" in MODULES:
         B.update(MODULES["research"].blocks(v, vb))
+    media_blocks(b, B, v)
+    for name in ("arch-decision", "arch-core", "learned", "related", "next", "method", "faq", "oracle", "hero-media", "highlights"):
+        if name not in B:  # content not delivered yet: the block stays empty and check mode reports it
+            B[name] = ""
+            if not _LINT:
+                b.errors.append(f"block {name}: content missing")
 
     rec = [
         ("bench/burst_v2/README.md", "M5 report", "Every gate, claim, coverage table, budget and disclosure"),
@@ -637,6 +644,38 @@ def blocks(b, R, A, AR):
         + '</div>')
     for p, _, _ in rec:
         b.sources.setdefault("block:receipts", {})[p] = b.receipts[p]
+
+
+def media_blocks(b, B, v):
+    """Hero loop and highlights from bench/burst_v2/receipts/page_media.json (written by the media build)."""
+    pm = os.path.join(ROOT, REC, "page_media.json")
+    if not os.path.exists(pm):
+        return
+    M = json.load(open(pm, encoding="utf-8"))
+    b.media = M
+    for f_ in M.get("files", []):
+        h = hashlib.sha256(open(os.path.join(ROOT, f_["path"]), "rb").read()).hexdigest()
+        b.require(h == f_["sha256"], f'{f_["path"]}: bytes != page_media.json')
+    by = {f_.get("page_role"): f_ for f_ in M.get("files", []) if f_.get("page_role")}
+    rel_ = lambda f_: html.escape(f_["path"][len("site/burst-v2/"):])
+    names = {g["id"]: g["name"] for g in jload("arena")["games"]}
+    hl = by.get("hero-loop")
+    if hl and by.get("hero-poster") and not _LINT:
+        if f"hero_seed" not in b.values:
+            b.put("hero_seed", str(hl["seed_index"]), "page_media", ptr="files|hero-loop|seed_index", raw=hl["seed_index"])
+    if hl and by.get("hero-poster"):
+        game = html.escape(names[hl["game"]])
+        B["hero-media"] = (
+            f'<figure class="hero-loop"><video muted loop playsinline preload="none" poster="{rel_(by["hero-poster"])}" '
+            f'data-src="{rel_(hl)}" aria-label="{game}: Nagi Burst V2 playing a sealed round, muted loop"></video>'
+            f'<figcaption>{game} · sealed seed #{v("hero_seed")} ({html.escape(hl["seed_rule"])}) · Nagi Burst V2, uncut, real speed · '
+            '<a href="#play">full rounds ↓</a></figcaption></figure>')
+    hv = by.get("highlights")
+    if hv and by.get("highlights-poster"):
+        B["highlights"] = (
+            f'<figure class="wide-clip"><video controls preload="none" playsinline poster="{rel_(by["highlights-poster"])}" src="{rel_(hv)}" '
+            f'aria-label="{html.escape(hv["label"])}"></video><figcaption><b>{html.escape(hv["label"])}</b> · raw full rounds back to back, '
+            'chosen by score, so not typical: the per-game clips above are the typical rounds.</figcaption></figure>')
 
 
 # ---------- stamping, lint ----------
@@ -735,9 +774,11 @@ def main():
     bad = lint(new_page)
     for name, hits in lint_blocks(b).items():
         bad += [f"[block {name}] …{x}…" for x in hits]
-    if mode == "build":
-        if b.errors:
+    if mode in ("build", "draft"):
+        if b.errors and mode == "build":
             sys.exit("re-derivation failed:\n  " + "\n  ".join(b.errors))
+        if b.errors:
+            print("DRAFT (not publishable):\n  " + "\n  ".join(b.errors))
         open(INDEX, "w", encoding="utf-8").write(new_page)
         open(DATA, "w", encoding="utf-8").write(dj)
         print(f"stamped {os.path.relpath(INDEX, ROOT)} ({len(used)} values used of {len(b.values)}); wrote {os.path.relpath(DATA, ROOT)}")

@@ -4,23 +4,34 @@
  "note": "Every value shown on site/burst-v2/ with its source receipt. raw = the receipt value; values = the page text.",
  "receipts": {
   "README.md": "3acddc355774161c41a5da93f12282f0d60ab736e14e352556fc4e1fd34b6bf0",
+  "bench/burst_v2/MODEL_CARD.md": "fbbc21c4ecf531e7c2cda60bad331e91900d73d75ee5cec7b2724a3816a76d84",
   "bench/burst_v2/README.md": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+  "bench/burst_v2/RELATED_WORK.md": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
   "bench/burst_v2/receipts/AUDIT_M4.md": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
   "bench/burst_v2/receipts/CANDIDATE.json": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
   "bench/burst_v2/receipts/MANIFEST.json": "9045b5be66fe719919a6980d2e9711a12007e15a9c1cbc5beddad796dc9088fc",
   "bench/burst_v2/receipts/RESULT.json": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
   "bench/burst_v2/receipts/RESULT_ADDENDUM.json": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
   "bench/burst_v2/receipts/arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
-  "bench/burst_v2/receipts/arena_v2_videos.json": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+  "bench/burst_v2/receipts/arena_v2_videos.json": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
+  "bench/burst_v2/receipts/budget_m4.json": "7c9241cfac3f617b7fd56c437a94430f7fc9ed900eafcc8ea302bf98eb6dca0c",
   "bench/burst_v2/receipts/fill_receipt.json": "e817120b92e4ffc29a129b21f99faddae1783c82b86621a42c720761ccb146b4",
   "bench/burst_v2/receipts/jev1s_booster.json": "eb9c6ad3b1803229148e4b14d2dc166d985553732239c11b937d87c3859992bc",
   "bench/burst_v2/receipts/jev1s_rr.json": "5cd53676b8db2b82551685ec179e15e058bc1515202c3f056849d95e46352be5",
   "bench/burst_v2/receipts/jev1s_snake.json": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
+  "bench/burst_v2/receipts/page_media.json": "181621ef582ae7d3ddbdff470afd67fd97859a7de165cdebd97aaf952e5fe607",
   "bench/burst_v2/receipts/replay.json": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
   "bench/burst_v2/receipts/robot_example.json": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
+  "bench/burst_v2/receipts/timeline.json": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+  "bench/burst_v2/receipts/zoo_d_admission.json": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
   "docs/BURST_V2.md": "9102227d521c34013daf532df850be904438414a06503e27f95dff7da21a2e59",
   "pyproject.toml": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
-  "src/nagi/burst2/_api.py": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14"
+  "site/arena/v2.json": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+  "src/nagi/burst2/_api.py": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
+  "src/nagi/burst2/_rt/machine_zoo/tokens.py": "99a18116e859ea44388a4ffc971f56c84bee0af8234bc7794ee92490107e35c9",
+  "src/nagi/burst2/_rt/v2g/core/game_data.py": "527b2f50821f2aab6ff24632ae0756077882d5fec1ff88d78ab53e3a33118e60",
+  "src/nagi/burst2/_rt/v2g/core/multi_core.py": "5446f0ea2e19f301fdb623fe3a7973abd7f902c6911e07fd0d6bc861e7f6b7c9",
+  "src/nagi/burst2/_rt/v2g/search.py": "b8b63f4da1bfe90dc377e4c9bf5c8e87c5a4a78aadb70e215f479282a0f23581"
  },
  "values": {
   "a_booster_W": "0.979",
@@ -54,6 +65,11 @@
   "a_snake_v2": "50.7 s",
   "a_snake_wtl": "24 / 0 / 0",
   "alpha": "0.025",
+  "arch_d": "128",
+  "arch_joints": "27",
+  "arch_layers": "3",
+  "arch_rel": "21",
+  "arch_window": "23",
   "audit_verdict": "MATCH",
   "c83": "On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set.",
   "c8_decisions": "46,966",
@@ -185,6 +201,45 @@
   "robot_wait_b1": "8",
   "robot_wall_tick": "0",
   "robot_wall_tied": "3",
+  "rs_cwm_venue": "ICLR 2026",
+  "rs_e1_commit": "5a5b3fec",
+  "rs_e2_lowcov": "80%",
+  "rs_e2_states": "10⁶",
+  "rs_gap_lb": "0.096",
+  "rs_gvgai_ms": "40 ms",
+  "rs_held": "$0.00",
+  "rs_hours": "29",
+  "rs_jev_l": "0",
+  "rs_jev_n": "72",
+  "rs_jev_t": "1",
+  "rs_jev_w": "71",
+  "rs_ledgers_n": "4",
+  "rs_oracle_min": "0.95",
+  "rs_pl_model": "GPT-4o",
+  "rs_pl_parse": "96.1%",
+  "rs_pl_sem": "24.8%",
+  "rs_pl_solv": "94.4%",
+  "rs_pl_venue": "NAACL 2025",
+  "rs_prereg_sha": "9691f1e6",
+  "rs_reader_size": "0.8B",
+  "rs_rw_refs": "57",
+  "rs_s0_bracket": "2.9%",
+  "rs_s0_star": "109,375",
+  "rs_s0_tol": "2%",
+  "rs_so_theta": "0.857",
+  "rs_t_audit": "~23:40",
+  "rs_t_cand": "2026-10-13 22:07",
+  "rs_t_d_final": "2026-10-13",
+  "rs_t_e1": "2026-10-14",
+  "rs_t_oracle_rule": "2026-10-12",
+  "rs_t_prereg": "2026-10-12 18:42",
+  "rs_t_pub": "2026-10-13 23:57",
+  "rs_t_sealed": "22:08",
+  "rs_tz": "UTC+7",
+  "rs_weak_list": "cargo airdrop 0.146 · avalanche control 0.333 · rail hump yard 0.458",
+  "rs_weak_n": "3",
+  "rs_weak_share": "88.4%",
+  "rs_year": "2026",
   "sdk_tag": "v0.7.0",
   "sdk_version": "0.7.0",
   "serving_class": "cpu-m2-1t",
@@ -414,6 +469,36 @@
    "key": "alpha",
    "raw": 0.025
   },
+  "arch_d": {
+   "file": "bench/burst_v2/MODEL_CARD.md",
+   "sha256": "fbbc21c4ecf531e7c2cda60bad331e91900d73d75ee5cec7b2724a3816a76d84",
+   "regex": "relation-typed attention biases, d = (\\d+), \\d+ layers\\.",
+   "raw": "128"
+  },
+  "arch_joints": {
+   "file": "bench/burst_v2/MODEL_CARD.md",
+   "sha256": "fbbc21c4ecf531e7c2cda60bad331e91900d73d75ee5cec7b2724a3816a76d84",
+   "regex": "Heads give a joint prior over the (\\d+) joints",
+   "raw": "27"
+  },
+  "arch_layers": {
+   "file": "bench/burst_v2/MODEL_CARD.md",
+   "sha256": "fbbc21c4ecf531e7c2cda60bad331e91900d73d75ee5cec7b2724a3816a76d84",
+   "regex": "relation-typed attention biases, d = \\d+, (\\d+) layers\\.",
+   "raw": "3"
+  },
+  "arch_rel": {
+   "file": "src/nagi/burst2/_rt/machine_zoo/tokens.py",
+   "sha256": "99a18116e859ea44388a4ffc971f56c84bee0af8234bc7794ee92490107e35c9",
+   "regex": "^N_REL = (\\d+)$",
+   "raw": "21"
+  },
+  "arch_window": {
+   "file": "src/nagi/burst2/_rt/v2g/core/game_data.py",
+   "sha256": "527b2f50821f2aab6ff24632ae0756077882d5fec1ff88d78ab53e3a33118e60",
+   "regex": "^SN_W, SN_C = (\\d+), \\d+$",
+   "raw": "23"
+  },
   "audit_verdict": {
    "file": "bench/burst_v2/receipts/AUDIT_M4.md",
    "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
@@ -534,55 +619,55 @@
   },
   "clip_booster_jev": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|booster|scores|jev",
    "raw": 0.0
   },
   "clip_booster_seed": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|booster|chosen_index",
    "raw": 34
   },
   "clip_booster_v1": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|booster|scores|v1",
    "raw": 0.0
   },
   "clip_booster_v2": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|booster|scores|v2",
    "raw": 1.0
   },
   "clip_rotorwash_jev": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|rr|scores|jev",
    "raw": 0.25
   },
   "clip_rotorwash_seed": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|rr|chosen_index",
    "raw": 44
   },
   "clip_rotorwash_v1": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|rr|scores|v1",
    "raw": 0.3
   },
   "clip_rotorwash_v2": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|rr|scores|v2",
    "raw": 1.05
   },
   "clip_skipped": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|*|skipped",
    "raw": [
     {
@@ -593,25 +678,25 @@
   },
   "clip_snake_jev": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|snake|scores|jev",
    "raw": 3.5
   },
   "clip_snake_seed": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|snake|chosen_index",
    "raw": 32
   },
   "clip_snake_v1": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|snake|scores|v1",
    "raw": 11.0
   },
   "clip_snake_v2": {
    "file": "bench/burst_v2/receipts/arena_v2_videos.json",
-   "sha256": "8b7534d2daeb6039ded77fa36ee3520acf11a03ed2d22ae443228abdacd79108",
+   "sha256": "ca9abec18f1e89eb06b9f138d823e9bbcb7a05f7d792bc8adcdff0aa62bfe7ab",
    "key": "games|snake|scores|v2",
    "raw": 48.25
   },
@@ -1231,6 +1316,272 @@
    "sha256": "f1e92fbb4e8fdae66b5ca1821e5bb936fe4d97a146b945f5741a025cf4c5f6c3",
    "key": "values|robot.wall_tied",
    "raw": 3
+  },
+  "rs_cwm_venue": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "\\*Code World Models for General Game Playing\\.\\* (ICLR \\d{4})\\.",
+   "raw": "ICLR 2026"
+  },
+  "rs_e1_commit": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|7|commit",
+   "derived": "first 8 hex",
+   "raw": "5a5b3fecd27c6946d23f22693f30bf29e3a51eb3"
+  },
+  "rs_e2_lowcov": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "low-coverage share ≥ (\\d+%)",
+   "raw": "80%"
+  },
+  "rs_e2_states": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "at least (10\\^\\d+) states",
+   "raw": "10^6"
+  },
+  "rs_gap_lb": {
+   "file": "bench/burst_v2/receipts/zoo_d_admission.json",
+   "sha256": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
+   "key": "oracle_rule|oracle_min",
+   "derived": "oracle_min - RESULT zoo_d.gate_G.estimate",
+   "raw": 0.09583333333333333
+  },
+  "rs_gvgai_ms": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "\\*\\*(\\d+) ms per tick\\*\\*",
+   "raw": "40"
+  },
+  "rs_held": {
+   "file": "bench/burst_v2/receipts/budget_m4.json",
+   "sha256": "7c9241cfac3f617b7fd56c437a94430f7fc9ed900eafcc8ea302bf98eb6dca0c",
+   "key": "campaign_ledgers|*|held_usd + held_usd",
+   "derived": "sum of held reservations",
+   "raw": 0.0
+  },
+  "rs_hours": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|prereg_frozen,published|commit_time",
+   "derived": "round((published - prereg_frozen) in hours)",
+   "raw": 29.246111111111112
+  },
+  "rs_jev_l": {
+   "file": "site/arena/v2.json",
+   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "key": "overall|v2_vs_jev|losses",
+   "raw": 0
+  },
+  "rs_jev_n": {
+   "file": "site/arena/v2.json",
+   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "key": "overall|v2_vs_jev|n",
+   "raw": 72
+  },
+  "rs_jev_t": {
+   "file": "site/arena/v2.json",
+   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "key": "overall|v2_vs_jev|ties",
+   "raw": 1
+  },
+  "rs_jev_w": {
+   "file": "site/arena/v2.json",
+   "sha256": "8a5dc6aa16face4eec09a4bd6585eeef29304fcbfa0c68dfb3d5a834279a09d1",
+   "key": "overall|v2_vs_jev|wins",
+   "raw": 71
+  },
+  "rs_ledgers_n": {
+   "file": "bench/burst_v2/receipts/budget_m4.json",
+   "sha256": "7c9241cfac3f617b7fd56c437a94430f7fc9ed900eafcc8ea302bf98eb6dca0c",
+   "key": "campaign_ledgers",
+   "derived": "number of closed ledgers",
+   "raw": [
+    "final_close_gpu1.json",
+    "final_close_m4.json",
+    "final_close_reader.json",
+    "final_close_reader2.json"
+   ]
+  },
+  "rs_oracle_min": {
+   "file": "bench/burst_v2/receipts/zoo_d_admission.json",
+   "sha256": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
+   "key": "oracle_rule|oracle_min",
+   "raw": 0.95
+  },
+  "rs_pl_model": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "Planetarium reports (\\S+) at \\d+\\.\\d% parseable",
+   "raw": "GPT-4o"
+  },
+  "rs_pl_parse": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "Planetarium reports \\S+ at (\\d+\\.\\d%) parseable",
+   "raw": "96.1%"
+  },
+  "rs_pl_sem": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "solvable, but (\\d+\\.\\d%) semantically correct",
+   "raw": "24.8%"
+  },
+  "rs_pl_solv": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "parseable, (\\d+\\.\\d%) solvable, but \\d+\\.\\d% semantically correct",
+   "raw": "94.4%"
+  },
+  "rs_pl_venue": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "\\*Planetarium: A Rigorous Benchmark for Translating Text to Structured Planning Languages\\.\\* (NAACL \\d{4})\\.",
+   "raw": "NAACL 2025"
+  },
+  "rs_prereg_sha": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "prereg|sha256",
+   "derived": "first 8 hex",
+   "raw": "9691f1e6693aa7ceb8238c78b4a6d8f6e7883d3b01fdf56b6b68b24f9020f96a"
+  },
+  "rs_reader_size": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "prose → program reader \\((\\d+\\.\\d+B) LoRA, failed\\)",
+   "raw": "0.8B"
+  },
+  "rs_rw_refs": {
+   "file": "bench/burst_v2/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6",
+   "regex": "^\\d+\\. \\[[vm][^\\]]*\\]  (after '## References')",
+   "derived": "number of numbered references",
+   "raw": 57
+  },
+  "rs_s0_bracket": {
+   "file": "bench/burst_v2/receipts/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "regex": "S0\\* deviation \\(bracket (\\d+\\.\\d+%) > \\d+%",
+   "raw": "2.9%"
+  },
+  "rs_s0_star": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "search_only_s0_star",
+   "raw": 109375
+  },
+  "rs_s0_tol": {
+   "file": "bench/burst_v2/receipts/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "regex": "S0\\* deviation \\(bracket \\d+\\.\\d+% > (\\d+%)",
+   "raw": "2%"
+  },
+  "rs_so_theta": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|per_domain|*|search_only",
+   "derived": "family-weighted mean of search_only",
+   "raw": 0.857421875
+  },
+  "rs_t_audit": {
+   "file": "bench/burst_v2/receipts/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "regex": "^\\*\\*Status: FINAL\\*\\* \\(gates \\d{4}-\\d\\d-\\d\\d (~\\d\\d:\\d\\d) \\+07;",
+   "raw": "~23:40"
+  },
+  "rs_t_cand": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "frozen_at",
+   "derived": "date and minute",
+   "raw": "2026-10-13 22:07 +0700"
+  },
+  "rs_t_d_final": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|2|commit_time",
+   "derived": "date",
+   "raw": "2026-10-13 17:41:07 +0700"
+  },
+  "rs_t_e1": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|7|commit_time",
+   "derived": "date",
+   "raw": "2026-10-14 01:39:03 +0700"
+  },
+  "rs_t_oracle_rule": {
+   "file": "bench/burst_v2/receipts/zoo_d_admission.json",
+   "sha256": "fb6c509630734015e20c1be02c61dae366f73806b61e117d364f30bced4bb14d",
+   "key": "oracle_rule|commit_introduced_time",
+   "derived": "date",
+   "raw": "2026-10-12 16:17:18 +0700"
+  },
+  "rs_t_prereg": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|1|commit_time",
+   "derived": "date and minute",
+   "raw": "2026-10-12 18:42:23 +0700"
+  },
+  "rs_t_pub": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|5|commit_time",
+   "derived": "date and minute",
+   "raw": "2026-10-13 23:57:09 +0700"
+  },
+  "rs_t_sealed": {
+   "file": "bench/burst_v2/receipts/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "regex": "the D parser cell and Arena S/B started at (\\d\\d:\\d\\d);",
+   "raw": "22:08"
+  },
+  "rs_tz": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|5|commit_time",
+   "derived": "UTC offset of the commit times",
+   "raw": "+0700"
+  },
+  "rs_weak_list": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|per_domain|*|candidate",
+   "derived": "domains with candidate < thr_ns, ascending",
+   "raw": {
+    "cargo_airdrop": 0.14583333333333334,
+    "avalanche_control": 0.3333333333333333,
+    "rail_hump_yard": 0.4583333333333333
+   }
+  },
+  "rs_weak_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|per_domain|*|candidate",
+   "derived": "number of domains with candidate < thr_ns",
+   "raw": [
+    "cargo_airdrop",
+    "avalanche_control",
+    "rail_hump_yard"
+   ]
+  },
+  "rs_weak_share": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|per_domain|*",
+   "derived": "sum over weak domains of families*(1-candidate) / same sum over all domains",
+   "raw": 0.8839285714285714
+  },
+  "rs_year": {
+   "file": "bench/burst_v2/receipts/timeline.json",
+   "sha256": "84ef7448cbea0ef8a9d94086fb77a4a4d1fffe23e7dd0daeb770279eb420a27c",
+   "key": "events|5|commit_time",
+   "derived": "year",
+   "raw": "2026-10-13 23:57:09 +0700"
   },
   "sdk_tag": {
    "file": "pyproject.toml",

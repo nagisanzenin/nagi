@@ -1,0 +1,30 @@
+{
+ "billed_usd": 0.20225600999999999,
+ "campaign_gpu_billed_usd": 25.163869430000002,
+ "campaign_ledgers": {
+  "final_close_gpu1.json": {
+   "held_usd": 0.0,
+   "sha256": "464121b11944217bf4d203ce49be0b1c53a3ca632c906e57ed8fb5ef63badfeb",
+   "total_billed_usd": 15.32174033
+  },
+  "final_close_m4.json": {
+   "held_usd": 0.0,
+   "sha256": "8dc3f0c2380057dc8717ab95cf02361216371ee89968747e94bc7db23c3b3298",
+   "total_billed_usd": 0.20225600999999999
+  },
+  "final_close_reader.json": {
+   "held_usd": 0.0,
+   "sha256": "bd1c88491a0cf8edb2f6d5c0bcf1de6b8683d5450593ac439d5abd86c00c0259",
+   "total_billed_usd": 5.72391504
+  },
+  "final_close_reader2.json": {
+   "held_usd": 0.0,
+   "sha256": "a41bfab0ca8d479c629079408bc6197b6c28c7c1d0c0152d0dd733e3dc8fd589",
+   "total_billed_usd": 3.91595805
+  }
+ },
+ "cap_source": "GPU_APPROVAL_4_M4.md (owner ~17:55, cloud authorization #4)",
+ "cap_usd": 3.0,
+ "held_usd": 0.0,
+ "note": "finalized per-app bills from the closed ledgers (ops/final_close_*.json); worker estimates are not invoices"
+}

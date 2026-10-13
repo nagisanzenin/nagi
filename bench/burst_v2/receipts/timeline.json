@@ -1,0 +1,92 @@
+{
+ "schema": "nagi-burst-v2-timeline-v1",
+ "what": "Dated milestones of Nagi Burst V2 (V2-general), from the split freeze to publication. Times are git commit times (`git show -s --format=%ci <commit>`); nagi-research is the private research repo, nagi-public is github.com/nagisanzenin/nagi. Each sha256 is the file at that commit.",
+ "events": [
+  {
+   "id": "splits_frozen",
+   "what": "SPLITS_V2G frozen: train / dev / sealed role of every data source, Zoo-Unseen-D domains reserved",
+   "repo": "nagi-research",
+   "commit": "fe329604234efe5c4e9381ad10bc571a4c6065b3",
+   "commit_time": "2026-10-12 15:51:02 +0700",
+   "file": "docs/burst_v2_general/SPLITS_V2G.json",
+   "sha256": "8099f64d5d5ef802a291d3ae137607831d9a512c614551cbebc49613b634c95c"
+  },
+  {
+   "id": "prereg_frozen",
+   "what": "PREREG_V2G v0.1 frozen (v0 + pre-data clarification C8): the preregistration every receipt cites",
+   "repo": "nagi-research",
+   "commit": "27be92fa89c458c5e1f343c3c9b14522a39fe692",
+   "commit_time": "2026-10-12 18:42:23 +0700",
+   "file": "docs/burst_v2_general/PREREG_V2G.md",
+   "sha256": "9691f1e6693aa7ceb8238c78b4a6d8f6e7883d3b01fdf56b6b68b24f9020f96a"
+  },
+  {
+   "id": "d_addendum_final",
+   "what": "Zoo-Unseen-D addendum final (family, domain and machine hashes only), before the candidate freeze",
+   "repo": "nagi-research",
+   "commit": "f37773db7141ae16711a743b2311789964c4ddeb",
+   "commit_time": "2026-10-13 17:41:07 +0700",
+   "file": "docs/burst_v2_general/SPLITS_V2G_D_ADDENDUM.json",
+   "sha256": "fa30ca277a19f9ca5d1c248a2b7a5859a19fc8d4651b20bbdcc09e4824680d1f"
+  },
+  {
+   "id": "candidate_frozen",
+   "what": "CANDIDATE.json frozen (= bench/burst_v2/receipts/CANDIDATE.json); sealed runs may start",
+   "repo": "nagi-research",
+   "commit": "5988215396e3fbbf596ff1cab91b7756361f64b5",
+   "commit_time": "2026-10-13 22:08:05 +0700",
+   "file": "docs/burst_v2_general/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3"
+  },
+  {
+   "id": "sdk_release",
+   "what": "nagi-public main: merge of the Nagi Burst V2 SDK (tag v0.7.0)",
+   "repo": "nagi-public",
+   "commit": "a51bfdc5e35d65e1ce3e644168b2108e265875c1",
+   "commit_time": "2026-10-13 23:56:01 +0700"
+  },
+  {
+   "id": "published",
+   "what": "Publication receipt committed: HF model and nagi-public SDK release",
+   "repo": "nagi-research",
+   "commit": "de5335e36cfd62a27158e37dd547cf45326fdec2",
+   "commit_time": "2026-10-13 23:57:09 +0700",
+   "file": "docs/burst_v2_general/release/publication_receipt.json",
+   "content": {
+    "hf": {
+     "repo": "nagisanzeninz/Nagi-Burst-V2",
+     "public": true,
+     "weights_commit": "a2ce2272f994ff4dbd738bb7de1abbe46bcafb45",
+     "card_commit": "803cdcbb384c81c0a7411aa65fe058b933a4545b"
+    },
+    "sdk": {
+     "repo": "nagisanzenin/nagi",
+     "main": "a51bfdc5e35d65e1ce3e644168b2108e265875c1",
+     "tag": "v0.7.0",
+     "package": "nagi-decisions",
+     "module": "nagi.burst2"
+    },
+    "bench": "https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2",
+    "result_sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389"
+   }
+  },
+  {
+   "id": "related_work",
+   "what": "Related-work and novelty review (byte copy: bench/burst_v2/RELATED_WORK.md)",
+   "repo": "nagi-research",
+   "commit": "b958308fc250430cdb4aef47bdbeb40c8668b0ac",
+   "commit_time": "2026-10-14 01:28:58 +0700",
+   "file": "docs/burst_v2_general/RELATED_WORK.md",
+   "sha256": "baa075112d9a79103aba6253655fa959de7dcffff67223eaa5c2411bceae05f6"
+  },
+  {
+   "id": "e1_design",
+   "what": "E1 baseline-panel preregistration, DESIGN v0: documented, not frozen, not run",
+   "repo": "nagi-research",
+   "commit": "5a5b3fecd27c6946d23f22693f30bf29e3a51eb3",
+   "commit_time": "2026-10-14 01:39:03 +0700",
+   "file": "docs/burst_v2_general/E1_BASELINES_PREREG.md",
+   "sha256": "57bb353ad49b9105a835c523d1fc504dadb54b1c4288af109d4b8a0a6ca87431"
+  }
+ ]
+}
