@@ -1,0 +1,547 @@
+{
+ "schema": "v3v-receipt-1",
+ "cost_usd": 0.0,
+ "network": "none",
+ "plays_a_model": false,
+ "seed_rule": "per game, margin_i = V2_i - Jev_i (V2 from docs/burst_v2_general/receipts/m4/<cell>/v2g_<game>.csv, Jev from docs/burst_v2_next/p3/jev1s_<game>.json per_seed[].score), rounded 1e-9; choose the index at the lower median of the margins (ties -> lowest index); if that seed fails any verification for any seat, take the next index ordered by (|margin - median|, index). RR additionally requires each 4-seat source round (V1, Jev) to be state-hash-exact over that seat's flight in the bv2n-rr:py31112-np246 linux/amd64 image.",
+ "wording": "descriptive only: per-seat scores and labels, seat order V2, V1, Jev; no winner banner, no ranks",
+ "playback": "1x game time (arena_live_edit full_rounds / snake 1x replay); live games keep the standard 0.2 s x1/2 slow-mo + 0.6 s freeze at each elimination, RR keeps its 0.25 s touchdown slow-mo",
+ "v2g_m4_head": "de5335e36cfd62a27158e37dd547cf45326fdec2",
+ "games": {
+  "snake": {
+   "chosen_index": 32,
+   "seed": 1805007521,
+   "scores": {
+    "v2": 48.25,
+    "v1": 11.0,
+    "jev": 3.5
+   },
+   "metric": "survival_s (s)",
+   "margin_v2_minus_jev": 44.75,
+   "median_margin": 44.75,
+   "order_head": [
+    32,
+    25,
+    33,
+    24,
+    17,
+    15,
+    31,
+    23,
+    13,
+    21
+   ],
+   "skipped": [],
+   "checks": [
+    {
+     "check": "snake #32 V2 (engine_record) replayed score == CSV/receipt",
+     "replayed": 48.25,
+     "want": 48.25,
+     "ok": true
+    },
+    {
+     "check": "snake #32 Nagi Burst V2 (hash-exact replay) replayed score == CSV/receipt",
+     "replayed": 48.25,
+     "want": 48.25,
+     "ok": true
+    },
+    {
+     "check": "snake #32 Nagi Burst V1 (hash-exact replay) replayed score == CSV/receipt",
+     "replayed": 11.0,
+     "want": 11.0,
+     "ok": true
+    },
+    {
+     "check": "snake #32 Jev (hash-exact replay) replayed score == CSV/receipt",
+     "replayed": 3.5,
+     "want": 3.5,
+     "ok": true
+    }
+   ],
+   "all_checks_ok": true,
+   "inputs_sha256": {
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/arena/v2g_snake.csv": "e729fec44796c16ac5ef0342753a625204dd67d04618c5df56c24fdef7b445db",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/arena/v1_snake.csv": "038027483188959d7192deb53c13ac2cf7c921d3a86626a118bf09c31e0c1d99",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/arena/episodes_snake.jsonl.gz": "759ef22503bb69f82a12e57f5bc2aeaf0cbfa1703bee000bb12e713e10943e33",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p3/baseline_pins.json": "6c4956d9f8b55faebd3d5836d424aac24ff7a0cf65e4e9a15fdcb93a3d74bf6c",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p3/jev1s_snake.json": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
+    "~/nagi-wt/ev2/runs/nc_r_driver/receipts/ev2/ev2_v1_sn_rt_04/enormous_burst__chord/snake/32.json": "372ab1fef6bf2ac6061fdee9c55e92c3255d4a7cedddffa9d783e2949f6630fc",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p2/operator/bv2np2_jev1s_sn_01/jev__vendor_single/snake/32.json": "9b2144f068c44d0df971e1ab6a89b6044feb5182b686ab456cc5595366135296"
+   },
+   "render": {
+    "frames": 1629,
+    "fps": null,
+    "seconds": 54.3,
+    "lufs": -17.61,
+    "render_s": 50.6,
+    "edl_segments": null
+   },
+   "output": {
+    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_SnakeRush_V2-V1-Jev_seed32.mp4",
+    "mp4_bytes": 5630768,
+    "mp4_sha256": "7a37de42a4239d252b5ff608665e060c89e93cf7d5202f57c0f0b709e4011bbe",
+    "duration_s": 54.3,
+    "video": {
+     "codec_name": "h264",
+     "width": 1080,
+     "height": 1920
+    },
+    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_SnakeRush_V2-V1-Jev_seed32.jpg",
+    "poster_t_s": 2.5,
+    "poster_bytes": 239202,
+    "poster_sha256": "fbfd476c073957028b00e03d0ea0a6f4816bf33b6fbf4cb0a0ba092584afed0d"
+   }
+  },
+  "rr": {
+   "chosen_index": 44,
+   "seed": 1181143952,
+   "scores": {
+    "v2": 1.05,
+    "v1": 0.3,
+    "jev": 0.25
+   },
+   "metric": "score.raw (K3-RR2.1 points)",
+   "margin_v2_minus_jev": 0.8,
+   "median_margin": 0.8,
+   "order_head": [
+    38,
+    44,
+    46,
+    49,
+    50,
+    57,
+    34,
+    41,
+    47,
+    53
+   ],
+   "skipped": [
+    {
+     "index": 38,
+     "reason": "rr 38: Nagi Burst V1 seat not hash-exact over its flight on this platform (first mismatch tick 4 <= end tick 177)"
+    }
+   ],
+   "checks": [
+    {
+     "check": "rr #44 V2 (engine_record) replayed score == CSV/receipt",
+     "replayed": 1.05,
+     "want": 1.05,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Nagi Burst V1 (4-seat replay) replayed score == CSV/receipt",
+     "replayed": 0.3,
+     "want": 0.3,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Jev (4-seat replay) replayed score == CSV/receipt",
+     "replayed": 0.25,
+     "want": 0.25,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Nagi Burst V2 (shared scene) replayed score == CSV/receipt",
+     "replayed": 1.05,
+     "want": 1.05,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Nagi Burst V1 (shared scene) replayed score == CSV/receipt",
+     "replayed": 0.3,
+     "want": 0.3,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Jev (shared scene) replayed score == CSV/receipt",
+     "replayed": 0.25,
+     "want": 0.25,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Nagi Burst V2 (scene render state, Mac side) replayed score == CSV/receipt",
+     "replayed": 1.05,
+     "want": 1.05,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Nagi Burst V1 (scene render state, Mac side) replayed score == CSV/receipt",
+     "replayed": 0.3,
+     "want": 0.3,
+     "ok": true
+    },
+    {
+     "check": "rr #44 Jev (scene render state, Mac side) replayed score == CSV/receipt",
+     "replayed": 0.25,
+     "want": 0.25,
+     "ok": true
+    }
+   ],
+   "all_checks_ok": true,
+   "platform_seat_checks": {
+    "Nagi Burst V1": {
+     "hash_first_mismatch_tick": 117,
+     "end_tick": 95,
+     "seat_exact_over_its_flight": true
+    },
+    "Jev": {
+     "hash_first_mismatch_tick": 117,
+     "end_tick": 83,
+     "seat_exact_over_its_flight": true
+    }
+   },
+   "prep_platform": {
+    "machine": "x86_64",
+    "python": "3.11.12"
+   },
+   "inputs_sha256": {
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/rr/v2g_rr.csv": "9716fd09ec29dae58c5ffe86f3a372e8752fbe0064f49b9fc5ee715e93d173bc",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/rr/v1_rr.csv": "b73fb59104863aebc101b63862c602ead6f45f3c9ed7cc487ce1268296b09a17",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/rr/episodes_rr.jsonl.gz": "05d08d6952e9ac2bb30e4dd05cf70241d80a17ea8076bc464e44452270d7876d",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p3/baseline_pins.json": "6c4956d9f8b55faebd3d5836d424aac24ff7a0cf65e4e9a15fdcb93a3d74bf6c",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p3/jev1s_rr.json": "5cd53676b8db2b82551685ec179e15e058bc1515202c3f056849d95e46352be5",
+    "~/nagi-wt/burst-v2/runs/nc_r_driver/receipts/burst_v2/bv2_v1_rr_rt_01/enormous_burst__chord/rotorwash_ramp_v31/44.json": "ab77ebd92439ccdacdcd491316121616568b1f8ed1efaca3833ab6c51dca26fc",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p2/operator/bv2np2_jev1s_rr_01/jev__vendor_single/rotorwash_ramp_v31/44.json": "ae65c0330f3adb52a4eee05478f9aff37746e331e89053a9663d76b72d3c6b89",
+    "<scratch>/vid3/rr/rr_vs3_44.json.gz": "7d9bd23fe35dbca0a4e87b0a4a97fb811feecee6290eecc8a3cb6c64c90fc731",
+    "<scratch>/vid3/rr/prep_rr_report.json": "bf634a9b75ca60f65aff409e933c56f249427384d3433327032ede564eab7077"
+   },
+   "render": {
+    "frames": 1683,
+    "fps": 30,
+    "seconds": 56.1,
+    "lufs": -14.130165949929882,
+    "render_s": 39.281879901885986,
+    "edl_segments": [
+     {
+      "kind": "play",
+      "speed": 1,
+      "reason": null,
+      "ms": null,
+      "t0": 0,
+      "t1": 20496,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 0.5,
+      "reason": null,
+      "ms": null,
+      "t0": 20496,
+      "t1": 20696,
+      "t": null
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "elim",
+      "ms": 600,
+      "t0": null,
+      "t1": null,
+      "t": 20696
+     },
+     {
+      "kind": "play",
+      "speed": 1,
+      "reason": null,
+      "ms": null,
+      "t0": 20696,
+      "t1": 23462,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 0.5,
+      "reason": null,
+      "ms": null,
+      "t0": 23462,
+      "t1": 23662,
+      "t": null
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "elim",
+      "ms": 600,
+      "t0": null,
+      "t1": null,
+      "t": 23662
+     },
+     {
+      "kind": "play",
+      "speed": 1,
+      "reason": null,
+      "ms": null,
+      "t0": 23662,
+      "t1": 39950,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 0.5,
+      "reason": "touchdown",
+      "ms": null,
+      "t0": 39950,
+      "t1": 40200,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 1,
+      "reason": null,
+      "ms": null,
+      "t0": 40200,
+      "t1": 48046,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 0.5,
+      "reason": null,
+      "ms": null,
+      "t0": 48046,
+      "t1": 48246,
+      "t": null
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "elim",
+      "ms": 600,
+      "t0": null,
+      "t1": null,
+      "t": 48246
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "result",
+      "ms": 1200,
+      "t0": null,
+      "t1": null,
+      "t": 48250
+     },
+     {
+      "kind": "card",
+      "speed": null,
+      "reason": null,
+      "ms": 4000,
+      "t0": null,
+      "t1": null,
+      "t": null
+     }
+    ]
+   },
+   "output": {
+    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_RotorwashRamp_V2-V1-Jev_seed44.mp4",
+    "mp4_bytes": 7456691,
+    "mp4_sha256": "e0f917ad3afa33f97d5dcf825ffed01757b6b3c64e5ee5ce2713ec21f5afa077",
+    "duration_s": 56.1,
+    "video": {
+     "codec_name": "h264",
+     "width": 1080,
+     "height": 1920
+    },
+    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_RotorwashRamp_V2-V1-Jev_seed44.jpg",
+    "poster_t_s": 1.6,
+    "poster_bytes": 192047,
+    "poster_sha256": "13b30a36fe9e52497f2713ff33977d4d92b42227e73ad0c7595b4b24e76cabe8"
+   }
+  },
+  "booster": {
+   "chosen_index": 34,
+   "seed": 1636330441,
+   "scores": {
+    "v2": 1.0,
+    "v1": 0.0,
+    "jev": 0.0
+   },
+   "metric": "score.raw (K3 Y)",
+   "margin_v2_minus_jev": 1.0,
+   "median_margin": 1.0,
+   "order_head": [
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+   ],
+   "skipped": [],
+   "checks": [
+    {
+     "check": "booster #34 V2 (engine_record, hop 1) replayed score == CSV/receipt",
+     "replayed": 1.0,
+     "want": 1.0,
+     "ok": true
+    },
+    {
+     "check": "booster #34 Nagi Burst V1 (hash-exact replay, K3) replayed score == CSV/receipt",
+     "replayed": 0.0,
+     "want": 0.0,
+     "ok": true
+    },
+    {
+     "check": "booster #34 Jev (hash-exact replay, K3) replayed score == CSV/receipt",
+     "replayed": 0.0,
+     "want": 0.0,
+     "ok": true
+    },
+    {
+     "check": "booster #34 Nagi Burst V2 (shared scene seat) replayed score == CSV/receipt",
+     "replayed": 1.0,
+     "want": 1.0,
+     "ok": true
+    },
+    {
+     "check": "booster #34 Nagi Burst V1 (shared scene seat) replayed score == CSV/receipt",
+     "replayed": 0.0,
+     "want": 0.0,
+     "ok": true
+    },
+    {
+     "check": "booster #34 Jev (shared scene seat) replayed score == CSV/receipt",
+     "replayed": 0.0,
+     "want": 0.0,
+     "ok": true
+    }
+   ],
+   "all_checks_ok": true,
+   "inputs_sha256": {
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/arena/v2g_booster.csv": "649256ed1f2b6775441c5618c2bf0ec2744776e653849427c6fc3eadb40b9b03",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/arena/v1_booster.csv": "5ae227a93d94624fa1d18280ed499832a98d5e840f3cc8391512ea925f6a5f5f",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_general/receipts/m4/arena/episodes_booster.jsonl.gz": "30e8db0860114769a40042c3482050274aa0ea3131dc8c5b400e131ef7e7b370",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p3/baseline_pins.json": "6c4956d9f8b55faebd3d5836d424aac24ff7a0cf65e4e9a15fdcb93a3d74bf6c",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p3/jev1s_booster.json": "eb9c6ad3b1803229148e4b14d2dc166d985553732239c11b937d87c3859992bc",
+    "~/nagi-wt/burst-v2/runs/nc_r_driver/receipts/burst_v2/bv2_v1_bg_rt_01/enormous_burst__chord/booster_gauntlet_v31/34.json": "2f33ced777d5089a017ef1b067261f2156332a322c464b53ad7b9abd87d48683",
+    "~/nagi-wt/v2g-m4/docs/burst_v2_next/p2/operator/bv2np2_jev1s_bg_01/jev__vendor_single/booster_gauntlet_v31/34.json": "7fc814cec81a54773e10b00b3e373cb56692495c467d7258ff1db8f03acffb04"
+   },
+   "render": {
+    "frames": 864,
+    "fps": 30,
+    "seconds": 28.8,
+    "lufs": -16.10377889389316,
+    "render_s": 64.28429508209229,
+    "edl_segments": [
+     {
+      "kind": "play",
+      "speed": 1,
+      "reason": null,
+      "ms": null,
+      "t0": 0,
+      "t1": 15600,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 0.5,
+      "reason": null,
+      "ms": null,
+      "t0": 15600,
+      "t1": 15800,
+      "t": null
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "elim",
+      "ms": 600,
+      "t0": null,
+      "t1": null,
+      "t": 15800
+     },
+     {
+      "kind": "play",
+      "speed": 1,
+      "reason": null,
+      "ms": null,
+      "t0": 15800,
+      "t1": 21800,
+      "t": null
+     },
+     {
+      "kind": "play",
+      "speed": 0.5,
+      "reason": null,
+      "ms": null,
+      "t0": 21800,
+      "t1": 22000,
+      "t": null
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "elim",
+      "ms": 600,
+      "t0": null,
+      "t1": null,
+      "t": 22000
+     },
+     {
+      "kind": "hold",
+      "speed": null,
+      "reason": "result",
+      "ms": 1200,
+      "t0": null,
+      "t1": null,
+      "t": 22000
+     },
+     {
+      "kind": "card",
+      "speed": null,
+      "reason": null,
+      "ms": 4000,
+      "t0": null,
+      "t1": null,
+      "t": null
+     }
+    ]
+   },
+   "output": {
+    "mp4": "~/Downloads/Nagi-Burst-V2-Arena/1x_BoosterGauntlet_V2-V1-Jev_seed34.mp4",
+    "mp4_bytes": 3858324,
+    "mp4_sha256": "1237ec1cd86b829df090a0f1a700df548b5edfcd10e43148e31e7bc6b680b0e3",
+    "duration_s": 28.8,
+    "video": {
+     "codec_name": "h264",
+     "width": 1080,
+     "height": 1920
+    },
+    "poster_jpg": "~/Downloads/Nagi-Burst-V2-Arena/1x_BoosterGauntlet_V2-V1-Jev_seed34.jpg",
+    "poster_t_s": 1.6,
+    "poster_bytes": 173611,
+    "poster_sha256": "b652f7956bbbc5f22adcab3789af693cdbabbeb9176e1240c59acddd67e5c1e2"
+   }
+  }
+ },
+ "tool_files": {
+  "<scratch>/vid3/v3v.py": "c7ef331b78539e0f09218ffc13fa9aa0e84016e1ff37510d701d0bc65827e2d9",
+  "<scratch>/vid3/finalize.py": "4311973a4e3f1592ed9c63d2cdd3d8d525cd80f4673afa2082049449d8a32bac",
+  "~/nagi-wt/v2g-m4/scripts/snake_rush_render.py": "d9ca18f679f63b6bc6bb08fb97b502930767bc987026c79ce6bf022dc838d948",
+  "~/nagi-wt/v2g-m4/scripts/arena_live_render.py": "c86c8f4decdbf98c54d6ce96b4be2f9c0401acda09b515a2531f8d506fdf4f2b",
+  "~/nagi-wt/v2g-m4/scripts/arena_live_edit.py": "26c642e9c3c61e7302d47967c1835697f9b396cfaf6cea25f571b922e07bbfb4",
+  "~/nagi-wt/v2g-m4/scripts/arena_live_rotorwash_ramp_v31.py": "d4f6f6089d7f43253d004281dfea7641855b5484d9e6f41ab7787ba7f8e9bfec",
+  "~/nagi-wt/v2g-m4/scripts/arena_live_booster_gauntlet.py": "0f01d7d8ee89b37820c9e5520cb25c8d15e6e68e9738216c061ce29522a5335a",
+  "~/nagi-wt/v2g-m4/scripts/v2g/arena_replay_pack.py": "3d1a09ef2eafa99bf8640299c90319604016eebac01c3b9cda48a22a1a4ac756",
+  "~/nagi-wt/v2g-m4/src/arena/games/snake_rush.py": "1eb0ab78509c64e0103ddca146bfb6b528a825ccc6cf12534ff0ac8a1caf0685",
+  "~/nagi-wt/v2g-m4/src/arena/games/rotorwash_ramp_v31.py": "0b45606d461d62bb5ce19e10a6f402c72ed3653ff8073cf7bc9eb9d257fe08a1",
+  "~/nagi-wt/v2g-m4/src/arena/games/booster_gauntlet.py": "db55330ec42855853e6153d22fd866da7a9ed86e55f661b547040bc35efd5053",
+  "~/nagi-wt/v2g-m4/src/arena/games/booster_gauntlet_v31.py": "efb1404297d2c8a1a9e3d900df1321c2293da22fb82331cfffbbc21c9f9cccf0"
+ },
+ "rr_prep_image": {
+  "tag": "bv2n-rr:py31112-np246",
+  "id": "",
+  "flags": "--network none --platform linux/amd64"
+ },
+ "published_as": {
+  "site/arena/media/v2-SnakeRush-V2-V1-Jev-seed32.mp4": "7a37de42a4239d252b5ff608665e060c89e93cf7d5202f57c0f0b709e4011bbe",
+  "site/arena/media/v2-SnakeRush-V2-V1-Jev-seed32.jpg": "fbfd476c073957028b00e03d0ea0a6f4816bf33b6fbf4cb0a0ba092584afed0d",
+  "site/arena/media/v2-RotorwashRamp-V2-V1-Jev-seed44.mp4": "e0f917ad3afa33f97d5dcf825ffed01757b6b3c64e5ee5ce2713ec21f5afa077",
+  "site/arena/media/v2-RotorwashRamp-V2-V1-Jev-seed44.jpg": "13b30a36fe9e52497f2713ff33977d4d92b42227e73ad0c7595b4b24e76cabe8",
+  "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.mp4": "1237ec1cd86b829df090a0f1a700df548b5edfcd10e43148e31e7bc6b680b0e3",
+  "site/arena/media/v2-BoosterGauntlet-V2-V1-Jev-seed34.jpg": "b652f7956bbbc5f22adcab3789af693cdbabbeb9176e1240c59acddd67e5c1e2"
+ }
+}

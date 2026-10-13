@@ -9,6 +9,7 @@ Inputs (all under bench/burst_v2/receipts/, sha256 recorded in the output):
   CANDIDATE.json         the frozen candidate (Snake policy rule and its search budget)
   jev1s_<game>.json      single-stream Jev re-play on the same eval seeds (pinned in PREREG_V2G §3 before V2 played)
   jev_pair_check.json    the M4 V1 comparator check applied to the 72 Jev records (replay, prompts, score)
+  arena_v2_videos.json   the 3-seat clips' render receipt (seed rule, per-seat replayed scores, file sha256)
 
 Metric per game = the M4 gate-A metric (PREREG_V2G §5.3): Snake Rush survival seconds (cap 60), Rotorwash-Ramp
 K3-RR2.1 Y, Booster Gauntlet K3 Y. Head-to-head per seed: 1 if higher, 1/2 if equal, 0 if lower; W = mean.
@@ -255,6 +256,10 @@ def build():
         games.append(g)
     ov = {k: overall(v) for k, v in pairs_by.items()}
     media = os.path.join(ROOT, "site", "arena", "media")
+    vrec_path = os.path.join(REC, "arena_v2_videos.json")
+    vrec = load("arena_v2_videos.json") if os.path.exists(vrec_path) else None
+    if vrec:
+        srcs["arena_v2_videos.json"] = sha256(vrec_path)
     for g in games:
         stem = {"snake": "SnakeRush", "rotorwash_ramp": "RotorwashRamp", "booster_gauntlet": "BoosterGauntlet"}[g["game"]]
         for f in sorted(os.listdir(media)):
@@ -263,7 +268,15 @@ def build():
                 g["video_sha256"] = sha256(os.path.join(media, f))
                 jpg = f[:-4] + ".jpg"
                 g["poster"] = f"media/{jpg}" if os.path.exists(os.path.join(media, jpg)) else None
-                g["video_seed_index"] = int(f[:-4].rsplit("seed", 1)[1]) if "seed" in f else None
+                g["video_seed_index"] = int(f[:-4].rsplit("seed", 1)[1])
+                # the clip must be the receipted render: same file bytes, same seed, per-seat scores = the page data
+                assert vrec is not None, "a v2 clip needs bench/burst_v2/receipts/arena_v2_videos.json"
+                assert vrec["published_as"][f"site/arena/media/{f}"] == g["video_sha256"], f
+                vg = vrec["games"][{"snake": "snake", "rotorwash_ramp": "rr", "booster_gauntlet": "booster"}[g["game"]]]
+                assert vg["chosen_index"] == g["video_seed_index"] and vg["all_checks_ok"], f
+                row = next(r for r in g["per_seed"] if r["index"] == g["video_seed_index"])
+                assert all(abs(vg["scores"][a] - row[a]) < 1e-9 for a in ("v2", "v1", "jev")), (f, vg["scores"], row)
+                g["video_seed_rule"] = vrec["seed_rule"].split(";")[0]
     out = {
         "schema": "nagi-arena-v2-update-v1",
         "meta": {

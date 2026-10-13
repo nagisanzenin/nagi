@@ -93,7 +93,7 @@
   function clips() {
     $('#v2-clips').innerHTML = D.games.map(function (g) {
       var vid = g.video ? '<video controls preload="none" playsinline' + (g.poster ? ' poster="' + esc(g.poster) + '"' : '') + ' src="' + esc(g.video) + '" aria-label="' + esc(g.label) + ' replay, seed index ' + esc(g.video_seed_index) + ', three seats: ' + ARMS.map(label).map(esc).join(', ') + '"></video>' +
-        '<figcaption>' + esc(g.label) + ' · seed index ' + esc(g.video_seed_index) + ' · ' + ARMS.map(function (a) { var s = g.per_seed.filter(function (r) { return r.index === g.video_seed_index; })[0]; return esc(label(a)) + ' ' + num(s[a], g.decimals); }).join(' · ') + ' · real time</figcaption>' : '';
+        '<figcaption>' + esc(g.label) + ' · seed index ' + esc(g.video_seed_index) + ' · ' + ARMS.map(function (a) { var s = g.per_seed.filter(function (r) { return r.index === g.video_seed_index; })[0]; return esc(label(a)) + ' ' + num(s[a], g.decimals); }).join(' · ') + ' · real time, slow-motion only at eliminations · seed picked by a fixed rule (median V2 − Jev margin, <a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/arena_v2_videos.json">receipt</a>)</figcaption>' : '';
       return '<figure class="v2-clip">' + vid + '<p class="small"><a href="' + esc(g.replay) + '">' + esc(g.label) + ': V2 replay records, all ' + g.n + ' seeds ↗</a></p></figure>';
     }).join('');
     var s = D.meta.sources_sha256;
