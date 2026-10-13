@@ -6,6 +6,8 @@
 
 from __future__ import annotations
 
+import csv
+import hashlib
 import json
 import os
 import re
@@ -213,3 +215,48 @@ def test_make_batches_validate_review_status_manifest(tmp_path):
         f.write("\n# edited\n")
     r = _run(["status.py", "--job", str(job), "--brief"], cwd=TOOL)
     assert f"{bid} train L" in r.stdout and "s1:FAIL" in r.stdout, r.stdout
+
+
+# ------------------------------------------------------------------------------------------------ episode runner
+def _example_tasks(tmp_path, n: int = 2, salt: str = "test-salt-v0") -> str:
+    """A tiny task file built from the bundled example family (no benchmark data in this repository)."""
+    from nagi.burst2._rt.bv2n.zoo_new import xdsl
+
+    mod = fg.load_module(EXAMPLE)
+    path = tmp_path / "tasks.jsonl"
+    with open(path, "w") as f:
+        for p in fg.instance_order("example_dock_cart", mod.PARAMS, PROF.inst_salt)[:n]:
+            px = fg.as_px(mod.build(dict(p)))
+            f.write(json.dumps({"family": "example", "cluster": "example_dock_cart", "machine_id": xdsl.machine_id(px),
+                                "spec": px, "salt": salt}) + "\n")
+    return str(path)
+
+
+def test_run_episodes_oracle_keep_and_crn(tmp_path):
+    sys.path.insert(0, os.path.join(TOOL, "benchmark"))
+    import run_episodes as RE
+
+    tasks = _example_tasks(tmp_path)
+    r = _run([os.path.join("benchmark", "run_episodes.py"), "--tasks", tasks, "--policy", "oracle",
+              "--out", str(tmp_path / "rows.csv")], cwd=TOOL)
+    assert r.returncode == 0, r.stderr
+    with open(tmp_path / "rows.csv") as f:
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 2 * 16 and list(rows[0]) == RE.ROW_FIELDS
+    for row in rows:
+        assert row["crn_key"] == hashlib.sha256(f"test-salt-v0|{row['machine']}|{row['episode']}".encode()).hexdigest()
+        assert row["valid"] == "True" and row["arm"] == "oracle"
+    # the exact oracle succeeds with probability 1 on these instances (exact chain), so every episode succeeds
+    for t in RE.load_tasks(tasks):
+        T = RE._teacher(RE.Machine(t["spec"]))
+        assert T.view_oracle_chain()["success"] == pytest.approx(1.0)
+    assert all(row["success"] == "1" for row in rows)
+    # keep never reaches the dock; a policy returning an illegal joint makes the episode INVALID
+    t = RE.load_tasks(tasks)[0]
+    assert sum(x["success"] for x in RE.run_task(t, RE.keep, "keep", "keep")) == 0
+    bad = RE.run_task(t, lambda d: 99, "bad", "bad", E=2)
+    assert [x["valid"] for x in bad] == [False, False] and bad[0]["outcome"] == "invalid"
+    # common random numbers: the same streams give the same episodes
+    a = RE.run_task(t, RE.random_policy, "r", "random")
+    b = RE.run_task(t, RE.random_policy, "r", "random")
+    assert a == b

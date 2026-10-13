@@ -81,6 +81,11 @@ python3 status.py --job ~/mzf-job                                   # progress; 
 python3 -m pytest -q tests
 ```
 
+To score a policy on a task file with the Zoo-Unseen-D protocol (16 common-random-number episodes per machine,
+100-tick cap, exact simulator), run `python3 benchmark/run_episodes.py --tasks tasks.parquet --policy
+oracle|keep|random|module:callable --out rows.csv`; the module docstring defines the policy interface and shows
+Nagi Burst V2 as a policy.
+
 [GENERATE.md](GENERATE.md) is the job manual: slot plans, atomic claims, the draft and full gate loop, the blind
 review and its receipt, and copy-paste prompts for running coding agents (Claude Code, Codex, or any agent with a
 shell) as parallel authors and reviewers.
@@ -96,6 +101,7 @@ shell) as parallel authors and reviewers.
 | `famgate/core.py` | the gate (V0-V7, P1, P2) |
 | `famgate/xgates.py`, `famgate/x6.py`, `famgate/blind/` | frozen mz-1x gates, X6, the independent blind checkers |
 | `famgate/_runtime.py`, `famgate/jobkit.py` | engine wiring, job folder layout |
+| `benchmark/run_episodes.py` | closed-loop episodes with common random numbers (the Zoo-Unseen-D protocol) -> `rows.csv` |
 | `examples/` | example family, template, an exact reading, an example domain list |
 | `tests/` | offline tests |
 
