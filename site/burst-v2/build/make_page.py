@@ -44,6 +44,7 @@ FILES = {
     "manifest": REC + "MANIFEST.json",
     "replay": REC + "replay.json",
     "arena": REC + "arena_v2.json",
+    "robot": REC + "robot_example.json",
     "report": "bench/burst_v2/README.md",
     "guide": "docs/BURST_V2.md",
     "readme": "README.md",
@@ -377,6 +378,20 @@ def build():
     b.j("zc_dp", "addendum", "zoo_unseen_c|delta_plus|mean", fs, A)
     b.j("zc_dp_lo", "addendum", "zoo_unseen_c|delta_plus|lower", fs, A)
 
+    # ---------- delivery-robot example (docs/QUICKSTART_MACHINE.md §6; receipt by scripts/burst2_robot_example.py) ----------
+    RB = jload("robot")
+    req(RB["core_sha256"] == core_api, "robot receipt core sha != the SDK pin")
+    req(RB["sdk_version"] == b.values["sdk_version"], "robot receipt SDK version != pyproject")
+    req(RB["result"] == "goal" and RB["values"]["robot.goal_ticks"] == len(RB["trace"]), "robot receipt: goal ticks != trace length")
+    req(not RB["unwinnable"]["goal_reachable"], "robot receipt: the unwinnable variant has a reachable goal")
+    for key, rk in (("robot_goal", "robot.goal_ticks"), ("robot_wall_tick", "robot.wall_tick"), ("robot_wall_tied", "robot.wall_tied"),
+                    ("robot_wait", "robot.wait_tick"), ("robot_wait_b0", "robot.wait_battery_before"),
+                    ("robot_wait_b1", "robot.wait_battery_after"), ("robot_unw_states", "robot.unwinnable.reachable_states"),
+                    ("robot_unw_still", "robot.unwinnable.still_from"), ("robot_unw_tied", "robot.unwinnable.first_tied")):
+        b.j(key, "robot", f"values|{rk}", str, RB)
+    b.j("robot_session", "robot", "session", str, RB)
+    b.j("robot_unw_best", "robot", "values|robot.unwinnable.best_value", lambda x: f(x, 1), RB)
+
     # ---------- budget (M5 report §9) ----------
     b.rx("cost_total", "report", r"All V2-general cloud spend[^|]*\| \$(\d+\.\d\d) \|", lambda s: "$" + s)
     b.rx("cost_m4", "report", r"Billed \(finalized provider bills\) \| \$(\d+\.\d\d) \|", lambda s: "$" + s)
@@ -425,6 +440,9 @@ def blocks(b, R, A, AR):
     b.sources["block:quickstart"] = {"file": rel("readme"), "sha256": b.receipts[rel("readme")],
                                      "regex": "first ```python block after '## Burst V2'"}
     B["quickstart"] = f'<pre><code>{html.escape(code.rstrip())}</code></pre>'
+    RB = jload("robot")
+    b.sources["block:robot-rules"] = {"file": rel("robot"), "sha256": b.receipts[rel("robot")], "key": "rules_text"}
+    B["robot-rules"] = f'<pre><code>{html.escape(RB["rules_text"].rstrip())}</code></pre>'
     rev = vb("hf_revision")
     B["use-links"] = (
         '<div class="links">'
@@ -522,6 +540,7 @@ def blocks(b, R, A, AR):
         (FILES["candidate"], "CANDIDATE.json", "The candidate frozen before any sealed run"),
         (FILES["arena"], "arena_v2.json", "Arena gate A pack: per-seed scores and replays"),
         (FILES["replay"], "replay.json", "Exact replay from recorded controls"),
+        (FILES["robot"], "robot_example.json", "The delivery-robot example: rules, every tick, the unwinnable variant"),
         (FILES["manifest"], "MANIFEST.json", "sha256 of every Arena input and output"),
     ]
     B["receipts"] = (

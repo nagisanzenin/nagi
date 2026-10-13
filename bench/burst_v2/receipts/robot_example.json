@@ -1,0 +1,614 @@
+{
+ "schema": "nagi-burst2-robot-example-v1",
+ "generated_by": "scripts/burst2_robot_example.py",
+ "doc": "docs/QUICKSTART_MACHINE.md §6 Example: your own game",
+ "sdk_version": "0.7.0",
+ "core_sha256": "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624",
+ "session": "robot-1",
+ "doc_blocks_sha256": {
+  "rules": "651df1b1237c73d0c4c527f200f8ad14ecbaabff77989b2368e0ebb017e5cccf",
+  "game": "95e295195ac62ac60899cc36eecd7dc1a6313ba664c67e6afe04f0d583a290b0",
+  "loop": "629153eec55968e5a6a74b7143fb00d945561217b35f493b29ec95d78e4f73ec"
+ },
+ "rules_text": "machine mz-1\nvars:\n  x in [0, 4], start {0}, out of range: clamp\n  y in [0, 4], start {0}, out of range: clamp\n  battery in [0, 10], start {8}, out of range: clamp\n  parcel in [0, 1], start {0}, out of range: clamp\ncontrols:\n  @dx: DEC -1, KEEP 0, INC 1\n  @dy: DEC -1, KEEP 0, INC 1\nrandom $w: none\nrules (in order, each tick):\n  1. x := x + @dx\n  2. y := y + @dy\n  3. battery := battery - abs(@dx) - abs(@dy)\n  4. if all(x == 4, y == 0): parcel := 1\n  5. if all(x == 2, y == 2): battery := battery + 4\ncrash if any holds:\n  1. all(battery <= 0)\ngoal: all(parcel == 1, x == 0, y == 4)\n",
+ "canonical_text": "machine mz-1\nvars:\n  x in [0, 4], start {0}, out of range: clamp\n  y in [0, 4], start {0}, out of range: clamp\n  battery in [0, 10], start {8}, out of range: clamp\n  parcel in [0, 1], start {0}, out of range: clamp\ncontrols:\n  @dx: DEC -1, KEEP 0, INC 1\n  @dy: DEC -1, KEEP 0, INC 1\nrandom $w: none\nrules (in order, each tick):\n  1. x := x + @dx\n  2. y := y + @dy\n  3. battery := battery - abs(@dx) - abs(@dy)\n  4. if all(x == 4, y == 0): parcel := 1\n  5. if all(x == 2, y == 2): battery := battery + 4\ncrash if any holds:\n  1. all(battery <= 0)\ngoal: all(parcel == 1, x == 0, y == 4)\n",
+ "canonical_sha256": "651df1b1237c73d0c4c527f200f8ad14ecbaabff77989b2368e0ebb017e5cccf",
+ "strict_accepts_doc_text": true,
+ "machine_id": "f6664d8fe8525469",
+ "reachable_states": 364,
+ "goal_reachable": true,
+ "trace": [
+  {
+   "t": 0,
+   "state": {
+    "x": 0,
+    "y": 0,
+    "battery": 8,
+    "parcel": 0
+   },
+   "choice": {
+    "dx": "inc",
+    "dy": "dec"
+   },
+   "n_tied": 3,
+   "best_value": 37.489,
+   "depth": 36,
+   "visited": 364,
+   "exhausted": false,
+   "gated": true
+  },
+  {
+   "t": 1,
+   "state": {
+    "x": 1,
+    "y": 0,
+    "battery": 6,
+    "parcel": 0
+   },
+   "choice": {
+    "dx": "inc",
+    "dy": "keep"
+   },
+   "n_tied": 1,
+   "best_value": 38.8777,
+   "depth": 36,
+   "visited": 362,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 2,
+   "state": {
+    "x": 2,
+    "y": 0,
+    "battery": 5,
+    "parcel": 0
+   },
+   "choice": {
+    "dx": "inc",
+    "dy": "keep"
+   },
+   "n_tied": 1,
+   "best_value": 40.2805,
+   "depth": 36,
+   "visited": 362,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 3,
+   "state": {
+    "x": 3,
+    "y": 0,
+    "battery": 4,
+    "parcel": 0
+   },
+   "choice": {
+    "dx": "inc",
+    "dy": "keep"
+   },
+   "n_tied": 1,
+   "best_value": 41.6975,
+   "depth": 36,
+   "visited": 362,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 4,
+   "state": {
+    "x": 4,
+    "y": 0,
+    "battery": 3,
+    "parcel": 1
+   },
+   "choice": {
+    "dx": "dec",
+    "dy": "inc"
+   },
+   "n_tied": 1,
+   "best_value": 43.1288,
+   "depth": 40,
+   "visited": 181,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 5,
+   "state": {
+    "x": 3,
+    "y": 1,
+    "battery": 1,
+    "parcel": 1
+   },
+   "choice": {
+    "dx": "dec",
+    "dy": "inc"
+   },
+   "n_tied": 1,
+   "best_value": 44.5746,
+   "depth": 40,
+   "visited": 181,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 6,
+   "state": {
+    "x": 2,
+    "y": 2,
+    "battery": 4,
+    "parcel": 1
+   },
+   "choice": {
+    "dx": "keep",
+    "dy": "keep"
+   },
+   "n_tied": 1,
+   "best_value": 46.0349,
+   "depth": 40,
+   "visited": 181,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 7,
+   "state": {
+    "x": 2,
+    "y": 2,
+    "battery": 8,
+    "parcel": 1
+   },
+   "choice": {
+    "dx": "dec",
+    "dy": "inc"
+   },
+   "n_tied": 1,
+   "best_value": 47.51,
+   "depth": 40,
+   "visited": 181,
+   "exhausted": false,
+   "gated": false
+  },
+  {
+   "t": 8,
+   "state": {
+    "x": 1,
+    "y": 3,
+    "battery": 6,
+    "parcel": 1
+   },
+   "choice": {
+    "dx": "dec",
+    "dy": "inc"
+   },
+   "n_tied": 1,
+   "best_value": 49.0,
+   "depth": 40,
+   "visited": 181,
+   "exhausted": false,
+   "gated": false
+  }
+ ],
+ "final_state": {
+  "x": 0,
+  "y": 4,
+  "battery": 4,
+  "parcel": 1
+ },
+ "result": "goal",
+ "printed_last": "goal after 9 ticks",
+ "unwinnable": {
+  "change": "the charger rule removed",
+  "canonical_text": "machine mz-1\nvars:\n  x in [0, 4], start {0}, out of range: clamp\n  y in [0, 4], start {0}, out of range: clamp\n  battery in [0, 10], start {8}, out of range: clamp\n  parcel in [0, 1], start {0}, out of range: clamp\ncontrols:\n  @dx: DEC -1, KEEP 0, INC 1\n  @dy: DEC -1, KEEP 0, INC 1\nrandom $w: none\nrules (in order, each tick):\n  1. x := x + @dx\n  2. y := y + @dy\n  3. battery := battery - abs(@dx) - abs(@dy)\n  4. if all(x == 4, y == 0): parcel := 1\ncrash if any holds:\n  1. all(battery <= 0)\ngoal: all(parcel == 1, x == 0, y == 4)\n",
+  "machine_id": "a722d0c45b651e81",
+  "reachable_states": 116,
+  "goal_reachable": false,
+  "ticks_run": 20,
+  "result": "running",
+  "trace": [
+   {
+    "t": 0,
+    "state": {
+     "x": 0,
+     "y": 0,
+     "battery": 8,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "dec",
+     "dy": "keep"
+    },
+    "n_tied": 9,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 116,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 1,
+    "state": {
+     "x": 0,
+     "y": 0,
+     "battery": 7,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 9,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 83,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 2,
+    "state": {
+     "x": 0,
+     "y": 0,
+     "battery": 7,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "dec",
+     "dy": "keep"
+    },
+    "n_tied": 9,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 83,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 3,
+    "state": {
+     "x": 0,
+     "y": 0,
+     "battery": 6,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "inc",
+     "dy": "inc"
+    },
+    "n_tied": 9,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 56,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 4,
+    "state": {
+     "x": 1,
+     "y": 1,
+     "battery": 4,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "inc",
+     "dy": "dec"
+    },
+    "n_tied": 9,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 28,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 5,
+    "state": {
+     "x": 2,
+     "y": 0,
+     "battery": 2,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "dec",
+     "dy": "keep"
+    },
+    "n_tied": 5,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 5,
+    "exhausted": false,
+    "gated": true
+   },
+   {
+    "t": 6,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 7,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 8,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 9,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 10,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 11,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 12,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 13,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 14,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 15,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 16,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 17,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 18,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   },
+   {
+    "t": 19,
+    "state": {
+     "x": 1,
+     "y": 0,
+     "battery": 1,
+     "parcel": 0
+    },
+    "choice": {
+     "dx": "keep",
+     "dy": "keep"
+    },
+    "n_tied": 1,
+    "best_value": -33.1028,
+    "depth": 40,
+    "visited": 1,
+    "exhausted": false,
+    "gated": false
+   }
+  ]
+ },
+ "values": {
+  "robot.goal_ticks": 9,
+  "robot.result": "goal",
+  "robot.wall_tick": 0,
+  "robot.wall_tied": 3,
+  "robot.wait_tick": 6,
+  "robot.wait_count": 1,
+  "robot.wait_tied": 1,
+  "robot.wait_battery_before": 4,
+  "robot.wait_battery_after": 8,
+  "robot.final_battery": 4,
+  "robot.reachable_states": 364,
+  "robot.best_value_min": 37.5,
+  "robot.best_value_max": 49.0,
+  "robot.unwinnable.reachable_states": 116,
+  "robot.unwinnable.first_tied": 9,
+  "robot.unwinnable.best_value": -33.1,
+  "robot.unwinnable.depth": 40,
+  "robot.unwinnable.still_from": 6,
+  "robot.unwinnable.still_battery": 1,
+  "robot.unwinnable.ticks_run": 20
+ }
+}
