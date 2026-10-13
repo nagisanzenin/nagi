@@ -1,0 +1,10 @@
+# Example domain list for make_batches.py: `domain_id | one-line machine description` per line.
+# Replace it with your own domains. One batch = one domain; every slot of a batch is a different mechanism.
+brewery_mash_tun | mash temperature steps, stirring, lautering flow, sparge water budget
+canal_lock | upper and lower gates, chamber level equalisation, boat queue, gate/sluice interlock
+coffee_roaster | drum temperature, airflow, first crack timing, cooling tray
+ski_lift_drive | haul rope speed, chair spacing, wind hold, loading gate
+laundry_tumble_dryer | drum heater, airflow, load moisture, cool-down tumble before the door unlocks
+bread_proofer | dough rise, humidity, proofing temperature, oven slot timing
+traffic_signal_junction | phase timing, queue lengths, pedestrian call button, all-red clearance
+popcorn_kettle | kettle temperature, oil and kernel portions, agitator, scorch limit

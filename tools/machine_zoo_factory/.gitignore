@@ -1,0 +1,2 @@
+# reports written when an example is validated in place (validate.py examples/<file>.py without --job)
+examples/REPORTS/

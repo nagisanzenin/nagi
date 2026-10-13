@@ -96,6 +96,7 @@ Results from one frozen evaluation (sealed sets, independent recount: MATCH):
 On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set. The Arena games were in training, so they are seen tasks. Prose rulebooks are not supported yet:
 the reader moves to V2.1. [Burst V2 guide](docs/BURST_V2.md) · [Model card](https://huggingface.co/nagisanzeninz/Nagi-Burst-V2) ·
 [Report](https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/README.md) · [Replays](https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/arena_v2.json)
+Build machines of your own with exact labels: [Make your own machine families](tools/machine_zoo_factory/README.md) (family gate, blind checker, job workflow).
 
 ## Burst
 
