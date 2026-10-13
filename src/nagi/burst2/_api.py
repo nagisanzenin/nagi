@@ -10,11 +10,11 @@ from pathlib import Path
 # ---------------------------------------------------------------- FROZEN evaluated configuration (do not edit alone)
 # Values marked TO FILL are set at the CANDIDATE freeze; tests/test_burst2_defaults.py checks every value against the
 # shipped frozen files (nagi/burst2/frozen/: runtime_search_config_v1b.json sha256 996c2951..., candidate.json).
-S_STAR = 100_000            # TO FILL / CONFIRM: CANDIDATE.json search_config.candidate_policy budget (G<S*>b1b)
+S_STAR = 100_000            # FROZEN: CANDIDATE.json (sha256 28fe5de6...) candidate_policy G100000b1b
 K_MAX = 40                  # runtime_search_config_v1b.json zoo.k_max
 BELIEF = "v1b"              # runtime_search_config_v1b.json zoo.belief
 TAU = 0.6                   # CANDIDATE.json search_config.tau (core confidence gate)
-SNAKE_POLICY = "sdk_pack"   # TO FILL: CANDIDATE.json snake_policy_rule.result ("sdk_pack" | "core_head")
+SNAKE_POLICY = "sdk_pack"   # FROZEN: CANDIDATE.json snake_policy (B3 rule: SDK pack, UCB 86.1 <= 150 ms)
 # Zoo (machine-language) requests: these options sit under the user's options. Snake (SDK pack) and RR / Booster
 # (core head) requests use their own frozen paths (research m4_arena / m4_li: operate(text) with the core only).
 FROZEN_DEFAULTS = {"max_sims": S_STAR, "k_max": K_MAX, "belief": BELIEF, "tau": TAU, "deterministic": True,
@@ -24,7 +24,7 @@ FROZEN_CONFIG_SHA256 = "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b91
 # ---------------------------------------------------------------- core weights (public repo; no credentials anywhere)
 BURST_V2_REPO = "nagisanzeninz/Nagi-Burst-V2"
 BURST_V2_REVISION = None    # TO FILL: the Hugging Face commit (40 hex) of the released weights
-CORE_SHA256 = None          # TO FILL: CANDIDATE.json core_weights_sha256 (sha256 of model.npz)
+CORE_SHA256 = "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624"  # FROZEN: CANDIDATE core_weights_sha256
 CORE_FILENAME = "model.npz"
 
 _DEFAULT_CORE = None

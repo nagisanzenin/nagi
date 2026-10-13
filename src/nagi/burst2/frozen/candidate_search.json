@@ -1,7 +1,13 @@
 {
  "candidate_policy": "G100000b1b",
+ "core_weights_sha256": "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624",
  "file": "docs/burst_v2_general/lanes/runtime_search_config_v1b.json",
+ "frozen_at": "2026-10-13 22:07 +0700",
+ "harness_commit": "2de0297551bae22c347a1184a8eb1343222e4801",
+ "search_only_s0_star": 109375,
  "sha256": "996c2951614716f1b1a9db4ce8e86e3f33bb2fdab32eb2d1f3831b9179c8b94d",
- "source": "research docs/burst_v2_general/CANDIDATE.json predeclared.search_config (status DRAFT at vendoring; replace from the FROZEN CANDIDATE)",
+ "snake_policy": "sdk_pack",
+ "source": "research docs/burst_v2_general/CANDIDATE.json (FROZEN)",
+ "status": "FROZEN",
  "tau": 0.6
 }
