@@ -10,6 +10,7 @@
   "generated_by": "site/arena/build/make_v2.py",
   "sources_sha256": {
    "arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "CANDIDATE.json": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
    "jev_pair_check.json": "13cc6835c0304b58ff178b5ba8174e085bd41b7200499e5cf764282b3d2ef12e",
    "jev1s_snake.json": "e7e0ce965d655ee111903a763a2df496f161709b95240b61fcfb40666f812ad2",
    "jev1s_rr.json": "5cd53676b8db2b82551685ec179e15e058bc1515202c3f056849d95e46352be5",
@@ -971,6 +972,7 @@
  "notes": [
   "Seen tasks: the V2 core was trained on these three Arena games. The eval seeds were sealed and played once.",
   "Timing: V2 was played with the nominal 1-tick reply (the decision for tick t applies at t+1), justified by its measured latency gate L. The V1 and Jev numbers come from live realtime records, where a slow reply lands later.",
+  "Snake Rush: V2 plays the SDK Snake search pack (20,000 simulations, horizon 12), which does not read the learned core. A predeclared rule chose it from dev seeds only, before the sealed look.",
   "Booster Gauntlet: V2 landed the first hop on 23/24 seeds; V1 on 0/24 and Jev on 0/24 (K3 = 0), so V1 vs Jev is all ties there. Board 1 below documents V1's Booster pattern: flying under control until the first hop's landing deadline, without landing.",
   "Rotorwash-Ramp is a float64 engine. Re-checked here under Rosetta (no AVX/FMA), the Jev records recompute the recorded score on 24/24 seeds but replay state-hash-exactly on only 8/24. The recording job's own replay check on its x86-64 host passed on every seed. The release's V1 Rotorwash-Ramp check needed a real x86-64 CPU for the same reason.",
   "Not comparable with the Board 1 leaderboard below: different seeds (the release's sealed eval seeds here, Board 1's screen seeds there), Rotorwash-Ramp and Booster Gauntlet are scored by their K3 scores here and by survival time there, and Jev here is the single-stream re-play."

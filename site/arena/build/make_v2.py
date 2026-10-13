@@ -6,6 +6,7 @@
 
 Inputs (all under bench/burst_v2/receipts/, sha256 recorded in the output):
   arena_v2.json          frozen M4 sealed eval: per-seed V2 and V1 scores (out_order) and the receipted gate A
+  CANDIDATE.json         the frozen candidate (Snake policy rule and its search budget)
   jev1s_<game>.json      single-stream Jev re-play on the same eval seeds (pinned in PREREG_V2G §3 before V2 played)
   jev_pair_check.json    the M4 V1 comparator check applied to the 72 Jev records (replay, prompts, score)
 
@@ -159,6 +160,13 @@ def booster_note(games):
             "flying under control until the first hop's landing deadline, without landing.")
 
 
+def snake_note(cand):
+    sn = cand["config_resolved"]["snake"]
+    assert cand["snake_policy"] == "sdk_pack" and "does not read the core" in cand["predeclared"]["snake_policy_rule"]["procedure"]
+    return (f"Snake Rush: V2 plays the SDK Snake search pack ({sn['max_sims']:,} simulations, horizon {sn['k']}), which does "
+            "not read the learned core. A predeclared rule chose it from dev seeds only, before the sealed look.")
+
+
 def rr_note(games):
     g = next(x for x in games if x["game"] == "rotorwash_ramp")
     p = g["pairing_detail"]
@@ -173,8 +181,9 @@ def rr_note(games):
 def build():
     pack = load("arena_v2.json")
     pc = load("jev_pair_check.json")
+    cand = load("CANDIDATE.json")
     srcs = {n: sha256(os.path.join(REC, n)) for n in
-            ["arena_v2.json", "jev_pair_check.json", "jev1s_snake.json", "jev1s_rr.json", "jev1s_booster.json"]}
+            ["arena_v2.json", "CANDIDATE.json", "jev_pair_check.json", "jev1s_snake.json", "jev1s_rr.json", "jev1s_booster.json"]}
     games, notes = [], []
     pairs_by = {"v2_vs_v1": [], "v2_vs_jev": [], "v1_vs_jev": []}
     for gid, label, jk, metric, unit, dec in GAMES:
@@ -279,6 +288,7 @@ def build():
         "notes": [
             "Seen tasks: the V2 core was trained on these three Arena games. The eval seeds were sealed and played once.",
             "Timing: V2 was played with the nominal 1-tick reply (the decision for tick t applies at t+1), justified by its measured latency gate L. The V1 and Jev numbers come from live realtime records, where a slow reply lands later.",
+            snake_note(cand),
             booster_note(games),
             rr_note(games),
             "Not comparable with the Board 1 leaderboard below: different seeds (the release's sealed eval seeds here, Board 1's screen seeds there), Rotorwash-Ramp and Booster Gauntlet are scored by their K3 scores here and by survival time there, and Jev here is the single-stream re-play.",
