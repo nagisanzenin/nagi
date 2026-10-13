@@ -1,0 +1,1236 @@
+{
+ "schema": "nagi-burst-v2-page-v1",
+ "generated_by": "site/burst-v2/build/make_page.py",
+ "note": "Every value shown on site/burst-v2/ with its source receipt. raw = the receipt value; values = the page text.",
+ "receipts": {
+  "README.md": "3acddc355774161c41a5da93f12282f0d60ab736e14e352556fc4e1fd34b6bf0",
+  "bench/burst_v2/README.md": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+  "bench/burst_v2/receipts/AUDIT_M4.md": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+  "bench/burst_v2/receipts/CANDIDATE.json": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+  "bench/burst_v2/receipts/MANIFEST.json": "9045b5be66fe719919a6980d2e9711a12007e15a9c1cbc5beddad796dc9088fc",
+  "bench/burst_v2/receipts/RESULT.json": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+  "bench/burst_v2/receipts/RESULT_ADDENDUM.json": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+  "bench/burst_v2/receipts/arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+  "bench/burst_v2/receipts/fill_receipt.json": "e817120b92e4ffc29a129b21f99faddae1783c82b86621a42c720761ccb146b4",
+  "bench/burst_v2/receipts/replay.json": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
+  "docs/BURST_V2.md": "9102227d521c34013daf532df850be904438414a06503e27f95dff7da21a2e59",
+  "pyproject.toml": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
+  "src/nagi/burst2/_api.py": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14"
+ },
+ "values": {
+  "a_booster_W": "0.979",
+  "a_booster_landings": "23",
+  "a_booster_n": "24",
+  "a_booster_name": "Booster Gauntlet",
+  "a_booster_p": "1.2e-07",
+  "a_booster_pass": "PASS",
+  "a_booster_tlo": "0.936",
+  "a_booster_v1": "0.00",
+  "a_booster_v2": "0.96",
+  "a_booster_wtl": "23 / 1 / 0",
+  "a_rotorwash_W": "1.000",
+  "a_rotorwash_n": "24",
+  "a_rotorwash_name": "Rotorwash-Ramp",
+  "a_rotorwash_p": "6.0e-08",
+  "a_rotorwash_pass": "PASS",
+  "a_rotorwash_tlo": "1.000",
+  "a_rotorwash_v1": "0.35",
+  "a_rotorwash_v2": "1.05",
+  "a_rotorwash_wtl": "24 / 0 / 0",
+  "a_seeds_other": "34–57",
+  "a_seeds_snake": "10–33",
+  "a_snake_W": "1.000",
+  "a_snake_n": "24",
+  "a_snake_name": "Snake Rush",
+  "a_snake_p": "6.0e-08",
+  "a_snake_pass": "PASS",
+  "a_snake_tlo": "1.000",
+  "a_snake_v1": "12.6 s",
+  "a_snake_v2": "50.7 s",
+  "a_snake_wtl": "24 / 0 / 0",
+  "alpha": "0.025",
+  "audit_verdict": "MATCH",
+  "c83": "On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set.",
+  "c8_decisions": "46,966",
+  "c8_exhausted": "24.9%",
+  "c8_high": "48.3%",
+  "c8_le1000": "52.1%",
+  "c8_le20000": "95.8%",
+  "c8_lowcov_machines": "26",
+  "c8_reach_max": "25,921",
+  "c8_reach_med": "922.5",
+  "c8_reach_min": "72",
+  "cfg_kmax": "40",
+  "cfg_sims": "100,000",
+  "cfg_snake_k": "12",
+  "cfg_snake_sims": "20,000",
+  "cfg_tau": "0.6",
+  "conf": "97.5%",
+  "core_params": "3.10M",
+  "core_sha_short": "a24e1158",
+  "cost_m4": "$0.20",
+  "cost_total": "$25.16",
+  "decision": "RELEASE",
+  "g_dom_lo": "0.706",
+  "g_domains": "16",
+  "g_fam_hi": "0.948",
+  "g_fam_lo": "0.760",
+  "g_families": "48",
+  "g_icc": "0.58",
+  "g_lodo": "0.844",
+  "g_lodo_dom": "bobsled run",
+  "g_pass": "PASS",
+  "g_theta": "0.854",
+  "gp_est": "−0.003",
+  "gp_level": "0.025",
+  "gp_lo_dom": "−0.011",
+  "gp_lo_fam": "−0.009",
+  "gp_lodo_ok": "fails",
+  "gp_p": "1.000",
+  "gp_result": "not shown",
+  "hardware": "Apple M2 (cpu-m2-1t), native arm64, 1 thread",
+  "hf_repo": "nagisanzeninz/Nagi-Burst-V2",
+  "hf_revision": "803cdcbb384c81c0a7411aa65fe058b933a4545b",
+  "hf_revision_short": "803cdcbb",
+  "i_mis": "0",
+  "i_n": "7,506",
+  "i_pass": "PASS",
+  "i_rt": "0",
+  "i_ucb": "0.040%",
+  "l_booster_gt250": "0.00%",
+  "l_booster_n": "1,506",
+  "l_booster_p50": "0.5 ms",
+  "l_booster_p95": "0.6 ms",
+  "l_booster_p99": "0.8 ms",
+  "l_booster_ucb": "0.7 ms",
+  "l_max_ucb": "50.8 ms",
+  "l_pass": "PASS",
+  "l_rr_gt250": "0.00%",
+  "l_rr_n": "2,000",
+  "l_rr_p50": "0.4 ms",
+  "l_rr_p95": "0.5 ms",
+  "l_rr_p99": "0.6 ms",
+  "l_rr_ucb": "0.5 ms",
+  "l_snake_gt250": "0.05%",
+  "l_snake_n": "2,000",
+  "l_snake_p50": "0.8 ms",
+  "l_snake_p95": "38.0 ms",
+  "l_snake_p99": "194.6 ms",
+  "l_snake_ucb": "50.8 ms",
+  "l_zoo_d_gt250": "0.00%",
+  "l_zoo_d_n": "2,000",
+  "l_zoo_d_p50": "9.6 ms",
+  "l_zoo_d_p95": "41.1 ms",
+  "l_zoo_d_p99": "44.5 ms",
+  "l_zoo_d_ucb": "41.8 ms",
+  "large_G": "0",
+  "lc_D": "9",
+  "lc_G": "14",
+  "lc_gp": "−0.007",
+  "lc_lo_dom": "0.398",
+  "lc_lo_fam": "0.485",
+  "lc_theta": "0.730",
+  "leak_diff": "−0.031",
+  "leak_flag": "no flag",
+  "leak_lo": "−0.156",
+  "machines": "96",
+  "metric_booster": "K3 Y (first hop)",
+  "metric_rotorwash": "K3-RR2.1 Y",
+  "metric_snake": "survival_s (s, censored at 60 s)",
+  "ns_est": "0.854",
+  "ns_level": "0.0125",
+  "ns_lo_dom": "0.681",
+  "ns_lo_fam": "0.746",
+  "ns_p": "0.00117",
+  "ns_result": "shown",
+  "path": "parser",
+  "prose_G": "0.469",
+  "prose_diff": "−0.385",
+  "prose_diff_lo": "−0.517",
+  "r_G": "48",
+  "r_cp": "0.333",
+  "r_exact": "23",
+  "r_machine": "0.490",
+  "r_pi": "0.479",
+  "r_result": "FAIL",
+  "replay_exact": "72",
+  "replay_n": "72",
+  "reply_profile": "nominal 1-tick (decision for boundary t applies at t+1)",
+  "sdk_tag": "v0.7.0",
+  "sdk_version": "0.7.0",
+  "serving_class": "cpu-m2-1t",
+  "st_booster_like": "0.953",
+  "st_booster_like_G": "12",
+  "st_booster_like_dp": "−0.003",
+  "st_mixed": "0.982",
+  "st_mixed_G": "12",
+  "st_mixed_dp": "+0.005",
+  "st_rr_like": "0.484",
+  "st_rr_like_G": "12",
+  "st_rr_like_dp": "−0.013",
+  "st_snake_like": "0.997",
+  "st_snake_like_G": "12",
+  "st_snake_like_dp": "−0.003",
+  "thr_g1": "0.50",
+  "thr_g2": "0.40",
+  "thr_g3": "0.50",
+  "thr_l": "200 ms",
+  "thr_landings": "6",
+  "thr_ns": "0.60",
+  "thr_r1": "0.95",
+  "thr_r2": "0.85",
+  "tick_ms": "250 ms",
+  "zc_D": "4",
+  "zc_G": "16",
+  "zc_dp": "+0.012",
+  "zc_dp_lo": "−0.013",
+  "zc_theta": "0.893"
+ },
+ "sources": {
+  "a_booster_W": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|W",
+   "raw": 0.9791666666666666
+  },
+  "a_booster_landings": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|landings_v2g",
+   "raw": 23
+  },
+  "a_booster_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|n",
+   "raw": 24
+  },
+  "a_booster_name": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "games|2|name",
+   "raw": "Booster Gauntlet"
+  },
+  "a_booster_p": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|signflip_p",
+   "raw": 1.1920928955078125e-07
+  },
+  "a_booster_pass": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|gates|A_booster",
+   "raw": "PASS"
+  },
+  "a_booster_tlo": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|t_lower",
+   "raw": 0.9360696331162698
+  },
+  "a_booster_v1": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|mean_v1",
+   "raw": 0.0
+  },
+  "a_booster_v2": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|mean_v2g",
+   "raw": 0.9583333333333334
+  },
+  "a_booster_wtl": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|booster|wins,ties,losses",
+   "raw": [
+    23,
+    1,
+    0
+   ]
+  },
+  "a_rotorwash_W": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|W",
+   "raw": 1.0
+  },
+  "a_rotorwash_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|n",
+   "raw": 24
+  },
+  "a_rotorwash_name": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "games|1|name",
+   "raw": "Rotorwash-Ramp"
+  },
+  "a_rotorwash_p": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|signflip_p",
+   "raw": 5.960464477539063e-08
+  },
+  "a_rotorwash_pass": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|gates|A_rotorwash",
+   "raw": "PASS"
+  },
+  "a_rotorwash_tlo": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|t_lower",
+   "raw": 1.0
+  },
+  "a_rotorwash_v1": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|mean_v1",
+   "raw": 0.35091517774243686
+  },
+  "a_rotorwash_v2": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|mean_v2g",
+   "raw": 1.0479166666666666
+  },
+  "a_rotorwash_wtl": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|rotorwash|wins,ties,losses",
+   "raw": [
+    24,
+    0,
+    0
+   ]
+  },
+  "a_seeds_other": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "meta|seeds|rotorwash_ramp",
+   "raw": "34–57"
+  },
+  "a_seeds_snake": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "meta|seeds|snake",
+   "raw": "10–33"
+  },
+  "a_snake_W": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|W",
+   "raw": 1.0
+  },
+  "a_snake_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|n",
+   "raw": 24
+  },
+  "a_snake_name": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "games|0|name",
+   "raw": "Snake Rush"
+  },
+  "a_snake_p": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|signflip_p",
+   "raw": 5.960464477539063e-08
+  },
+  "a_snake_pass": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|gates|A_snake",
+   "raw": "PASS"
+  },
+  "a_snake_tlo": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|t_lower",
+   "raw": 1.0
+  },
+  "a_snake_v1": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|mean_v1",
+   "raw": 12.572916666666666
+  },
+  "a_snake_v2": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|mean_v2g",
+   "raw": 50.65625
+  },
+  "a_snake_wtl": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "arena|snake|wins,ties,losses",
+   "raw": [
+    24,
+    0,
+    0
+   ]
+  },
+  "alpha": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "alpha",
+   "raw": 0.025
+  },
+  "audit_verdict": {
+   "file": "bench/burst_v2/receipts/AUDIT_M4.md",
+   "sha256": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "regex": "^Verdict: (MATCH)\\s*$",
+   "raw": "MATCH"
+  },
+  "block:quickstart": {
+   "file": "README.md",
+   "sha256": "3acddc355774161c41a5da93f12282f0d60ab736e14e352556fc4e1fd34b6bf0",
+   "regex": "first ```python block after '## Burst V2'"
+  },
+  "block:receipts": {
+   "bench/burst_v2/README.md": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "bench/burst_v2/receipts/RESULT.json": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "bench/burst_v2/receipts/RESULT_ADDENDUM.json": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "bench/burst_v2/receipts/AUDIT_M4.md": "217ec977aa2aa5c0061e1373795593c78f3ff06137e19dbd490a7679472169c1",
+   "bench/burst_v2/receipts/CANDIDATE.json": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "bench/burst_v2/receipts/arena_v2.json": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "bench/burst_v2/receipts/replay.json": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
+   "bench/burst_v2/receipts/MANIFEST.json": "9045b5be66fe719919a6980d2e9711a12007e15a9c1cbc5beddad796dc9088fc"
+  },
+  "c83": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "^(On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, [^\\n]+\\.)$",
+   "raw": "On unseen machines, V2G's success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set."
+  },
+  "c8_decisions": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|decisions",
+   "raw": 46966
+  },
+  "c8_exhausted": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|share_decisions_exhausted",
+   "raw": 0.24932930204829026
+  },
+  "c8_high": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|share_decisions_high_coverage",
+   "raw": 0.4827108972448154
+  },
+  "c8_le1000": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|share_reach_le_1000",
+   "raw": 0.5208333333333334
+  },
+  "c8_le20000": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|share_reach_le_20000",
+   "raw": 0.9583333333333334
+  },
+  "c8_lowcov_machines": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|low_coverage_machines",
+   "derived": "len(list)",
+   "raw": 26
+  },
+  "c8_reach_max": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|reach_min_p25_median_p75_max|4",
+   "raw": 25921.0
+  },
+  "c8_reach_med": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|reach_min_p25_median_p75_max|2",
+   "raw": 922.5
+  },
+  "c8_reach_min": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|reach_min_p25_median_p75_max|0",
+   "raw": 72.0
+  },
+  "cfg_kmax": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "config_resolved|candidate|k_max",
+   "raw": 40
+  },
+  "cfg_sims": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "config_resolved|candidate|max_sims",
+   "raw": 100000
+  },
+  "cfg_snake_k": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "config_resolved|snake|k",
+   "raw": 12
+  },
+  "cfg_snake_sims": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "config_resolved|snake|max_sims",
+   "raw": 20000
+  },
+  "cfg_tau": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "config_resolved|candidate|tau",
+   "raw": 0.6
+  },
+  "conf": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "alpha",
+   "derived": "100*(1-alpha) %",
+   "raw": 0.025
+  },
+  "core_params": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "(\\d+\\.\\d+M) parameters",
+   "raw": "3.10M"
+  },
+  "core_sha_short": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "core_weights_sha256",
+   "derived": "first 8 hex",
+   "raw": "a24e1158b00a59ad1fc103001c301981aa94da033e59fcee7b645ae2deef5624"
+  },
+  "cost_m4": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "Billed \\(finalized provider bills\\) \\| \\$(\\d+\\.\\d\\d) \\|",
+   "raw": "0.20"
+  },
+  "cost_total": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "All V2-general cloud spend[^|]*\\| \\$(\\d+\\.\\d\\d) \\|",
+   "raw": "25.16"
+  },
+  "decision": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|decision",
+   "raw": "RELEASE"
+  },
+  "g_dom_lo": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|domain|lower",
+   "raw": 0.7060707237837016
+  },
+  "g_domains": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|admission|D",
+   "raw": 16
+  },
+  "g_fam_hi": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|family|upper",
+   "raw": 0.9479889642942309
+  },
+  "g_fam_lo": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|family|lower",
+   "raw": 0.7603443690391024
+  },
+  "g_families": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|admission|G",
+   "raw": 48
+  },
+  "g_icc": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|icc_domain",
+   "raw": 0.5822845752318528
+  },
+  "g_lodo": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|lodo_min",
+   "raw": 0.8444444444444444
+  },
+  "g_lodo_dom": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|lodo_argmin",
+   "raw": "bobsled_run"
+  },
+  "g_pass": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|gates|G",
+   "raw": "PASS"
+  },
+  "g_theta": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|gate_G|estimate",
+   "raw": 0.8541666666666666
+  },
+  "gp_est": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|claims|G+|estimate",
+   "raw": -0.0032552083333333335
+  },
+  "gp_level": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|G+|level",
+   "raw": 0.025
+  },
+  "gp_lo_dom": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|G+|bounds_at_step|domain_lower",
+   "raw": -0.01103107249289666
+  },
+  "gp_lo_fam": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|G+|bounds_at_step|family_lower",
+   "raw": -0.009244956680550543
+  },
+  "gp_lodo_ok": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|claims|G+|lodo_ok",
+   "raw": false
+  },
+  "gp_p": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|claims|G+|p_claim",
+   "raw": 1.0
+  },
+  "gp_result": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|G+|reject",
+   "derived": "reject -> 'shown', else 'not shown'",
+   "raw": false
+  },
+  "hardware": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "^\\| Hardware \\| (.+?) \\|$",
+   "raw": "Apple M2 (cpu-m2-1t), native arm64, 1 thread"
+  },
+  "hf_repo": {
+   "file": "src/nagi/burst2/_api.py",
+   "sha256": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
+   "regex": "^BURST_V2_REPO = \"([^\"]+)\"",
+   "raw": "nagisanzeninz/Nagi-Burst-V2"
+  },
+  "hf_revision": {
+   "file": "src/nagi/burst2/_api.py",
+   "sha256": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
+   "regex": "^BURST_V2_REVISION = \"([0-9a-f]{40})\"",
+   "raw": "803cdcbb384c81c0a7411aa65fe058b933a4545b"
+  },
+  "hf_revision_short": {
+   "file": "src/nagi/burst2/_api.py",
+   "sha256": "ff01f00ad772f04d5051796b2467a3fc9fec4579b6566b508b85d23eea7b1c14",
+   "regex": "^BURST_V2_REVISION = \"([0-9a-f]{40})\"",
+   "derived": "first 8 hex"
+  },
+  "i_mis": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "interface|mismatches",
+   "raw": 0
+  },
+  "i_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "interface|n",
+   "raw": 7506
+  },
+  "i_pass": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|gates|I",
+   "raw": "PASS"
+  },
+  "i_rt": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "interface|roundtrip_failures",
+   "raw": 0
+  },
+  "i_ucb": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "interface|mismatch_rate_ucb95",
+   "raw": 0.0003996802557953637
+  },
+  "l_booster_gt250": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|booster|share_gt_250",
+   "raw": 0.0
+  },
+  "l_booster_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|booster|n",
+   "raw": 1506
+  },
+  "l_booster_p50": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|booster|p50_ms",
+   "raw": 0.5103125004097819
+  },
+  "l_booster_p95": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|booster|p95_ms",
+   "raw": 0.6425105093512684
+  },
+  "l_booster_p99": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|booster|p99_ms",
+   "raw": 0.7781208667438477
+  },
+  "l_booster_ucb": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|booster|p95_ucb_ms",
+   "raw": 0.6701250094920397
+  },
+  "l_max_ucb": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|p95_ucb_ms",
+   "derived": "max p95_ucb_ms over the populations",
+   "raw": 50.808917032554746
+  },
+  "l_pass": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|gates|L",
+   "raw": "PASS"
+  },
+  "l_rr_gt250": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|rr|share_gt_250",
+   "raw": 0.0
+  },
+  "l_rr_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|rr|n",
+   "raw": 2000
+  },
+  "l_rr_p50": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|rr|p50_ms",
+   "raw": 0.3742704866454005
+  },
+  "l_rr_p95": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|rr|p95_ms",
+   "raw": 0.4739041207358241
+  },
+  "l_rr_p99": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|rr|p99_ms",
+   "raw": 0.620483198435977
+  },
+  "l_rr_ucb": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|rr|p95_ucb_ms",
+   "raw": 0.49229100113734603
+  },
+  "l_snake_gt250": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|share_gt_250",
+   "raw": 0.0005
+  },
+  "l_snake_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|n",
+   "raw": 2000
+  },
+  "l_snake_p50": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|p50_ms",
+   "raw": 0.7704164599999785
+  },
+  "l_snake_p95": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|p95_ms",
+   "raw": 38.003499983460635
+  },
+  "l_snake_p99": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|p99_ms",
+   "raw": 194.59114012424834
+  },
+  "l_snake_ucb": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|snake|p95_ucb_ms",
+   "raw": 50.808917032554746
+  },
+  "l_zoo_d_gt250": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|zoo_d|share_gt_250",
+   "raw": 0.0
+  },
+  "l_zoo_d_n": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|zoo_d|n",
+   "raw": 2000
+  },
+  "l_zoo_d_p50": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|zoo_d|p50_ms",
+   "raw": 9.617478994186968
+  },
+  "l_zoo_d_p95": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|zoo_d|p95_ms",
+   "raw": 41.08994617708959
+  },
+  "l_zoo_d_p99": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|zoo_d|p99_ms",
+   "raw": 44.469695533043705
+  },
+  "l_zoo_d_ucb": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "latency|populations|zoo_d|p95_ucb_ms",
+   "raw": 41.78479197435081
+  },
+  "large_G": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "large_machines_d|G",
+   "raw": 0
+  },
+  "lc_D": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "low_coverage_d|D",
+   "raw": 9
+  },
+  "lc_G": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "low_coverage_d|G",
+   "raw": 14
+  },
+  "lc_gp": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "low_coverage_d|Gplus|family|mean",
+   "raw": -0.006696428571428571
+  },
+  "lc_lo_dom": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "low_coverage_d|NS_vs_0.60|domain|lower",
+   "raw": 0.39848416361721634
+  },
+  "lc_lo_fam": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "low_coverage_d|NS_vs_0.60|family|lower",
+   "raw": 0.4853032267508072
+  },
+  "lc_theta": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "low_coverage_d|theta_hat",
+   "raw": 0.7299107142857143
+  },
+  "leak_diff": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "leak_check_zoo_dev_l|leak_check|diff",
+   "raw": -0.03148674242424243
+  },
+  "leak_flag": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "leak_check_zoo_dev_l|leak_check|flag",
+   "raw": false
+  },
+  "leak_lo": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "leak_check_zoo_dev_l|leak_check|lower",
+   "raw": -0.15559529863370813
+  },
+  "machines": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "coverage_d|machines",
+   "raw": 96
+  },
+  "metric_booster": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "games|2|metric",
+   "raw": "K3 Y (first hop)"
+  },
+  "metric_rotorwash": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "games|1|metric",
+   "raw": "K3-RR2.1 Y"
+  },
+  "metric_snake": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "games|0|metric",
+   "raw": "survival_s (s, censored at 60 s)"
+  },
+  "ns_est": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|claims|NS|estimate",
+   "raw": 0.8541666666666666
+  },
+  "ns_level": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|NS|level",
+   "raw": 0.0125
+  },
+  "ns_lo_dom": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|NS|bounds_at_step|domain_lower",
+   "raw": 0.681166520770569
+  },
+  "ns_lo_fam": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|NS|bounds_at_step|family_lower",
+   "raw": 0.7461782916775855
+  },
+  "ns_p": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|claims|NS|p_claim",
+   "raw": 0.0011655165601335662
+  },
+  "ns_result": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "zoo_d|holm|NS|reject",
+   "derived": "reject -> 'shown', else 'not shown'",
+   "raw": true
+  },
+  "path": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|path",
+   "raw": "parser"
+  },
+  "prose_G": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "prose_path|G_prose_rule_form|estimate",
+   "raw": 0.4694010416666667
+  },
+  "prose_diff": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "prose_path|prose_minus_parser|mean",
+   "raw": -0.384765625
+  },
+  "prose_diff_lo": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "prose_path|prose_minus_parser|lower",
+   "raw": -0.5171396107696568
+  },
+  "r_G": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "gate_R|G",
+   "raw": 48
+  },
+  "r_cp": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "gate_R|cp_lower_97_5",
+   "raw": 0.33286633621366873
+  },
+  "r_exact": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "gate_R|exact_families",
+   "raw": 23
+  },
+  "r_machine": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "gate_R|machine_rate",
+   "raw": 0.4895833333333333
+  },
+  "r_pi": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "gate_R|pi_hat",
+   "raw": 0.4791666666666667
+  },
+  "r_result": {
+   "file": "bench/burst_v2/receipts/RESULT.json",
+   "sha256": "b627217173d248fae31345c4eb086c69cc7650056c4544a27fb48bb554fe1389",
+   "key": "release|R",
+   "raw": "FAIL"
+  },
+  "replay_exact": {
+   "file": "bench/burst_v2/receipts/replay.json",
+   "sha256": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
+   "key": "exact",
+   "raw": 72
+  },
+  "replay_n": {
+   "file": "bench/burst_v2/receipts/replay.json",
+   "sha256": "ce883a6479966018c9971cb6f54d234c4dfc3794bb4a5d1233ad7669a42219e7",
+   "key": "replayed",
+   "raw": 72
+  },
+  "reply_profile": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "meta|reply_profile",
+   "raw": "nominal 1-tick (decision for boundary t applies at t+1)"
+  },
+  "sdk_tag": {
+   "file": "pyproject.toml",
+   "sha256": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
+   "regex": "^version = \"([0-9.]+)\"",
+   "derived": "\"v\" + version"
+  },
+  "sdk_version": {
+   "file": "pyproject.toml",
+   "sha256": "06f65c6281912707f52594cdd02ac99a69a02854d2c72af982f0a6b614159273",
+   "regex": "^version = \"([0-9.]+)\"",
+   "raw": "0.7.0"
+  },
+  "serving_class": {
+   "file": "bench/burst_v2/receipts/CANDIDATE.json",
+   "sha256": "28fe5de62675e93e03ba0b82d2e3e6f1f8a52d98423ec0415759f8c6145c65d3",
+   "key": "predeclared|serving_class",
+   "raw": "cpu-m2-1t"
+  },
+  "st_booster_like": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|booster_like|mean",
+   "raw": 0.953125
+  },
+  "st_booster_like_G": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|booster_like|G",
+   "raw": 12
+  },
+  "st_booster_like_dp": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "delta_plus_per_stratum|booster_like|mean",
+   "raw": -0.0026041666666666665
+  },
+  "st_mixed": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|mixed|mean",
+   "raw": 0.9817708333333334
+  },
+  "st_mixed_G": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|mixed|G",
+   "raw": 12
+  },
+  "st_mixed_dp": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "delta_plus_per_stratum|mixed|mean",
+   "raw": 0.005208333333333333
+  },
+  "st_rr_like": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|rr_like|mean",
+   "raw": 0.484375
+  },
+  "st_rr_like_G": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|rr_like|G",
+   "raw": 12
+  },
+  "st_rr_like_dp": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "delta_plus_per_stratum|rr_like|mean",
+   "raw": -0.013020833333333334
+  },
+  "st_snake_like": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|snake_like|mean",
+   "raw": 0.9973958333333334
+  },
+  "st_snake_like_G": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "theta_per_stratum|snake_like|G",
+   "raw": 12
+  },
+  "st_snake_like_dp": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "delta_plus_per_stratum|snake_like|mean",
+   "raw": -0.0026041666666666665
+  },
+  "thr_g1": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "G1 ≥ (\\d\\.\\d+)",
+   "raw": "0.50"
+  },
+  "thr_g2": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "G2 > (\\d\\.\\d+)",
+   "raw": "0.40"
+  },
+  "thr_g3": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "G3 ≥ (\\d\\.\\d+)",
+   "raw": "0.50"
+  },
+  "thr_l": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "gate ≤ (\\d+) ms",
+   "raw": "200"
+  },
+  "thr_landings": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "PASS needs ≥ (\\d+)",
+   "raw": "6"
+  },
+  "thr_ns": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "NS \\(θ > (\\d\\.\\d+)\\)",
+   "raw": "0.60"
+  },
+  "thr_r1": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "point rule ≥ (\\d\\.\\d+)",
+   "raw": "0.95"
+  },
+  "thr_r2": {
+   "file": "bench/burst_v2/README.md",
+   "sha256": "4360a232f373f07127fc4ff59072e8f3499e769fdf938c55693dcb8cd4935032",
+   "regex": "\\(rule > (\\d\\.\\d+)\\)",
+   "raw": "0.85"
+  },
+  "tick_ms": {
+   "file": "bench/burst_v2/receipts/arena_v2.json",
+   "sha256": "edfb183fb15543e7deb9371a61b01b59291c54e8ec04e7c6f4a466462bfed15b",
+   "key": "meta|tick_ms",
+   "raw": 250
+  },
+  "zc_D": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "zoo_unseen_c|D",
+   "raw": 4
+  },
+  "zc_G": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "zoo_unseen_c|G",
+   "raw": 16
+  },
+  "zc_dp": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "zoo_unseen_c|delta_plus|mean",
+   "raw": 0.01171875
+  },
+  "zc_dp_lo": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "zoo_unseen_c|delta_plus|lower",
+   "raw": -0.013259174362028624
+  },
+  "zc_theta": {
+   "file": "bench/burst_v2/receipts/RESULT_ADDENDUM.json",
+   "sha256": "cf618f3f41ac2340b83dd6b0290da0c681db40dc0391df1b74515d1667b31ea5",
+   "key": "zoo_unseen_c|theta_candidate|mean",
+   "raw": 0.892578125
+  }
+ },
+ "unused_on_page": [
+  "g_fam_hi",
+  "g_icc",
+  "g_lodo_dom",
+  "gp_lodo_ok",
+  "i_rt",
+  "lc_gp",
+  "r_machine",
+  "sdk_version"
+ ]
+}

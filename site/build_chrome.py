@@ -16,7 +16,8 @@ GH = "https://github.com/nagisanzenin/nagi"
 # path, depth prefix, active nav key, page kind, optional on-page anchors
 PAGES = [
     ("index.html", "", "bench", "home", [("Results", "#results"), ("Nagi tiers", "#tiers"), ("Method", "#method"), ("Reproduce", "#evidence")]),
-    ("arena/index.html", "../", "arena", "arena", [("Leaderboard", "#results"), ("Confirmation", "#confirm"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
+    ("arena/index.html", "../", "arena", "arena", [("V2 · V1 · Jev", "#v2"), ("Leaderboard", "#results"), ("Confirmation", "#confirm"), ("How to read", "#read"), ("Survival", "#survival"), ("Games", "#games"), ("Rules", "#rules"), ("Caveats", "#caveats"), ("Archive", "#archive")]),
+    ("burst-v2/index.html", "../", "burst2", "burst2", [("Use it", "#use"), ("Gates", "#gates"), ("Research", "#research"), ("Arena", "#arena"), ("Limits", "#limits"), ("Receipts", "#receipts")]),
     ("burst/index.html", "../", "burst", "burst", [("Problem", "#problem"), ("How it works", "#how"), ("Evidence", "#evidence"), ("Limitations", "#limits"), ("Reproduce", "#reproduce")]),
     ("arena-live/index.html", "../", "arena", "live", [("Results", "#results"), ("Games", "#rotorwash"), ("Nagi lines", "#family"), ("Lab notes", "#lab"), ("Fairness", "#fair")]),
     ("bomber-huge/index.html", "../", "arena", "legacy", []),
@@ -25,7 +26,8 @@ PAGES = [
     ("snake/index.html", "../", "arena", "legacy", []),
 ]
 
-NAV = [("bench", "Benchmark", ""), ("arena", "Game Arena", "arena/"), ("burst", 'Burst <span class="nx-new">New</span>', "burst/")]
+NAV = [("bench", "Benchmark", ""), ("arena", "Game Arena", "arena/"), ("burst2", 'Burst V2 <span class="nx-new">New</span>', "burst-v2/"),
+       ("burst", "Burst V1", "burst/")]
 
 
 def head(p):
@@ -55,10 +57,11 @@ def footer(p, active, page):
             f'<div class="nx-brand"><img class="m" src="{p}assets/mascot-128.png" alt="Nagi mascot" width="72" height="72">'
             f'<div><img class="w" src="{p}assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div>'
             '<div class="nx-cols">'
-            '<div><h4>Benchmarks</h4><ul>' + link(f"{p}arena/", "Game Arena v3", page == "arena") + link(p or "./", "Public decision benchmark", active == "bench") + '</ul></div>'
+            '<div><h4>Benchmarks</h4><ul>' + link(f"{p}arena/", "Game Arena v3", page == "arena") + link(f"{p}burst-v2/", "Burst V2 · release evaluation", page == "burst2")
+            + link(f"{p}burst/", "Burst V1 · one-pass readout", page == "burst") + link(p or "./", "Public decision benchmark", active == "bench") + '</ul></div>'
             '<div><h4>Archive (legacy)</h4><ul>' + link(f"{p}arena-live/", "Arena v2 · Arena Live", page == "live") + link(f"{p}bomber-huge/", "Real-time Bomber · HUGE")
             + link(f"{p}bomber-realtime/", "Real-time Bomber · BIG") + link(f"{p}bomber/", "Turn-based Bomber") + link(f"{p}snake/", "Snake pilot") + '</ul></div>'
-            '<div><h4>Models</h4><ul>' + ext(f"{HF}/Nagi-ENORMOUS", "Nagi-ENORMOUS 27B") + ext(f"{HF}/Nagi-HUGE", "Nagi-HUGE 12B")
+            '<div><h4>Models</h4><ul>' + ext(f"{HF}/Nagi-Burst-V2", "Nagi-Burst-V2 (CPU)") + ext(f"{HF}/Nagi-ENORMOUS", "Nagi-ENORMOUS 27B") + ext(f"{HF}/Nagi-HUGE", "Nagi-HUGE 12B")
             + ext(f"{HF}/nagi-big-v3", "Nagi-BIG 4B") + ext(f"{HF}/nagi-smol-v0", "Nagi-SMOL 0.5B") + '</ul></div>'
             '<div><h4>Code</h4><ul>' + ext(GH, "Nagi SDK on GitHub") + ext(f"{GH}/tree/main/bench", "Benchmark data") + ext(f"{GH}/tree/main/docs/brand", "Brand kit")
             + ext(f"{GH}/issues", "Questions or corrections") + '</ul></div></div>'

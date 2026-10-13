@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- Nagi Burst V2 page. Every number is stamped from bench/burst_v2/ receipts by build/make_page.py (data-k spans and bv2 blocks);
+     data.json lists each value with its file, JSON key and sha256. Edit prose freely; never type a number by hand:
+     python3 site/burst-v2/build/make_page.py && python3 site/burst-v2/build/make_page.py check -->
+<title>Nagi Burst V2: exact lookahead on rules you write</title>
+<meta name="description" content="Nagi Burst V2: a small learned core plus exact lookahead on machines you describe in text, on one CPU thread. A frozen sealed evaluation with an independent audit, what the research shows, and what it cannot do yet.">
+<link rel="canonical" href="https://nagisanzenin.github.io/nagi/burst-v2/">
+<meta name="theme-color" content="#111114">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nagi">
+<meta property="og:url" content="https://nagisanzenin.github.io/nagi/burst-v2/">
+<meta property="og:title" content="Nagi Burst V2: write the rules, get the decision">
+<meta property="og:description" content="A small learned core plus exact lookahead on machines you describe in text, on one CPU thread. Frozen sealed evaluation, independent audit, and what it cannot do yet.">
+<meta property="og:image" content="https://nagisanzenin.github.io/nagi/assets/banner-1600.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="burst-v2.css">
+<!--nx:head--><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="../assets/nagi.css"><!--/nx:head--></head>
+<body>
+<!--nx:header--><header class="nx-bar"><div class="nx-in"><div class="nx-row"><a class="nx-mark" href="../" aria-label="Nagi home"><img src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><span>System One</span></a><nav class="nx-nav" aria-label="Site"><a href="../">Benchmark</a><a href="../arena/">Game Arena</a><a href="../burst-v2/" aria-current="page">Burst V2 <span class="nx-new">New</span></a><a href="../burst/">Burst V1</a><a href="https://huggingface.co/nagisanzeninz">Models ↗</a><a href="https://github.com/nagisanzenin/nagi">GitHub ↗</a></nav></div><nav class="nx-sub" aria-label="On this page"><b>On this page</b><a href="#use">Use it</a><a href="#gates">Gates</a><a href="#research">Research</a><a href="#arena">Arena</a><a href="#limits">Limits</a><a href="#receipts">Receipts</a></nav></div></header><!--/nx:header-->
+
+<main class="bp" id="top">
+
+<section class="hero" aria-labelledby="h-hero">
+ <span class="nx-tape">New · Nagi Burst V2 · SDK <span data-k="sdk_tag">v0.7.0</span></span>
+ <h1 id="h-hero">Write the rules.<br><em>Get the decision.</em></h1>
+ <p class="dek"><strong>Nagi Burst V2</strong> decides for small machines that you describe in the Nagi machine language. An exact reader turns your text into the machine, an exact lookahead simulates it, and a <strong><span data-k="core_params">3.10M</span>-parameter learned core</strong> proposes a prior where the search cannot tell moves apart. Numpy only, one CPU thread, no GPU.</p>
+ <p class="key"><span data-k="c83">On unseen machines, V2G&#x27;s success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set.</span> The learned core did not measurably add to that lookahead (claim G+ not shown), so we do not claim that learning generalizes.</p>
+ <div class="ctas">
+  <a class="nx-btn primary" href="#use">Use it <span aria-hidden="true">↓</span></a>
+  <a class="nx-btn" href="https://huggingface.co/nagisanzeninz/Nagi-Burst-V2">Model on Hugging Face <span aria-hidden="true">↗</span></a>
+  <a class="nx-btn" href="../arena/#v2">Game Arena: V2 · V1 · Jev <span aria-hidden="true">→</span></a>
+  <a class="nx-btn" href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/README.md">Report and receipts <span aria-hidden="true">↗</span></a>
+ </div>
+ <!--bv2:hero-facts--><dl class="facts"><div><dt>Unseen machines</dt><dd>0.854<small>success on Zoo-Unseen-D, 48 families / 16 domains · lower bounds 0.760 family, 0.706 domain · gate G PASS</small></dd></div><div><dt>Arena vs Nagi Burst V1</dt><dd>1.000 · 1.000 · 0.979<small>win share W on Snake Rush · Rotorwash-Ramp · Booster Gauntlet, 24 sealed seeds each · gate A PASS ×3</small></dd></div><div><dt>Decision latency</dt><dd>≤ 50.8 ms<small>largest p95 upper bound over every population, Apple M2 (cpu-m2-1t), native arm64, 1 thread · gate L (200 ms) PASS</small></dd></div><div><dt>Learned core</dt><dd>3.10M<small>parameters, numpy only · text path = structured path on 7,506 requests (0 mismatches) · gate I PASS</small></dd></div></dl><!--/bv2:hero-facts-->
+ <div class="claims">
+  <div class="yes"><h3>What we claim</h3><ul>
+   <li>Every must-pass release gate passed in one frozen, sealed run, and an independent recount of every number from the raw receipts matched (<span data-k="audit_verdict">MATCH</span>).</li>
+   <li>On unseen machines written by separate authors (<span data-k="g_families">48</span> families, <span data-k="g_domains">16</span> domains), mean success is above <span data-k="thr_ns">0.60</span> under the preregistered test: θ̂ = <span data-k="ns_est">0.854</span>, Holm-matched lower bounds <span data-k="ns_lo_fam">0.746</span> (family) and <span data-k="ns_lo_dom">0.681</span> (domain). Claim NS is shown.</li>
+   <li>Against Nagi Burst V1 on the same sealed Arena seeds, V2 won every pairing it did not tie: win share W <span data-k="a_snake_W">1.000</span> on Snake Rush, <span data-k="a_rotorwash_W">1.000</span> on Rotorwash-Ramp and <span data-k="a_booster_W">0.979</span> on Booster Gauntlet, where it landed <span data-k="a_booster_landings">23</span> of <span data-k="a_booster_n">24</span> rounds and V1 landed none.</li>
+   <li>Each decision fits the latency gate on one Apple M2 thread: the largest p95 upper bound is <span data-k="l_max_ucb">50.8 ms</span> against a <span data-k="thr_l">200 ms</span> limit.</li>
+   <li>The text path gives exactly the decision of the structured path: <span data-k="i_mis">0</span> mismatches in <span data-k="i_n">7,506</span> requests.</li>
+  </ul></div>
+  <div class="no"><h3>What we do not claim</h3><ul>
+   <li>That learning generalizes to unseen machines. Claim G+ is not shown: the core minus the same search is <span data-k="gp_est">−0.003</span> (Holm p <span data-k="gp_p">1.000</span>).</li>
+   <li>North-star attainment. The test machines are small (median <span data-k="c8_reach_med">922.5</span> reachable states). On the subset where the lookahead saw least, success is <span data-k="lc_theta">0.730</span> and NS is not shown there (lower bounds <span data-k="lc_lo_fam">0.485</span> / <span data-k="lc_lo_dom">0.398</span>).</li>
+   <li>Strength on every kind of machine. On Rotorwash-like unseen machines success is only <span data-k="st_rr_like">0.484</span> (descriptive).</li>
+   <li>Reading rules written in plain English. The prose reader got <span data-k="r_exact">23</span> of <span data-k="r_G">48</span> rulebooks exactly right, so gate R failed and the reader moves to V2.1.</li>
+   <li>Generalization on the Arena games: the core was trained on all three, so they are seen tasks.</li>
+   <li>Any comparison beyond Nagi Burst V1. The release gates compare V2 with V1 only; Jev appears only in the Game Arena section, under the labels given there.</li>
+  </ul></div>
+ </div>
+</section>
+
+<section id="use" aria-labelledby="h-use">
+ <p class="eyebrow">01 / Use it</p>
+ <h2 id="h-use">Install. Describe. Decide.</h2>
+ <p>Burst V2 ships in the Nagi SDK <span data-k="sdk_tag">v0.7.0</span> as the module <code>nagi.burst2</code>. The core is one small numpy file. It downloads from Hugging Face at a revision pinned in the SDK and is checked against its sha256 before use.</p>
+ <!--bv2:install--><pre><code># the SDK (module nagi.burst2), pinned to this release
+python -m pip install "nagi-decisions @ git+https://github.com/nagisanzenin/nagi.git@v0.7.0"</code></pre><!--/bv2:install-->
+ <p>Write the machine as text, then ask for a decision. The quickstart from the README:</p>
+ <!--bv2:quickstart--><pre><code>from nagi.burst2 import load_core, operate
+
+RULES = &quot;&quot;&quot;machine mz-1
+vars:
+  x in [0, 6], start {3}, out of range: clamp
+controls:
+  @m: DEC -1, KEEP 0, INC 1
+random $w: none
+rules (in order, each tick):
+  1. x := x + @m
+crash if any holds:
+  1. all(x &lt;= -1)
+goal: all(x == 6)
+&quot;&quot;&quot;
+core = load_core()   # nagisanzeninz/Nagi-Burst-V2, pinned revision, sha256-checked
+out = operate(RULES, {&quot;x&quot;: 3}, {&quot;core&quot;: core, &quot;session&quot;: &quot;episode-1&quot;, &quot;step&quot;: 0})
+print(out[&quot;choice&quot;], out[&quot;probabilities&quot;])   # {&#x27;m&#x27;: &#x27;inc&#x27;} {&#x27;m&#x27;: {&#x27;dec&#x27;: 0.0, &#x27;keep&#x27;: 0.0, &#x27;inc&#x27;: 1.0}}</code></pre><!--/bv2:quickstart-->
+ <h3>Three parts, all exact except the prior</h3>
+ <ol class="parts">
+  <li><b>Reader.</b> Parses mz-1 text (integer variables, controls with DEC / KEEP / INC options, ordered rules, an optional random input, crash conditions, a goal) into the exact machine. mz-1x adds reply delay, hidden variables and a history window. Invalid programs are rejected, never guessed.</li>
+  <li><b>Lookahead.</b> Simulates the parsed machine itself: <span data-k="cfg_sims">100,000</span> simulations per decision, horizon up to <span data-k="cfg_kmax">40</span>, with belief tracking when variables are hidden or controls are delayed.</li>
+  <li><b>Learned core.</b> Reads the program structure and proposes a prior. It is used only inside the set of moves the search cannot tell apart, and only when its confidence is at least <span data-k="cfg_tau">0.6</span>.</li>
+ </ol>
+ <p class="note">The output is <code>{"choice", "joint", "probabilities", "joint_probabilities", "stats"}</code>. The defaults are the released configuration; changing them gives a configuration that was not evaluated. Pass a <code>session</code> and an increasing <code>step</code> to make every draw replayable.</p>
+ <!--bv2:use-links--><div class="links"><a href="https://github.com/nagisanzenin/nagi/blob/main/docs/BURST_V2.md"><b>Burst V2 guide ↗</b><span>What it is, the API, the draw, limits</span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/docs/QUICKSTART_MACHINE.md"><b>Write your own machine ↗</b><span>Five-minute quickstart: rules, canonical form, one decision per tick</span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/docs/DSL_REFERENCE.md"><b>Machine language reference ↗</b><span>mz-1 / mz-1x syntax, exact tick semantics, delays and hidden variables, worked examples</span></a><a href="https://huggingface.co/nagisanzeninz/Nagi-Burst-V2/tree/803cdcbb384c81c0a7411aa65fe058b933a4545b"><b>Model on Hugging Face ↗</b><span>nagisanzeninz/Nagi-Burst-V2 at revision <code>803cdcbb</code> (pinned in the SDK) · core sha256 <code>a24e1158</code></span></a><a href="https://github.com/nagisanzenin/nagi/tree/v0.7.0/src/nagi/burst2"><b>SDK source ↗</b><span>nagi.burst2 at tag v0.7.0: reader, search, core, operate()</span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/CHANGELOG.md"><b>Changelog ↗</b><span>What changed in v0.7.0</span></a></div><!--/bv2:use-links-->
+</section>
+
+<section id="gates" aria-labelledby="h-gates">
+ <p class="eyebrow">02 / Release gates</p>
+ <h2 id="h-gates">One sealed run. Every gate receipted.</h2>
+ <p>The candidate (core, search configuration, policies) was frozen before any sealed data was touched. Each step ran exactly once: the prose reader test R, the sealed policy runs, latency and interface, the analysis, and an independent audit that recomputed every number from the raw receipts with its own code. R decides which path ships: it failed, so V2 ships the exact parser path.</p>
+ <!--bv2:gates--><div class="tw"><table class="gates"><caption>Release gates, frozen sealed run (bounds: one-sided 97.5%)</caption><thead><tr><th scope="col">Gate</th><th scope="col">What it tests</th><th scope="col">Estimate</th><th scope="col">Lower bounds</th><th scope="col">Rule</th><th scope="col">Result</th></tr></thead><tbody><tr><td><b>A</b></td><td class="l">Arena vs Nagi Burst V1 (seen games)</td><td>W 1.000 · 1.000 · 0.979</td><td class="l">t lower 1.000 · 1.000 · 0.936</td><td class="l">t lower bound of W above one half and sign-flip p ≤ 0.025, per game</td><td><span class="bdg ok">PASS</span> ×3</td></tr><tr><td><b>G</b></td><td class="l">Unseen machines, Zoo-Unseen-D</td><td>θ̂ 0.854</td><td class="l">0.760 family · 0.706 domain · LODO 0.844</td><td class="l">θ̂ ≥ 0.50; both lower bounds &gt; 0.40; leave-one-domain-out ≥ 0.50</td><td><span class="bdg ok">PASS</span></td></tr><tr><td><b>L</b></td><td class="l">Latency, one thread</td><td>p95 ≤ 50.8 ms (upper bound)</td><td class="l">4 populations, cpu-m2-1t</td><td class="l">p95 upper bound ≤ 200 ms in every population</td><td><span class="bdg ok">PASS</span></td></tr><tr><td><b>I</b></td><td class="l">Text path = structured path</td><td>0 mismatches / 7,506</td><td class="l">rate upper bound 0.040%</td><td class="l">identical probability vectors and draws</td><td><span class="bdg ok">PASS</span></td></tr><tr><td><b>R</b></td><td class="l">Prose reader (routes the shipped path)</td><td>23/48 families exact</td><td class="l">π̂ 0.479 · CP lower 0.333</td><td class="l">π̂ ≥ 0.95 and CP lower bound &gt; 0.85; FAIL ships the parser path</td><td><span class="bdg bad">FAIL</span></td></tr></tbody></table></div><p class="note">Decision: <b>RELEASE</b> on the parser path. Independent recount of every number: <b>MATCH</b>.</p><!--/bv2:gates-->
+ <h3>Arena: V2 against Nagi Burst V1</h3>
+ <p>The comparator is the earlier Nagi Burst V1 (Nagi-ENORMOUS-Burst), using its pinned evaluation records on the same seeds. On Snake the released policy is the SDK Snake search pack (<span data-k="cfg_snake_sims">20,000</span> simulations, horizon <span data-k="cfg_snake_k">12</span>, no learned core); on Rotorwash-Ramp and Booster Gauntlet the core's game head plays without lookahead.</p>
+ <!--bv2:arena-a--><div class="tw"><table><caption>Gate A · V2 vs Nagi Burst V1 on the same sealed seeds (paired)</caption><thead><tr><th scope="col">Game</th><th scope="col">Metric</th><th scope="col">n</th><th scope="col">V2 mean</th><th scope="col">V1 mean</th><th scope="col">Wins / ties / losses</th><th scope="col">W</th><th scope="col">t lower 97.5%</th><th scope="col">Sign-flip p</th><th scope="col">Gate</th></tr></thead><tbody><tr><td>Snake Rush</td><td class="l">survival_s (s, censored at 60 s)</td><td>24</td><td>50.7 s</td><td>12.6 s</td><td>24 / 0 / 0</td><td>1.000</td><td>1.000</td><td>6.0e-08</td><td><span class="bdg ok">PASS</span></td></tr><tr><td>Rotorwash-Ramp</td><td class="l">K3-RR2.1 Y</td><td>24</td><td>1.05</td><td>0.35</td><td>24 / 0 / 0</td><td>1.000</td><td>1.000</td><td>6.0e-08</td><td><span class="bdg ok">PASS</span></td></tr><tr><td>Booster Gauntlet</td><td class="l">K3 Y (first hop)</td><td>24</td><td>0.96</td><td>0.00</td><td>23 / 1 / 0</td><td>0.979</td><td>0.936</td><td>1.2e-07</td><td><span class="bdg ok">PASS</span></td></tr></tbody></table></div><p class="note">Seeds: Snake 10–33, Rotorwash-Ramp and Booster 34–57; 250 ms ticks; reply profile: nominal 1-tick (decision for boundary t applies at t+1). Booster: 23/24 landed (rule: at least 6); V1 landed none, and a Booster round is its first hop. Exact replay from the recorded controls: 72/72.</p><!--/bv2:arena-a-->
+ <h3>Latency</h3>
+ <p>Measured single-threaded on the serving class <span data-k="serving_class">cpu-m2-1t</span>. The gate bounds the p95 from above; the p99 is reported, not gated.</p>
+ <!--bv2:latency--><div class="tw"><table><caption>Gate L · Apple M2 (cpu-m2-1t), native arm64, 1 thread</caption><thead><tr><th scope="col">Population</th><th scope="col">Requests</th><th scope="col">p50</th><th scope="col">p95</th><th scope="col">p95 upper bound (gate ≤ 200 ms)</th><th scope="col">p99 (reported)</th><th scope="col">Share &gt; 250 ms</th></tr></thead><tbody><tr><td>Zoo-Unseen-D (unseen machines)</td><td>2,000</td><td>9.6 ms</td><td>41.1 ms</td><td><b>41.8 ms</b></td><td>44.5 ms</td><td>0.00%</td></tr><tr><td>Snake Rush</td><td>2,000</td><td>0.8 ms</td><td>38.0 ms</td><td><b>50.8 ms</b></td><td>194.6 ms</td><td>0.05%</td></tr><tr><td>Rotorwash-Ramp</td><td>2,000</td><td>0.4 ms</td><td>0.5 ms</td><td><b>0.5 ms</b></td><td>0.6 ms</td><td>0.00%</td></tr><tr><td>Booster Gauntlet</td><td>1,506</td><td>0.5 ms</td><td>0.6 ms</td><td><b>0.7 ms</b></td><td>0.8 ms</td><td>0.00%</td></tr></tbody></table></div><!--/bv2:latency-->
+</section>
+
+<section id="research" aria-labelledby="h-research">
+ <p class="eyebrow">03 / The research</p>
+ <h2 id="h-research">Search does the generalizing.</h2>
+ <p>Two research claims were preregistered next to the gates and tested together with a Holm correction. NS asks whether mean success on unseen machines is above the north-star level. G+ asks whether the learned core adds anything to the same lookahead at the same latency cap; the comparator is the same search with no core and a slightly larger simulation budget.</p>
+ <!--bv2:claims--><div class="tw"><table class="wrap"><caption>Research claims · Holm over {G+, NS} at α = 0.025 · never gates</caption><thead><tr><th scope="col">Claim</th><th scope="col">Estimate</th><th scope="col">p</th><th scope="col">Holm level</th><th scope="col">Lower bounds (family / domain)</th><th scope="col">Result</th></tr></thead><tbody><tr><td class="l"><b>NS</b> · mean success on unseen machines above 0.60</td><td>0.854</td><td>0.00117</td><td>0.0125</td><td>0.746 / 0.681</td><td><span class="bdg ok">shown</span></td></tr><tr><td class="l"><b>G+</b> · the learned core adds to the same lookahead at the same latency cap (Δ̂+)</td><td>−0.003</td><td>1.000</td><td>0.025</td><td>−0.009 / −0.011</td><td><span class="bdg bad">not shown</span></td></tr></tbody></table></div><!--/bv2:claims-->
+ <p>NS holds, G+ does not. The reason is coverage: on machines this small the lookahead sees much or all of the reachable state set, so there is little left for a learned prior to decide. The binding release sentence says exactly that:</p>
+ <blockquote class="c83"><span data-k="c83">On unseen machines, V2G&#x27;s success comes mainly from exact lookahead on the given rules, which on small machines covers much or all of the reachable state set.</span></blockquote>
+ <h3>How much of each machine the lookahead saw</h3>
+ <!--bv2:coverage--><div class="tw"><table class="wrap"><caption>C8 · how much of each test machine the lookahead saw (candidate run)</caption><tbody><tr><td class="l">Scored machines / decisions</td><td>96 / 46,966</td></tr><tr><td class="l">Reachable states per machine: min / median / max</td><td>72 / 922.5 / 25,921</td></tr><tr><td class="l">Machines with at most a thousand / twenty thousand reachable states</td><td>52.1% / 95.8%</td></tr><tr><td class="l">Decisions where the search exhausted the tree</td><td>24.9%</td></tr><tr><td class="l">High-coverage decisions (exhausted, or saw at least half the machine)</td><td>48.3%</td></tr><tr><td class="l">Low-coverage subset: machines · families / domains · θ̂ (descriptive)</td><td>26 · 14 / 9 · 0.730</td></tr><tr><td class="l">Low-coverage subset: lower bounds family / domain (NS needs &gt; 0.60)</td><td>0.485 / 0.398</td></tr><tr><td class="l">Machines larger than the search budget (policy-free subset)</td><td>0</td></tr></tbody></table></div><!--/bv2:coverage-->
+ <p>Only the low-coverage subset says something about machines the search cannot cover, and there NS is not shown. Its lower bounds sit below the north-star level, so the full-set number is not north-star attainment.</p>
+ <h3>Where it is weak</h3>
+ <!--bv2:strata--><div class="tw"><table><caption>Zoo-Unseen-D by stratum (descriptive, no test)</caption><thead><tr><th scope="col">Stratum</th><th scope="col">Families</th><th scope="col">θ̂ (success)</th><th scope="col">Δ̂+ (core minus search only)</th></tr></thead><tbody><tr><td>Snake-like</td><td>12</td><td><b>0.997</b></td><td>−0.003</td></tr><tr><td>Booster-like</td><td>12</td><td><b>0.953</b></td><td>−0.003</td></tr><tr><td>Mixed</td><td>12</td><td><b>0.982</b></td><td>+0.005</td></tr><tr class="me"><td>Rotorwash-like</td><td>12</td><td><b>0.484</b></td><td>−0.013</td></tr></tbody></table></div><!--/bv2:strata-->
+ <p>The Rotorwash-like stratum is the weak spot; the other three strata are close to the ceiling. In every stratum the core changes success by almost nothing (last column).</p>
+ <h3>Descriptive checks</h3>
+ <!--bv2:extras--><ul class="lims"><li><b class="k">Leak check · descriptive</b>Zoo-Unseen-D minus the development set Zoo-Dev-L: −0.031 (lower bound −0.156) → no flag, so gate G stands.</li><li><b class="k">Zoo-Unseen-C · descriptive</b>A second unseen set (16 families / 4 domains): θ̂ 0.893; Δ̂+ +0.012 (lower bound −0.013). Learning is not shown there either.</li><li class="fail"><b class="k">Prose path · descriptive</b>With the frozen prose reader in front, G would be 0.469: −0.385 per family against the exact parser (lower bound −0.517). That is why the reader moves to V2.1.</li></ul><!--/bv2:extras-->
+ <h3>What comes next</h3>
+ <ul class="next">
+  <li><b>V2.1: the prose reader.</b> Close the gap between how people write rules and the training prose, and add an adapter for external LLM readers, so plain-English rulebooks can be used.</li>
+  <li><b>Large machines.</b> The open research question is machines too large or too long for the lookahead to cover. That is where a learned core has to earn its place, and where G+ must be tested next.</li>
+  <li><b>Rotorwash-style control.</b> Closed-loop (DAgger) training for the Rotorwash game head is next in the backlog.</li>
+ </ul>
+ <p class="note">Disclosures carried into every public text: the binding sentence above; the core was trained on the three Arena games; the unseen test machines were written by Claude Opus agents separate from the training authors and checked by blind review and an exact oracle; the prose reader is deferred to V2.1 with its R result reported; the release gates compare with Nagi Burst V1 only; a Booster round is its first hop; Arena play used the nominal one-tick reply, justified by gate L. Total cloud spend for all of Burst V2: <span data-k="cost_total">$25.16</span> (billed); the frozen evaluation itself: <span data-k="cost_m4">$0.20</span>.</p>
+</section>
+
+<section id="arena" aria-labelledby="h-arena">
+ <p class="eyebrow">04 / Demo</p>
+ <h2 id="h-arena">Game Arena: V2 · V1 · Jev.</h2>
+ <p>Watch the sealed Arena rounds: every player plays the same seeds, and the replays are generated from the recorded controls. The table below is read from the Game Arena page's own data; its claim labels come from there unchanged.</p>
+ <div id="arena-v2" class="arena-v2" aria-live="polite">
+  <p><a class="nx-btn primary" href="../arena/#v2">Open the Game Arena: V2 · V1 · Jev <span aria-hidden="true">→</span></a></p>
+ </div>
+ <p class="note">Release gate A above compares V2 with V1 only. The per-seed receipts behind the Arena pack are in <a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/arena_v2.json"><code>arena_v2.json</code></a> and <a href="https://github.com/nagisanzenin/nagi/tree/main/bench/burst_v2/replays"><code>bench/burst_v2/replays</code></a>.</p>
+</section>
+
+<section id="limits" aria-labelledby="h-limits">
+ <p class="eyebrow">05 / Can and cannot</p>
+ <h2 id="h-limits">Know the edges.</h2>
+ <ul class="lims">
+  <li><b class="k">Can</b>Decide every tick for a small machine you can write in mz-1 or mz-1x: discrete controls, integer state, random inputs, reply delays and hidden variables, with a visible probability for every option.</li>
+  <li><b class="k">Can</b>Run on one CPU thread with numpy only (on the measured Apple M2 it stays inside the latency gate), and replay every draw exactly when you pass a session and a step.</li>
+  <li><b class="k">Can</b>Tell you how much it saw: <code>stats["exhausted"]</code> and <code>stats["visited"]</code> report how much of the machine the lookahead covered for each decision.</li>
+  <li class="fail"><b class="k">Cannot yet</b>Read rules in plain English. Write the machine language; the prose reader comes in V2.1.</li>
+  <li class="fail"><b class="k">Cannot</b>Plan for a rule you left out. The decision is only as good as the machine you wrote.</li>
+  <li class="fail"><b class="k">Not shown</b>Large machines. Bigger machines run, but the lookahead sees less of them, and that regime was not tested: the sealed set had <span data-k="large_G">0</span> families with machines larger than the search budget.</li>
+  <li class="fail"><b class="k">Not measured</b>Latency on other hardware than the Apple M2 serving class above.</li>
+ </ul>
+</section>
+
+<section id="receipts" aria-labelledby="h-receipts">
+ <p class="eyebrow">06 / Receipts</p>
+ <h2 id="h-receipts">Check every number.</h2>
+ <p>Every number on this page is stamped from these files by the page builder, which re-derives them and fails on any mismatch. <a href="data.json">data.json</a> maps each number to its file, JSON key and sha256.</p>
+ <!--bv2:receipts--><div class="links"><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/README.md"><b>M5 report ↗</b><span>Every gate, claim, coverage table, budget and disclosure · sha256 <code>4360a232</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/RESULT.json"><b>RESULT.json ↗</b><span>The frozen analysis output (gates, claims, C8, latency, interface) · sha256 <code>b6272171</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/RESULT_ADDENDUM.json"><b>RESULT_ADDENDUM.json ↗</b><span>Descriptive addendum: strata, prose path, leak check, Zoo-Unseen-C · sha256 <code>cf618f3f</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/AUDIT_M4.md"><b>AUDIT_M4.md ↗</b><span>Independent recount from raw receipts, item by item · sha256 <code>217ec977</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/CANDIDATE.json"><b>CANDIDATE.json ↗</b><span>The candidate frozen before any sealed run · sha256 <code>28fe5de6</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/arena_v2.json"><b>arena_v2.json ↗</b><span>Arena gate A pack: per-seed scores and replays · sha256 <code>edfb183f</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/replay.json"><b>replay.json ↗</b><span>Exact replay from recorded controls · sha256 <code>ce883a64</code></span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/bench/burst_v2/receipts/MANIFEST.json"><b>MANIFEST.json ↗</b><span>sha256 of every Arena input and output · sha256 <code>9045b5be</code></span></a><a href="data.json"><b>data.json</b><span>Every number on this page with its file, JSON key and sha256</span></a><a href="https://github.com/nagisanzenin/nagi/blob/main/site/burst-v2/build/make_page.py"><b>make_page.py ↗</b><span>The builder and checker that stamp this page from the receipts</span></a></div><!--/bv2:receipts-->
+</section>
+
+</main>
+<!--nx:footer--><footer class="nx-foot"><div class="nx-in"><div class="nx-brand"><img class="m" src="../assets/mascot-128.png" alt="Nagi mascot" width="72" height="72"><div><img class="w" src="../assets/wordmark.svg" alt="nagi" width="61" height="30"><p>Typed decisions.<br>Visible probabilities.</p></div></div><div class="nx-cols"><div><h4>Benchmarks</h4><ul><li><a href="../arena/">Game Arena v3</a></li><li><a href="../burst-v2/" aria-current="page">Burst V2 · release evaluation</a></li><li><a href="../burst/">Burst V1 · one-pass readout</a></li><li><a href="../">Public decision benchmark</a></li></ul></div><div><h4>Archive (legacy)</h4><ul><li><a href="../arena-live/">Arena v2 · Arena Live</a></li><li><a href="../bomber-huge/">Real-time Bomber · HUGE</a></li><li><a href="../bomber-realtime/">Real-time Bomber · BIG</a></li><li><a href="../bomber/">Turn-based Bomber</a></li><li><a href="../snake/">Snake pilot</a></li></ul></div><div><h4>Models</h4><ul><li><a href="https://huggingface.co/nagisanzeninz/Nagi-Burst-V2">Nagi-Burst-V2 (CPU) ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/Nagi-ENORMOUS">Nagi-ENORMOUS 27B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/Nagi-HUGE">Nagi-HUGE 12B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-big-v3">Nagi-BIG 4B ↗</a></li><li><a href="https://huggingface.co/nagisanzeninz/nagi-smol-v0">Nagi-SMOL 0.5B ↗</a></li></ul></div><div><h4>Code</h4><ul><li><a href="https://github.com/nagisanzenin/nagi">Nagi SDK on GitHub ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/bench">Benchmark data ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/tree/main/docs/brand">Brand kit ↗</a></li><li><a href="https://github.com/nagisanzenin/nagi/issues">Questions or corrections ↗</a></li></ul></div></div><p class="nx-legal">Self-hosted System One models. Probabilities are model outputs, not guarantees.</p></div></footer><!--/nx:footer-->
+<script src="burst-v2.js" defer></script>
+</body></html>
